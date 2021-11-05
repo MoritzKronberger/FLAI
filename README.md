@@ -11,12 +11,36 @@ git clone https://gitlab.multimedia.hs-augsburg.de/mokro/gruppenprojekt-webprogr
 cd ProjectSetupTest
 ```
 
-## Create .env
+## Create .env files
 
 **.env files must not be commited to the repository!**
 
+Username and password for the postgres superuser and regular user are passed as arguments:
+
 ```bash
-bash create_dotenv.sh
+bash create_dotenv.sh <superuser username> <superuser password> <regular user username> <regular user password>
 ```
 
 The env-variables can be changed by editing the corresponding array in the [bash script](./create_dotenv.sh) and re-executing it
+
+## Build Docker Images
+
+```bash
+docker-compose build
+```
+
+## Start Docker Containers
+
+```bash
+docker-compose up
+```
+
+## Access Adminer
+
+Adminer at <http://localhost:7000>
+
+## Shut Down Docker Containers
+
+```bash
+docker-compose down
+```
