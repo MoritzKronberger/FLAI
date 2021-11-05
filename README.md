@@ -35,9 +35,11 @@ docker-compose build
 docker-compose up
 ```
 
-## Access Adminer
+## Access Containers
 
 Vue at <http://localhost:3000>
+
+Express at <http://localhost:5000>
 
 Adminer at <http://localhost:7000>
 
@@ -46,3 +48,13 @@ Adminer at <http://localhost:7000>
 ```bash
 docker-compose down
 ```
+
+## Further documentation
+
+More documentation about the individual components can be found here:
+
+[Vue](./frontend/flai_app/README.md)
+
+[Express](./backend/express/README.md)
+
+[Postgres](./backend/postgres_db/README.md)
