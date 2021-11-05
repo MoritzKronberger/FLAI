@@ -1,0 +1,21 @@
+{
+  "name": "flai_app",
+  "version": "0.0.1",
+  "contributors": ["Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"],
+  "description": "Vue.js Frontend Application using Typescript and Vite",
+  "keywords": ["Vue", "Typescript", "Vite"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.3",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4",
+    "vue-tsc": "^0.3.0"
+  }
+}
