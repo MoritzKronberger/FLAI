@@ -10,7 +10,17 @@ services:
                 PORT: ${VUE_APP_CONTAINER_PORT}
         ports:
             - ${VUE_APP_HOST_PORT}:${VUE_APP_CONTAINER_PORT}
-            
+    
+    express-server:
+        container_name: flai-express-server
+        image: express-server:${IMAGE_TAG}
+        build:
+            context: ./backend/express
+            args:
+                PORT: ${EXPRESS_APP_CONTAINER_PORT}
+        ports:
+            - ${EXPRESS_APP_HOST_PORT}:${EXPRESS_APP_CONTAINER_PORT}
+
     postgres-db:
         container_name: flai-postgres-db
         image: postgres-db:${IMAGE_TAG}
