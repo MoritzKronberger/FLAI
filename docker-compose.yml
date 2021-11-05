@@ -1,6 +1,16 @@
 version: "3"
 
 services:
+    vue-app:
+        container_name: flai-vue-app
+        image: vue-app:${IMAGE_TAG}
+        build:
+            context: ./frontend/flai_app
+            args:
+                PORT: ${VUE_APP_CONTAINER_PORT}
+        ports:
+            - ${VUE_APP_HOST_PORT}:${VUE_APP_CONTAINER_PORT}
+            
     postgres-db:
         container_name: flai-postgres-db
         image: postgres-db:${IMAGE_TAG}

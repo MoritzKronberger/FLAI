@@ -37,6 +37,8 @@ docker-compose up
 
 ## Access Adminer
 
+Vue at <http://localhost:3000>
+
 Adminer at <http://localhost:7000>
 
 ## Shut Down Docker Containers
