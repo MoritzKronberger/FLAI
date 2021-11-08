@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+    vue-app:
+        container_name: flai-vue-app
+        image: vue-app:${IMAGE_TAG}
+        build:
+            context: ./frontend/flai_app
+            args:
+                PORT: ${VUE_APP_CONTAINER_PORT}
+        ports:
+            - ${VUE_APP_HOST_PORT}:${VUE_APP_CONTAINER_PORT}
+    
+    express-server:
+        container_name: flai-express-server
+        image: express-server:${IMAGE_TAG}
+        build:
+            context: ./backend/express
+            args:
+                PORT: ${EXPRESS_APP_CONTAINER_PORT}
+        ports:
+            - ${EXPRESS_APP_HOST_PORT}:${EXPRESS_APP_CONTAINER_PORT}
+
+    postgres-db:
+        container_name: flai-postgres-db
+        image: postgres-db:${IMAGE_TAG}
+        build:
+            context: ./backend/postgres_db
+            args:
+                PG_PASSWORD: ${PG_PASSWORD}
+                PG_USER: ${PG_USER}
+                PG_DB: ${PG_DB}
+                DEV_USER: ${DEV_USER}
+                DEV_PASSWORD: ${DEV_PASSWORD}
+                DEV_DB: ${DEV_DB}
+        volumes:
+            - ./backend/postgres_db/pgdata:/var/lib/postgresql/data
+        ports:
+            - ${POSTGRES_DB_HOST_PORT}:${POSTGRES_DB_CONTAINER_PORT}
+        depends_on:
+            - adminer
+
+    adminer:
+        container_name: flai-adminer
+        image: adminer
+        environment:
+            ADMINER_DEFAULT_DB_DRIVER: pgsql
+            ADMINER_DEFAULT_SERVER: flai-postgres-db
+            ADMINER_DEFAULT_USER: ${DEV_USER}
+            ADMINER_DESIGN: rmsoft
+        ports:
+            - ${ADMINER_HOST_PORT}:${ADMINER_CONTAINER_PORT}
