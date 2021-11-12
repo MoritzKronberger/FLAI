@@ -29,7 +29,7 @@ const mirrorToCanvas = (video) => {
 
 const saveLabeledCapture = (video, captures, label, labelNum) => {
   const canvas = mirrorToCanvas(video);
-  const image = canvas.toDataURL("image/jpg");
+  const image = canvas.toDataURL("image/png");
   captures[`${label}_${labelNum}`] = image;
   console.log(captures);
 };
