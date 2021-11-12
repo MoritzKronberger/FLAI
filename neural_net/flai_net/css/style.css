@@ -21,3 +21,8 @@ a {
   display: block;
   margin: 0.4rem 2rem;
 }
+
+video {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
