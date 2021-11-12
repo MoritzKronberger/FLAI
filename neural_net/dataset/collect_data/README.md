@@ -9,7 +9,7 @@ The videos must be labeled with their respective sign and will then be processed
 Split application in 3 stages:
 
 - record signs
-- check labels
+- check labels 
 - convert with handpose
 
 ### Record signs
@@ -25,6 +25,8 @@ Show statistic of example count per label
 Save image as \<label>_\<count-per-label>.jpg
 
 ### Check labels
+
+./recorder_images
 
 Allow selection of source directory
 

@@ -9,6 +9,26 @@
   </head>
   <body>
     <h1>FLAI dataset collection</h1>
-    <h2>Check labels</h2>
+    <h2>Convert images</h2>
+    <input id="input" type="text"/>
+    <button onclick="loadImages()">Load</button>
+    <div>
+    </div>
+    <img id="image" width="500" height="500">
   </body>
 </html>
+
+<script src="./js/record_signs.js">
+</script>
+
+<script>
+  var el = document.getElementById("image");
+  var input;
+
+  function loadImages() {
+    input = document.getElementById("input").value;
+     file = "assets/sign_examples/" + input;
+     el.src = file;
+  }
+</script>
+
