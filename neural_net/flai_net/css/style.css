@@ -1,0 +1,23 @@
+:root {
+  font-size: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2 {
+  margin: 1rem 1rem;
+}
+
+a {
+  color: black;
+  display: block;
+  margin: 0.4rem 2rem;
+}
