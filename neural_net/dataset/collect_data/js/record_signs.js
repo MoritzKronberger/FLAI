@@ -44,11 +44,18 @@ const saveLabeledCapture = (video, captures, label, labelNum) => {
 
 const updateStatistic = (labels, statistic) => {
   statistic.innerHTML = "";
-  for (let label of Object.entries(labels)) {
-    const li = document.createElement("li");
-    li.innerText = `${label[0]}: ${label[1]}`;
-    statistic.appendChild(li);
+  const tr_th = document.createElement("tr");
+  const tr_td = document.createElement("tr");
+  for (let [label, number] of Object.entries(labels)) {
+    const th = document.createElement("th");
+    const td = document.createElement("td");
+    th.innerText = label;
+    td.innerText = number
+    tr_th.appendChild(th);
+    tr_td.appendChild(td);
   }
+  statistic.appendChild(tr_th);
+  statistic.appendChild(tr_td);
 };
 
 async function main() {

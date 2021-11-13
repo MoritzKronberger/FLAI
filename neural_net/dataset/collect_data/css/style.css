@@ -45,11 +45,7 @@ a {
 }
 
 #labelStatistic {
-  list-style-type: none;
-  text-align: center;
-}
-
-#labelStatistic li{
-  display: inline;
-  margin: 0 .5rem;
+  margin: 1rem auto;
+  border-spacing: 1rem;
+  border: 1px solid black;
 }
