@@ -43,12 +43,6 @@ Let users set name of JSON file
 
 ## Usage
 
-### Install dependencies
-
-```bash
-npm install
-```
-
 ### Install JSON server
 
 ```bash
