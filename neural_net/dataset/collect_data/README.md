@@ -9,7 +9,7 @@ The videos must be labeled with their respective sign and will then be processed
 Split application in 3 stages:
 
 - record signs
-- check labels 
+- check labels
 - convert with handpose
 
 ### Record signs
@@ -40,3 +40,33 @@ Input 'arrow_left' to go back one image
 Run handpose over all images and save normalized output as JSON in /dataset directory
 
 Let users set name of JSON file
+
+## Usage
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Install JSON server
+
+```bash
+npm install -g json-server
+```
+
+### Create JSON database
+
+```bash
+touch db.json
+```
+
+### Start JSON server
+
+```bash
+npm run serve
+```
+
+### Start website
+
+open **index.html** with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)

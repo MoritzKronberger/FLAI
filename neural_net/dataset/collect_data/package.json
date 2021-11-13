@@ -1,0 +1,20 @@
+{
+  "name": "collect_data",
+  "version": "0.0.1",
+  "description": "Website for FLAI dataset collection using JSON server",
+  "contributors": [
+    "Martin Kohnle, Moritz Kronberger"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "serve": "json-server --watch db.json"
+  },
+  "keywords": [
+    "js",
+    "css",
+    "json"
+  ],
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
