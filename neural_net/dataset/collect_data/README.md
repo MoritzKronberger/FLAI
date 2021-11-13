@@ -58,8 +58,10 @@ npm install -g json-server
 ### Create JSON database
 
 ```bash
-touch db.json
+echo "{ \"examples\": [{ }] }" > db.json
 ```
+
+The same command can be used to reset the database.
 
 ### Start JSON server
 
