@@ -63,6 +63,12 @@ The same command can be used to reset the database.
 npm run serve
 ```
 
-### Start website
+The static website can be accessed at:
+
+<http://localhost:3000>
+
+### Hot reload for development
 
 open **index.html** with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+
+**Warning!** Live Server will reload every time the db.json file is changed, this can cause unexpected behaviour.
