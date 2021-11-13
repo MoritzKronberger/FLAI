@@ -33,7 +33,7 @@ a {
   justify-content: center;
 }
 
-#gtImage, #webcamVideo {
+#gtImage, #webcamVideo, #image {
   max-height: 600px;
   max-width: 40%;
   margin: 1rem 3rem;
