@@ -1,5 +1,3 @@
-let captures = {};
-
 async function loadWebcamVideo() {
   // from https://github.com/tensorflow/tfjs-models/blob/master/face-landmarks-detection/demo/index.js
   const video = document.querySelector("#webcamVideo");
@@ -29,10 +27,18 @@ const mirrorToCanvas = (video) => {
   return canvas;
 };
 
-const saveLabeledCapture = (video, label, labelNum) => {
+const saveLabeledCapture = (video, captures, label, labelNum) => {
   const canvas = mirrorToCanvas(video);
   const image = canvas.toDataURL("image/png");
   captures[`${label}_${labelNum}`] = image;
+  axios({
+    method: "post",
+    url: "http://localhost:3000/examples",
+    data: {
+      label: label,
+      image: image,
+    },
+  });
   console.log(captures);
 };
 
@@ -49,6 +55,7 @@ async function main() {
   const video = await loadWebcamVideo();
   const letters = [..."abcdefghiklmnopqrstuvwxy"];
   let labels = {};
+  let captures = {};
   letters.forEach((letter) => {
     labels[letter] = 0;
   });
@@ -57,7 +64,7 @@ async function main() {
   document.addEventListener("keypress", (event) => {
     const key = event.key;
     if (letters.includes(key)) {
-      saveLabeledCapture(video, key, labels[key]);
+      saveLabeledCapture(video, captures, key, labels[key]);
       labels[key]++;
       updateStatistic(labels, statistic);
     }
