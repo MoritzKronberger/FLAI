@@ -2,10 +2,11 @@ const url = "http://localhost:3000/examples/";
 let data;
 let frame = document.getElementById("image");
 let info = document.getElementById("label");
-let current_frame = 0;
+var current_frame = 0;
 
 axios.get(url).then((response) => {
   data = response.data;
+
   loadImages(data);
 });
 
@@ -16,9 +17,9 @@ function loadImages(data) {
 }
 
 document.addEventListener("keydown", (e) => {
-  if (e.key == "s") {
+  if (e.key == "s" && current_frame <= data.length - current_frame - 1) {
     current_frame++;
-  } else if (e.key == "ArrowLeft" && current_frame >= 0) {
+  } else if (e.key == "ArrowLeft" && current_frame > 0) {
     current_frame--;
   }
   loadImages(data);
@@ -30,9 +31,14 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-function deleteFrame() {
+async function deleteFrame() {
   let frameUrl = url + data[current_frame].id;
-  axios.delete(frameUrl).then((response) => {
+  await axios.delete(frameUrl).then((response) => {
     console.log(response);
   });
+
+  await axios.get(url).then((response) => {
+    data = response.data;
+  });
+  loadImages(data);
 }
