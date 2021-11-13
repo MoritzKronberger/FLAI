@@ -2,6 +2,7 @@ const url = "http://localhost:3000/examples/";
 let data;
 let frame = document.getElementById("image");
 let info = document.getElementById("label");
+let stats = document.getElementById("stats");
 var current_frame = 0;
 
 axios.get(url).then((response) => {
@@ -14,6 +15,7 @@ function loadImages(data) {
   let example = data[current_frame];
   frame.src = example.image;
   info.innerHTML = "LABEL: " + example.label + " ID:" + example.id;
+  stats.innerHTML = "Images to review: " + (data.length - current_frame - 1);
 }
 
 document.addEventListener("keydown", (e) => {
