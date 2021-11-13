@@ -22,7 +22,34 @@ a {
   margin: 0.4rem 2rem;
 }
 
-video {
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.flexCenter {
+  align-items: center;
+  justify-content: center;
+}
+
+#gtImage, #webcamVideo {
+  max-height: 600px;
+  max-width: 40%;
+  margin: 1rem 3rem;
+}
+
+#webcamVideo {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+
+#labelStatistic {
+  list-style-type: none;
+  text-align: center;
+}
+
+#labelStatistic li{
+  display: inline;
+  margin: 0 .5rem;
 }
