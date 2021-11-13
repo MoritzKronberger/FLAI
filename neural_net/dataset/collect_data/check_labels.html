@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,26 +10,15 @@
   </head>
   <body>
     <h1>FLAI dataset collection</h1>
-    <h2>Convert images</h2>
-    <input id="input" type="text"/>
-    <button onclick="loadImages()">Load</button>
-    <div>
-    </div>
-    <img id="image" width="500" height="500">
+    <h2>Select images</h2>
+    <input type="file" id="input" type="text" />
+    <button onclick="deleteFrame()">Load</button>
+    <div></div>
+    <img id="image" width="400" height="400" />
   </body>
 </html>
 
-<script src="./js/record_signs.js">
-</script>
-
-<script>
-  var el = document.getElementById("image");
-  var input;
-
-  function loadImages() {
-    input = document.getElementById("input").value;
-     file = "assets/sign_examples/" + input;
-     el.src = file;
-  }
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="./js/record_signs.js"></script>
+<script src="./js/check_signs.js"></script>
 
