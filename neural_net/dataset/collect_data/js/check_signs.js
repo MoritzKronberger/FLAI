@@ -1,9 +1,7 @@
-
-const url = "http://localhost:3000/images/";
+const url = "http://localhost:3000/examples/";
 var data;
 var frame = document.getElementById("image");
 var current_frame = 0;
-
 
 axios
   .get(url)
@@ -13,12 +11,12 @@ axios
   })
 
 function loadImages(data) {
-  frame.src = data[current_frame].src;
+  frame.src = data[current_frame].image;
 }
 
 function deleteFrame()
 {
-    let frameUrl = url + current_frame;
+    let frameUrl = url + data[current_frame].id;
     axios
     .delete(frameUrl)
     .then((response) => {
