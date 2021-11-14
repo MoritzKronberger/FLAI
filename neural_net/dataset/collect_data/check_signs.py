@@ -16,6 +16,10 @@ def start_recording(dir, dataset_dir):
 
     while True:
         try:
+
+            if current_frame == len(dir):
+                current_frame = 0
+
             frame = cv2.imread(dir[current_frame])
             frame_width = frame.shape[1]
             frame_height = frame.shape[0]
@@ -55,6 +59,8 @@ def start_recording(dir, dataset_dir):
             cv2.imshow('Check Signs', frame)
 
             keypress = cv2.waitKeyEx(1)
+            
+          
 
             if not keypress == -1:
                 if keypress == 115:  # s
