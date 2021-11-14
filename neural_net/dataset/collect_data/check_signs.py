@@ -1,0 +1,92 @@
+import cv2
+import os
+import settings
+
+
+def start_recording(dir, dataset_dir):
+    print('---- Start Recording ----')
+
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_color = (0, 255, 0)
+    font_size = .6
+    font_thickness = 1
+
+    #reference = cv2.imread('./references/alphabet.png')
+    #reference_width = reference.shape[1]
+    #reference_height = reference.shape[0]
+
+    current_frame = 0
+
+    while True:
+        try:
+
+            frame = cv2.imread(dir[current_frame])
+            frame_width = frame.shape[1]
+            frame_height = frame.shape[0]
+
+            label = dir[current_frame].replace(dataset_dir, '')[1]
+
+            cv2.putText(frame,
+                        'Image: ' + str(current_frame+1) + '/' + str(len(dir)),
+                        (30, int(frame_height - 30)),
+                        font,
+                        font_size,
+                        font_color,
+                        font_thickness)
+
+            cv2.putText(frame,
+                        'Label: ' + label,
+                        (30, int(frame_height - 60)),
+                        font,
+                        font_size,
+                        font_color,
+                        font_thickness)
+
+
+            cv2.imshow('Check Signs', frame)
+
+            keypress = cv2.waitKey(1)
+
+            if not keypress == -1:
+                key = chr(keypress)
+                if key == 's':
+                    current_frame += 1
+                elif key == 'd':
+                    os.remove(dir[current_frame])
+                    dir.remove(dir[current_frame])
+                    print('delete ' + str(current_frame))
+
+            if keypress == 27:  # esc
+                break
+
+        except Exception as e:
+            print(e)
+            break
+
+    cv2.destroyAllWindows()
+
+
+def loadAllPaths(dataset_dir):
+    dirs = []
+    os.chdir(dataset_dir)
+    label_dirs = os.listdir()
+    for dir in label_dirs:
+        path = os.path.join(dataset_dir, dir)
+        os.chdir(path)
+        examples = os.listdir()
+        for example in examples:
+            path = os.path.join(path, example)
+            dirs.append(path)
+    return dirs
+
+
+def main():
+    labels = list(settings.labels)
+    dataset_dir = settings.dataset_directory
+    # start_recording(dataset_dir, labels, image_format)
+    dirs = loadAllPaths(dataset_dir)
+    start_recording(dirs, dataset_dir)
+
+
+if __name__ == '__main__':
+    main()
