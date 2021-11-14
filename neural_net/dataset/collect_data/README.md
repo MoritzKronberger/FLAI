@@ -58,7 +58,7 @@ py -3 -m venv .venv
 code .
 ```
 
-In neuem VsCode Fenster
+In the new VsCode window:
 
 **STRG** + **SHIFT** + **P**
 
@@ -80,17 +80,15 @@ pip install -r requirements.txt
 bash create_settings.sh
 ```
 
-### Launch Python script
-
-Click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal'
-
 ### Record Dataset
 
-Create a new folder, in which the dataset should be stored, anywhere **outside** the repository.
+Create a new folder, in which the dataset should be stored, anywhere **outside the repository(!)**.
 
 In **settings.py** set **dataset_directory** to the absolute path of your dataset folder
 
-Run **record_signs.py**
+Run **record_signs.py**.
+
+To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal'
 
 If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
 
