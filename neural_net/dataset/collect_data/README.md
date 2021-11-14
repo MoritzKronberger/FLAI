@@ -68,6 +68,12 @@ Python: Select Interpreter
 
 -> venv auswählen
 
+### Install requirements
+
+```bash
+pip install -r requirements.txt
+```
+
 ### Launch Python script
 
 Click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal'
