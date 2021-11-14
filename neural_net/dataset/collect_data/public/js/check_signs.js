@@ -18,7 +18,7 @@ function loadImages(data) {
   stats.innerHTML = "Images to review: " + (data.length - current_frame - 1);
 }
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keyup", (e) => {
   if (e.key == "s" && current_frame <= data.length - current_frame - 1) {
     current_frame++;
   } else if (e.key == "ArrowLeft" && current_frame > 0) {
@@ -27,7 +27,7 @@ document.addEventListener("keydown", (e) => {
   loadImages(data);
 });
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keyup", (e) => {
   if (e.key == "d") {
     deleteFrame();
   }

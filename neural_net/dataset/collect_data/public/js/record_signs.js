@@ -23,7 +23,6 @@ const createCanvas = (video) => {
   return canvas;
 };
 
-// TODO: randomly mirror image
 const mirrorToCanvas = (canvas, video) => {
   canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
 };
@@ -72,8 +71,7 @@ const main = async () => {
 
   const canvas = createCanvas(video);
 
-  // TODO: change to keyup or add sleep timer
-  document.addEventListener("keypress", async (event) => {
+  document.addEventListener("keyup", async (event) => {
     const key = event.key;
     if (labels.includes(key)) {
       await saveLabeledCapture(video, canvas, key);
