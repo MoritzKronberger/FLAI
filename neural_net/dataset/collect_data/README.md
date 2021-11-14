@@ -74,6 +74,12 @@ Python: Select Interpreter
 pip install -r requirements.txt
 ```
 
+### Create settings.py
+
+```bash
+bash create_settings.sh
+```
+
 ### Launch Python script
 
 Click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal'
