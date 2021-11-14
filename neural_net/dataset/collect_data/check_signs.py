@@ -25,6 +25,10 @@ def start_recording(dir, dataset_dir):
             frame_height = frame.shape[0]
 
             label = dir[current_frame].replace(dataset_dir, '')[1]
+            ref = cv2.imread('./references/single_signs/' + label + '.png')
+
+            ref_width = ref.shape[1]
+            ref_height = ref.shape[0]
 
             cv2.putText(frame,
                         'Image: ' + str(current_frame+1) + '/' + str(len(dir)),
@@ -42,19 +46,31 @@ def start_recording(dir, dataset_dir):
                         font_color,
                         font_thickness)
 
+            cv2.putText(ref,
+                        'Label: ' + label,
+                        (30, int(frame_height - 0)),
+                        font,
+                        font_size,
+                        font_color,
+                        font_thickness)
 
+            cv2.imshow('Reference', ref)
             cv2.imshow('Check Signs', frame)
 
-            keypress = cv2.waitKey(1)
+            keypress = cv2.waitKeyEx(1)
 
             if not keypress == -1:
-                key = chr(keypress)
-                if key == 's':
+                if keypress == 115: #s
                     current_frame += 1
-                elif key == 'd':
+                elif keypress == 100: #d
                     os.remove(dir[current_frame])
                     dir.remove(dir[current_frame])
                     print('delete ' + str(current_frame))
+                elif keypress == 2424832: #arrow left
+                    current_frame-=1
+                elif keypress == 2555904: #arrow right
+                    current_frame+=1
+
 
             if keypress == 27:  # esc
                 break
@@ -81,10 +97,13 @@ def loadAllPaths(dataset_dir):
 
 
 def main():
+
     labels = list(settings.labels)
     dataset_dir = settings.dataset_directory
     # start_recording(dataset_dir, labels, image_format)
     dirs = loadAllPaths(dataset_dir)
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(dir_path)
     start_recording(dirs, dataset_dir)
 
 
