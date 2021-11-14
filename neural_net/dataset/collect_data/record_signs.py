@@ -8,7 +8,7 @@ def start_recording(dataset_dir, labels, image_format):
     font_size = .6
     font_thickness = 1
 
-    capture = cv2.VideoCapture(0)
+    capture = cv2.VideoCapture(settings.camera)
     capture_width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
     capture_height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
