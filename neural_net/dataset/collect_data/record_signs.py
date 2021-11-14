@@ -1,4 +1,7 @@
-import cv2, os, settings
+import cv2
+import os
+import settings
+
 
 def start_recording(dataset_dir, labels, image_format):
     print('---- Start Recording ----')
@@ -19,25 +22,25 @@ def start_recording(dataset_dir, labels, image_format):
     while True:
         try:
             ret, frame = capture.read()
-            frame  = cv2.flip(frame, 1)
+            frame = cv2.flip(frame, 1)
             display_frame = frame.copy()
 
-            cv2.putText(display_frame, 
-                        'Press \'esc\' to quit', 
-                        (30, int(capture_height - 30)), 
-                        font, 
+            cv2.putText(display_frame,
+                        'Press \'esc\' to quit',
+                        (30, int(capture_height - 30)),
+                        font,
                         font_size,
                         font_color,
                         font_thickness)
-            cv2.putText(reference, 
-                        'No copyright - for internal use only!', 
-                        (30, int(reference_height - 30)), 
-                        font, 
+            cv2.putText(reference,
+                        'No copyright - for internal use only!',
+                        (30, int(reference_height - 30)),
+                        font,
                         font_size,
                         font_color,
                         font_thickness)
-                        
-            cv2.imshow('Collect FLAI dataset', display_frame)            
+
+            cv2.imshow('Collect FLAI dataset', display_frame)
             cv2.imshow('DGS alphabet reference', reference)
 
             keypress = cv2.waitKey(1)
@@ -50,16 +53,17 @@ def start_recording(dataset_dir, labels, image_format):
                     example_count = len(os.listdir()) + 1
                     filename = key + '_' + str(example_count) + image_format
                     cv2.imwrite(filename, frame)
-                
-            if keypress == 27: # esc
+
+            if keypress == 27:  # esc
                 break
-                
+
         except Exception as e:
             print(e)
             break
-        
+
     capture.release()
     cv2.destroyAllWindows()
+
 
 def prepare_dataset_directory(dataset_dir, labels):
     for dir in labels:
@@ -69,12 +73,14 @@ def prepare_dataset_directory(dataset_dir, labels):
         except OSError as e:
             print(e)
 
-def main ():
+
+def main():
     labels = list(settings.labels)
     image_format = settings.image_format
     dataset_dir = settings.dataset_directory
     prepare_dataset_directory(dataset_dir, labels)
     start_recording(dataset_dir, labels, image_format)
+
 
 if __name__ == '__main__':
     main()
