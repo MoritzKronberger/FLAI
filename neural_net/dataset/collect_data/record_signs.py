@@ -1,4 +1,4 @@
-import cv2, os
+import cv2, os, settings
 
 def start_recording(dataset_dir, labels, image_format):
     print('---- Start Recording ----')
@@ -57,9 +57,9 @@ def prepare_dataset_directory(dataset_dir, labels):
             print(e)
 
 def main ():
-    labels = list('abcdefghiklmnopqrstuvwxy')
-    image_format = '.jpg'
-    dataset_dir = r'C:\Users\Moritz\Documents\Hochschule Augsburg\Semester 5\Teamprojekt WebApp\FLAI_dataset'
+    labels = list(settings.labels)
+    image_format = settings.image_format
+    dataset_dir = settings.dataset_directory
     prepare_dataset_directory(dataset_dir, labels)
     start_recording(dataset_dir, labels, image_format)
 
