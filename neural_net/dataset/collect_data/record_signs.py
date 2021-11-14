@@ -3,13 +3,18 @@ import cv2, os, settings
 def start_recording(dataset_dir, labels, image_format):
     print('---- Start Recording ----')
 
-    capture = cv2.VideoCapture(0)
-    width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
-    height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_color = (0, 255, 0)
     font_size = .6
     font_thickness = 1
+
+    capture = cv2.VideoCapture(0)
+    capture_width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
+    capture_height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
+
+    reference = cv2.imread('./references/alphabet.png')
+    reference_width = reference.shape[1]
+    reference_height = reference.shape[0]
 
     while True:
         try:
@@ -19,13 +24,21 @@ def start_recording(dataset_dir, labels, image_format):
 
             cv2.putText(display_frame, 
                         'Press \'esc\' to quit', 
-                        (30, int(height - 30)), 
+                        (30, int(capture_height - 30)), 
+                        font, 
+                        font_size,
+                        font_color,
+                        font_thickness)
+            cv2.putText(reference, 
+                        'No copyright - for internal use only!', 
+                        (30, int(reference_height - 30)), 
                         font, 
                         font_size,
                         font_color,
                         font_thickness)
                         
-            cv2.imshow('Collect FLAI dataset', display_frame)
+            cv2.imshow('Collect FLAI dataset', display_frame)            
+            cv2.imshow('DGS alphabet reference', reference)
 
             keypress = cv2.waitKey(1)
 
