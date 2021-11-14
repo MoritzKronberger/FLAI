@@ -23,6 +23,7 @@ const createCanvas = (video) => {
   return canvas;
 };
 
+// TODO: randomly mirror image
 const mirrorToCanvas = (canvas, video) => {
   canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
 };
@@ -41,43 +42,44 @@ const saveLabeledCapture = async (video, canvas, label) => {
   }
 };
 
-const updateStatistic = (labels, statistic) => {
+const updateStatistic = async (labels, statistic) => {
+  statistic.style.display = "none";
   statistic.innerHTML = "";
   const tr_th = document.createElement("tr");
   const tr_td = document.createElement("tr");
-  for (let [label, number] of Object.entries(labels)) {
+  const queryData = await axios.get(`http://localhost:3000/examples`);
+  const examples = queryData.data;
+  labels.forEach(async (label) => {
+    const number = examples.filter((ex) => ex.label === label).length;
     const th = document.createElement("th");
     const td = document.createElement("td");
     th.innerText = label;
     td.innerText = number;
     tr_th.appendChild(th);
     tr_td.appendChild(td);
-  }
+  });
   statistic.appendChild(tr_th);
   statistic.appendChild(tr_td);
+  statistic.style.display = "";
 };
 
 const main = async () => {
   const video = await loadWebcamVideo();
-  const letters = [..."abcdefghiklmnopqrstuvwxy"];
-  let labels = {};
-  letters.forEach((letter) => {
-    labels[letter] = 0;
-  });
+  const labels = [..."abcdefghiklmnopqrstuvwxy"];
 
   const statistic = document.querySelector("#labelStatistic");
-  updateStatistic(labels, statistic);
+  await updateStatistic(labels, statistic);
 
   const canvas = createCanvas(video);
 
+  // TODO: change to keyup or add sleep timer
   document.addEventListener("keypress", async (event) => {
     const key = event.key;
-    if (letters.includes(key)) {
+    if (labels.includes(key)) {
       await saveLabeledCapture(video, canvas, key);
-      labels[key]++;
-      updateStatistic(labels, statistic);
+      await updateStatistic(labels, statistic);
     }
   });
-}
+};
 
 main();
