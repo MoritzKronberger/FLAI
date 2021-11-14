@@ -77,3 +77,15 @@ pip install -r requirements.txt
 ### Launch Python script
 
 Click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal'
+
+### Record Dataset
+
+Create a new folder, in which the dataset should be stored, anywhere **outside** the repository.
+
+In **settings.py** set **dataset_directory** to the absolute path of your dataset folder
+
+Run **record_signs.py**
+
+If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
+
+Press any of the keys included in the labels to save an image with the respective label.
