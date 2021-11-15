@@ -1,5 +1,6 @@
 import cv2
 import os
+import uuid
 import settings
 from lib import helpers
 from lib import statistic
@@ -56,8 +57,8 @@ def start_recording(dataset_dir, labels, image_format):
                 if key in labels:
                     path = os.path.join(dataset_dir, key)
                     os.chdir(path)
-                    example_count = len(os.listdir()) + 1
-                    filename = key + '_' + str(example_count) + image_format
+                    file_id = uuid.uuid4()
+                    filename = key + '_' + str(file_id) + image_format
                     cv2.imwrite(filename, frame)
                     stats = statistic.update_statistic(dataset_dir, __file__)
 
