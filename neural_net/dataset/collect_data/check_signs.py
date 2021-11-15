@@ -7,13 +7,13 @@ from lib import style
 
 
 def start_recording(dir, dataset_dir):
-    print('---- Start Recording ----')
+    print('---- Start Sign Check ----')
 
     main_font = style.main_font
     ref_font = style.bold_font
 
     stats = statistic.update_statistic(dataset_dir, __file__)
-    
+
     current_frame = 0
 
     while True:
@@ -22,7 +22,7 @@ def start_recording(dir, dataset_dir):
             if current_frame == len(dir):
                 current_frame = 0
             elif current_frame < 0:
-                current_frame = len(dir) -1
+                current_frame = len(dir) - 1
 
             frame = cv2.imread(dir[current_frame])
             frame_width = frame.shape[1]
@@ -68,8 +68,6 @@ def start_recording(dir, dataset_dir):
             cv2.imshow('Check Signs', frame)
 
             keypress = cv2.waitKeyEx(1)
-            
-          
 
             if not keypress == -1:
                 if keypress == 115:  # s
@@ -113,6 +111,7 @@ def main():
     dataset_dir = settings.dataset_directory
     dirs = loadAllPaths(dataset_dir)
     start_recording(dirs, dataset_dir)
+
 
 if __name__ == '__main__':
     main()

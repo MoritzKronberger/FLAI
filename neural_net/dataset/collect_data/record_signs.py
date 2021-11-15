@@ -29,7 +29,8 @@ def start_recording(dataset_dir, labels, image_format):
             frame = cv2.flip(frame, 1)
             display_frame = frame.copy()
 
-            helpers.put_base_ui(display_frame, capture_width, capture_height, stats)
+            helpers.put_base_ui(display_frame, capture_width,
+                                capture_height, stats)
 
             cv2.putText(display_frame,
                         'Press any label-key to save a snapshot.',
