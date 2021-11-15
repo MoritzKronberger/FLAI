@@ -35,9 +35,11 @@
     "moduleFileExtensions": ["js", "json", "vue", "ts"],
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "transform": {
-      "^.+\\.js$": "jest",
       "^.+\\.ts$": "ts-jest",
       "^.+\\.vue$": "vue3-jest"
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!variables/.*)"
+    ]
   }
 }
