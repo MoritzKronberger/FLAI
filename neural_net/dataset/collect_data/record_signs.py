@@ -1,16 +1,17 @@
 import cv2
 import os
 import settings
+import helpers
 import statistic
 
 
 def start_recording(dataset_dir, labels, image_format):
     print('---- Start Recording ----')
 
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    font_color = (0, 255, 0)
-    font_size = .6
-    font_thickness = 1
+    font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
+                                     (0, 0, 255),
+                                     .7,
+                                     2)
 
     capture = cv2.VideoCapture(settings.camera)
     capture_width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -28,28 +29,15 @@ def start_recording(dataset_dir, labels, image_format):
             frame = cv2.flip(frame, 1)
             display_frame = frame.copy()
 
-            cv2.putText(display_frame, 
-                        'Press \'esc\' to quit',
-                        (30, int(capture_height - 30)),
-                        font,
-                        font_size,
-                        font_color,
-                        font_thickness)
-            statistic.put_statistic(stats,
-                                    display_frame,
-                                    (capture_width - 100, 30),
-                                    font,
-                                    font_size,
-                                    18,
-                                    font_color,
-                                    font_thickness)
+            helpers.put_base_ui(display_frame, capture_width, capture_height, stats)
+
             cv2.putText(reference,
                         'No copyright - for internal use only!',
                         (30, int(reference_height - 30)),
-                        font,
-                        font_size,
-                        font_color,
-                        font_thickness)
+                        font['font_style'],
+                        font['font_size'],
+                        font['font_color'],
+                        font['font_thickness'])
 
             cv2.imshow('Collect FLAI dataset', display_frame)
             cv2.imshow('DGS alphabet reference', reference)

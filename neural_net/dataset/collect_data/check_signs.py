@@ -1,16 +1,23 @@
 import cv2
 import os
 import settings
+import helpers
+import statistic
 
 
 def start_recording(dir, dataset_dir):
     print('---- Start Recording ----')
 
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    font_color = (0, 255, 0)
-    font_size = .6
-    font_thickness = 1
+    main_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
+                                          (0, 255, 0),
+                                          .6,
+                                          1)
+    ref_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
+                                          (0, 0, 255),
+                                          .7,
+                                          2)
 
+    stats = statistic.update_statistic(dataset_dir)
     
     current_frame = 0
 
@@ -33,29 +40,34 @@ def start_recording(dir, dataset_dir):
             ref_width = ref.shape[1]
             ref_height = ref.shape[0]
 
+            helpers.put_base_ui(frame,
+                                frame_width,
+                                frame_height,
+                                stats)
+
             cv2.putText(frame,
                         'Image: ' + str(current_frame+1) + '/' + str(len(dir)),
-                        (30, int(frame_height - 30)),
-                        font,
-                        font_size,
-                        font_color,
-                        font_thickness)
+                        (30, 30),
+                        main_font['font_style'],
+                        main_font['font_size'],
+                        main_font['font_color'],
+                        main_font['font_thickness'])
 
             cv2.putText(frame,
                         'Label: ' + label,
-                        (30, int(frame_height - 60)),
-                        font,
-                        font_size,
-                        font_color,
-                        font_thickness)
+                        (30, 60),
+                        main_font['font_style'],
+                        main_font['font_size'],
+                        main_font['font_color'],
+                        main_font['font_thickness'])
 
             cv2.putText(ref,
                         'Label: ' + label,
-                        (30, int(ref_height - 10)),
-                        font,
-                        font_size,
-                        font_color,
-                        font_thickness)
+                        (30, int(ref_height - 30)),
+                        ref_font['font_style'],
+                        ref_font['font_size'],
+                        ref_font['font_color'],
+                        ref_font['font_thickness'])
 
             cv2.imshow('Reference', ref)
             cv2.imshow('Check Signs', frame)
@@ -70,7 +82,7 @@ def start_recording(dir, dataset_dir):
                 elif keypress == 100:  # d
                     os.remove(dir[current_frame])
                     dir.remove(dir[current_frame])
-                    print('delete ' + str(current_frame))
+                    stats = statistic.update_statistic(dataset_dir)
                 elif keypress == 2424832:  # arrow left
                     current_frame -= 1
                 elif keypress == 2555904:  # arrow right
@@ -98,14 +110,13 @@ def loadAllPaths(dataset_dir):
             path = os.path.join(path_to_example, example)
             print(path)
             dirs.append(path)
+    helpers.return_to_root_dir()
     return dirs
 
 
 def main():
     dataset_dir = settings.dataset_directory
     dirs = loadAllPaths(dataset_dir)
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    os.chdir(dir_path)
     start_recording(dirs, dataset_dir)
 
 if __name__ == '__main__':
