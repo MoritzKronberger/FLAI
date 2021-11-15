@@ -1,9 +1,9 @@
 import cv2
 import os
 import settings
-import helpers
-import statistic
-import style
+from lib import helpers
+from lib import statistic
+from lib import style
 
 
 def start_recording(dataset_dir, labels, image_format):
@@ -20,7 +20,7 @@ def start_recording(dataset_dir, labels, image_format):
     reference_width = reference.shape[1]
     reference_height = reference.shape[0]
 
-    stats = statistic.update_statistic(dataset_dir)
+    stats = statistic.update_statistic(dataset_dir, __file__)
 
     while True:
         try:
@@ -59,7 +59,7 @@ def start_recording(dataset_dir, labels, image_format):
                     example_count = len(os.listdir()) + 1
                     filename = key + '_' + str(example_count) + image_format
                     cv2.imwrite(filename, frame)
-                    stats = statistic.update_statistic(dataset_dir)
+                    stats = statistic.update_statistic(dataset_dir, __file__)
 
             if keypress == 27:  # esc
                 break

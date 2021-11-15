@@ -1,9 +1,9 @@
 import cv2
 import os
 import settings
-import helpers
-import statistic
-import style
+from lib import helpers
+from lib import statistic
+from lib import style
 
 
 def start_recording(dir, dataset_dir):
@@ -12,7 +12,7 @@ def start_recording(dir, dataset_dir):
     main_font = style.main_font
     ref_font = style.bold_font
 
-    stats = statistic.update_statistic(dataset_dir)
+    stats = statistic.update_statistic(dataset_dir, __file__)
     
     current_frame = 0
 
@@ -77,7 +77,7 @@ def start_recording(dir, dataset_dir):
                 elif keypress == 100:  # d
                     os.remove(dir[current_frame])
                     dir.remove(dir[current_frame])
-                    stats = statistic.update_statistic(dataset_dir)
+                    stats = statistic.update_statistic(dataset_dir, __file__)
                 elif keypress == 2424832:  # arrow left
                     current_frame -= 1
                 elif keypress == 2555904:  # arrow right
@@ -105,7 +105,7 @@ def loadAllPaths(dataset_dir):
             path = os.path.join(path_to_example, example)
             print(path)
             dirs.append(path)
-    helpers.return_to_root_dir()
+    helpers.return_to_root_dir(__file__)
     return dirs
 
 

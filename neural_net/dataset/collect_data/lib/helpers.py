@@ -1,6 +1,6 @@
 import cv2
 import os
-import statistic
+from . import statistic
 
 
 def create_font_stack(font_style, font_color, font_size, font_thickness):
@@ -37,6 +37,6 @@ def put_base_ui(canv, width, height, stats):
                             font['font_thickness'])
 
 
-def return_to_root_dir():
-    root_path = os.path.dirname(os.path.realpath(__file__))
+def return_to_root_dir(file):
+    root_path = os.path.dirname(os.path.realpath(file))
     os.chdir(root_path)

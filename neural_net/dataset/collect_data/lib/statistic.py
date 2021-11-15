@@ -1,6 +1,6 @@
 import cv2
 import os
-import helpers
+from . import helpers
 
 
 def put_statistic(stats, canv, pos, font, font_size, line_spacing, font_color, font_thickness):
@@ -24,7 +24,7 @@ def put_statistic(stats, canv, pos, font, font_size, line_spacing, font_color, f
         i += 1
 
 
-def update_statistic(dataset_dir):
+def update_statistic(dataset_dir, file):
     stats = {}
     os.chdir(dataset_dir)
     label_dirs = os.listdir()
@@ -33,6 +33,6 @@ def update_statistic(dataset_dir):
         os.chdir(path_to_label)
         label_count = len(os.listdir())
         stats[dir] = label_count
-    helpers.return_to_root_dir()
+    helpers.return_to_root_dir(file)
 
     return stats
