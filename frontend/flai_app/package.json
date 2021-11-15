@@ -13,7 +13,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "jest",
+    "clear-jest": "jest --clearCache"
   },
   "dependencies": {
     "vue": "^3.2.16"
@@ -28,5 +30,14 @@
     "vite": "^2.6.4",
     "vue-tsc": "^0.3.0",
     "vue3-jest": "^27.0.0-alpha.1"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "json", "vue", "ts"],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "transform": {
+      "^.+\\.js$": "jest",
+      "^.+\\.ts$": "ts-jest",
+      "^.+\\.vue$": "vue3-jest"
+    }
   }
 }
