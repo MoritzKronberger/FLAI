@@ -8,10 +8,15 @@ import statistic
 def start_recording(dataset_dir, labels, image_format):
     print('---- Start Recording ----')
 
-    font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
-                                     (0, 0, 255),
-                                     .7,
-                                     2)
+    main_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
+                                          (0, 255, 0),
+                                          .6,
+                                          1)
+
+    ref_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
+                                          (0, 0, 255),
+                                          .7,
+                                          2)
 
     capture = cv2.VideoCapture(settings.camera)
     capture_width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -31,13 +36,21 @@ def start_recording(dataset_dir, labels, image_format):
 
             helpers.put_base_ui(display_frame, capture_width, capture_height, stats)
 
+            cv2.putText(display_frame,
+                        'Press any label-key to save a snapshot.',
+                        (30, 30),
+                        main_font['font_style'],
+                        main_font['font_size'],
+                        main_font['font_color'],
+                        main_font['font_thickness'])
+
             cv2.putText(reference,
                         'No copyright - for internal use only!',
                         (30, int(reference_height - 30)),
-                        font['font_style'],
-                        font['font_size'],
-                        font['font_color'],
-                        font['font_thickness'])
+                        ref_font['font_style'],
+                        ref_font['font_size'],
+                        ref_font['font_color'],
+                        ref_font['font_thickness'])
 
             cv2.imshow('Collect FLAI dataset', display_frame)
             cv2.imshow('DGS alphabet reference', reference)
