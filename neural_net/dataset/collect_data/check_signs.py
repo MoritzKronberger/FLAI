@@ -19,6 +19,8 @@ def start_recording(dir, dataset_dir):
 
             if current_frame == len(dir):
                 current_frame = 0
+            elif current_frame < 0:
+                current_frame = len(dir) -1
 
             frame = cv2.imread(dir[current_frame])
             frame_width = frame.shape[1]
