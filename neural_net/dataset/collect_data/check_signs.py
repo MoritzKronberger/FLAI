@@ -54,12 +54,12 @@ def start_recording(dir, dataset_dir):
                         main_font['font_thickness'])
 
             cv2.putText(frame,
-                        'Label: ' + label,
-                        (30, 60),
+                        'Label: ' + label.upper(),
+                        (30, 70),
                         main_font['font_style'],
-                        main_font['font_size'],
-                        main_font['font_color'],
-                        main_font['font_thickness'])
+                        main_font['font_size'] * 1.5,
+                        ref_font['font_color'],
+                        main_font['font_thickness'] * 2)
 
             cv2.putText(ref,
                         'Label: ' + label,
