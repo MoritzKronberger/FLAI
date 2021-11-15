@@ -1,6 +1,7 @@
 import cv2
 import os
 import settings
+import statistic
 
 
 def start_recording(dataset_dir, labels, image_format):
@@ -19,19 +20,29 @@ def start_recording(dataset_dir, labels, image_format):
     reference_width = reference.shape[1]
     reference_height = reference.shape[0]
 
+    stats = statistic.update_statistic(dataset_dir)
+
     while True:
         try:
             ret, frame = capture.read()
             frame = cv2.flip(frame, 1)
             display_frame = frame.copy()
 
-            cv2.putText(display_frame,
+            cv2.putText(display_frame, 
                         'Press \'esc\' to quit',
                         (30, int(capture_height - 30)),
                         font,
                         font_size,
                         font_color,
                         font_thickness)
+            statistic.put_statistic(stats,
+                                    display_frame,
+                                    (capture_width - 100, 30),
+                                    font,
+                                    font_size,
+                                    18,
+                                    font_color,
+                                    font_thickness)
             cv2.putText(reference,
                         'No copyright - for internal use only!',
                         (30, int(reference_height - 30)),
@@ -53,6 +64,7 @@ def start_recording(dataset_dir, labels, image_format):
                     example_count = len(os.listdir()) + 1
                     filename = key + '_' + str(example_count) + image_format
                     cv2.imwrite(filename, frame)
+                    stats = statistic.update_statistic(dataset_dir)
 
             if keypress == 27:  # esc
                 break
