@@ -3,19 +3,14 @@ import os
 import settings
 import helpers
 import statistic
+import style
 
 
 def start_recording(dir, dataset_dir):
     print('---- Start Recording ----')
 
-    main_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
-                                          (0, 255, 0),
-                                          .6,
-                                          1)
-    ref_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
-                                          (0, 0, 255),
-                                          .7,
-                                          2)
+    main_font = style.main_font
+    ref_font = style.bold_font
 
     stats = statistic.update_statistic(dataset_dir)
     
@@ -59,7 +54,7 @@ def start_recording(dir, dataset_dir):
                         main_font['font_style'],
                         main_font['font_size'] * 1.5,
                         ref_font['font_color'],
-                        main_font['font_thickness'] * 2)
+                        ref_font['font_thickness'])
 
             cv2.putText(ref,
                         'Label: ' + label,

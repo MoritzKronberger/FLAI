@@ -3,20 +3,14 @@ import os
 import settings
 import helpers
 import statistic
+import style
 
 
 def start_recording(dataset_dir, labels, image_format):
     print('---- Start Recording ----')
 
-    main_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
-                                          (0, 255, 0),
-                                          .6,
-                                          1)
-
-    ref_font = helpers.create_font_stack(cv2.FONT_HERSHEY_SIMPLEX,
-                                          (0, 0, 255),
-                                          .7,
-                                          2)
+    main_font = style.main_font
+    ref_font = style.bold_font
 
     capture = cv2.VideoCapture(settings.camera)
     capture_width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
