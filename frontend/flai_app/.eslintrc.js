@@ -1,15 +1,26 @@
 module.exports = {
   root: true,
-  parser: "@typescript-eslint/parser",
+  parser: "vue-eslint-parser",
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    sourceType: "module",
+  },
   plugins: ["@typescript-eslint"],
   globals: {
     module: false,
   },
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  env: {
+    "vue/setup-compiler-macros": true,
+  },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-recommended",
+  ],
   rules: {
     indent: ["error", 2],
     "no-multiple-empty-lines": "warn",
-    properties: "always", // Checks for lowerCamelCase
+    camelcase: "error", // Checks for lowerCamelCase
     quotes: ["error", "single"],
     "no-var": "error",
     "prefer-const": [
