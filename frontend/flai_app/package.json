@@ -16,7 +16,6 @@
     "serve": "vite preview",
     "lint": "eslint \"src/**/*.{js,vue,ts}\"",
     "lint-fix": "eslint \"src/**/*.{js,vue,ts}\" --fix",
-    "prettier": "prettier \"src/**/*.{js,vue,ts}\"",
     "prettier-fix": "prettier --write \"src/**/*.{js,vue,ts}\""
   },
   "dependencies": {
