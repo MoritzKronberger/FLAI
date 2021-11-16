@@ -5,4 +5,18 @@ module.exports = {
   printWidth: 80,
   tabWidth: 2,
   bracketSpacing: true,
+  overrides: [
+    {
+      files: ".js",
+      options: {
+        parser: "javascript"
+      }
+    },
+    {
+      files: ".ts",
+      options: {
+        parser: "typescript"
+      }
+    }
+  ]
 }
