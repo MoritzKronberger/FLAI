@@ -3,7 +3,7 @@
 
 defineProps<{ msg: string }>()
 
-let count = ref(0)
+ let count = ref(0)
 </script>
 
 <template>
