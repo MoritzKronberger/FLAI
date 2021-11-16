@@ -6,37 +6,28 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint"],
-  globals: {
-    module: false,
-  },
-  env: {
-    "vue/setup-compiler-macros": true,
-  },
+  globals: { module: false },
+  env: { "vue/setup-compiler-macros": true },
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-recommended",
   ],
   rules: {
-    indent: ["error", 2],
+    "indent": ["error", 2],
     "no-multiple-empty-lines": "warn",
-    camelcase: "error", // Checks for lowerCamelCase
-    quotes: ["error", "single"],
+    "camelcase": "error", // Checks for lowerCamelCase
+    "quotes": ["error", "single"],
     "no-var": "error",
     "prefer-const": [
-      "error",
-      {
+      "error", {
         destructuring: "all", //Checks for destructured variables, where all should be const. Can be changed to "any"
         ignoreReadBeforeAssign: false,
       },
     ],
     "no-use-before-define": "error",
-    eqeqeq: [
-      "error",
-      "always",
-      {
-        null: "ignore",
-      },
-    ],
+    "eqeqeq": [ "error", "always", {
+      null: "ignore" 
+    }],
   },
 };
