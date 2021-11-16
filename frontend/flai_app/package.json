@@ -1,9 +1,15 @@
 {
   "name": "flai_app",
   "version": "0.0.1",
-  "contributors": ["Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"],
+  "contributors": [
+    "Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"
+  ],
   "description": "Vue.js Frontend Application using Typescript and Vite",
-  "keywords": ["Vue", "Typescript", "Vite"],
+  "keywords": [
+    "Vue",
+    "Typescript",
+    "Vite"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -13,8 +19,11 @@
     "vue": "^3.2.16"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-vue": "^1.9.3",
-    "typescript": "^4.4.3",
+    "eslint": "^8.2.0",
+    "typescript": "^4.4.4",
     "vite": "^2.6.4",
     "vue-tsc": "^0.3.0"
   }
