@@ -5,7 +5,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   globals: { module: false },
   env: { 'vue/setup-compiler-macros': true },
   extends: [
@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     indent: ['error', 2],
     'no-multiple-empty-lines': 'warn',
+    'brace-style': ['error', '1tbs', { allowSingleLine: true }],
     camelcase: 'error', // Checks for lowerCamelCase
     quotes: ['error', 'single'],
     'no-var': 'error',
@@ -35,5 +36,6 @@ module.exports = {
         null: 'ignore',
       },
     ],
+    'prettier/prettier': 'error',
   },
 }
