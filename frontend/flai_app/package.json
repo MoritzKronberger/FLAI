@@ -14,7 +14,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "lint": "eslint \"src/**/*.{js,vue,ts}\""
+    "lint": "eslint \"src/**/*.{js,vue,ts}\"",
+    "lint-fix": "eslint \"src/**/*.{js,vue,ts}\" --fix"
   },
   "dependencies": {
     "vue": "^3.2.16"
@@ -25,7 +26,7 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "eslint": "^8.2.0",
     "eslint-plugin-vue": "^8.0.3",
-    "husky": "^7.0.4",
+    "husky": "^4.3.8",
     "lint-staged": "^12.0.2",
     "typescript": "^4.4.4",
     "vite": "^2.6.4",
@@ -38,6 +39,7 @@
   },
   "lint-staged": {
     "**/*.{js,ts,vue}": [
+      "eslint \"src/**/*.{js,vue,ts}\" --fix",
       "eslint \"src/**/*.{js,vue,ts}\""
     ]
   }
