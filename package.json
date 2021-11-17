@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Repository for IA5-Teamprojekt Web-App (Group FLAI)",
   "scripts": {
-    "mdlint": "markdownlint \"./**/*.md\"",
-    "mdlint-fix": "markdownlint --fix \"./**/*.md\""
+    "mdlint": "markdownlint \"./**/*.md\" --ignore ./**/node_modules/**/*.md",
+    "mdlint-fix": "markdownlint --fix \"./**/*.md\" --ignore ./**/node_modules/**/*.md"
   },
   "repository": {
     "type": "git",
