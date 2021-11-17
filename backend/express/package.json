@@ -17,7 +17,9 @@
     "dev": "nodemon -r dotenv/config src/server.js",
     "prod": "node -r dotenv/config src/server.js",
     "lint": "eslint \"src/**/*.js\"",
-    "lint-fix": "eslint \"src/**/*.js\" --fix"
+    "lint-fix": "eslint \"src/**/*.js\" --fix",
+    "prettier-fix": "prettier --write \"src/**/*.js\""
+
   },
   "dependencies": {
     "dotenv": "^10.0.0",
