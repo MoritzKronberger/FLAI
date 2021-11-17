@@ -20,6 +20,19 @@
     "Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"
   ],
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.0.2",
     "markdownlint-cli": "^0.29.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.md": [
+      "markdownlint --fix \"./**/*.md\" --ignore ./**/node_modules/**/*.md",
+      "markdownlint \"./**/*.md\" --ignore ./**/node_modules/**/*.md"
+    ]
   }
 }
