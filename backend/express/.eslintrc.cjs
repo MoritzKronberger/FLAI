@@ -1,8 +1,18 @@
 module.exports = {
   root: true,
+  env: {
+    es6: true,
+    node: true
+  },
+  parserOptions: {
+    sourceType: "module",
+  },
   extends: [
     "eslint:recommended"
   ],
+  globals: {
+      module: false
+  },
   rules: {
     "indent": ["error", 2],
     "no-multiple-empty-lines": "warn",
