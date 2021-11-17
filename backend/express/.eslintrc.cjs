@@ -7,8 +7,12 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
   },
+  plugins: [
+    "prettier"
+  ],
   extends: [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:prettier/recommended"
   ],
   globals: {
       module: false
@@ -29,5 +33,6 @@ module.exports = {
     "eqeqeq": [ "error", "always", {
       null: "ignore" 
     }],
+    "prettier/prettier": "error"
   }
 }
