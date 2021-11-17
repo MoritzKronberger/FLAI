@@ -1,0 +1,25 @@
+{
+  "name": "ia5_teamprojekt_flai",
+  "version": "1.0.0",
+  "description": "Repository for IA5-Teamprojekt Web-App (Group FLAI)",
+  "scripts": {
+    "mdlint": "markdownlint \"./**/*.md\"",
+    "mdlint-fix": "markdownlint --fix \"./**/*.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.multimedia.hs-augsburg.de/mokro/ia5_teamprojekt_flai.git"
+  },
+  "keywords": [
+    "vue",
+    "vite",
+    "express",
+    "postgres"
+  ],
+  "contributors": [
+    "Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"
+  ],
+  "devDependencies": {
+    "markdownlint-cli": "^0.29.0"
+  }
+}
