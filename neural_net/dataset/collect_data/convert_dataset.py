@@ -24,6 +24,19 @@ def remove_own_entries(df, username):
     return df
 
 
+def set_overwrite():
+    ans = input('Do you want to overwrite your existing entries? (y/n)')
+    if ans == 'y':
+        print('--- overwrite enabled ---')
+        return True
+    elif ans == 'n':
+        print('--- overwrite disabled ---')
+        return False
+    else:
+        print('--- Could not process input ---')
+        set_overwrite()
+
+
 def save_dataset(dataset, dataset_path):
     dataset.to_csv(dataset_path, index_label=False)
 
@@ -74,11 +87,14 @@ def main():
     username = settings.username
     images = helpers.get_all_example_paths(images_dir, __file__)
     dataset = load_dataset(dataset_dir)
-    dataset = remove_own_entries(dataset, username)
+    overwrite = set_overwrite()
+    if overwrite:
+        dataset = remove_own_entries(dataset, username)
     results = handpose_images(images, 1, 0, images_dir)
     df = convert_to_data_frame(results, username)
     dataset = dataset.append(df, ignore_index=True)
     save_dataset(dataset, dataset_dir)
+    print('--- Successfully Saved Dataset ---')
 
 
 if __name__ == '__main__':
