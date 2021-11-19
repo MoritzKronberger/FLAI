@@ -29,12 +29,10 @@ def start_recording(dir, dataset_dir):
             frame_height = frame.shape[0]
 
             label = helpers.get_label_from_path(dir[current_frame], dataset_dir)
-
-            #ref = cv2.imread('./references/single_signs/' + label + '.png')
-            ref = cv2.imread('./references/single_signs/b.png')
+         
+            ref = cv2.imread('./references/single_signs/' + label + '.jpeg')
             ref_width = ref.shape[1]
             ref_height = ref.shape[0]
-
             helpers.put_base_ui(frame,
                                 frame_width,
                                 frame_height,
