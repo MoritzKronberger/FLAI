@@ -37,6 +37,7 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
         for image in images:
             label = helpers.get_label_from_path(image, images_dir)
             img = cv2.imread(image)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             results = hands.process(img)
             norm_landmarks = results.multi_hand_landmarks
             if norm_landmarks:
