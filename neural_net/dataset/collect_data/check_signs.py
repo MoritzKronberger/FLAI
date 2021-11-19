@@ -28,7 +28,7 @@ def start_recording(dir, dataset_dir):
             frame_width = frame.shape[1]
             frame_height = frame.shape[0]
 
-            label = dir[current_frame].replace(dataset_dir, '')[1]
+            label = helpers.get_label_from_path(dir[current_frame], dataset_dir)
 
             #ref = cv2.imread('./references/single_signs/' + label + '.png')
             ref = cv2.imread('./references/single_signs/b.png')

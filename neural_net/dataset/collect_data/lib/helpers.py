@@ -55,3 +55,6 @@ def get_all_example_paths(dataset_dir, file):
             dirs.append(path)
     return_to_root_dir(file)
     return dirs
+
+def get_label_from_path(path, dataset_dir):
+    return path.replace(dataset_dir, '')[1]
