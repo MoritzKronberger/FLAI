@@ -4,8 +4,7 @@ from . import helpers
 
 
 def put_statistic(stats, canv, pos, font, font_size, line_spacing, font_color, font_thickness):
-    i = 0
-    for stat, value in stats.items():
+    for i, (stat, value) in enumerate(stats.items()):
         cv2.putText(canv,
                     str(stat) + ':',
                     (int(pos[0]), int(pos[1] + line_spacing * i)),
@@ -21,7 +20,6 @@ def put_statistic(stats, canv, pos, font, font_size, line_spacing, font_color, f
                     font_size,
                     font_color,
                     font_thickness)
-        i += 1
 
 
 def update_statistic(dataset_dir, file):
