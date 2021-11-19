@@ -25,7 +25,7 @@ def remove_own_entries(df, username):
 
 
 def set_overwrite():
-    ans = input('Do you want to overwrite your existing entries? (y/n)')
+    ans = input('Do you want to overwrite your existing entries? (y/n) ')
     if ans == 'y':
         print('--- overwrite enabled ---')
         return True
@@ -65,19 +65,19 @@ def convert_to_data_frame(results, username):
         # Curretly hardcoded to only converts landmarks of first hand
         landmarks = results[0][1][0]
         for i in range(len(landmarks.landmark)):
-            data['landmark ' + str(i)] = []
+            data[f'landmark {i}'] = []
 
         for result in results:
             data['user'].append(username)
             data['label'].append(result[0])
             for i, landmark in enumerate(result[1][0].landmark):
                 vec = np.array([landmark.x, landmark.y, landmark.z])
-                data['landmark ' + str(i)].append(vec)
+                data[f'landmark {i}'].append(vec)
 
         df = pandas.DataFrame(data=data)
         return df
     except Exception as e:
-        print("Dataset conversion failed: " + str(e))
+        print(f'Dataset conversion failed: {e}')
 
 
 def main():
