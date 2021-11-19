@@ -47,21 +47,24 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
 
 
 def convert_to_data_frame(results, username):
-    data = {'user':[], 'label': []}
-    # Curretly hardcoded to only converts landmarks of first hand
-    landmarks = results[0][1][0]
-    for i in range(len(landmarks.landmark)):
-        data['landmark ' + str(i)] = []
+    try:
+        data = {'user':[], 'label': []}
+        # Curretly hardcoded to only converts landmarks of first hand
+        landmarks = results[0][1][0]
+        for i in range(len(landmarks.landmark)):
+            data['landmark ' + str(i)] = []
 
-    for result in results:
-        data['user'].append(username)
-        data['label'].append(result[0])
-        for i, landmark in enumerate(result[1][0].landmark):
-            vec = np.array([landmark.x, landmark.y, landmark.z])
-            data['landmark ' + str(i)].append(vec)
+        for result in results:
+            data['user'].append(username)
+            data['label'].append(result[0])
+            for i, landmark in enumerate(result[1][0].landmark):
+                vec = np.array([landmark.x, landmark.y, landmark.z])
+                data['landmark ' + str(i)].append(vec)
 
-    df = pandas.DataFrame(data=data)
-    return df
+        df = pandas.DataFrame(data=data)
+        return df
+    except Exception as e:
+        print("Dataset conversion failed: " + str(e))
 
 
 def main():
