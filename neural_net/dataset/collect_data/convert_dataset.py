@@ -8,8 +8,17 @@ from lib import helpers
 
 
 def load_dataset(dataset_path):
-    dataset = pandas.read_csv(dataset_path)
+    try:
+        dataset = pandas.read_csv(dataset_path)
+    except Exception as e:
+        print(e)
+        dataset = pandas.DataFrame()
     return dataset
+
+
+def remove_own_entries(df, username):
+    df = df.drop(df[df.user == username].index)
+    return df
 
 
 def save_dataset(dataset, dataset_path):
@@ -31,14 +40,15 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
     return handpose_results
 
 
-def convert_to_data_frame(results):
-    data = {'label': []}
+def convert_to_data_frame(results, username):
+    data = {'user':[], 'label': []}
     # Curretly hardcoded to only converts landmarks of first hand
     landmarks = results[0][1][0]
     for i in range(len(landmarks.landmark)):
         data['landmark ' + str(i)] = []
 
     for result in results:
+        data['user'].append(username)
         data['label'].append(result[0])
         for i, landmark in enumerate(result[1][0].landmark):
             vec = np.array([landmark.x, landmark.y, landmark.z])
@@ -52,10 +62,12 @@ def main():
     print('--- Converting Dataset ---')
     images_dir = settings.images_directory
     dataset_dir = settings.dataset_directory
+    username = settings.username
     images = helpers.get_all_example_paths(images_dir, __file__)
     dataset = load_dataset(dataset_dir)
+    dataset = remove_own_entries(dataset, username)
     results = handpose_images(images, 1, .7, images_dir)
-    df = convert_to_data_frame(results[:1])
+    df = convert_to_data_frame(results[:1], username)
     dataset = dataset.append(df, ignore_index=True)
     save_dataset(dataset, dataset_dir)
 
