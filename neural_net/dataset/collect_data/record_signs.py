@@ -86,7 +86,7 @@ def prepare_dataset_directory(dataset_dir, labels):
 def main():
     labels = list(settings.labels)
     image_format = settings.image_format
-    dataset_dir = settings.dataset_directory
+    dataset_dir = settings.images_directory
     prepare_dataset_directory(dataset_dir, labels)
     start_recording(dataset_dir, labels, image_format)
 

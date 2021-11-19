@@ -16,14 +16,15 @@ def save_dataset(dataset, dataset_path):
 
 def main():
     print('--- Converting Dataset ---')
+    images_dir = settings.images_directory
     dataset_dir = settings.dataset_directory
-    dirs = helpers.get_all_example_paths(dataset_dir, __file__)
-    dataset = load_dataset('../flai_data.csv')
+    dirs = helpers.get_all_example_paths(images_dir, __file__)
+    dataset = load_dataset(dataset_dir)
     print(dataset)
     test = {'label': 'A', 'vectors': 'B'}
     dataset = dataset.append(test, ignore_index=True)
     print(dataset)
-    save_dataset(dataset, '../flai_data.csv')
+    save_dataset(dataset, dataset_dir)
 
 
 if __name__ == '__main__':

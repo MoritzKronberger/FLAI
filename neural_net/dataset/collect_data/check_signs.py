@@ -92,7 +92,7 @@ def start_recording(dir, dataset_dir):
 
 
 def main():
-    dataset_dir = settings.dataset_directory
+    dataset_dir = settings.images_directory
     dirs = helpers.get_all_example_paths(dataset_dir, __file__)
     start_recording(dirs, dataset_dir)
 
