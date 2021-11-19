@@ -91,25 +91,9 @@ def start_recording(dir, dataset_dir):
     cv2.destroyAllWindows()
 
 
-def loadAllPaths(dataset_dir):
-    dirs = []
-    os.chdir(dataset_dir)
-    label_dirs = os.listdir()
-    for dir in label_dirs:
-        path_to_example = os.path.join(dataset_dir, dir)
-        os.chdir(path_to_example)
-        examples = os.listdir()
-        for example in examples:
-            path = os.path.join(path_to_example, example)
-            print(path)
-            dirs.append(path)
-    helpers.return_to_root_dir(__file__)
-    return dirs
-
-
 def main():
     dataset_dir = settings.dataset_directory
-    dirs = loadAllPaths(dataset_dir)
+    dirs = helpers.get_all_example_paths(dataset_dir, __file__)
     start_recording(dirs, dataset_dir)
 
 

@@ -40,3 +40,18 @@ def put_base_ui(canv, width, height, stats):
 def return_to_root_dir(file):
     root_path = os.path.dirname(os.path.realpath(file))
     os.chdir(root_path)
+
+
+def get_all_example_paths(dataset_dir, file):
+    dirs = []
+    os.chdir(dataset_dir)
+    label_dirs = os.listdir()
+    for dir in label_dirs:
+        path_to_example = os.path.join(dataset_dir, dir)
+        os.chdir(path_to_example)
+        examples = os.listdir()
+        for example in examples:
+            path = os.path.join(path_to_example, example)
+            dirs.append(path)
+    return_to_root_dir(file)
+    return dirs
