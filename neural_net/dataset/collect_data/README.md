@@ -4,46 +4,15 @@ A python project will be used to collect recordings of DGS-signs performed by te
 
 The videos must be labeled with their respective sign and will then be processed using the [mediapipe hand pose detection](https://google.github.io/mediapipe/solutions/hands.html).
 
-## Requirements
-
-Split application in 3 stages:
-
-- record signs
-- check labels
-- convert with handpose
-
-### Record signs
-
-Show video feed and sign chart for alphabet
-
-Available labels: A-Y, without J
-
-Keyboard input of label saves capture with label as filename
-
-Show statistic of example count per label
-
-Save image as \<label>_\<count-per-label>.jpg
-
-### Check labels
-
-./recorder_images
-
-Allow selection of source directory
-
-Show lableled image and ground truth example
-
-Input 's' to keep and 'd' to delete
-Input 'arrow_left' to go back one image
-
-### Convert with handpose
-
-Run handpose over all images and save normalized output as CSV in /dataset directory
-
-Let users set name of CSV file
-
-## Usage
-
 [Python 3](https://www.python.org/downloads/) and [Python for VsCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python) must be installed.
+
+## Initial Setup
+
+### Change directory
+
+```bash
+cd neural_net/collect_data
+```
 
 ### Setup virtual environment
 
@@ -53,6 +22,8 @@ py -3 -m venv .venv
 ```
 
 ### Use virtual environment in VsCode
+
+Open new VsCode window with:
 
 ```bash
 code .
@@ -80,16 +51,43 @@ pip install -r requirements.txt
 bash create_settings.sh
 ```
 
-### Record Dataset
+### Change settings
 
-Create a new folder, in which the dataset should be stored, anywhere **outside the repository(!)**.
+In **settings.py**:
 
-In **settings.py** set **dataset_directory** to the absolute path of your dataset folder
+- Set **username** to your own name (lowercase).
+- Set **image_directory** to the absolute path (C:\Users\...) of the folder, you want to save your images in.
+
+## Record Dataset
 
 Run **record_signs.py**.
 
-To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal'
+(To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
 
 If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
 
 Press any of the keys included in the labels to save an image with the respective label.
+
+Press 'esc' to quit.
+
+## Check images
+
+Run **check_signs.py**.
+
+Press 's' to keep an image, 'd' to delete it or the left or right arrow key to go back/ forward one image.
+
+Press 'esc' to quit.
+
+## Convert Dataset
+
+Checkout the branch for dataset updates:
+
+```bash
+git checkout all-chore-update-flai-dataset
+```
+
+Run **convert_dataset.py**.
+
+Choose if you want to overwrite existing entries with your username or keep them.
+
+Commit the updated dataset.

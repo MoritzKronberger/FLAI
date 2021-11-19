@@ -39,7 +39,7 @@ def start_recording(dir, dataset_dir):
                                 stats)
 
             cv2.putText(frame,
-                        'Image: ' + str(current_frame+1) + '/' + str(len(dir)),
+                        f'Image: {current_frame+1}/{len(dir)}',
                         (30, 30),
                         main_font['font_style'],
                         main_font['font_size'],
@@ -47,7 +47,7 @@ def start_recording(dir, dataset_dir):
                         main_font['font_thickness'])
 
             cv2.putText(frame,
-                        'Label: ' + label.upper(),
+                        f'Label: {label.upper()}',
                         (30, 70),
                         main_font['font_style'],
                         main_font['font_size'] * 1.5,
@@ -55,7 +55,7 @@ def start_recording(dir, dataset_dir):
                         ref_font['font_thickness'])
 
             cv2.putText(ref,
-                        'Label: ' + label,
+                        f'Label: {label.upper()}',
                         (30, int(ref_height - 30)),
                         ref_font['font_style'],
                         ref_font['font_size'],

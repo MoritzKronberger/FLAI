@@ -59,7 +59,7 @@ def start_recording(dataset_dir, labels, image_format):
                     path = os.path.join(dataset_dir, key)
                     os.chdir(path)
                     file_id = uuid.uuid4()
-                    filename = key + '_' + str(file_id) + image_format
+                    filename = f'{key}_{file_id}{image_format}'
                     cv2.imwrite(filename, frame)
                     stats = statistic.update_statistic(dataset_dir, __file__)
 

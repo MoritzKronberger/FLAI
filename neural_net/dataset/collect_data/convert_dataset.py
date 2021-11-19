@@ -24,6 +24,19 @@ def remove_own_entries(df, username):
     return df
 
 
+def set_overwrite():
+    ans = input('Do you want to overwrite your existing entries? (y/n) ')
+    if ans == 'y':
+        print('--- overwrite enabled ---')
+        return True
+    elif ans == 'n':
+        print('--- overwrite disabled ---')
+        return False
+    else:
+        print('--- Could not process input ---')
+        set_overwrite()
+
+
 def save_dataset(dataset, dataset_path):
     dataset.to_csv(dataset_path, index_label=False)
 
@@ -52,19 +65,19 @@ def convert_to_data_frame(results, username):
         # Curretly hardcoded to only converts landmarks of first hand
         landmarks = results[0][1][0]
         for i in range(len(landmarks.landmark)):
-            data['landmark ' + str(i)] = []
+            data[f'landmark {i}'] = []
 
         for result in results:
             data['user'].append(username)
             data['label'].append(result[0])
             for i, landmark in enumerate(result[1][0].landmark):
                 vec = np.array([landmark.x, landmark.y, landmark.z])
-                data['landmark ' + str(i)].append(vec)
+                data[f'landmark {i}'].append(vec)
 
         df = pandas.DataFrame(data=data)
         return df
     except Exception as e:
-        print("Dataset conversion failed: " + str(e))
+        print(f'Dataset conversion failed: {e}')
 
 
 def main():
@@ -74,11 +87,14 @@ def main():
     username = settings.username
     images = helpers.get_all_example_paths(images_dir, __file__)
     dataset = load_dataset(dataset_dir)
-    dataset = remove_own_entries(dataset, username)
+    overwrite = set_overwrite()
+    if overwrite:
+        dataset = remove_own_entries(dataset, username)
     results = handpose_images(images, 1, 0, images_dir)
     df = convert_to_data_frame(results, username)
     dataset = dataset.append(df, ignore_index=True)
     save_dataset(dataset, dataset_dir)
+    print('--- Successfully Saved Dataset ---')
 
 
 if __name__ == '__main__':
