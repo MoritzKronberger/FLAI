@@ -17,7 +17,10 @@ def load_dataset(dataset_path):
 
 
 def remove_own_entries(df, username):
-    df = df.drop(df[df.user == username].index)
+    try:
+        df = df.drop(df[df.user == username].index)
+    except Exception as e:
+        print(e)
     return df
 
 
@@ -33,9 +36,11 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
                         min_detection_confidence=min_confidence) as hands:
         for image in images:
             label = helpers.get_label_from_path(image, images_dir)
-            image = cv2.imread(images[0])
-            results = hands.process(image)
-            handpose_results.append([label, results.multi_hand_landmarks])
+            img = cv2.imread(image)
+            results = hands.process(img)
+            norm_landmarks = results.multi_hand_landmarks
+            if norm_landmarks:
+                handpose_results.append([label, norm_landmarks])
 
     return handpose_results
 
@@ -66,8 +71,8 @@ def main():
     images = helpers.get_all_example_paths(images_dir, __file__)
     dataset = load_dataset(dataset_dir)
     dataset = remove_own_entries(dataset, username)
-    results = handpose_images(images, 1, .7, images_dir)
-    df = convert_to_data_frame(results[:1], username)
+    results = handpose_images(images, 1, 0, images_dir)
+    df = convert_to_data_frame(results, username)
     dataset = dataset.append(df, ignore_index=True)
     save_dataset(dataset, dataset_dir)
 
