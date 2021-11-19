@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-echo "labels = 'abcdefghiklmnopqrstuvwxy'"> settings.py
+echo "username = ''" > settings.py
+echo "labels = 'abcdefghiklmnopqrstuvwxy'" >> settings.py
 echo "dataset_directory = '../flai_data.csv'" >> settings.py
 echo "images_directory = r''" >> settings.py
 echo "image_format = '.jpg'" >> settings.py
