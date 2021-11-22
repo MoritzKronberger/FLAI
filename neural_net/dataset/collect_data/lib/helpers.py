@@ -56,5 +56,12 @@ def get_all_example_paths(dataset_dir, file):
     return_to_root_dir(file)
     return dirs
 
+
 def get_label_from_path(path, dataset_dir):
     return path.replace(dataset_dir, '')[1]
+
+
+def scale_image(image, scale):
+    width = int(image.shape[1] * scale)
+    height = int(image.shape[0] * scale)
+    return (width, height)
