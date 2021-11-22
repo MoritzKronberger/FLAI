@@ -36,6 +36,7 @@ def start_recording(dir, dataset_dir):
                              interpolation=cv2.INTER_AREA)
             ref_width = ref.shape[1]
             ref_height = ref.shape[0]
+
             helpers.put_base_ui(frame,
                                 frame_width,
                                 frame_height,
