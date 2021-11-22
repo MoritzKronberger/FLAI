@@ -1,5 +1,4 @@
 import cv2
-import os
 import settings
 import pandas
 import numpy as np
@@ -61,7 +60,7 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
 
 def convert_to_data_frame(results, username):
     try:
-        data = {'user':[], 'label': []}
+        data = {'user': [], 'label': []}
         # Curretly hardcoded to only converts landmarks of first hand
         landmarks = results[0][1][0]
         for i in range(len(landmarks.landmark)):
@@ -86,7 +85,7 @@ def main():
     dataset_dir = settings.dataset_directory
     username = settings.username
     if username == '':
-        print('--- Username not set ---')
+        print('--- Dataset conversion failed: Username not set ---')
         return
     images = helpers.get_all_example_paths(images_dir, __file__)
     dataset = load_dataset(dataset_dir)

@@ -7,21 +7,18 @@ from lib import statistic
 from lib import style
 
 
-def start_recording(dataset_dir, labels, image_format):
+def start_recording(images_dir, labels, image_format):
     print('---- Start Recording ----')
 
     main_font = style.main_font
-    ref_font = style.bold_font
 
     capture = cv2.VideoCapture(settings.camera)
     capture_width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
     capture_height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
     reference = cv2.imread('./references/alphabet.png')
-    reference_width = reference.shape[1]
-    reference_height = reference.shape[0]
 
-    stats = statistic.update_statistic(dataset_dir, __file__)
+    stats = statistic.update_statistic(images_dir, __file__)
 
     while True:
         try:
@@ -40,7 +37,7 @@ def start_recording(dataset_dir, labels, image_format):
                         main_font['font_color'],
                         main_font['font_thickness'])
 
-            cv2.imshow('Collect FLAI dataset', display_frame)
+            cv2.imshow('Collect FLAI images', display_frame)
             cv2.imshow('DGS alphabet reference', reference)
 
             keypress = cv2.waitKey(1)
@@ -48,12 +45,12 @@ def start_recording(dataset_dir, labels, image_format):
             if not keypress == -1:
                 key = chr(keypress)
                 if key in labels:
-                    path = os.path.join(dataset_dir, key)
+                    path = os.path.join(images_dir, key)
                     os.chdir(path)
                     file_id = uuid.uuid4()
                     filename = f'{key}_{file_id}{image_format}'
                     cv2.imwrite(filename, frame)
-                    stats = statistic.update_statistic(dataset_dir, __file__)
+                    stats = statistic.update_statistic(images_dir, __file__)
 
             if keypress == 27:  # esc
                 break
@@ -64,11 +61,12 @@ def start_recording(dataset_dir, labels, image_format):
 
     capture.release()
     cv2.destroyAllWindows()
+    print('---- Finished Recording Signs ----')
 
 
-def prepare_dataset_directory(dataset_dir, labels):
+def prepare_images_directory(images_dir, labels):
     for dir in labels:
-        path = os.path.join(dataset_dir, dir)
+        path = os.path.join(images_dir, dir)
         try:
             os.mkdir(path)
         except OSError as e:
@@ -78,9 +76,9 @@ def prepare_dataset_directory(dataset_dir, labels):
 def main():
     labels = list(settings.labels)
     image_format = settings.image_format
-    dataset_dir = settings.images_directory
-    prepare_dataset_directory(dataset_dir, labels)
-    start_recording(dataset_dir, labels, image_format)
+    images_dir = settings.images_directory
+    prepare_images_directory(images_dir, labels)
+    start_recording(images_dir, labels, image_format)
 
 
 if __name__ == '__main__':
