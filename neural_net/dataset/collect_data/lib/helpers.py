@@ -20,7 +20,8 @@ def put_base_ui(canv, width, height, stats):
                              .6,
                              1)
 
-    create_overlay(canv, (int(width) - 100, 0), (int(width), int(height)), .65, 0)
+    create_overlay(canv, (int(width) - 100, 0),
+                   (int(width), int(height)), .65, 0)
 
     cv2.putText(canv,
                 'Press \'esc\' to quit',
@@ -46,18 +47,18 @@ def return_to_root_dir(file):
 
 
 def get_all_example_paths(dataset_dir, file):
-    dirs = []
+    paths = []
     os.chdir(dataset_dir)
-    label_dirs = os.listdir()
-    for dir in label_dirs:
+    label_paths = os.listdir()
+    for dir in label_paths:
         path_to_example = os.path.join(dataset_dir, dir)
         os.chdir(path_to_example)
         examples = os.listdir()
         for example in examples:
             path = os.path.join(path_to_example, example)
-            dirs.append(path)
+            paths.append(path)
     return_to_root_dir(file)
-    return dirs
+    return paths
 
 
 def get_label_from_path(path, dataset_dir):
@@ -71,10 +72,10 @@ def scale_image(image, scale):
 
 
 # derived from https://stackoverflow.com/a/56472613/14906871
-def create_overlay(frame, start_point, end_point, alpha, shade):
-    frame_crop = frame[start_point[1]:end_point[1] +
-                       1, start_point[0]:end_point[0]+1]
-    overlay = np.full(frame_crop.shape, shade, np.uint8)
+def create_overlay(canv, start_point, end_point, alpha, shade):
+    canv_crop = canv[start_point[1]:end_point[1] +
+                     1, start_point[0]:end_point[0]+1]
+    overlay = np.full(canv_crop.shape, shade, np.uint8)
 
-    blend = cv2.addWeighted(overlay, alpha, frame_crop, 1 - alpha, 1.0)
-    frame[start_point[1]:end_point[1]+1, start_point[0]:end_point[0]+1] = blend
+    blend = cv2.addWeighted(overlay, alpha, canv_crop, 1 - alpha, 1.0)
+    canv[start_point[1]:end_point[1]+1, start_point[0]:end_point[0]+1] = blend
