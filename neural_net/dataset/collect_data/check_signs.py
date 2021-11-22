@@ -16,7 +16,7 @@ def start_recording(dir, dataset_dir):
 
     current_frame = 0
 
-    while True:
+    while len(dir) > 0:
         try:
 
             if current_frame == len(dir):
@@ -87,6 +87,7 @@ def start_recording(dir, dataset_dir):
             break
 
     cv2.destroyAllWindows()
+    print('---- Finished Checking Signs ----')
 
 
 def main():
