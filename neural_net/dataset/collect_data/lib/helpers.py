@@ -19,7 +19,7 @@ def put_base_ui(canv, width, height, stats):
                              .6,
                              1)
 
-    cv2.rectangle(canv, (int(width) - 100, 0), (int(width) - 50, int(height)), (100, 100, 100), -1)
+    cv2.rectangle(canv, (int(width) - 100, 0), (int(width), int(height)), (100, 100, 100), -1)
 
     cv2.putText(canv,
                 'Press \'esc\' to quit',
@@ -31,7 +31,7 @@ def put_base_ui(canv, width, height, stats):
 
     statistic.put_statistic(stats,
                             canv,
-                            (width - 100, 30),
+                            (width - 90, 30),
                             font['font_style'],
                             font['font_size'],
                             18,
