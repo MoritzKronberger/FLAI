@@ -23,21 +23,17 @@ py -3 -m venv .venv
 
 ### Use virtual environment in VsCode
 
-Open new VsCode window with:
+#### Option 1
+
+Press **STRG** + **SHIFT** + **P**
+
+In VsCode Commandline:
 
 ```bash
-code .
+> Python: Select Interpreter
++ Enter interpreter path...
+> ./neural_net/dataset/collect_data/.venv/Scripts/python.exe
 ```
-
-In the new VsCode window:
-
-**STRG** + **SHIFT** + **P**
-
-```bash
-Python: Select Interpreter
-```
-
--> venv auswählen
 
 ### Install requirements
 
