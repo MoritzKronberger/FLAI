@@ -20,7 +20,7 @@ def put_base_ui(canv, width, height, stats):
                              .6,
                              1)
 
-    create_overlay(canv, (int(width) - 100, 0), (int(width) - 50, int(height)), .65, 0)
+    create_overlay(canv, (int(width) - 100, 0), (int(width), int(height)), .65, 0)
 
     cv2.putText(canv,
                 'Press \'esc\' to quit',
