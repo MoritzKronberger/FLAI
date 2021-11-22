@@ -85,6 +85,9 @@ def main():
     images_dir = settings.images_directory
     dataset_dir = settings.dataset_directory
     username = settings.username
+    if username == '':
+        print('--- Username not set ---')
+        return
     images = helpers.get_all_example_paths(images_dir, __file__)
     dataset = load_dataset(dataset_dir)
     overwrite = set_overwrite()

@@ -19,7 +19,7 @@ def put_base_ui(canv, width, height, stats):
                              .6,
                              1)
 
-    cv2.rectangle(canv, (width - 100, 0), (width - 50, height), (0,0,0), -1)
+    cv2.rectangle(canv, (int(width) - 100, 0), (int(width) - 50, int(height)), (100, 100, 100), -1)
 
     cv2.putText(canv,
                 'Press \'esc\' to quit',

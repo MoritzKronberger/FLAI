@@ -40,14 +40,6 @@ def start_recording(dataset_dir, labels, image_format):
                         main_font['font_color'],
                         main_font['font_thickness'])
 
-            cv2.putText(reference,
-                        'No copyright - for internal use only!',
-                        (30, int(reference_height - 30)),
-                        ref_font['font_style'],
-                        ref_font['font_size'],
-                        ref_font['font_color'],
-                        ref_font['font_thickness'])
-
             cv2.imshow('Collect FLAI dataset', display_frame)
             cv2.imshow('DGS alphabet reference', reference)
 
