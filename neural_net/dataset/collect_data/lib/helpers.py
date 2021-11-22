@@ -1,5 +1,6 @@
 import cv2
 import os
+import numpy as np
 from . import statistic
 
 
@@ -19,7 +20,7 @@ def put_base_ui(canv, width, height, stats):
                              .6,
                              1)
 
-    cv2.rectangle(canv, (int(width) - 100, 0), (int(width), int(height)), (100, 100, 100), -1)
+    create_overlay(canv, (int(width) - 100, 0), (int(width) - 50, int(height)), .65, 0)
 
     cv2.putText(canv,
                 'Press \'esc\' to quit',
@@ -67,3 +68,13 @@ def scale_image(image, scale):
     width = int(image.shape[1] * scale)
     height = int(image.shape[0] * scale)
     return (width, height)
+
+
+# derived from https://stackoverflow.com/a/56472613/14906871
+def create_overlay(frame, start_point, end_point, alpha, shade):
+    frame_crop = frame[start_point[1]:end_point[1] +
+                       1, start_point[0]:end_point[0]+1]
+    overlay = np.full(frame_crop.shape, shade, np.uint8)
+
+    blend = cv2.addWeighted(overlay, alpha, frame_crop, 1 - alpha, 1.0)
+    frame[start_point[1]:end_point[1]+1, start_point[0]:end_point[0]+1] = blend

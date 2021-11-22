@@ -93,7 +93,7 @@ def main():
     overwrite = set_overwrite()
     if overwrite:
         dataset = remove_own_entries(dataset, username)
-    results = handpose_images(images, 1, 0, images_dir)
+    results = handpose_images(images, 1, .7, images_dir)
     df = convert_to_data_frame(results, username)
     dataset = dataset.append(df, ignore_index=True)
     save_dataset(dataset, dataset_dir)
