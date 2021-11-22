@@ -36,6 +36,6 @@ module.exports = {
         null: 'ignore',
       },
     ],
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
 }
