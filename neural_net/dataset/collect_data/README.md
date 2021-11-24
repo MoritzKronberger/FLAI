@@ -11,7 +11,7 @@ The videos must be labeled with their respective sign and will then be processed
 ### Change directory
 
 ```bash
-cd neural_net/collect_data
+cd neural_net/dataset/collect_data
 ```
 
 ### Setup virtual environment
@@ -23,7 +23,13 @@ py -3 -m venv .venv
 
 ### Use virtual environment in VsCode
 
-#### Option 1
+```bash
+code .
+```
+
+Or open the collect_data dir in new VsCode window
+
+In the new window:
 
 Press **STRG** + **SHIFT** + **P**
 
@@ -32,10 +38,18 @@ In VsCode Commandline:
 ```bash
 > Python: Select Interpreter
 + Enter interpreter path...
-> ./neural_net/dataset/collect_data/.venv/Scripts/python.exe
+> Python 3.9.0 64-bit ('venv':venv)
 ```
 
+*Once the interpreter has been set from the collect_data folder, it might also be availiable in parent directories after a VsCode restart.*
+
 ### Install requirements
+
+Start any .py file to launch the VsCode Python terminal
+
+(To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
+
+In the Python Terminal:
 
 ```bash
 pip install -r requirements.txt
