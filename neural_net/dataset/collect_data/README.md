@@ -70,7 +70,15 @@ In **settings.py**:
 
 ## Record Dataset
 
-Run **record_signs.py**.
+It would be awesome if everybody could collect around 50 to 100 samples per letter.
+
+More variance between the examples is more important than how many you collect!
+
+If you collect less examples, that's fine, too, just try to collect roughly the same number of samples for every letter.
+
+Run **main.py**.
+
+Enter **collect**
 
 (To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
 
@@ -82,7 +90,9 @@ Press 'esc' to quit.
 
 ## Check images
 
-Run **check_signs.py**.
+Run **main.py**.
+
+Enter **check**
 
 Press 's' to keep an image, 'd' to delete it or the left or right arrow key to go back/ forward one image.
 
@@ -90,14 +100,20 @@ Press 'esc' to quit.
 
 ## Convert Dataset
 
-Checkout the branch for dataset updates:
+**Checkout the branch for dataset updates:**
 
 ```bash
-git checkout all-chore-update-flai-dataset
+git checkout all-chore-update-flai-dataset-#10
 ```
 
-Run **convert_dataset.py**.
+Run **main.py**.
+
+Enter **convert**
 
 Choose if you want to overwrite existing entries with your username or keep them.
 
-Commit the updated dataset.
+- If you have already converted images from the folder you are converting right now, you should probably choose overwrite.
+
+- If you are using a new folder, you should probably choose not to overwrite your old entries.
+
+Commit the updated dataset **on the all-chore-update-flai-dataset-#10 branch**.
