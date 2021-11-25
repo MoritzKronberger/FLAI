@@ -38,7 +38,7 @@ def set_overwrite():
 
 
 def save_dataset(dataset, dataset_path):
-    dataset.to_csv(dataset_path, index_label=False)
+    dataset.to_csv(dataset_path, index=False)
 
 
 def handpose_images(images, num_hands, min_confidence, images_dir):
