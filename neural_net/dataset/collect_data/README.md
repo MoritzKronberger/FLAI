@@ -74,7 +74,17 @@ It would be awesome if everybody could collect around 50 to 100 samples per lett
 
 More variance between the examples is more important than how many you collect!
 
+Maybe try different webcam angles, hand rotations, but make sure signs are still shown correctly.
+
 If you collect less examples, that's fine, too, just try to collect roughly the same number of samples for every letter.
+
+### Usage
+
+Chechout the branch for dataset collection
+
+```bash
+git checkout all-chore-update-flai-dataset-#10
+```
 
 Run **main.py**.
 
@@ -82,7 +92,9 @@ Enter **collect**
 
 (To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
 
-If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
+- If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
+
+- If the script fails, make sure you have navigated into the **collect_data** directory in the Python Console.
 
 Press any of the keys included in the labels to save an image with the respective label.
 
@@ -100,7 +112,7 @@ Press 'esc' to quit.
 
 ## Convert Dataset
 
-**Checkout the branch for dataset updates:**
+**Make sure you have checked out the branch for dataset updates:**
 
 ```bash
 git checkout all-chore-update-flai-dataset-#10
