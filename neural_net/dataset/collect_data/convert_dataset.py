@@ -51,7 +51,7 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
             label = helpers.get_label_from_path(image, images_dir)
             img = cv2.imread(image)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            #flip image horizontal 50/50
+            # flip image horizontal 50/50
             rand = random.randint(0, 1)
             if rand == 1:
                 img = cv2.flip(img, 1)
@@ -63,20 +63,39 @@ def handpose_images(images, num_hands, min_confidence, images_dir):
     return handpose_results
 
 
+def unpack_landmarks(results):
+    res = []
+    for result in results:
+        landmarks = []
+        for landmark in result[1][0].landmark:
+            vec = [landmark.x, landmark.y, landmark.z]
+            landmarks.append(vec)
+        res.append([result[0], landmarks])
+    return res
+
+
+def linearize_landmarks(results):
+    for result in results:
+        coordinates = np.array(result[1])
+        coordinates = coordinates.flatten()
+        result[1] = coordinates
+    return results
+
+
 def convert_to_data_frame(results, username):
     try:
+        results = linearize_landmarks(unpack_landmarks(results))
         data = {'user': [], 'label': []}
-        # Curretly hardcoded to only converts landmarks of first hand
-        landmarks = results[0][1][0]
-        for i in range(len(landmarks.landmark)):
-            data[f'landmark {i}'] = []
+        # Currently hardcoded to only converts landmarks of first hand
+        coordinates = results[0][1]
+        for i in range(len(coordinates)):
+            data[f'coordinate {i}'] = []
 
         for result in results:
             data['user'].append(username)
             data['label'].append(result[0])
-            for i, landmark in enumerate(result[1][0].landmark):
-                vec = np.array([landmark.x, landmark.y, landmark.z])
-                data[f'landmark {i}'].append(vec)
+            for i, coordinate in enumerate(result[1]):
+                data[f'coordinate {i}'].append(coordinate)
 
         df = pandas.DataFrame(data=data)
         return df
