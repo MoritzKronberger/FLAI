@@ -1,14 +1,14 @@
-from inspect import CO_ITERABLE_COROUTINE
 import cv2
+import settings
 import mediapipe as mp
 import numpy as np
 from numpy import core
 from tensorflow.keras.models import load_model
 
 mp_hands = mp.solutions.hands
-webcam = 1
-model_name = 'Deep_FLAI_6_92_acc'
-labels = 'abcdefghiklmnopqrstuvwxy'
+camera = settings.camera
+model_name = settings.model_name
+labels = settings.labels
 
 # Mediapipe Setup from https://google.github.io/mediapipe/solutions/hands.html
 
@@ -20,7 +20,7 @@ def process_mediapipe(frame, hands):
 
 
 def image_capture(model, hands):
-    cap = cv2.VideoCapture(webcam)
+    cap = cv2.VideoCapture(camera)
     while True:
         ret, frame = cap.read()
         landmarks = process_mediapipe(frame, hands)
