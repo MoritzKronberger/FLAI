@@ -55,12 +55,33 @@ pip install -r requirements.txt
 
 #### In case of Errno:2
 
+For Windows:
+
 1. Click Start, and then click Run.
+
 2. In the Open box, paste **%systemroot%\syswow64\regedit** , and then click OK.
 
 3. Navigate to:
 **Computer/HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem**
 
-4. Open **FileSystem/LongPathsEnabled**
+4. Right Click **LongPathsEnabled** > **Change**
 
-5. Open and set to 1
+5. Set to 1
+
+6. Run **pip install -r requirements.txt** again
+
+### Create settings.py
+
+```bash
+bash create_settings.sh
+```
+
+## Usage
+
+Run **demo.py**
+
+(To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
+
+- If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
+
+- If the script fails, make sure you have navigated into the **demo** directory in the Python Console.
