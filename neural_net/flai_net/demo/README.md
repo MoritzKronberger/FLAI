@@ -52,3 +52,15 @@ In the Python Terminal:
 ```bash
 pip install -r requirements.txt
 ```
+
+#### In case of Errno:2
+
+1. Click Start, and then click Run.
+2. In the Open box, paste **%systemroot%\syswow64\regedit** , and then click OK.
+
+3. Navigate to:
+**Computer/HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem**
+
+4. Open **FileSystem/LongPathsEnabled**
+
+5. Open and set to 1
