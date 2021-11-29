@@ -13,21 +13,17 @@ labels = 'abcdefghiklmnopqrstuvwxy'
 # Mediapipe Setup from https://google.github.io/mediapipe/solutions/hands.html
 
 
-def process_mediapipe(frame):
-    hands = mp_hands.Hands(
-        model_complexity=0,
-        min_detection_confidence=0.5,
-        min_tracking_confidence=0.5)
+def process_mediapipe(frame, hands):
     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = hands.process(image)
     return results.multi_hand_landmarks
 
 
-def image_capture(model):
+def image_capture(model, hands):
     cap = cv2.VideoCapture(webcam)
     while True:
         ret, frame = cap.read()
-        landmarks = process_mediapipe(frame)
+        landmarks = process_mediapipe(frame, hands)
         output = 'no hand detected'
         if landmarks:
             landmarks = unpack_landmarks(landmarks)
@@ -76,8 +72,12 @@ def process_flainet(coordinates, model):
 
 
 def main():
+    hands = mp_hands.Hands(
+        model_complexity=0,
+        min_detection_confidence=0.5,
+        min_tracking_confidence=0.5)
     model = load_model(f'../{model_name}.h5')
-    image_capture(model)
+    image_capture(model, hands)
 
 
 if __name__ == '__main__':
