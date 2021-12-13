@@ -1,3 +1,24 @@
+stages:
+  - test
+  - deploy
+
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
+
+deploy_to_flai:
+  stage: deploy
+  script:
+    - apk update
+    - apk add openssh 
+    - apk add sshpass
+    - sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER@$SERVER_ADDRESS /bin/bash <<'EOT'
+    - cd ia5_teamprojekt_flai
+    - docker-compose down
+    - git pull
+    - bash create_dotenv.sh $PG_SUPERUSER_NAME $PG_SUPERUSER_PWD $PG_USERNAME $PG_PWD
+    - docker-compose up -d
+    - EOT
+    - echo "------------> Automatic deploy finished successfully!"
+  only:
+    - main
