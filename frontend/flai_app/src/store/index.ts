@@ -31,6 +31,12 @@ const methods = {
   changeUsername(username: string) {
     user.username = username
   },
+  startTimer() {
+    sessiondata.startTime = Date.now()
+  },
+  updateTimer() {
+    sessiondata.timer = Date.now() - sessiondata.startTime
+  },
 }
 
 export default {
