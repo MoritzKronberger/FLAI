@@ -11,6 +11,8 @@ store.sessiondata.methods.startTimer()
 store.signrecordings.methods.getSignRecordingsAll()
 store.exercisedata.methods.startNewExercise('Test', 'This is a test')
 console.log(store.signrecordings.methods.getSignRecording('x', 'front'))
+
+store.signdata.methods.createNewSigns()
 </script>
 
 <template>

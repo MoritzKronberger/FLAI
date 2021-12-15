@@ -26,6 +26,10 @@ store.userdata.methods.changeUsername('Bob')
     Stop exercise time
   </Button>
   <p>{{ store.exercisedata.exercises[0].lastStart }}</p>
+  <Button @click="store.signdata.methods.updateProgress('b', 10)"
+    >Add 10 progress to B</Button
+  >
+  <p>B: {{ store.signdata.signs[1] }}</p>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>

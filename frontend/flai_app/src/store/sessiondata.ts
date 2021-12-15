@@ -1,12 +1,12 @@
 import { reactive, readonly } from 'vue'
 
-export interface Sessiondata {
+export interface Session {
   token: string
   startTime: number
   timer: number
 }
 
-const sessiondata: Sessiondata = reactive({
+const session: Session = reactive({
   token: '',
   startTime: 0,
   timer: 0,
@@ -14,11 +14,11 @@ const sessiondata: Sessiondata = reactive({
 
 const methods = {
   startTimer() {
-    sessiondata.startTime = Date.now()
+    session.startTime = Date.now()
   },
   updateTimer() {
-    sessiondata.timer = Date.now() - sessiondata.startTime
+    session.timer = Date.now() - session.startTime
   },
 }
 
-export default { sessiondata: readonly(sessiondata), methods }
+export default { session: readonly(session), methods }
