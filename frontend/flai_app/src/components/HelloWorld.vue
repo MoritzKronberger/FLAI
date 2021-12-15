@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+const store: any = inject('store')
 
 defineProps<{ msg: string }>()
 
@@ -8,6 +9,7 @@ const count = ref(0)
 
 <template>
   <h1>{{ msg }}</h1>
+  <p>{{ store.user.username }}</p>
 
   <p>
     Recommended IDE setup:
