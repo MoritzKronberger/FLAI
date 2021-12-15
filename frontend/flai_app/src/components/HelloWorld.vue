@@ -12,8 +12,20 @@ store.userdata.methods.changeUsername('Bob')
 <template>
   <h1>{{ msg }}</h1>
   <p>{{ username }}</p>
-  <Button @click="store.methods.updateTimer">Click to show new time</Button>
-  <p>Time: {{ store.sessiondata.timer }}</p>
+  <Button @click="store.sessiondata.methods.updateTimer">
+    Click to show new time
+  </Button>
+  <p>Time: {{ store.sessiondata.session.timer }}</p>
+  <Button
+    @click="
+      store.exercisedata.methods.stopExercise(
+        store.exercisedata.exercises[0].id
+      )
+    "
+  >
+    Stop exercise time
+  </Button>
+  <p>{{ store.exercisedata.exercises[0].lastStart }}</p>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>

@@ -11,7 +11,7 @@ const signRecording: SignRecording[] = []
 
 const methods = {
   //this method exists only for frontend purposes and will be swapped with the rest request!
-  getSignRecordingAll() {
+  getSignRecordingsAll() {
     for (let i = 0; i < 26; i++) {
       const signFront: SignRecording = {
         id: '' + i,
