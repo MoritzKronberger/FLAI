@@ -1,18 +1,6 @@
-import { reactive, readonly } from 'vue'
+import { readonly } from 'vue'
 import userdata from './userdata'
-
-export interface Sessiondata {
-  token: string
-  startTime: number
-  timer: number
-}
-
-const sessiondata: Sessiondata = reactive({
-  token: '',
-  startTime: 0,
-  timer: 0,
-})
-
+import sessiondata from './sessiondata'
 export interface SignVideo {
   id: string
   video: string //for frontend purposes: url, should be BYTEA number?
@@ -32,12 +20,6 @@ export interface Sign {
 const signs: Sign[] = []
 
 const methods = {
-  startTimer() {
-    sessiondata.startTime = Date.now()
-  },
-  updateTimer() {
-    sessiondata.timer = Date.now() - sessiondata.startTime
-  },
   //this method exists only for frontend purposes and will be swapped with the rest request!
   getSignVideosAll() {
     for (let i = 0; i < 26; i++) {
@@ -69,7 +51,7 @@ const methods = {
 
 export default {
   userdata,
-  sessiondata: readonly(sessiondata),
+  sessiondata,
   signVideo: readonly(signVideo),
   signs: readonly(signs),
   methods,
