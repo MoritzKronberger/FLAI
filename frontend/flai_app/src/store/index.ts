@@ -24,6 +24,15 @@ const sessiondata: Sessiondata = reactive({
   timer: 0,
 })
 
+export interface SignVideo {
+  id: string
+  video: string //for frontend purposes: url, should be BYTEA number?
+  perspectiveId: string //for frontend purposes: 'front' or 'side'
+  signId: string //for frontend purposes: letter
+}
+
+const signVideo: SignVideo[] = reactive([])
+
 const methods = {
   changeEmail(email: string) {
     user.email = email
@@ -42,5 +51,6 @@ const methods = {
 export default {
   user: readonly(user),
   sessiondata: readonly(sessiondata),
+  signVideo: readonly(signVideo),
   methods,
 }
