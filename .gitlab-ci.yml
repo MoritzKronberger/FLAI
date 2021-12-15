@@ -14,10 +14,10 @@ deploy_to_flai:
     - apk add sshpass
     - sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER@$SERVER_ADDRESS /bin/bash <<'EOT'
     - cd ia5_teamprojekt_flai
-    - docker-compose down
+    - sudo docker-compose down --rmi all
     - git pull
     - bash create_dotenv.sh $PG_SUPERUSER_NAME $PG_SUPERUSER_PWD $PG_USERNAME $PG_PWD
-    - docker-compose up -d
+    - sudo docker-compose up --build
     - EOT
     - echo "------------> Automatic deploy finished successfully!"
   only:
