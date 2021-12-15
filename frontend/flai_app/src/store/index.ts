@@ -6,10 +6,22 @@ export interface User {
   username: string
 }
 
-const user = reactive({
-  id: null,
-  email: null,
-  username: null,
+const user: User = reactive({
+  id: '',
+  email: '',
+  username: '',
 })
 
-export default { user }
+export interface Sessiondata {
+  token: string
+  startTime: number
+  timer: number
+}
+
+const sessiondata: Sessiondata = reactive({
+  token: '',
+  startTime: 0,
+  timer: 0,
+})
+
+export default { user, sessiondata }
