@@ -24,4 +24,17 @@ const sessiondata: Sessiondata = reactive({
   timer: 0,
 })
 
-export default { user, sessiondata }
+const methods = {
+  changeEmail(email: string) {
+    user.email = email
+  },
+  changeUsername(username: string) {
+    user.username = username
+  },
+}
+
+export default {
+  user: readonly(user),
+  sessiondata: readonly(sessiondata),
+  methods,
+}
