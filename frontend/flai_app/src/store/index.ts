@@ -31,7 +31,16 @@ export interface SignVideo {
   signId: string //for frontend purposes: letter
 }
 
-const signVideo: SignVideo[] = reactive([])
+const signVideo: SignVideo[] = []
+
+export interface Sign {
+  id: string
+  name: string
+  motionCategoryId: string
+  progress: number
+}
+
+const signs: Sign[] = []
 
 const methods = {
   changeEmail(email: string) {
@@ -79,5 +88,6 @@ export default {
   user: readonly(user),
   sessiondata: readonly(sessiondata),
   signVideo: readonly(signVideo),
+  signs: readonly(signs),
   methods,
 }
