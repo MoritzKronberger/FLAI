@@ -3,21 +3,12 @@ import userdata from './userdata'
 import sessiondata from './sessiondata'
 import signrecordings from './signrecordings'
 import exercisedata from './exercisedata'
-export interface Sign {
-  id: string
-  name: string
-  progress: number
-}
-
-const signs: Sign[] = []
-
-const methods = {}
+import signdata from './signdata'
 
 export default {
   userdata,
   sessiondata,
   signrecordings,
   exercisedata,
-  signs: readonly(signs),
-  methods,
+  signdata,
 }
