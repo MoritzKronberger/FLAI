@@ -5,12 +5,14 @@ const store: any = inject('store')
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+store.methods.changeUsername('Bob')
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
   <p>{{ store.user.username }}</p>
-
+  <Button @click="store.methods.updateTimer">Click to show new time</Button>
+  <p>Time: {{ store.sessiondata.timer }}</p>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>

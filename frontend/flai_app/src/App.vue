@@ -6,6 +6,8 @@ import store from './store'
 import HelloWorld from './components/HelloWorld.vue'
 
 provide('store', store)
+
+store.methods.startTimer()
 </script>
 
 <template>
