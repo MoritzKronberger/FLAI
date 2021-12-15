@@ -46,6 +46,33 @@ const methods = {
   updateTimer() {
     sessiondata.timer = Date.now() - sessiondata.startTime
   },
+  //this method exists only for frontend purposes and will be swapped with the rest request!
+  getSignVideosAll() {
+    for (let i = 0; i < 26; i++) {
+      const signFront: SignVideo = {
+        id: '' + i,
+        video: '',
+        perspectiveId: 'front',
+        signId: String.fromCharCode(97 + i),
+      }
+      signFront.video = `../ressources/${signFront.signId}_${signFront.perspectiveId}.mp4`
+      const signSide: SignVideo = {
+        id: '' + i,
+        video: 'putUrlHere',
+        perspectiveId: 'side',
+        signId: String.fromCharCode(97 + i),
+      }
+      signSide.video = `../ressources/${signSide.signId}_${signSide.perspectiveId}.mp4`
+      signVideo.push(signFront)
+      signVideo.push(signSide)
+    }
+    console.log(signVideo)
+  },
+  getSignVideo(letter: string, perspective: string) {
+    return signVideo.filter(
+      (el) => el.signId === letter && el.perspectiveId === perspective
+    )
+  },
 }
 
 export default {

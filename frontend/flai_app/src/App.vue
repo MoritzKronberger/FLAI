@@ -8,6 +8,8 @@ import HelloWorld from './components/HelloWorld.vue'
 provide('store', store)
 
 store.methods.startTimer()
+store.methods.getSignVideosAll()
+console.log(store.methods.getSignVideo('x', 'front'))
 </script>
 
 <template>
