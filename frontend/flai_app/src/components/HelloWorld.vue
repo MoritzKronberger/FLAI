@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, computed } from 'vue'
 const store: any = inject('store')
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
-store.methods.changeUsername('Bob')
+const username = computed(() => store.userdata.user.username)
+store.userdata.methods.changeUsername('Bob')
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
-  <p>{{ store.user.username }}</p>
+  <p>{{ username }}</p>
   <Button @click="store.methods.updateTimer">Click to show new time</Button>
   <p>Time: {{ store.sessiondata.timer }}</p>
   <p>

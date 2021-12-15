@@ -1,16 +1,5 @@
 import { reactive, readonly } from 'vue'
-
-export interface User {
-  id: string //uuid
-  email: string
-  username: string
-}
-
-const user: User = reactive({
-  id: '',
-  email: '',
-  username: '',
-})
+import userdata from './userdata'
 
 export interface Sessiondata {
   token: string
@@ -43,12 +32,6 @@ export interface Sign {
 const signs: Sign[] = []
 
 const methods = {
-  changeEmail(email: string) {
-    user.email = email
-  },
-  changeUsername(username: string) {
-    user.username = username
-  },
   startTimer() {
     sessiondata.startTime = Date.now()
   },
@@ -85,7 +68,7 @@ const methods = {
 }
 
 export default {
-  user: readonly(user),
+  userdata,
   sessiondata: readonly(sessiondata),
   signVideo: readonly(signVideo),
   signs: readonly(signs),
