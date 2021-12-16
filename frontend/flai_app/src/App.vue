@@ -10,9 +10,7 @@ provide('store', store)
 store.sessiondata.methods.startTimer()
 store.signdata.methods.createNewSigns()
 
-store.signrecordings.methods.getSignRecordingsAll()
 store.exercisedata.methods.startNewExercise('Test', 'This is a test')
-console.log(store.signrecordings.methods.getSignRecording('x', 'front'))
 </script>
 
 <template>

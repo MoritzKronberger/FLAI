@@ -4,12 +4,14 @@ export interface User {
   id: string //uuid
   email: string
   username: string
+  rightHanded: boolean
 }
 
 const user: User = reactive({
   id: '',
   email: '',
   username: '',
+  rightHanded: true,
 })
 
 const methods = {
