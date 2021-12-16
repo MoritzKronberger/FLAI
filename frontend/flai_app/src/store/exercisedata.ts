@@ -1,4 +1,6 @@
 import { readonly, reactive } from 'vue'
+import { random } from '../ressources/ts/random'
+import signData, { Sign } from './signdata'
 
 export interface ExerciseSettings {
   id: string
@@ -13,7 +15,7 @@ const exerciseSettings: ExerciseSettings = reactive({
   level: 0,
   maxProgress: 100,
   wordLength: 4,
-  unlockedSigns: 0,
+  unlockedSigns: 1,
 })
 
 export interface Exercise {
@@ -21,7 +23,8 @@ export interface Exercise {
   name: string
   description: string
   firstStart: number
-  lastStart: number
+  sessionDuration: number
+  signs: Sign[]
 }
 
 const exercises: Exercise[] = reactive([])
@@ -35,19 +38,25 @@ const methods = {
     exerciseSettings.unlockedSigns = unlockedSigns
   },
   startNewExercise(name: string, description: string) {
-    //TODO: edit lastStart
+    const word = []
+    for (let i = 0; i < exerciseSettings.wordLength; i++) {
+      const index = random(0, exerciseSettings.unlockedSigns)
+      word.push(signData.signs[index])
+    }
+    console.log('word', word)
     const exercise: Exercise = {
       id: '' + exercises.length,
       name: name,
       description: description,
       firstStart: Date.now(),
-      lastStart: 0,
+      sessionDuration: 0,
+      signs: word,
     }
     exercises.push(exercise)
   },
   stopExercise(id: string) {
     const index = exercises.findIndex((el) => el.id === id)
-    exercises[index].lastStart = Date.now()
+    exercises[index].sessionDuration = Date.now() - exercises[index].firstStart
     console.log(exercises[index])
   },
 }
