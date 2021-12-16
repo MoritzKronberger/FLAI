@@ -1,9 +1,11 @@
 import { readonly, reactive } from 'vue'
+import signrecordings, { SignRecording } from './signrecordings'
 
 export interface Sign {
   id: string
   name: string
   progress: number
+  recordings: SignRecording[]
 }
 
 const signs: Sign[] = reactive([])
@@ -15,7 +17,9 @@ const methods = {
         id: '' + i,
         name: String.fromCharCode(97 + i),
         progress: 0,
+        recordings: [],
       }
+      sign.recordings = signrecordings.methods.createSignRecording(sign)
       signs.push(sign)
     }
     console.log('signs', signs)
@@ -27,4 +31,6 @@ const methods = {
   },
 }
 
-export default { signs: readonly(signs), methods }
+const signData = { signs: readonly(signs), methods }
+
+export default signData
