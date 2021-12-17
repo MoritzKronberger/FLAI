@@ -196,11 +196,52 @@ CREATE TABLE "includes_sign"
  CONSTRAINT fk_task_id
     FOREIGN KEY ("task_id") REFERENCES "task" ("id") ON DELETE CASCADE,
 
- CONSTRAINT fk_sort_signs_id
+ CONSTRAINT fk_sign_id
     FOREIGN KEY ("sign_id") REFERENCES "sign" ("id") ON DELETE CASCADE,
 
  CONSTRAINT includes_sign_unique_order_per_task
     UNIQUE ("task_id", "order")
+);
+
+CREATE TABLE "learns_sign" 
+("user_id"   UUID    NOT NULL,
+ "sign_id"   UUID    NOT NULL,
+ "progress"  INTEGER NOT NULL DEFAULT 0,
+
+ CONSTRAINT learns_sign_pk
+    PRIMARY KEY ("user_id", "sign_id"),
+
+ CONSTRAINT fk_user_id
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id") ON DELETE CASCADE,
+
+ CONSTRAINT fk_sign_id
+    FOREIGN KEY ("sign_id") REFERENCES "sign" ("id") ON DELETE CASCADE,
+
+  CONSTRAINT learns_sign_progress_not_negative
+    CHECK ("progress" >= 0)
+);
+
+CREATE TABLE "excercise_settings_user" 
+("user_id"        UUID    NOT NULL,
+ "excercise_id"   UUID    NOT NULL,
+ "task_split"     REAL    NOT NULL,
+ "word_length"    INTEGER NOT NULL,
+ "unlocked_signs" INTEGER NOT NULL,
+
+ CONSTRAINT excercise_settings_user_pk
+    PRIMARY KEY ("user_id", "excercise_id"),
+
+ CONSTRAINT fk_user_id
+    FOREIGN KEY ("user_id")      REFERENCES "user" ("id")      ON DELETE CASCADE,
+
+ CONSTRAINT fk_excercise_id
+    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id") ON DELETE CASCADE,
+
+  CONSTRAINT excercise_settings_user_word_length_not_negative
+    CHECK ("word_length" >= 0),
+
+  CONSTRAINT excercise_settings_user_task_split_between_0_1
+    CHECK ("task_split" >= 0 AND "task_split" <= 1)
 );
 
 
