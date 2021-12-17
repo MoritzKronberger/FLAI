@@ -30,5 +30,10 @@ VALUES
 ('webm'),
 ('jpg');
 
+/* excercise (excercises offered in the application)*/
+INSERT INTO "excercise" ("name", "description")
+VALUES
+('Buchstabieren lernen', 'Lerne in deutscher Gebärdensprache zu buchstabieren.');
+
 
 COMMIT;
