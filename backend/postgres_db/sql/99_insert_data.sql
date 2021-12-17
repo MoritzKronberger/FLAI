@@ -5,37 +5,44 @@
 BEGIN;
 
 
-/* sort_signs (ways signs can be ordered during an exercise)*/
+/* sort_signs (ways signs can be ordered during an exercise) */
 INSERT INTO "e_sort_signs" ("name")
 VALUES
 ('alphabetical'),
 ('occurrence');
 
-/* motion_category (determines if signs are static, dynamic or multi handed)*/
+/* motion_category (determines if signs are static, dynamic or multi handed) */
 INSERT INTO "e_motion_category" ("name")
 VALUES
 ('static'),
 ('dynamic'),
 ('multi_handed');
 
-/* perspective (the perspective a sign recording was shot from)*/
+/* perspective (the perspective a sign recording was shot from) */
 INSERT INTO "e_perspective" ("name")
 VALUES
 ('front'),
 ('side');
 
-/* mimetype (used to determine the mimetype of sign recording blops)*/
+/* mimetype (used to determine the mimetype of sign recording blops) */
 INSERT INTO "e_mimetype" ("name")
 VALUES
 ('webm'),
 ('jpg');
 
-/* excercise (excercises offered in the application)*/
+/* excercise (excercises offered in the application) */
 INSERT INTO "excercise" ("name", "description")
 VALUES
 ('Buchstabieren lernen', 'Lerne in deutscher Gebärdensprache zu buchstabieren.');
 
-/* task (tasks that can be performend within an excercise)*/
+/* excercise_settings */
+INSERT INTO "excercise_settings" ("excercise_id", "sort_signs_id")
+VALUES
+((SELECT "id" FROM excercise    WHERE "name"='Buchstabieren lernen'),
+ (SELECT "id" FROM e_sort_signs WHERE "name"='occurrence')
+);
+
+/* task (tasks that can be performend within an excercise) */
 INSERT INTO "task" ("name", "description", "excercise_id")
 VALUES
 ('AI Feedback', 
@@ -47,7 +54,7 @@ VALUES
  (SELECT "id" FROM excercise WHERE "name"='Buchstabieren lernen')
 );
 
-/* populate_spelling_excercise: inserts a sign for each letter provided in the alphabet string*/
+/* populate_spelling_excercise: inserts a sign for each letter provided in the alphabet string */
 CREATE OR REPLACE FUNCTION populate_spelling_excercise(_alphabet TEXT, _motion_category TEXT)
     RETURNS VOID
 LANGUAGE plpgsql
