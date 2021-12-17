@@ -111,10 +111,10 @@ CREATE TABLE "excercise_settings"
     PRIMARY KEY ("id"),
 
  CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES excercise ("id")     ON DELETE CASCADE,
+    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id")     ON DELETE CASCADE,
 
  CONSTRAINT fk_sort_signs_id
-    FOREIGN KEY ("sort_signs_id") REFERENCES e_sort_signs ("id") ON DELETE CASCADE
+    FOREIGN KEY ("sort_signs_id") REFERENCES "e_sort_signs" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "excercise_session" 
@@ -144,7 +144,7 @@ CREATE TABLE "task"
     PRIMARY KEY ("id"),
 
  CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES excercise ("id") ON DELETE CASCADE,
+    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id") ON DELETE CASCADE,
 
  CONSTRAINT task_unique_name_and_excercise_id
     UNIQUE ("name", "excercise_id")
@@ -159,7 +159,7 @@ CREATE TABLE "sign"
     PRIMARY KEY ("id"),
 
  CONSTRAINT fk_motion_category_id
-    FOREIGN KEY ("motion_category_id") REFERENCES e_motion_category ("id") ON DELETE CASCADE,
+    FOREIGN KEY ("motion_category_id") REFERENCES "e_motion_category" ("id") ON DELETE CASCADE,
 
  CONSTRAINT sign_unique_name
     UNIQUE ("name")

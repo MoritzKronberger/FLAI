@@ -38,8 +38,8 @@ VALUES
 /* excercise_settings */
 INSERT INTO "excercise_settings" ("excercise_id", "sort_signs_id")
 VALUES
-((SELECT "id" FROM excercise    WHERE "name"='Buchstabieren lernen'),
- (SELECT "id" FROM e_sort_signs WHERE "name"='occurrence')
+((SELECT "id" FROM "excercise"    WHERE "name"='Buchstabieren lernen'),
+ (SELECT "id" FROM "e_sort_signs" WHERE "name"='occurrence')
 );
 
 /* task (tasks that can be performend within an excercise) */
@@ -47,11 +47,11 @@ INSERT INTO "task" ("name", "description", "excercise_id")
 VALUES
 ('AI Feedback', 
  'Buchstabiere in die Webcam und erhalte Feedback zu deinen Gebärden durch die FLAI-AI.', 
- (SELECT "id" FROM excercise WHERE "name"='Buchstabieren lernen')
+ (SELECT "id" FROM "excercise" WHERE "name"='Buchstabieren lernen')
 ),
 ('Memory', 
  'Ordne den gezeigten Buchstabengebärden die richtige Lösung zu.', 
- (SELECT "id" FROM excercise WHERE "name"='Buchstabieren lernen')
+ (SELECT "id" FROM "excercise" WHERE "name"='Buchstabieren lernen')
 );
 
 /* populate_spelling_excercise: */
