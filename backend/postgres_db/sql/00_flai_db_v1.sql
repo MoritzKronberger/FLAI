@@ -8,6 +8,21 @@ BEGIN;
 DROP DOMAIN IF EXISTS D_UNTAINTED CASCADE;
 DROP DOMAIN IF EXISTS D_EMAIL     CASCADE;
 
+DROP TABLE IF EXISTS "e_sort_signs"            CASCADE;
+DROP TABLE IF EXISTS "e_motion_category"       CASCADE;
+DROP TABLE IF EXISTS "e_perspective"           CASCADE;
+DROP TABLE IF EXISTS "e_mimetype"              CASCADE;
+DROP TABLE IF EXISTS "user"                    CASCADE;
+DROP TABLE IF EXISTS "excercise"               CASCADE;
+DROP TABLE IF EXISTS "excercise_settings"      CASCADE;
+DROP TABLE IF EXISTS "excercise_session"       CASCADE;
+DROP TABLE IF EXISTS "task"                    CASCADE;
+DROP TABLE IF EXISTS "sign"                    CASCADE;
+DROP TABLE IF EXISTS "sign_recording"          CASCADE;
+DROP TABLE IF EXISTS "includes_sign"           CASCADE;
+DROP TABLE IF EXISTS "learns_sign"             CASCADE;
+DROP TABLE IF EXISTS "excercise_settings_user" CASCADE;
+
 
 /* Create Domains */
 
