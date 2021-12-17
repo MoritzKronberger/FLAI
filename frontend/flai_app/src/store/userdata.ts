@@ -31,4 +31,6 @@ const methods = {
   },
 }
 
-export default { user: readonly(user), methods }
+const userdata = { user: readonly(user), methods }
+
+export default userdata

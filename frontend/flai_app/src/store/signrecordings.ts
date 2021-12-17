@@ -32,4 +32,6 @@ const methods = {
   },
 }
 
-export default { signRecording: readonly(signRecording), methods }
+const signRecordingData = { signRecording: readonly(signRecording), methods }
+
+export default signRecordingData

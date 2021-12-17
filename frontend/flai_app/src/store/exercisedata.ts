@@ -66,8 +66,9 @@ const methods = {
   },
 }
 
-export default {
+const exerciseData = {
   exerciseSettings: readonly(exerciseSettings),
   exercises: readonly(exercises),
   methods,
 }
+export default exerciseData
