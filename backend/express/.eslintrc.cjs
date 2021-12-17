@@ -6,13 +6,13 @@ module.exports = {
   },
   parserOptions: {
     sourceType: 'module',
+    ecmaVersion: 'latest',
   },
   plugins: ['prettier'],
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   globals: {
     module: false,
   },
-  parser: '@babel/eslint-parser',
   rules: {
     indent: ['error', 2],
     'no-multiple-empty-lines': 'warn',
