@@ -1,25 +1,44 @@
 import express from 'express'
 const exercise = express.Router()
 
-exercise.get('/', async (res) => {
+const exercises = {
+  1: {
+    id: '1',
+    name: 'Buchstabieren',
+    description: 'Übung mit Feedback',
+    firstStart: '0',
+    sessionDuration: '0',
+  },
+  2: {
+    id: '2',
+    name: 'Buchstabieren',
+    description: 'Übung ohne Feedback',
+    firstStart: '0',
+    sessionDuration: '0',
+  },
+}
+
+// get all exercises
+exercise.get('/', async (req, res) => {
   try {
-    const response = 'Hello'
-    //res.status(response.status).json(response.result)
-    res.status(response.status).json(response.result)
+    const response = exercises
+    res.json(response)
+  } catch (err) {
+    console.log(err.message)
+  }
+})
+// get single exercise
+exercise.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const response = exercises[id]
+    res.json(response)
   } catch (err) {
     console.log(err.message)
   }
 })
 
-/*exercise.get('/:id', async (req, res) => {
-  try {
-    const response = await db.getTodo(req.params.id)
-    res.status(response.status).json(response.result)
-  } catch (err) {
-    console.log(err.message)
-  }
-})
-
+/*
 exercise.post('/', async (req, res) => {
   try {
     const { name } = req.body
@@ -31,6 +50,7 @@ exercise.post('/', async (req, res) => {
   }
 })
 
+/*
 exercise.put('/:id', async (req, res) => {
   try {
     const id = req.params.id
