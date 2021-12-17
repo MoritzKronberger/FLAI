@@ -87,5 +87,17 @@ CREATE TABLE "user"
     CHECK (LENGTH("username")<31)
 );
 
+CREATE TABLE "excercise" 
+("id"          UUID        DEFAULT gen_random_uuid(),
+ "name"        D_UNTAINTED NOT NULL,
+ "description" D_UNTAINTED NOT NULL,
+
+ CONSTRAINT excercise_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT excercise_unique_name
+    UNIQUE ("name")
+);
+
 
 COMMIT;
