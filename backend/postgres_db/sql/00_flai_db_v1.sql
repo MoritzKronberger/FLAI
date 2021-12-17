@@ -99,5 +99,22 @@ CREATE TABLE "excercise"
     UNIQUE ("name")
 );
 
+CREATE TABLE "task" 
+("id"           UUID         DEFAULT gen_random_uuid(),
+ "name"         D_UNTAINTED  NOT NULL,
+ "description"  D_UNTAINTED,
+ "excercise_id" UUID         NOT NULL,
+
+ CONSTRAINT task_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT fk_excercise_id
+    FOREIGN KEY ("excercise_id") REFERENCES excercise ("id") ON DELETE CASCADE,
+
+ CONSTRAINT task_unique_name_and_excercise_id
+    UNIQUE ("name", "excercise_id")
+);
+
+
 
 COMMIT;
