@@ -23,6 +23,9 @@ const methods = {
   changeUsername(username: string) {
     user.username = username
   },
+  changeRightHanded(rightHanded: boolean) {
+    user.rightHanded = rightHanded
+  },
   changeTargetLearningTime(minutes: number) {
     user.targetLearningTime = minutes * 60 * 1000
   },
