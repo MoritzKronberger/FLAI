@@ -57,6 +57,17 @@ CREATE TABLE "e_perspective"
     UNIQUE ("name")
 );
 
+CREATE TABLE "e_mimetype"
+("id"   UUID        DEFAULT gen_random_uuid(),
+ "name" D_UNTAINTED NOT NULL,
+
+ CONSTRAINT e_mimetype_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT e_mimetype_unique_name
+    UNIQUE ("name")
+);
+
 /* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01 */
 CREATE TABLE "user" 
 ("id"                   UUID        DEFAULT gen_random_uuid(),
