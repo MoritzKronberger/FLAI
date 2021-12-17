@@ -35,5 +35,17 @@ INSERT INTO "excercise" ("name", "description")
 VALUES
 ('Buchstabieren lernen', 'Lerne in deutscher Gebärdensprache zu buchstabieren.');
 
+/* task (tasks that can be performend within an excercise)*/
+INSERT INTO "task" ("name", "description", "excercise_id")
+VALUES
+('AI Feedback', 
+ 'Buchstabiere in die Webcam und erhalte Feedback zu deinen Gebärden durch die FLAI-AI.', 
+ (SELECT "id" FROM excercise WHERE "name"='Buchstabieren lernen')
+),
+('Memory', 
+ 'Ordne den gezeigten Buchstabengebärden die richtige Lösung zu.', 
+ (SELECT "id" FROM excercise WHERE "name"='Buchstabieren lernen')
+);
+
 
 COMMIT;
