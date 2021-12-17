@@ -5,6 +5,7 @@ export interface User {
   email: string
   username: string
   rightHanded: boolean
+  targetLearningTime: number
 }
 
 const user: User = reactive({
@@ -12,6 +13,7 @@ const user: User = reactive({
   email: '',
   username: '',
   rightHanded: true,
+  targetLearningTime: 10 * 60 * 1000, //millisec
 })
 
 const methods = {
@@ -20,6 +22,9 @@ const methods = {
   },
   changeUsername(username: string) {
     user.username = username
+  },
+  changeTargetLearningTime(minutes: number) {
+    user.targetLearningTime = minutes * 60 * 1000
   },
 }
 

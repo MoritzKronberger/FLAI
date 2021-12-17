@@ -4,7 +4,8 @@ import signData from './signdata'
 
 export interface ExerciseSettings {
   id: string
-  level: number
+  level1: number
+  level2: number
   maxProgress: number
   wordLength: number
   unlockedSigns: number
@@ -12,8 +13,9 @@ export interface ExerciseSettings {
 
 const exerciseSettings: ExerciseSettings = reactive({
   id: '',
-  level: 0,
-  maxProgress: 100,
+  level1: 100,
+  level2: 200,
+  maxProgress: 300,
   wordLength: 4,
   unlockedSigns: 4,
 })
