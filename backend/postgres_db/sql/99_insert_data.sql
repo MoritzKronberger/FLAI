@@ -18,5 +18,11 @@ VALUES
 ('dynamic'),
 ('multi_handed');
 
+/* perspective (the perspective a sign recording was shot from)*/
+INSERT INTO "e_perspective" ("name")
+VALUES
+('front'),
+('side');
+
 
 COMMIT;
