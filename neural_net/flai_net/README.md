@@ -4,15 +4,15 @@ A neural network, detecting DGS-signs represented by hand pose vectors is design
 
 To run the Jupyter Notebooks make sure [Anaconda](https://docs.anaconda.com/anaconda/navigator/index.html) is installed on your system.
 
-To install all the required packages in your Conda environment run
+To create a Conda Environment with all packages to run this project run
 
 ```bash
-pip install -r requirements.txt
+conda create --name <your_env_name> --file requirements.txt
 ```
 
-in the **./neural_net/flai_net** directory in your selected Conda environment.
+in the **./neural_net/flai_net** directory.
 
-The noteboks can be run either by using Anaconda's Jupyter Notebooks directly or in VsCode by selecting your Conda evironment in the notebook.
+The noteboks can be run either by using Anaconda's Jupyter Notebooks directly or in VsCode by selecting the newly created Conda evironment in Anaconda or the notebook in VsCode.
 
 ## Model Training
 
