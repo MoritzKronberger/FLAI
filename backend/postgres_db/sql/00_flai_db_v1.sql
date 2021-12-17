@@ -99,6 +99,24 @@ CREATE TABLE "excercise"
     UNIQUE ("name")
 );
 
+CREATE TABLE "excercise_settings" 
+("id"           UUID              DEFAULT gen_random_uuid(),
+ "level_1"      INTEGER           DEFAULT 20,
+ "level_2"      INTEGER           DEFAULT 50,
+ "level_3"      INTEGER  NOT NULL DEFAULT 80,
+ "excercise_id" UUID     NOT NULL,
+ "sort_signs_id"   UUID     NOT NULL,
+
+ CONSTRAINT excercise_settings_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT fk_excercise_id
+    FOREIGN KEY ("excercise_id") REFERENCES excercise ("id")     ON DELETE CASCADE,
+
+ CONSTRAINT fk_sort_signs_id
+    FOREIGN KEY ("sort_signs_id") REFERENCES e_sort_signs ("id") ON DELETE CASCADE
+);
+
 CREATE TABLE "task" 
 ("id"           UUID         DEFAULT gen_random_uuid(),
  "name"         D_UNTAINTED  NOT NULL,
