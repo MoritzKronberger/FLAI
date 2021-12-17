@@ -24,6 +24,17 @@ CHECK (value ~* '\A(?:[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|
 
 /* Create tables */
 
+CREATE TABLE "e_sort_signs"
+("id"   UUID        DEFAULT gen_random_uuid(),
+ "name" D_UNTAINTED NOT NULL,
+
+ CONSTRAINT e_sort_signs_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT e_sort_signs_unique_name
+    UNIQUE ("name")
+);
+
 /* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01 */
 CREATE TABLE "user" 
 ("id"                   UUID        DEFAULT gen_random_uuid(),
@@ -36,10 +47,10 @@ CREATE TABLE "user"
  CONSTRAINT user_pk
     PRIMARY KEY ("id"),
 
- CONSTRAINT account_unique_email
+ CONSTRAINT user_unique_email
     UNIQUE ("email"),
 
-  CONSTRAINT account_username_length
+  CONSTRAINT user_username_length
     CHECK (LENGTH("username")<31)
 );
 
