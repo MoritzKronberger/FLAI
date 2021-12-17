@@ -56,9 +56,11 @@ const methods = {
       signs: word,
     }
     exercises.push(exercise)
+    console.log('exerciseId', exercise.id)
+    return exercise.id
   },
-  stopExercise(id: string) {
-    const index = exercises.findIndex((el) => el.id === id)
+  stopExercise(searchId: string) {
+    const index = exercises.findIndex((el) => el.id === searchId)
     exercises[index].sessionDuration = Date.now() - exercises[index].firstStart
     console.log(exercises[index])
   },

@@ -2,6 +2,7 @@
 import { ref, inject, computed } from 'vue'
 const store: any = inject('store')
 
+//user
 const email = ref('')
 const username = ref('')
 const righthanded = ref(true)
@@ -20,6 +21,30 @@ function changeRightHanded() {
 }
 function changeTargetLearningTime() {
   store.userdata.methods.changeTargetLearningTime(targetLearningTime.value)
+}
+
+//exercises
+const wordLength = ref()
+const unlockedSigns = ref()
+const exerciseId = ref()
+
+const exercisesettings = computed(() => store.exercisedata.exerciseSettings)
+const exercises = computed(() => store.exercisedata.exercises)
+
+function changeExerciseSettingsWordLength() {
+  store.exercisedata.methods.changeExerciseSettingsWordLength(wordLength.value)
+}
+function changeExerciseSettingsUnlockedSigns() {
+  store.exercisedata.methods.changeExerciseSettingsUnlockedSigns(
+    unlockedSigns.value
+  )
+}
+function startNewExercise() {
+  exerciseId.value = store.exercisedata.methods.startNewExercise(
+    'Exercise',
+    'Description'
+  )
+  console.log('exeriseId', exerciseId.value)
 }
 </script>
 
@@ -41,6 +66,29 @@ function changeTargetLearningTime() {
     type="text"
     @keyup.enter="changeTargetLearningTime"
   />
+  <h2>Exercisedata</h2>
+  <p>Settings:</p>
+  <p v-for="(value, name) in exercisesettings" :key="value">
+    {{ name }}: {{ value }}
+  </p>
+  <label>Change wordLength:</label
+  ><input
+    v-model="wordLength"
+    type="text"
+    @keyup.enter="changeExerciseSettingsWordLength"
+  />
+  <label>Change unlockedSigns:</label
+  ><input
+    v-model="unlockedSigns"
+    type="text"
+    @keyup.enter="changeExerciseSettingsUnlockedSigns"
+  />
+  <p>Exercises:</p>
+  <p v-for="(value, name) in exercises" :key="value">{{ name }}: {{ value }}</p>
+  <Button @click="startNewExercise">Start new exercise</Button>
+  <Button @click="store.exercisedata.methods.stopExercise(exerciseId)"
+    >Stop last exercise</Button
+  >
 </template>
 
 <style scoped>

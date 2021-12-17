@@ -4,6 +4,7 @@ import store from './store'
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import HelloWorld from './components/HelloWorld.vue'
+import ShowStore from './components/ShowStore.vue'
 
 provide('store', store)
 
@@ -16,6 +17,7 @@ store.exercisedata.methods.startNewExercise('Test', 'This is a test')
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hallo, wir sind FLAI!" />
+  <ShowStore />
 </template>
 
 <style>
