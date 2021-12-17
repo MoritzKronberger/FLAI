@@ -72,10 +72,11 @@ def process_flainet(coordinates, model):
 
 def main():
     hands = mp_hands.Hands(
+        static_image_mode=False,
         model_complexity=1,
         max_num_hands=1,
         min_detection_confidence=0.7,
-        min_tracking_confidence=0.7)
+        min_tracking_confidence=0.8)
     model = load_model(f'../{model_name}.h5')
     image_capture(model, hands)
 
