@@ -2,6 +2,10 @@
 import { ref, inject, computed } from 'vue'
 const store: any = inject('store')
 
+//sesiondata
+const session = store.sessiondata.session
+const sessionMethods = store.sessiondata.methods
+
 //user
 const email = ref('')
 const username = ref('')
@@ -44,7 +48,6 @@ function startNewExercise() {
     'Exercise',
     'Description'
   )
-  console.log('exeriseId', exerciseId.value)
 }
 </script>
 
@@ -89,6 +92,10 @@ function startNewExercise() {
   <Button @click="store.exercisedata.methods.stopExercise(exerciseId)"
     >Stop last exercise</Button
   >
+  <h2>Session</h2>
+  <p v-for="(value, name) in session" :key="value">{{ name }}: {{ value }}</p>
+  <Button @click="sessionMethods.startTimer">Start Timer</Button>
+  <Button @click="sessionMethods.updateTimer">Update Timer</Button>
 </template>
 
 <style scoped>
