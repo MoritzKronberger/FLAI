@@ -49,6 +49,12 @@ function startNewExercise() {
     'Description'
   )
 }
+
+//signdata
+const signs = computed(() => store.signdata.signs)
+const signMethods = store.signdata.methods
+
+const letter = ref()
 </script>
 
 <template>
@@ -96,6 +102,16 @@ function startNewExercise() {
   <p v-for="(value, name) in session" :key="value">{{ name }}: {{ value }}</p>
   <Button @click="sessionMethods.startTimer">Start Timer</Button>
   <Button @click="sessionMethods.updateTimer">Update Timer</Button>
+  <h2>Signdata</h2>
+  <p v-for="(value, name) in signs" :key="value">{{ name }}: {{ value }}</p>
+  <Button @click="signMethods.createNewSigns">Create new signs</Button>
+  <h3>Update progress + 10:</h3>
+  <label>letter:</label>
+  <input
+    v-model="letter"
+    type="text"
+    @keyup.enter="signMethods.updateProgress(letter, 10)"
+  />
 </template>
 
 <style scoped>

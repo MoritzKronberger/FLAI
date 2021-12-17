@@ -12,6 +12,7 @@ const signs: Sign[] = reactive([])
 
 const methods = {
   createNewSigns() {
+    signs.length = 0
     for (let i = 0; i < 26; i++) {
       const sign: Sign = {
         id: '' + i,
