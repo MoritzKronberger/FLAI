@@ -6,7 +6,7 @@ export interface ExerciseSettings {
   id: string
   level1: number
   level2: number
-  maxProgress: number
+  level3: number
   wordLength: number
   unlockedSigns: number
 }
@@ -15,7 +15,7 @@ const exerciseSettings: ExerciseSettings = reactive({
   id: '',
   level1: 100,
   level2: 200,
-  maxProgress: 300,
+  level3: 300,
   wordLength: 4,
   unlockedSigns: 4,
 })
