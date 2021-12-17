@@ -115,6 +115,20 @@ CREATE TABLE "task"
     UNIQUE ("name", "excercise_id")
 );
 
+CREATE TABLE "sign" 
+("id"           UUID         DEFAULT gen_random_uuid(),
+ "name"         D_UNTAINTED  NOT NULL,
+ "motion_category_id" UUID         NOT NULL,
+
+ CONSTRAINT sign_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT fk_motion_category_id
+    FOREIGN KEY ("motion_category_id") REFERENCES e_motion_category ("id") ON DELETE CASCADE,
+
+ CONSTRAINT sign_unique_name
+    UNIQUE ("name")
+);
 
 
 COMMIT;
