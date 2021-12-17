@@ -24,5 +24,11 @@ VALUES
 ('front'),
 ('side');
 
+/* mimetype (used to determine the mimetype of sign recording blops)*/
+INSERT INTO "e_mimetype" ("name")
+VALUES
+('webm'),
+('jpg');
+
 
 COMMIT;
