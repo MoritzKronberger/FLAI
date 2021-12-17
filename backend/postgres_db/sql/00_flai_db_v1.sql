@@ -116,9 +116,9 @@ CREATE TABLE "task"
 );
 
 CREATE TABLE "sign" 
-("id"           UUID         DEFAULT gen_random_uuid(),
- "name"         D_UNTAINTED  NOT NULL,
- "motion_category_id" UUID         NOT NULL,
+("id"                 UUID        DEFAULT gen_random_uuid(),
+ "name"               D_UNTAINTED NOT NULL,
+ "motion_category_id" UUID        NOT NULL,
 
  CONSTRAINT sign_pk
     PRIMARY KEY ("id"),
@@ -128,6 +128,26 @@ CREATE TABLE "sign"
 
  CONSTRAINT sign_unique_name
     UNIQUE ("name")
+);
+
+CREATE TABLE "sign_recording" 
+("id"             UUID  DEFAULT gen_random_uuid(),
+ "video"          BYTEA NOT NULL,
+ "mimetype_id"    UUID  NOT NULL,
+ "sign_id"        UUID  NOT NULL,
+ "perspective_id" UUID,
+
+ CONSTRAINT sign_recording_pk
+    PRIMARY KEY ("id"),
+
+ CONSTRAINT fk_mimetype_id
+    FOREIGN KEY ("mimetype_id")    REFERENCES "e_mimetype" ("id")  ON DELETE CASCADE,
+
+ CONSTRAINT fk_sign_id
+    FOREIGN KEY ("sign_id")        REFERENCES "sign" ("id")        ON DELETE CASCADE,
+
+ CONSTRAINT fk_perspective_id
+    FOREIGN KEY ("perspective_id") REFERENCES "e_perspective" ("id") ON DELETE CASCADE
 );
 
 
