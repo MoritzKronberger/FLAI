@@ -27,7 +27,7 @@ def image_capture(model, hands):
         output = 'no hand detected'
         if landmarks:
             landmarks = unpack_landmarks(landmarks)
-            coordinates = linearize_landmarks(landmarks)
+            coordinates = vectorize_landmarks(landmarks)
             prediction, confidence = process_flainet(coordinates, model)
             output = f'{prediction}: {confidence}'
 
@@ -57,9 +57,8 @@ def unpack_landmarks(landmarks):
     return lm
 
 
-def linearize_landmarks(landmarks):
+def vectorize_landmarks(landmarks):
     coordinates = np.array(landmarks)
-    coordinates = coordinates.flatten()
     return coordinates
 
 
