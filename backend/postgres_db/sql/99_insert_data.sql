@@ -47,5 +47,25 @@ VALUES
  (SELECT "id" FROM excercise WHERE "name"='Buchstabieren lernen')
 );
 
+/* populate_spelling_excercise: inserts a sign for each letter provided in the alphabet string*/
+CREATE OR REPLACE FUNCTION populate_spelling_excercise(_alphabet TEXT, _motion_category TEXT)
+    RETURNS VOID
+LANGUAGE plpgsql
+AS
+$$  
+    DECLARE _letters TEXT[];
+    DECLARE _letter  TEXT;
+    BEGIN
+        _letters := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
+        FOREACH _letter IN ARRAY _letters LOOP
+            INSERT INTO "sign" ("name", "motion_category_id")
+            VALUES
+            (_letter, (SELECT "id" FROM e_motion_category WHERE "name"=_motion_category));
+        END LOOP;
+    END
+$$
+;
+
+SELECT * FROM populate_spelling_excercise('abcdefghiklmnopqrstuvwxy', 'static');
 
 COMMIT;
