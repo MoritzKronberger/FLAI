@@ -36,6 +36,5 @@ module.exports = {
         null: 'ignore',
       },
     ],
-    'prettier/prettier': 'error',
   },
 }
