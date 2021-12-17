@@ -185,5 +185,23 @@ CREATE TABLE "sign_recording"
     FOREIGN KEY ("perspective_id") REFERENCES "e_perspective" ("id") ON DELETE CASCADE
 );
 
+CREATE TABLE "includes_sign" 
+("task_id" UUID    NOT NULL,
+ "sign_id" UUID    NOT NULL,
+ "order"  INTEGER,
+
+ CONSTRAINT includes_sign_pk
+    PRIMARY KEY ("task_id", "sign_id"),
+
+ CONSTRAINT fk_task_id
+    FOREIGN KEY ("task_id") REFERENCES "task" ("id") ON DELETE CASCADE,
+
+ CONSTRAINT fk_sort_signs_id
+    FOREIGN KEY ("sign_id") REFERENCES "sign" ("id") ON DELETE CASCADE,
+
+ CONSTRAINT includes_sign_unique_order_per_task
+    UNIQUE ("task_id", "order")
+);
+
 
 COMMIT;
