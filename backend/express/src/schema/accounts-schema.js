@@ -1,12 +1,10 @@
-/* template: https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_express_01 */
+import Joi from 'joi'
 
-const accountSchema = {
-  type: 'object',
-  properties: {
-    id: { type: 'string', format: 'uuid' },
-    username: { type: ['string', 'null'] },
-    password: { type: ['string', 'null'] },
-  },
-}
+const createAccount = Joi.object({
+  username: Joi.string().min(5).max(40).required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+  repeatPassword: Joi.ref('password'),
+  email: Joi.string().email(),
+})
 
-export default accountSchema
+export default createAccount
