@@ -13,6 +13,31 @@ DROP FUNCTION IF EXISTS new_learns_sign_function CASCADE;
 
 /* Trigger */
 
+/* account and authentication triggers + functions */
+/* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01 */
+/* modified to include a check for password length */
+CREATE FUNCTION hash_password_function() RETURNS TRIGGER AS
+$_plpgsql_$
+    BEGIN
+        IF(LENGTH(NEW."password")<6)
+            THEN RAISE EXCEPTION 'minimum_password_legth';
+        ELSIF(TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND NEW."password" <> OLD."password"))
+            THEN NEW."password" = crypt(NEW."password", gen_salt('bf',12));
+        END IF;
+
+        RETURN NEW;
+    END;
+$_plpgsql_$
+LANGUAGE plpgsql;
+
+/* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01 */
+CREATE TRIGGER hash_password_trigger
+BEFORE INSERT OR UPDATE
+ON "user"
+FOR EACH ROW
+    EXECUTE PROCEDURE hash_password_function()
+;
+
 /* insert new excercise_settings_user when first excercise_session for user and excercise is inserted */
 CREATE FUNCTION new_excercise_settings_user_function() RETURNS TRIGGER AS
 $_plpgsql_$
