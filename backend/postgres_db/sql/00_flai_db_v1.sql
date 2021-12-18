@@ -224,9 +224,9 @@ CREATE TABLE "learns_sign"
 CREATE TABLE "excercise_settings_user" 
 ("user_id"                 UUID    NOT NULL,
  "excercise_settings_id"   UUID    NOT NULL,
- "task_split"              REAL    NOT NULL,
- "word_length"             INTEGER NOT NULL,
- "unlocked_signs"          INTEGER NOT NULL,
+ "task_split"              REAL    NOT NULL DEFAULT 0.5,
+ "word_length"             INTEGER NOT NULL DEFAULT 4,
+ "unlocked_signs"          INTEGER NOT NULL DEFAULT 3,
 
  CONSTRAINT excercise_settings_user_pk
     PRIMARY KEY ("user_id", "excercise_settings_id"),
