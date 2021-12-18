@@ -37,8 +37,12 @@ const methods = {
   changeExerciseSettingsWordLength(wordLength: number) {
     exerciseSettings.wordLength = wordLength
   },
-  changeExerciseSettingsUnlockedSigns(unlockedSigns: number) {
-    exerciseSettings.unlockedSigns = unlockedSigns
+  increaseUnlockedSigns() {
+    exerciseSettings.unlockedSigns +=
+      exerciseSettings.unlockedSigns < 26 ? 1 : 0
+  },
+  decreaseUnlockedSigns() {
+    exerciseSettings.unlockedSigns -= exerciseSettings.unlockedSigns > 0 ? 1 : 0
   },
   startNewExercise(name: string, description: string) {
     const word: any[] = []

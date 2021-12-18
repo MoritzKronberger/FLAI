@@ -29,19 +29,14 @@ function changeTargetLearningTime() {
 
 //exercises
 const wordLength = ref()
-const unlockedSigns = ref()
 const exerciseId = ref()
 
+const exerciseMethods = store.exercisedata.methods
 const exercisesettings = computed(() => store.exercisedata.exerciseSettings)
 const exercises = computed(() => store.exercisedata.exercises)
 
 function changeExerciseSettingsWordLength() {
   store.exercisedata.methods.changeExerciseSettingsWordLength(wordLength.value)
-}
-function changeExerciseSettingsUnlockedSigns() {
-  store.exercisedata.methods.changeExerciseSettingsUnlockedSigns(
-    unlockedSigns.value
-  )
 }
 function startNewExercise() {
   exerciseId.value = store.exercisedata.methods.startNewExercise(
@@ -86,12 +81,12 @@ const letter = ref()
     type="text"
     @keyup.enter="changeExerciseSettingsWordLength"
   />
-  <label>Change unlockedSigns:</label
-  ><input
-    v-model="unlockedSigns"
-    type="text"
-    @keyup.enter="changeExerciseSettingsUnlockedSigns"
-  />
+  <Button @click="exerciseMethods.increaseUnlockedSigns"
+    >Increase unlockedSigns</Button
+  >
+  <Button @click="exerciseMethods.decreaseUnlockedSigns"
+    >Decrease unlockedSigns</Button
+  >
   <p>Exercises:</p>
   <p v-for="(value, name) in exercises" :key="value">{{ name }}: {{ value }}</p>
   <Button @click="startNewExercise">Start new exercise</Button>
