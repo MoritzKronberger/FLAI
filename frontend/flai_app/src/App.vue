@@ -3,7 +3,7 @@ import { provide, onMounted } from 'vue'
 import store from './store'
 import HelloWorld from './components/HelloWorld.vue'
 import ShowStore from './components/ShowStore.vue'
-
+import InputField from './components/InputField.vue'
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
@@ -13,6 +13,7 @@ onMounted(store.signdata.methods.createNewSigns)
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hallo, wir sind FLAI!" />
   <ShowStore />
+  <InputField placeholder="placeholder" />
 </template>
 
 <style>
@@ -25,3 +26,4 @@ onMounted(store.signdata.methods.createNewSigns)
   margin-top: 60px;
 }
 </style>
+
