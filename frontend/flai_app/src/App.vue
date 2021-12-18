@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { provide, onMounted } from 'vue'
 import store from './store'
 import HelloWorld from './components/HelloWorld.vue'
 import ShowStore from './components/ShowStore.vue'
 
 provide('store', store)
+
+onMounted(store.signdata.methods.createNewSigns)
 </script>
 
 <template>
