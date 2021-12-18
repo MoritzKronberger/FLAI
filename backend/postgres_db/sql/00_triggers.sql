@@ -6,9 +6,13 @@ BEGIN;
 
 
 /* Cleanup */
-DROP TRIGGER IF EXISTS new_learns_sign_trigger ON excercise_settings_user CASCADE;
+DROP TRIGGER IF EXISTS hash_password_trigger               ON "user"                    CASCADE;
+DROP TRIGGER IF EXISTS new_excercise_settings_user_trigger ON "excercise_session"       CASCADE;
+DROP TRIGGER IF EXISTS new_learns_sign_trigger             ON "excercise_settings_user" CASCADE;
 
-DROP FUNCTION IF EXISTS new_learns_sign_function CASCADE;
+DROP FUNCTION IF EXISTS hash_password_function               CASCADE;
+DROP FUNCTION IF EXISTS new_excercise_settings_user_function CASCADE;
+DROP FUNCTION IF EXISTS new_learns_sign_function             CASCADE;
 
 
 /* Trigger */
