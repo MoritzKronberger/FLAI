@@ -28,6 +28,8 @@ const methods = {
   updateProgress(letter: string, difference: number) {
     const index = signs.findIndex((el) => el.name === letter)
     signs[index].progress += difference
+    signs[index].progress =
+      signs[index].progress > 0 ? signs[index].progress : 0
     console.log('updatedSign', signs[index])
   },
 }
