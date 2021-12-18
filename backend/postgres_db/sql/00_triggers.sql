@@ -49,13 +49,11 @@ $_plpgsql_$
         IF(NOT EXISTS (SELECT "id"
                        FROM "exercise_session"
                        WHERE "user_id" = NEW."user_id"
-                            AND "exercise_id" = NEW."exercise_id"))
+                             AND "exercise_id" = NEW."exercise_id"))
             THEN
-                INSERT INTO "exercise_settings_user" ("user_id", "exercise_settings_id")
+                INSERT INTO "exercise_settings_user" ("user_id", "exercise_id")
                 VALUES
-                (NEW."user_id",
-                 (SELECT "id" FROM "exercise_settings" WHERE "exercise_id"=NEW."exercise_id")
-                );
+                (NEW."user_id", NEW."exercise_id");
         END IF;
 
         RETURN NEW;
@@ -71,7 +69,6 @@ FOR EACH ROW
 ;
 
 /* insert new learns_sign when unlocked_signs is added to in exercise_settings_user */
-/* TODO: when learn_sign is no longer shared between exercises, EXCEPTION can be omitted */
 CREATE FUNCTION new_learns_sign_function() RETURNS TRIGGER AS
 $_plpgsql_$
     DECLARE
@@ -88,14 +85,14 @@ $_plpgsql_$
                         JOIN "task" t               ON ins."task_id" = t."id"
                         JOIN "exercise" e           ON t."exercise_id" = e."id"
                         JOIN "exercise_settings" es ON e."id" = es."exercise_id"
-                    WHERE es."id" = NEW."exercise_settings_id"
+                    WHERE e."id" = NEW."exercise_id"
                     ORDER BY "custom_order" ASC, s."name" ASC
                     LIMIT _sign_delta OFFSET OLD."unlocked_signs"
                 LOOP
                     BEGIN
-                        INSERT INTO "learns_sign" ("user_id", "sign_id")
+                        INSERT INTO "learns_sign" ("user_id", "sign_id", "exercise_id")
                         VALUES
-                        (NEW."user_id", _new_sign."id");
+                        (NEW."user_id", _new_sign."id", NEW."exercise_id");
                     EXCEPTION WHEN unique_violation THEN
                         RAISE NOTICE 'Skipping new learns_sign insertion: Row already exists';
                     END;
@@ -138,11 +135,8 @@ SELECT * FROM "exercise_settings_user";
 /*
 INSERT INTO "exercise_settings_user" ("user_id", "exercise_settings_id", "task_split", "word_length", "unlocked_signs")
 VALUES 
-((SELECT "id" FROM "user" WHERE "username"='Sabine'),
- (SELECT es."id" 
-  FROM "exercise_settings" es 
-  JOIN "exercise" e ON es."exercise_id" = e."id" 
-  WHERE e."name"='Buchstabieren lernen'),
+((SELECT "id" FROM "user"    WHERE "username"='Sabine'),
+ (SELECT "id" FROM "exercise WHERE "name"='Buchstabieren lernen'),
  0.5,
  3,
  3
@@ -153,10 +147,7 @@ SELECT * FROM "learns_sign";
 UPDATE "exercise_settings_user"
 SET "unlocked_signs" = 5
 WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Sabine')
-      AND "exercise_settings_id" = (SELECT es."id" 
-                                     FROM "exercise_settings" es 
-                                     JOIN "exercise" e ON es."exercise_id" = e."id" 
-                                     WHERE e."name"='Buchstabieren lernen')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
 ;
 
 SELECT * FROM "learns_sign";

@@ -204,38 +204,42 @@ CREATE TABLE "includes_sign"
 );
 
 CREATE TABLE "learns_sign" 
-("user_id"   UUID    NOT NULL,
- "sign_id"   UUID    NOT NULL,
- "progress"  INTEGER NOT NULL DEFAULT 0,
+("user_id"     UUID    NOT NULL,
+ "sign_id"     UUID    NOT NULL,
+ "exercise_id" UUID    NOT NULL,
+ "progress"    INTEGER NOT NULL DEFAULT 0,
 
  CONSTRAINT learns_sign_pk
-    PRIMARY KEY ("user_id", "sign_id"),
+    PRIMARY KEY ("user_id", "sign_id", "exercise_id"),
 
  CONSTRAINT fk_user_id
-    FOREIGN KEY ("user_id") REFERENCES "user" ("id") ON DELETE CASCADE,
+    FOREIGN KEY ("user_id")     REFERENCES "user" ("id")     ON DELETE CASCADE,
 
  CONSTRAINT fk_sign_id
-    FOREIGN KEY ("sign_id") REFERENCES "sign" ("id") ON DELETE CASCADE,
+    FOREIGN KEY ("sign_id")     REFERENCES "sign" ("id")     ON DELETE CASCADE,
+
+ CONSTRAINT fk_exercise_id
+    FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id") ON DELETE CASCADE,
 
   CONSTRAINT learns_sign_progress_not_negative
     CHECK ("progress" >= 0)
 );
 
 CREATE TABLE "exercise_settings_user" 
-("user_id"              UUID    NOT NULL,
- "exercise_settings_id" UUID    NOT NULL,
- "task_split"           REAL    NOT NULL DEFAULT 0.5,
- "word_length"          INTEGER NOT NULL DEFAULT 4,
- "unlocked_signs"       INTEGER NOT NULL DEFAULT 3,
+("user_id"        UUID    NOT NULL,
+ "exercise_id"    UUID    NOT NULL,
+ "task_split"     REAL    NOT NULL DEFAULT 0.5,
+ "word_length"    INTEGER NOT NULL DEFAULT 4,
+ "unlocked_signs" INTEGER NOT NULL DEFAULT 3,
 
  CONSTRAINT exercise_settings_user_pk
-    PRIMARY KEY ("user_id", "exercise_settings_id"),
+    PRIMARY KEY ("user_id", "exercise_id"),
 
  CONSTRAINT fk_user_id
-    FOREIGN KEY ("user_id")               REFERENCES "user" ("id")             ON DELETE CASCADE,
+    FOREIGN KEY ("user_id")     REFERENCES "user" ("id")     ON DELETE CASCADE,
 
- CONSTRAINT fk_exercise_settings_id
-    FOREIGN KEY ("exercise_settings_id") REFERENCES "exercise_settings" ("id") ON DELETE CASCADE,
+ CONSTRAINT fk_exercise_id
+    FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id") ON DELETE CASCADE,
 
   CONSTRAINT exercise_settings_user_word_length_not_negative
     CHECK ("word_length" >= 0),
