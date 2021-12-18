@@ -237,20 +237,20 @@ CREATE TABLE "learns_sign"
 );
 
 CREATE TABLE "excercise_settings_user" 
-("user_id"        UUID    NOT NULL,
- "excercise_id"   UUID    NOT NULL,
- "task_split"     REAL    NOT NULL,
- "word_length"    INTEGER NOT NULL,
- "unlocked_signs" INTEGER NOT NULL,
+("user_id"                 UUID    NOT NULL,
+ "excercise_settings_id"   UUID    NOT NULL,
+ "task_split"              REAL    NOT NULL,
+ "word_length"             INTEGER NOT NULL,
+ "unlocked_signs"          INTEGER NOT NULL,
 
  CONSTRAINT excercise_settings_user_pk
-    PRIMARY KEY ("user_id", "excercise_id"),
+    PRIMARY KEY ("user_id", "excercise_settings_id"),
 
  CONSTRAINT fk_user_id
-    FOREIGN KEY ("user_id")      REFERENCES "user" ("id")      ON DELETE CASCADE,
+    FOREIGN KEY ("user_id")               REFERENCES "user" ("id")               ON DELETE CASCADE,
 
- CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id") ON DELETE CASCADE,
+ CONSTRAINT fk_excercise_settings_id
+    FOREIGN KEY ("excercise_settings_id") REFERENCES "excercise_settings" ("id") ON DELETE CASCADE,
 
   CONSTRAINT excercise_settings_user_word_length_not_negative
     CHECK ("word_length" >= 0),
