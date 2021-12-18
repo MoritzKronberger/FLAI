@@ -8,7 +8,6 @@ BEGIN;
 DROP DOMAIN IF EXISTS D_UNTAINTED CASCADE;
 DROP DOMAIN IF EXISTS D_EMAIL     CASCADE;
 
-DROP TABLE IF EXISTS "e_sort_signs"            CASCADE;
 DROP TABLE IF EXISTS "e_motion_category"       CASCADE;
 DROP TABLE IF EXISTS "e_perspective"           CASCADE;
 DROP TABLE IF EXISTS "e_mimetype"              CASCADE;
@@ -38,17 +37,6 @@ CHECK (value ~* '\A(?:[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|
 
 
 /* Create tables */
-
-CREATE TABLE "e_sort_signs"
-("id"   UUID        DEFAULT gen_random_uuid(),
- "name" D_UNTAINTED NOT NULL,
-
- CONSTRAINT e_sort_signs_pk
-    PRIMARY KEY ("id"),
-
- CONSTRAINT e_sort_signs_unique_name
-    UNIQUE ("name")
-);
 
 CREATE TABLE "e_motion_category"
 ("id"   UUID        DEFAULT gen_random_uuid(),
@@ -115,21 +103,18 @@ CREATE TABLE "excercise"
 );
 
 CREATE TABLE "excercise_settings" 
-("id"            UUID              DEFAULT gen_random_uuid(),
- "level_1"       INTEGER           DEFAULT 20,
- "level_2"       INTEGER           DEFAULT 50,
- "level_3"       INTEGER  NOT NULL DEFAULT 80,
- "excercise_id"  UUID     NOT NULL,
- "sort_signs_id" UUID     NOT NULL,
+("id"                  UUID             DEFAULT gen_random_uuid(),
+ "level_1"             INTEGER          DEFAULT 20,
+ "level_2"             INTEGER          DEFAULT 50,
+ "level_3"             INTEGER NOT NULL DEFAULT 80,
+ "excercise_id"        UUID    NOT NULL,
+ "sort_signs_by_order" BOOLEAN NOT NULL DEFAULT TRUE,
 
  CONSTRAINT excercise_settings_pk
     PRIMARY KEY ("id"),
 
  CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id")     ON DELETE CASCADE,
-
- CONSTRAINT fk_sort_signs_id
-    FOREIGN KEY ("sort_signs_id") REFERENCES "e_sort_signs" ("id") ON DELETE CASCADE
+    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id")     ON DELETE CASCADE
 );
 
 CREATE TABLE "excercise_session" 

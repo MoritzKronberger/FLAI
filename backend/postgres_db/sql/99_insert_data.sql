@@ -5,12 +5,6 @@
 BEGIN;
 
 
-/* sort_signs (ways signs can be ordered during an exercise) */
-INSERT INTO "e_sort_signs" ("name")
-VALUES
-('alphabetical'),
-('occurrence');
-
 /* motion_category (determines if signs are static, dynamic or multi handed) */
 INSERT INTO "e_motion_category" ("name")
 VALUES
@@ -35,12 +29,10 @@ INSERT INTO "excercise" ("name", "description")
 VALUES
 ('Buchstabieren lernen', 'Lerne in deutscher Gebärdensprache zu buchstabieren.');
 
-/* excercise_settings */
-INSERT INTO "excercise_settings" ("excercise_id", "sort_signs_id")
+/* excercise_settings with defualt settings */
+INSERT INTO "excercise_settings" ("excercise_id")
 VALUES
-((SELECT "id" FROM "excercise"    WHERE "name"='Buchstabieren lernen'),
- (SELECT "id" FROM "e_sort_signs" WHERE "name"='occurrence')
-);
+((SELECT "id" FROM "excercise" WHERE "name"='Buchstabieren lernen'));
 
 /* task (tasks that can be performend within an excercise) */
 INSERT INTO "task" ("name", "description", "excercise_id")
@@ -64,6 +56,7 @@ AS
 $$  
     DECLARE _letters TEXT[];
     DECLARE _letter  TEXT;
+    DECLARE _i       INTEGER DEFAULT 0;
     BEGIN
         _letters := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
         FOREACH _letter IN ARRAY _letters LOOP
@@ -76,18 +69,20 @@ $$
             VALUES
             ((SELECT "id" FROM "task" WHERE "name"='AI Feedback'), 
              (SELECT "id" FROM "sign" WHERE "name"=_letter),
-             NULL
+             _i
             ),
             ((SELECT "id" FROM "task" WHERE "name"='Memory'), 
              (SELECT "id" FROM "sign" WHERE "name"=_letter),
-             NULL
+             _i
             );
+            
+            _i := _i + 1;
 
         END LOOP;
     END
 $$
 ;
 
-SELECT * FROM populate_spelling_excercise('abcdefghiklmnopqrstuvwxy', 'static');
+SELECT * FROM populate_spelling_excercise('enisratdhulcgmobwfkpvyxq', 'static');
 
 COMMIT;
