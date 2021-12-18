@@ -8,7 +8,7 @@ import Inputfield from './components/InputField.vue'
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!--<HelloWorld msg="Hallo, wir sind FLAI!" />-->
-  <Inputfield />
+  <Inputfield placeholder="placeholder text" />
 </template>
 
 <style>

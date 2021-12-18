@@ -3,7 +3,8 @@
     <input
       v-model="newInput"
       type="text"
-      placeholder="Placeholder Text"
+      :placeholder="placeholder"
+      @input="$emit('input', inputData)"
       @keyup.enter="addInput"
     />
   </div>
@@ -15,6 +16,10 @@ import { ref } from 'vue'
 
 export default defineComponent({
   name: 'InputField',
+
+  props: {
+    placeholder: { type: String, required: true, default: '' },
+  },
   setup() {
     const newInput = ref<string>('')
     const inputData = ref('')
