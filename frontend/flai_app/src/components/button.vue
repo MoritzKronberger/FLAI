@@ -1,35 +1,27 @@
 <template>
-  <input
-    :value="bText"
-    class="vbutton"
-    type="button"
-    @click="doSomething()"
-    /> 
+  <input :value="label" class="vbutton" type="Button" @click="doSomething()" />
 </template>
-
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Button",
-  props: {bText: String, activeLabel: String},
-  
+  name: 'ComponentButton',
+  props: { label: String },
+
   data() {
     return {
-      bText: "Ich bin ein Button.",
+      platzhalter: 'Hier steht irgendwas',
     }
   },
 
   methods: {
     doSomething() {
-      this.bText = "du hast mich gedrückt!"
-    }
-  }
-});
+      this.platzhalter =
+        'irgendwas musste hier stehen, damit ich commiten kann.'
+    },
+  },
+})
 </script>
 
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

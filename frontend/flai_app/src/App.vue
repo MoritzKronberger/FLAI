@@ -8,7 +8,7 @@ import vbutton from './components/button.vue'
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hallo, wir sind cool!" />
-  <vbutton/>
+  <vbutton label="test" />
 </template>
 
 <style>
