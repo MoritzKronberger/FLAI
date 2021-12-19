@@ -13,10 +13,15 @@ onMounted(store.signdata.methods.createNewSigns)
     <router-link to="/">Home</router-link>
     <router-link to="/store">ShowStore</router-link>
   </div>
-  <router-view id="view" />
+  <main>
+    <router-view />
+  </main>
 </template>
 
 <style>
+main {
+  margin-left: 20%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -37,8 +42,5 @@ a {
   left: 0;
   top: 0;
   position: absolute;
-}
-#view {
-  margin-left: 20%;
 }
 </style>
