@@ -1,5 +1,7 @@
 <template>
-  <h2>Hallo, {{ username }}!</h2>
+  <h2>
+    Hallo, <b>{{ user.username }}!</b>
+  </h2>
 </template>
 
 <script lang="ts">
@@ -9,7 +11,17 @@ export default {
   setup() {
     const store: any = inject('store')
 
-    const username = computed(() => store.userdata.user.username)
+    const user = computed(() => store.userdata.user)
+
+    return {
+      user,
+    }
   },
 }
 </script>
+
+<style>
+h2 {
+  font-weight: 200;
+}
+</style>
