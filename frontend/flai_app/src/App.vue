@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { provide, onMounted } from 'vue'
 import store from './store'
-import HelloWorld from './components/HelloWorld.vue'
-import ShowStore from './components/ShowStore.vue'
 
 provide('store', store)
 
@@ -13,10 +11,9 @@ onMounted(store.signdata.methods.createNewSigns)
   <img alt="Vue logo" src="./assets/logo.png" />
   <div id="nav">
     <router-link to="/">Home</router-link>
+    <router-link to="/store">ShowStore</router-link>
   </div>
   <router-view />
-  <HelloWorld msg="Hallo, wir sind FLAI!" />
-  <ShowStore />
 </template>
 
 <style>
