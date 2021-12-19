@@ -13,12 +13,12 @@ DROP FUNCTION IF EXISTS populate_spelling_exercise CASCADE;
 
 /* Compare given password against stored hash*/
 /* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01a.git */
-CREATE FUNCTION check_password(_usr VARCHAR, _pw VARCHAR) RETURNS BOOLEAN AS
+CREATE FUNCTION check_password(_email VARCHAR, _password VARCHAR) RETURNS BOOLEAN AS
 $_SQL_$
     SELECT EXISTS
         (SELECT *
          FROM   "user"
-         WHERE  _usr = "username" AND "password" = crypt(_pw, "password")
+         WHERE  _email = "email" AND "password" = crypt(_password, "password")
         );
 $_SQL_$
 LANGUAGE SQL
@@ -70,6 +70,6 @@ COMMIT;
  *************************************************************************************/
 /* test new_exercise_settings_user_trigger and function */
 /*
-SELECT * FROM check_password('Miriam', 'supersecret');
-SELECT * FROM check_password('Miriam', 'notcorrect');
+SELECT * FROM check_password('miriam.weber@email.com', 'supersecret');
+SELECT * FROM check_password('miriam.weber@email.com', 'notcorrect');
 */
