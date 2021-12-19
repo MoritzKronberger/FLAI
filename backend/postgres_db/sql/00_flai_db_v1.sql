@@ -204,10 +204,11 @@ CREATE TABLE "includes_sign"
 );
 
 CREATE TABLE "learns_sign" 
-("user_id"     UUID    NOT NULL,
- "sign_id"     UUID    NOT NULL,
- "exercise_id" UUID    NOT NULL,
- "progress"    INTEGER NOT NULL DEFAULT 0,
+("user_id"         UUID    NOT NULL,
+ "sign_id"         UUID    NOT NULL,
+ "exercise_id"     UUID    NOT NULL,
+ "progress"        INTEGER NOT NULL DEFAULT 0,
+ "level_3_reached" BOOLEAN NOT NULL DEFAULT FALSE,
 
  CONSTRAINT learns_sign_pk
     PRIMARY KEY ("user_id", "sign_id", "exercise_id"),
