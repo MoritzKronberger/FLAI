@@ -1,9 +1,10 @@
 <template>
   <nav>
     <span v-for="(menuItem, index) in menuItems" :key="index">
-      <li>
+      <li @mouseover="show = true" @mouseleave="show = false">
         <a :href="menuItem.link">
           <span class="icon">{{ menuItem.icon }}</span>
+          <span v-if="show">{{ menuItem.description }}</span>
         </a>
       </li>
     </span>
@@ -20,31 +21,32 @@ export default defineComponent({
     return {
       menuItems: [
         {
-          link: '#',
+          link: '#home',
           icon: 'H',
           description: 'Home',
         },
         {
-          link: '#',
+          link: '#training',
           icon: 'T',
           description: 'Training',
         },
         {
-          link: '#',
+          link: '#profile',
           icon: 'P',
           description: 'Profil',
         },
         {
-          link: '#',
+          link: '#stats',
           icon: 'S',
           description: 'Lernstatistik',
         },
         {
-          link: '#',
+          link: '#tutorial',
           icon: 'T',
           description: 'Tutorial',
         },
       ],
+      show: false,
     }
   },
 })
@@ -71,5 +73,9 @@ li {
 a {
   color: black;
   text-decoration: none;
+}
+
+.icon {
+  margin-right: 25px;
 }
 </style>
