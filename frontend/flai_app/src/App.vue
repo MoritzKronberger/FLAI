@@ -11,6 +11,10 @@ onMounted(store.signdata.methods.createNewSigns)
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
+  <div id="nav">
+    <router-link to="/">Home</router-link>
+  </div>
+  <router-view />
   <HelloWorld msg="Hallo, wir sind FLAI!" />
   <ShowStore />
 </template>
