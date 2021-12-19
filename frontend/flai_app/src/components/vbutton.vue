@@ -11,4 +11,6 @@ function _click() {
   <input type="button" :value="label" :class="btnclass" @click="_click()" />
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+/** here place for import scss */
+</style>
