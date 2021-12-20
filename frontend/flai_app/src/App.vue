@@ -17,8 +17,8 @@ function handleInput(e: Event) {
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <!-- <HelloWorld msg="Hallo, wir sind FLAI!" />
-  <ShowStore />-->
+  <HelloWorld msg="Hallo, wir sind FLAI!" />
+  <ShowStore />
   <InputField placeholder="placeholder" @keyup.enter="handleInput" />
 </template>
 

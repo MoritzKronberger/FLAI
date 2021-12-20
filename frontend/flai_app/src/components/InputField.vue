@@ -24,12 +24,10 @@ export default defineComponent({
     const newInput = ref<string>('')
     const inputData = ref('')
 
-    console.log(inputData)
-
     function addInput() {
       if (newInput.value !== '') {
         inputData.value = newInput.value
-        console.log(inputData)
+        //console.log(inputData)
       }
     }
 
