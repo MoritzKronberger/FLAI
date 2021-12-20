@@ -1,0 +1,13 @@
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "username": "Martin"
+}
+
+###
+
+
+GET http://localhost:5000/api/exercises
+Authorization: bearer
+bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFydGluIiwiaWF0IjoxNjQwMDAxOTMwfQ.uLuSWlQTl74m99qNjEWOZCN8-DSfmWWCaQOdEQwVpt8
