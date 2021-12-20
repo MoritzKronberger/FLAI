@@ -1,5 +1,5 @@
 /*************************************************************************************
- * Create global functions, seperate from REST-helpers
+ * Create global functions, seperate from REST functions
  *************************************************************************************/
 
 BEGIN;
