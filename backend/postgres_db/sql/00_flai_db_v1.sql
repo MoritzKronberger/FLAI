@@ -73,12 +73,12 @@ CREATE TABLE "e_mimetype"
 
 /* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01 */
 CREATE TABLE "user" 
-("id"                   UUID        DEFAULT gen_random_uuid(),
+("id"                   UUID                 DEFAULT gen_random_uuid(),
  "email"                D_EMAIL     NOT NULL,
  "username"             D_UNTAINTED NOT NULL,
  "password"             VARCHAR     NOT NULL,
- "right_handed"         BOOLEAN     DEFAULT TRUE,
- "target_learning_time" INTERVAL    DEFAULT '20 min',
+ "right_handed"         BOOLEAN     NOT NULL DEFAULT TRUE,
+ "target_learning_time" INTERVAL    NOT NULL DEFAULT '20 min',
 
  CONSTRAINT user_pk
     PRIMARY KEY ("id"),
