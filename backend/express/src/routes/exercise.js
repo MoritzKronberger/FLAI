@@ -2,8 +2,8 @@ import express from 'express'
 import { authToken } from '../util/auth.js'
 const exercise = express.Router()
 
-const exercises = {
-  1: {
+const exercises = [
+  {
     id: '1',
     username: 'Martin',
     name: 'Buchstabieren',
@@ -11,7 +11,7 @@ const exercises = {
     firstStart: '0',
     sessionDuration: '0',
   },
-  2: {
+  {
     id: '2',
     username: 'Lea',
     name: 'Buchstabieren',
@@ -19,22 +19,12 @@ const exercises = {
     firstStart: '0',
     sessionDuration: '0',
   },
-}
+]
 
 // get all exercises
 exercise.get('/', authToken, (req, res) => {
   try {
-    const response = exercises
-    res.json(response)
-  } catch (err) {
-    console.log(err.message)
-  }
-})
-// get single exercise
-exercise.get('/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const response = exercises[id]
+    const response = exercises.filter((ex) => ex.username === req.user.name)
     res.json(response)
   } catch (err) {
     console.log(err.message)
