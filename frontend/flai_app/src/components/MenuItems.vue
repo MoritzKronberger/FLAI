@@ -7,33 +7,24 @@ const props = defineProps({
   description: String,
   state: Boolean,
 })
-const show = ref(props.state)
+const show = ref()
 </script>
 
 <template>
-  <li @mouseover="show = true" @mouseleave="show = false">
-    <hr v-if="state" class="active" />
-    <a :href="link">
-      <span class="icon">{{ icon }}</span>
-      <span v-if="show">{{ description }}</span>
-    </a>
-  </li>
+  <ul>
+    <li @mouseover="show = true" @mouseleave="show = false">
+      <span v-if="state" class="active"></span>
+      <a :href="link">
+        <span class="icon">{{ icon }}</span>
+        <span v-if="show">{{ description }}</span>
+      </a>
+    </li>
+  </ul>
 </template>
 
 <style scoped>
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-}
-
 li {
-  padding-left: 20px;
-  padding-bottom: 50px;
+  padding-left: 15px;
   text-align: left;
   list-style-type: none;
 }
@@ -47,7 +38,8 @@ a {
   margin-right: 25px;
 }
 
-.active {
-  border: 2px solid black;
+span.active {
+  border: 2px solid #4a7bf6;
+  margin-right: 5px;
 }
 </style>
