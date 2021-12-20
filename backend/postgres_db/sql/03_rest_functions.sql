@@ -17,6 +17,7 @@ DROP FUNCTION IF EXISTS pg_axios      CASCADE;
 CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT, 
                                     _data              JSONB,
                                     _method            TEXT,
+                                    _id                UUID    DEFAULT NULL,
                                     _postgres_status   TEXT    DEFAULT '02000',
                                     _http_status       INTEGER DEFAULT 200,
                                     _http_error_status INTEGER DEFAULT 400)
@@ -37,7 +38,7 @@ $$
         SELECT STRING_AGG(QUOTE_IDENT(KEY), ',') INTO _data_values_
         FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
 
-        IF (LOWER(_method) = 'post')
+        IF LOWER(_method) = 'post'
         THEN        
             -- build an INSERT query inserting only the elements of _data into _table
             -- datatypes are infered and cast from _table
@@ -45,11 +46,20 @@ $$
                     || 'SELECT ' || _data_values_ ||  
                     ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1) '
                     || 'RETURNING id' INTO _id_ USING _data;
+        ElSIF LOWER(_method) = 'patch'
+        THEN
+            -- build an UPADTE query updating only the elements of _data on _table
+            -- datatypes are infered and cast from _table
+            EXECUTE 'UPDATE ' || QUOTE_IDENT(_table) || 
+                   ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
+                                                          ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
+                   ' WHERE ' || QUOTE_IDENT(_table) || '.id = $2'
+                   ' RETURNING ' || QUOTE_IDENT(_table) || '.id' INTO _id_ USING _data, _id;
         ELSE
             _constraint_ := _method || ' exists';
         END IF;
 
-        IF (_id_ IS NOT NULL)
+        IF _id_ IS NOT NULL
         THEN 
             RETURN QUERY
             SELECT json_status(_http_status, _id_);
@@ -113,6 +123,17 @@ FROM pg_axios
        }',
        'POST'
      );
+
+SELECT * FROM "user";
+
+
+SELECT * FROM "user";
+
+SELECT * FROM pg_axios
+         ('user',
+          '{"username": "new_user"}',
+          'PATCH',
+          '<user-id>');
 
 SELECT * FROM "user";
 */
