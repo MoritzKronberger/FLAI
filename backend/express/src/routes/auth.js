@@ -1,9 +1,6 @@
-import dotenv from 'dotenv'
 import express from 'express'
 import jwt from 'jsonwebtoken'
 const auth = express.Router()
-
-dotenv.config()
 
 auth.post('/', (req, res) => {
   const username = req.body.username

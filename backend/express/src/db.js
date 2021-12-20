@@ -1,10 +1,10 @@
 import { Pool } from 'pg'
 const pool = new Pool({
-  user: 'postgres',
-  password: '',
-  database: 'flai_db_v1',
-  host: 'localhost',
-  port: 5432,
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  database: process.env.PG_DB,
+  host: process.env.PG_HOSTNAME,
+  port: process.env.PG_PORT,
 })
 
 export default pool
