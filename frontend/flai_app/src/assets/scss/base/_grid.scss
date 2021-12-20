@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.grid-container {
+    display: grid;
+    grid-column-gap: $gutter-vertical;
+    grid-template-columns: repeat(12, 120px);
+    background-color: $white;
+  }
