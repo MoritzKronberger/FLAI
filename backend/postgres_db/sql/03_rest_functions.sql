@@ -18,6 +18,7 @@ CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT,
                                     _data              JSONB,
                                     _method            TEXT,
                                     _id                UUID    DEFAULT NULL,
+                                    _ids               JSONB   DEFAULT NULL,
                                     _postgres_status   TEXT    DEFAULT '02000',
                                     _http_status       INTEGER DEFAULT 200,
                                     _http_error_status INTEGER DEFAULT 400)
@@ -27,7 +28,11 @@ AS
 $$
     DECLARE
         _data_values_ TEXT;
-        _id_          UUID DEFAULT NULL;
+        _query_       TEXT   DEFAULT NULL;
+        _id_          UUID   DEFAULT NULL;
+        _pk_values_   TEXT;
+        _ids_         RECORD DEFAULT NULL;
+        _ids_json_    JSONB  DEFAULT NULL;
 
         _constraint_  TEXT DEFAULT  _table || ' exists';
         _pgstate_     TEXT;
@@ -38,45 +43,60 @@ $$
         SELECT STRING_AGG(QUOTE_IDENT(KEY), ',') INTO _data_values_
         FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
 
+        IF _ids IS NOT NULL
+        THEN 
+            -- collect the columns making up the tables primary key (provided by the json keys) into _pk_values_
+            SELECT STRING_AGG(QUOTE_IDENT(KEY), ',') INTO _pk_values_
+            FROM JSONB_OBJECT_KEYS(_ids) AS X (KEY);
+        END IF;
+
         IF LOWER(_method) = 'post'
         THEN        
             -- build an INSERT query inserting only the elements of _data into _table
             -- datatypes are infered and cast from _table
-            EXECUTE 'INSERT INTO ' || QUOTE_IDENT(_table) || ' (' || _data_values_ || ') '
-                    || 'SELECT ' || _data_values_ ||  
-                    ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1) '
-                    || 'RETURNING id' INTO _id_ USING _data;
+            _query_ := 'INSERT INTO ' || QUOTE_IDENT(_table) || ' (' || _data_values_ || ') ' ||
+                       'SELECT ' || _data_values_ ||  
+                      ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1) ';
         ElSIF LOWER(_method) = 'patch'
         THEN
             -- build an UPADTE query updating only the elements of _data on _table
             -- datatypes are infered and cast from _table
-            EXECUTE 'UPDATE ' || QUOTE_IDENT(_table) || 
-                   ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
-                                                          ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
-                   ' WHERE ' || QUOTE_IDENT(_table) || '.id = $2'
-                   ' RETURNING ' || QUOTE_IDENT(_table) || '.id' INTO _id_ USING _data, _id;
+            _query_ := 'UPDATE ' || QUOTE_IDENT(_table) || 
+                      ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
+                                                             ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
+                      ' WHERE ' || QUOTE_IDENT(_table) || '.id = $2';
         ElSIF LOWER(_method) = 'delete'
         THEN
             -- build a DELETE query deleting the row corresponding to _id from _table
-            EXECUTE 'DELETE'
-                   ' FROM ' || QUOTE_IDENT(_table) ||
-                   ' WHERE id = $1'
-                   ' RETURNING id' INTO _id_ USING _id;
+            _query_ := 'DELETE'
+                      ' FROM ' || QUOTE_IDENT(_table) ||
+                      ' WHERE id = $2';
         ELSE
             _constraint_ := _method || ' exists';
         END IF;
 
-        IF _id_ IS NOT NULL
+        -- execute built query
+        IF _ids IS NULL AND _query_ IS NOT NULL
+        THEN
+            EXECUTE _query_ || ' RETURNING id' INTO _id_ USING _data, _id;
+        ELSIF _query_ IS NOT NULL
+        THEN
+            EXECUTE _query_ || 'RETURNING ' || _pk_values_ INTO _ids_ USING _data, _ids;
+            _ids_json_ := TO_JSONB(_ids_);
+        END IF;
+
+        IF _id_ IS NOT NULL OR _ids_ IS NOT NULL
         THEN 
             RETURN QUERY
-            SELECT json_status(_http_status, _id_);
+            SELECT json_status(_http_status, _id_, _ids => _ids_json_);
         ELSE 
             RETURN QUERY
             SELECT json_status(_http_error_status, 
                                _id_, 
                                _postgres_status, 
                                _constraint_, 
-                               _message_);
+                               _message_,
+                               _ids_json_);
         END IF;
 
         EXCEPTION WHEN OTHERS THEN 
@@ -89,7 +109,8 @@ $$
                                _id_, 
                                _pgstate_, 
                                CASE WHEN _cname_ <> '' THEN _cname_ ELSE _message_ END, 
-                               _message_);
+                               _message_,
+                               _ids_json_);
 
     END
 $$
@@ -100,15 +121,18 @@ CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
                                        _id         UUID,
                                        _pgstate    TEXT  DEFAULT '00000',
                                        _constraint TEXT  DEFAULT NULL,
-                                       _message    TEXT  DEFAULT NULL)
+                                       _message    TEXT  DEFAULT NULL,
+                                       _ids        JSONB DEFAULT NULL)
     RETURNS JSONB
     IMMUTABLE PARALLEL SAFE
 LANGUAGE SQL
 AS
 $$
+    -- TODO trim NULL values?
     SELECT JSONB_BUILD_OBJECT
            ('status', _status,
-            'id', _id,
+            'id', _id, 
+            'ids', _ids,
             'pgstate', _pgstate,
             'constraint', _constraint,
             'message', _message);
@@ -148,9 +172,33 @@ SELECT * FROM "user";
 
 SELECT * FROM pg_axios
          ('user',
-          'NULL',
+           NULL,
           'DELETE',
           '<user-id>');
 
 SELECT * FROM "user";
+*/
+
+/*
+SELECT * FROM "sign"
+WHERE "name"='y';
+SELECT * FROM "exercise";
+SELECT * FROM "user";
+
+SELECT * FROM "learns_sign";
+
+SELECT *
+FROM pg_axios
+     ('learns_sign', 
+      '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
+        "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
+        "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
+       }',
+       'POST',
+      _ids => '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
+                "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c  ",
+                "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
+               }'
+     );
+SELECT * FROM "learns_sign";
 */
