@@ -1,9 +1,11 @@
 import express from 'express'
+import { authToken } from '../util/auth.js'
 const exercise = express.Router()
 
 const exercises = {
   1: {
     id: '1',
+    username: 'Martin',
     name: 'Buchstabieren',
     description: 'Übung mit Feedback',
     firstStart: '0',
@@ -11,6 +13,7 @@ const exercises = {
   },
   2: {
     id: '2',
+    username: 'Lea',
     name: 'Buchstabieren',
     description: 'Übung ohne Feedback',
     firstStart: '0',
@@ -19,7 +22,7 @@ const exercises = {
 }
 
 // get all exercises
-exercise.get('/', async (req, res) => {
+exercise.get('/', authToken, (req, res) => {
   try {
     const response = exercises
     res.json(response)
