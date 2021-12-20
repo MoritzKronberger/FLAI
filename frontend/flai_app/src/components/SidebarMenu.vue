@@ -48,4 +48,14 @@ const menuItems = [
   </nav>
 </template>
 
-<style scoped></style>
+<style scoped>
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+</style>
