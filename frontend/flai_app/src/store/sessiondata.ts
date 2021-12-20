@@ -4,12 +4,14 @@ export interface Session {
   token: string
   startTime: number
   timer: number
+  menuItemLink: string
 }
 
 const session: Session = reactive({
   token: '',
   startTime: 0,
   timer: 0,
+  menuItemLink: '#home',
 })
 
 const methods = {
@@ -18,6 +20,9 @@ const methods = {
   },
   updateTimer() {
     session.timer = Date.now() - session.startTime
+  },
+  updateMenuItemLink(link: string) {
+    return (session.menuItemLink = link)
   },
 }
 
