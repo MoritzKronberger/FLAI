@@ -6,8 +6,8 @@ import SidebarMenu from './components/SidebarMenu.vue'
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hallo, wir sind FLAI!" />
+  <!--<img alt="Vue logo" src="./assets/logo.png" />
+  <HelloWorld msg="Hallo, wir sind FLAI!" />-->
   <SidebarMenu />
 </template>
 
