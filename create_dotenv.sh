@@ -9,6 +9,8 @@ set -e
 declare -A express=(
     ["dir"]="backend/express"
     ["PORT"]="5000"
+    ["ACCESS_TOKEN_SECRET"]=$(openssl rand -hex 64)
+    ["REFRESH_TOKEN_SECRET"]=$(openssl rand -hex 64)
 )
 
 declare -A docker=(
@@ -18,6 +20,8 @@ declare -A docker=(
     ["VUE_APP_CONTAINER_PORT"]="3000"
     ["EXPRESS_APP_HOST_PORT"]="5000"
     ["EXPRESS_APP_CONTAINER_PORT"]="5000"
+    ["ACCESS_TOKEN_SECRET"]=$(openssl rand -hex 64)
+    ["REFRESH_TOKEN_SECRET"]=$(openssl rand -hex 64)
     ["POSTGRES_DB_HOST_PORT"]="5432"
     ["POSTGRES_DB_CONTAINER_PORT"]="5432"
     ["PG_USER"]="$1"
