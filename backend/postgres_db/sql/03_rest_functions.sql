@@ -12,7 +12,7 @@ DROP FUNCTION IF EXISTS pg_axios      CASCADE;
 
 /* REST functions */
 
-/* REST helpers to end all REST helpers */
+/* REST helper to end all REST helpers */
 /* insprired by https://stackoverflow.com/questions/17905501/postgresql-insert-data-into-table-from-json/17908760#17908760*/
 CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT, 
                                     _data              JSONB,
@@ -55,6 +55,13 @@ $$
                                                           ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
                    ' WHERE ' || QUOTE_IDENT(_table) || '.id = $2'
                    ' RETURNING ' || QUOTE_IDENT(_table) || '.id' INTO _id_ USING _data, _id;
+        ElSIF LOWER(_method) = 'delete'
+        THEN
+            -- build a DELETE query deleting the row corresponding to _id from _table
+            EXECUTE 'DELETE'
+                   ' FROM ' || QUOTE_IDENT(_table) ||
+                   ' WHERE id = $1'
+                   ' RETURNING id' INTO _id_ USING _id;
         ELSE
             _constraint_ := _method || ' exists';
         END IF;
@@ -133,6 +140,16 @@ SELECT * FROM pg_axios
          ('user',
           '{"username": "new_user"}',
           'PATCH',
+          '<user-id>');
+
+SELECT * FROM "user";
+
+SELECT * FROM "user";
+
+SELECT * FROM pg_axios
+         ('user',
+          'NULL',
+          'DELETE',
           '<user-id>');
 
 SELECT * FROM "user";
