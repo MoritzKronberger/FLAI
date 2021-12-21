@@ -7,8 +7,9 @@ BEGIN;
 
 /* Cleanup */
 
-DROP FUNCTION IF EXISTS json_status   CASCADE;
-DROP FUNCTION IF EXISTS pg_axios      CASCADE;
+DROP FUNCTION IF EXISTS json_status       CASCADE;
+DROP FUNCTION IF EXISTS pg_axios          CASCADE;
+DROP FUNCTION IF EXISTS json_keys_to_text CASCADE;
 
 /* REST functions */
 
