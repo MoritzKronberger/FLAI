@@ -18,7 +18,6 @@ DROP FUNCTION IF EXISTS json_keys_to_text CASCADE;
 CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT, 
                                     _data              JSONB,
                                     _method            TEXT,
-                                    _id                UUID    DEFAULT NULL,
                                     _ids               JSONB   DEFAULT NULL,
                                     _postgres_status   TEXT    DEFAULT '02000',
                                     _http_status       INTEGER DEFAULT 200,
@@ -30,7 +29,6 @@ $$
     DECLARE
         _data_values_ TEXT;
         _query_       TEXT   DEFAULT NULL;
-        _id_          UUID   DEFAULT NULL;
         _pk_values_   TEXT;
         _ids_         RECORD DEFAULT NULL;
         _ids_json_    JSONB  DEFAULT NULL;
@@ -42,12 +40,8 @@ $$
     BEGIN
         -- collect the values that shoud be posted (provided by the json keys) in _data_values_
         _data_values_ := json_keys_to_text(_data);
-
-        IF _ids IS NOT NULL
-        THEN 
-            -- collect the columns making up the tables primary key (provided by the json keys) into _pk_values_
-            _pk_values_ := json_keys_to_text(_ids);
-        END IF;
+        -- collect the columns making up the tables pk or unique identifier(provided by the json keys) into _pk_values_
+        _pk_values_ := json_keys_to_text(_ids);
 
         IF LOWER(_method) = 'post'
         THEN        
@@ -59,57 +53,45 @@ $$
         ElSIF LOWER(_method) = 'patch'
         THEN
             -- build an UPADTE query updating only the elements of _data on _table
-            -- use multiple ids or other unique values if no single id was provided
             -- datatypes are infered and cast from _table
             _query_ := 'UPDATE ' || QUOTE_IDENT(_table) || 
                       ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
                                                              ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
-                      ' WHERE ' || CASE WHEN _id IS NOT NULL
-                                   THEN 'id = $2'
-                                   ELSE '(' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
-                                                                  ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))' 
-                                   END;
+                      ' WHERE (' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
+                                                       ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))';
         ElSIF LOWER(_method) = 'delete'
         THEN
             -- build a DELETE query deleting the row corresponding to _id from _table
-            -- use multiple ids or other unique values if no single id was provided
             -- datatypes are infered and cast from _table
             _query_ := 'DELETE'
                       ' FROM ' || QUOTE_IDENT(_table) ||
-                      ' WHERE ' || CASE WHEN _id IS NOT NULL
-                                   THEN 'id = $2'
-                                   ELSE '(' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
-                                                                  ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))' 
-                                   END;
+                      ' WHERE (' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
+                                                       ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))';
         ELSE
             _constraint_ := _method || ' exists';
         END IF;
 
         -- execute query if one was built
-        IF _ids IS NULL AND _query_ IS NOT NULL
+        IF _query_ IS NOT NULL
         THEN
-            -- execute query using single id if it was provided
-            EXECUTE _query_ || ' RETURNING id' INTO _id_ USING _data, _id;
-        ELSIF _query_ IS NOT NULL
-        THEN
-            -- execute query using multiple ids or other unique values
-            EXECUTE _query_ || 'RETURNING ' || _pk_values_ INTO _ids_ USING _data, _ids;
-            -- convert returned ids to json and set to null if all values are null
+            -- execute query using id(s) or other unique value(s)
+            -- if no id was provided try using the id attribute (helpful on INSERT)
+            EXECUTE _query_ || 'RETURNING ' || COALESCE(_pk_values_, 'id') INTO _ids_ USING _data, _ids;
+            -- convert returned id(s) to json and set to null if all values are null
             _ids_json_ := NULLIF(JSONB_STRIP_NULLS(TO_JSONB(_ids_)), '{}');
         END IF;
 
-        IF _id_ IS NOT NULL OR _ids_ IS NOT NULL
+        IF _ids_ IS NOT NULL
         THEN 
             RETURN QUERY
-            SELECT json_status(_http_status, _id_, _ids => _ids_json_);
+            SELECT json_status(_http_status, _ids_json_);
         ELSE 
             RETURN QUERY
             SELECT json_status(_http_error_status, 
-                               _id_, 
+                               _ids_json_, 
                                _postgres_status, 
                                _constraint_, 
-                               _message_,
-                               _ids_json_);
+                               _message_);
         END IF;
 
         EXCEPTION WHEN OTHERS THEN 
@@ -119,11 +101,10 @@ $$
                 _message_ = MESSAGE_TEXT;
             RETURN QUERY
             SELECT json_status(400, 
-                               _id_, 
+                               _ids_json_, 
                                _pgstate_, 
                                CASE WHEN _cname_ <> '' THEN _cname_ ELSE _message_ END, 
-                               _message_,
-                               _ids_json_);
+                               _message_);
 
     END
 $$
@@ -131,11 +112,10 @@ $$
 
 /* JSON STATUS */
 CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
-                                       _id         UUID,
-                                       _pgstate    TEXT  DEFAULT '00000',
-                                       _constraint TEXT  DEFAULT NULL,
-                                       _message    TEXT  DEFAULT NULL,
-                                       _ids        JSONB DEFAULT NULL)
+                                       _ids        JSONB,
+                                       _pgstate    TEXT    DEFAULT '00000',
+                                       _constraint TEXT    DEFAULT NULL,
+                                       _message    TEXT    DEFAULT NULL)
     RETURNS JSONB
     IMMUTABLE PARALLEL SAFE
 LANGUAGE SQL
@@ -143,7 +123,6 @@ AS
 $$
     SELECT JSONB_BUILD_OBJECT
            ('status', _status,
-            'id', _id, 
             'ids', _ids,
             'pgstate', _pgstate,
             'constraint', _constraint,
@@ -189,7 +168,7 @@ SELECT * FROM pg_axios
          ('user',
           '{"username": "new_user"}',
           'PATCH',
-          '<user-id>');
+          '{"id": "<user-id>"}');
 
 SELECT * FROM "user";
 
@@ -200,7 +179,7 @@ SELECT * FROM pg_axios
          ('user',
            NULL,
           'DELETE',
-          '<user-id>');
+          '{"id": "<user-id>"}');
 
 SELECT * FROM "user";
 */
@@ -221,10 +200,10 @@ FROM pg_axios
         "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
        }',
        'POST',
-      _ids => '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
-                "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c  ",
-                "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
-               }'
+      '{"user_id": "",
+        "sign_id": "",
+        "exercise_id": ""
+       }'
      );
 
 SELECT * FROM "learns_sign";
@@ -237,10 +216,10 @@ FROM pg_axios
      ('learns_sign', 
       '{"progress": "90"}',
       'PATCH',
-      _ids => '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
-                "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
-                "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
-               }'
+      '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
+        "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
+        "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
+       }'
      );
 
 SELECT * FROM "learns_sign";
@@ -253,9 +232,9 @@ FROM pg_axios
      ('includes_sign', 
       NULL,
       'DELETE',
-      _ids => '{"task_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
-                "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c"
-               }'
+      '{"task_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
+        "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c"
+       }'
      );
 
 SELECT * FROM "includes_sign";
