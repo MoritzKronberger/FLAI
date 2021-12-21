@@ -64,7 +64,11 @@ $$
             _query_ := 'UPDATE ' || QUOTE_IDENT(_table) || 
                       ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
                                                              ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
-                      ' WHERE ' || QUOTE_IDENT(_table) || '.id = $2';
+                      ' WHERE ' || CASE WHEN _id IS NOT NULL
+                                   THEN 'id = $2'
+                                   ELSE '(' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
+                                                               ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))' 
+                                   END;
         ElSIF LOWER(_method) = 'delete'
         THEN
             -- build a DELETE query deleting the row corresponding to _id from _table
@@ -168,6 +172,7 @@ SELECT * FROM pg_axios
 
 SELECT * FROM "user";
 
+
 SELECT * FROM "user";
 
 SELECT * FROM pg_axios
@@ -200,5 +205,22 @@ FROM pg_axios
                 "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
                }'
      );
+
+SELECT * FROM "learns_sign";
+
+
+SELECT * FROM "learns_sign";
+
+SELECT *
+FROM pg_axios
+     ('learns_sign', 
+      '{"progress": "90"}',
+      'PATCH',
+      _ids => '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
+                "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
+                "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
+               }'
+     );
+
 SELECT * FROM "learns_sign";
 */
