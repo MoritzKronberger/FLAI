@@ -58,6 +58,7 @@ $$
         ElSIF LOWER(_method) = 'patch'
         THEN
             -- build an UPADTE query updating only the elements of _data on _table
+            -- use multiple ids or other unique values if no single id was provided
             -- datatypes are infered and cast from _table
             _query_ := 'UPDATE ' || QUOTE_IDENT(_table) || 
                       ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
@@ -70,6 +71,7 @@ $$
         ElSIF LOWER(_method) = 'delete'
         THEN
             -- build a DELETE query deleting the row corresponding to _id from _table
+            -- use multiple ids or other unique values if no single id was provided
             -- datatypes are infered and cast from _table
             _query_ := 'DELETE'
                       ' FROM ' || QUOTE_IDENT(_table) ||
@@ -82,13 +84,16 @@ $$
             _constraint_ := _method || ' exists';
         END IF;
 
-        -- execute built query
+        -- execute query if one was built
         IF _ids IS NULL AND _query_ IS NOT NULL
         THEN
+            -- execute query using single id if it was provided
             EXECUTE _query_ || ' RETURNING id' INTO _id_ USING _data, _id;
         ELSIF _query_ IS NOT NULL
         THEN
+            -- execute query using multiple ids or other unique values
             EXECUTE _query_ || 'RETURNING ' || _pk_values_ INTO _ids_ USING _data, _ids;
+            -- convert returned ids to json and set to null if all values are null
             _ids_json_ := NULLIF(JSONB_STRIP_NULLS(TO_JSONB(_ids_)), '{}');
         END IF;
 
@@ -135,7 +140,6 @@ CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
 LANGUAGE SQL
 AS
 $$
-    -- TODO trim NULL values?
     SELECT JSONB_BUILD_OBJECT
            ('status', _status,
             'id', _id, 
