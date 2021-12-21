@@ -7,6 +7,17 @@
 .grid-container {
     display: grid;
     grid-column-gap: $gutter-vertical;
-    grid-template-columns: repeat(12, 120px);
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
     background-color: $white;
+    // still testing
+    background-color: $main-blue;
+    padding: 10px;
+  }
+
+  .grid-item {
+    background-color: $white;
+    border: 1px solid $black;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
   }
