@@ -40,14 +40,12 @@ $$
         _message_     TEXT;
     BEGIN
         -- collect the values that shoud be posted (provided by the json keys) in _data_values_
-        SELECT STRING_AGG(QUOTE_IDENT(KEY), ',') INTO _data_values_
-        FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
+        _data_values_ := json_keys_to_text(_data);
 
         IF _ids IS NOT NULL
         THEN 
             -- collect the columns making up the tables primary key (provided by the json keys) into _pk_values_
-            SELECT STRING_AGG(QUOTE_IDENT(KEY), ',') INTO _pk_values_
-            FROM JSONB_OBJECT_KEYS(_ids) AS X (KEY);
+            _pk_values_ := json_keys_to_text(_ids);
         END IF;
 
         IF LOWER(_method) = 'post'
@@ -145,6 +143,19 @@ $$
             'pgstate', _pgstate,
             'constraint', _constraint,
             'message', _message);
+$$
+;
+
+/* JSON KEYS TO TEXT */
+CREATE OR REPLACE FUNCTION json_keys_to_text(_data JSONB)
+    RETURNS TEXT
+    IMMUTABLE PARALLEL SAFE
+LANGUAGE SQL
+AS
+$$
+    -- collect all keys in the json and concatenate them to a comma seperated string
+    SELECT STRING_AGG(QUOTE_IDENT(KEY), ',')
+    FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
 $$
 ;
 
