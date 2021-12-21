@@ -91,7 +91,7 @@ $$
         ELSIF _query_ IS NOT NULL
         THEN
             EXECUTE _query_ || 'RETURNING ' || _pk_values_ INTO _ids_ USING _data, _ids;
-            _ids_json_ := TO_JSONB(_ids_);
+            _ids_json_ := JSONB_STRIP_NULLS(TO_JSONB(_ids_));
         END IF;
 
         IF _id_ IS NOT NULL OR _ids_ IS NOT NULL
