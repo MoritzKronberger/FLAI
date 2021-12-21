@@ -6,13 +6,15 @@ BEGIN;
 
 
 /* Cleanup */
-DROP TRIGGER IF EXISTS hash_password_trigger              ON "user"                    CASCADE;
+DROP TRIGGER IF EXISTS hash_password_trigger              ON "user"                   CASCADE;
 DROP TRIGGER IF EXISTS new_exercise_settings_user_trigger ON "exercise_session"       CASCADE;
 DROP TRIGGER IF EXISTS new_learns_sign_trigger            ON "exercise_settings_user" CASCADE;
+DROP TRIGGER IF EXISTS update_unlocked_signs_trigger      ON "learns_sign"            CASCADE;
 
 DROP FUNCTION IF EXISTS hash_password_function              CASCADE;
 DROP FUNCTION IF EXISTS new_exercise_settings_user_function CASCADE;
 DROP FUNCTION IF EXISTS new_learns_sign_function            CASCADE;
+DROP FUNCTION IF EXISTS  update_unlocked_signs_function     CASCADE;
 
 
 /* Trigger */
@@ -97,9 +99,9 @@ $_plpgsql_$
                         RAISE NOTICE 'Skipping new learns_sign insertion: Row already exists';
                     END;
                 END LOOP;
-
-                RETURN NULL;
         END IF;
+
+        RETURN NULL;
     END;
 $_plpgsql_$
 LANGUAGE plpgsql;
@@ -109,6 +111,41 @@ AFTER INSERT OR UPDATE
 ON "exercise_settings_user"
 FOR EACH ROW
     EXECUTE PROCEDURE new_learns_sign_function()
+;
+
+/* Count up the corresponding unlocked_signs attribue if a signs progress reaches level_3 for the first time */
+CREATE FUNCTION update_unlocked_signs_function() RETURNS TRIGGER AS
+$_plpgsql_$
+    DECLARE
+        _level_3 INTEGER;
+    BEGIN
+        _level_3 := (SELECT "level_3" 
+                     FROM "exercise_settings" 
+                     WHERE "exercise_id" = NEW."exercise_id");
+        IF(NEW."progress" >= _level_3 AND NOT OLD."level_3_reached")
+            THEN
+                UPDATE "exercise_settings_user"
+                SET "unlocked_signs" = (SELECT "unlocked_signs"
+                                        FROM "exercise_settings_user"
+                                        WHERE "exercise_id" = NEW."exercise_id"
+                                              AND "user_id" = NEW."user_id")
+                                        + 1
+                WHERE "exercise_id" = NEW."exercise_id"
+                      AND "user_id" = NEW."user_id";
+                
+                NEW."level_3_reached" = TRUE;
+        END IF;
+
+        RETURN NEW;
+    END;
+$_plpgsql_$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_unlocked_signs_trigger
+BEFORE INSERT OR UPDATE
+ON "learns_sign"
+FOR EACH ROW
+    EXECUTE PROCEDURE update_unlocked_signs_function()
 ;
 
 
@@ -151,4 +188,17 @@ WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Sabine')
 ;
 
 SELECT * FROM "learns_sign";
+*/
+
+/* test update_unlocked_signs_trigger and function */
+/*
+UPDATE "learns_sign"
+SET "progress" = 100
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
+;
+
+SELECT * FROM "learns_sign";
+SELECT * FROM "exercise_settings_user";
 */
