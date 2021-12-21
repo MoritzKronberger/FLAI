@@ -25,3 +25,11 @@ At <http://localhost:7000>
 ```bash
 docker-compose down
 ```
+
+or use
+
+```bash
+docker-compose down --rmi all && rm -rf backend/postgres_db/pgdata
+```
+
+to remove all images and delete pgdata to reset the database.

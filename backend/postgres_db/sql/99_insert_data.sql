@@ -5,12 +5,6 @@
 BEGIN;
 
 
-/* sort_signs (ways signs can be ordered during an exercise) */
-INSERT INTO "e_sort_signs" ("name")
-VALUES
-('alphabetical'),
-('occurrence');
-
 /* motion_category (determines if signs are static, dynamic or multi handed) */
 INSERT INTO "e_motion_category" ("name")
 VALUES
@@ -30,40 +24,39 @@ VALUES
 ('webm'),
 ('jpg');
 
-/* excercise (excercises offered in the application) */
-INSERT INTO "excercise" ("name", "description")
+/* exercise (exercises offered in the application) */
+INSERT INTO "exercise" ("name", "description")
 VALUES
 ('Buchstabieren lernen', 'Lerne in deutscher Gebärdensprache zu buchstabieren.');
 
-/* excercise_settings */
-INSERT INTO "excercise_settings" ("excercise_id", "sort_signs_id")
+/* exercise_settings with defualt settings */
+INSERT INTO "exercise_settings" ("exercise_id")
 VALUES
-((SELECT "id" FROM "excercise"    WHERE "name"='Buchstabieren lernen'),
- (SELECT "id" FROM "e_sort_signs" WHERE "name"='occurrence')
-);
+((SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen'));
 
-/* task (tasks that can be performend within an excercise) */
-INSERT INTO "task" ("name", "description", "excercise_id")
+/* task (tasks that can be performend within an exercise) */
+INSERT INTO "task" ("name", "description", "exercise_id")
 VALUES
 ('AI Feedback', 
  'Buchstabiere in die Webcam und erhalte Feedback zu deinen Gebärden durch die FLAI-AI.', 
- (SELECT "id" FROM "excercise" WHERE "name"='Buchstabieren lernen')
+ (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
 ),
 ('Memory', 
  'Ordne den gezeigten Buchstabengebärden die richtige Lösung zu.', 
- (SELECT "id" FROM "excercise" WHERE "name"='Buchstabieren lernen')
+ (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
 );
 
-/* populate_spelling_excercise: */
+/* populate_spelling_exercise: */
 /* inserts a sign for each letter provided in the alphabet string */
 /* and adds the sign to both the 'AI Feedback' and 'Memory' task */
-CREATE OR REPLACE FUNCTION populate_spelling_excercise(_alphabet TEXT, _motion_category TEXT)
+CREATE OR REPLACE FUNCTION populate_spelling_exercise(_alphabet TEXT, _motion_category TEXT)
     RETURNS VOID
 LANGUAGE plpgsql
 AS
 $$  
     DECLARE _letters TEXT[];
     DECLARE _letter  TEXT;
+    DECLARE _i       INTEGER DEFAULT 0;
     BEGIN
         _letters := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
         FOREACH _letter IN ARRAY _letters LOOP
@@ -76,18 +69,20 @@ $$
             VALUES
             ((SELECT "id" FROM "task" WHERE "name"='AI Feedback'), 
              (SELECT "id" FROM "sign" WHERE "name"=_letter),
-             NULL
+             _i
             ),
             ((SELECT "id" FROM "task" WHERE "name"='Memory'), 
              (SELECT "id" FROM "sign" WHERE "name"=_letter),
-             NULL
+             _i
             );
+            
+            _i := _i + 1;
 
         END LOOP;
     END
 $$
 ;
 
-SELECT * FROM populate_spelling_excercise('abcdefghiklmnopqrstuvwxy', 'static');
+SELECT * FROM populate_spelling_exercise('enisratdhulcgmobwfkpvyxq', 'static');
 
 COMMIT;

@@ -8,20 +8,19 @@ BEGIN;
 DROP DOMAIN IF EXISTS D_UNTAINTED CASCADE;
 DROP DOMAIN IF EXISTS D_EMAIL     CASCADE;
 
-DROP TABLE IF EXISTS "e_sort_signs"            CASCADE;
-DROP TABLE IF EXISTS "e_motion_category"       CASCADE;
-DROP TABLE IF EXISTS "e_perspective"           CASCADE;
-DROP TABLE IF EXISTS "e_mimetype"              CASCADE;
-DROP TABLE IF EXISTS "user"                    CASCADE;
-DROP TABLE IF EXISTS "excercise"               CASCADE;
-DROP TABLE IF EXISTS "excercise_settings"      CASCADE;
-DROP TABLE IF EXISTS "excercise_session"       CASCADE;
-DROP TABLE IF EXISTS "task"                    CASCADE;
-DROP TABLE IF EXISTS "sign"                    CASCADE;
-DROP TABLE IF EXISTS "sign_recording"          CASCADE;
-DROP TABLE IF EXISTS "includes_sign"           CASCADE;
-DROP TABLE IF EXISTS "learns_sign"             CASCADE;
-DROP TABLE IF EXISTS "excercise_settings_user" CASCADE;
+DROP TABLE IF EXISTS "e_motion_category"      CASCADE;
+DROP TABLE IF EXISTS "e_perspective"          CASCADE;
+DROP TABLE IF EXISTS "e_mimetype"             CASCADE;
+DROP TABLE IF EXISTS "user"                   CASCADE;
+DROP TABLE IF EXISTS "exercise"               CASCADE;
+DROP TABLE IF EXISTS "exercise_settings"      CASCADE;
+DROP TABLE IF EXISTS "exercise_session"       CASCADE;
+DROP TABLE IF EXISTS "task"                   CASCADE;
+DROP TABLE IF EXISTS "sign"                   CASCADE;
+DROP TABLE IF EXISTS "sign_recording"         CASCADE;
+DROP TABLE IF EXISTS "includes_sign"          CASCADE;
+DROP TABLE IF EXISTS "learns_sign"            CASCADE;
+DROP TABLE IF EXISTS "exercise_settings_user" CASCADE;
 
 
 /* Create Domains */
@@ -38,17 +37,6 @@ CHECK (value ~* '\A(?:[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|
 
 
 /* Create tables */
-
-CREATE TABLE "e_sort_signs"
-("id"   UUID        DEFAULT gen_random_uuid(),
- "name" D_UNTAINTED NOT NULL,
-
- CONSTRAINT e_sort_signs_pk
-    PRIMARY KEY ("id"),
-
- CONSTRAINT e_sort_signs_unique_name
-    UNIQUE ("name")
-);
 
 CREATE TABLE "e_motion_category"
 ("id"   UUID        DEFAULT gen_random_uuid(),
@@ -102,67 +90,64 @@ CREATE TABLE "user"
     CHECK (LENGTH("username")<31)
 );
 
-CREATE TABLE "excercise" 
+CREATE TABLE "exercise" 
 ("id"          UUID        DEFAULT gen_random_uuid(),
  "name"        D_UNTAINTED NOT NULL,
  "description" D_UNTAINTED NOT NULL,
 
- CONSTRAINT excercise_pk
+ CONSTRAINT exercise_pk
     PRIMARY KEY ("id"),
 
- CONSTRAINT excercise_unique_name
+ CONSTRAINT exercise_unique_name
     UNIQUE ("name")
 );
 
-CREATE TABLE "excercise_settings" 
-("id"            UUID              DEFAULT gen_random_uuid(),
- "level_1"       INTEGER           DEFAULT 20,
- "level_2"       INTEGER           DEFAULT 50,
- "level_3"       INTEGER  NOT NULL DEFAULT 80,
- "excercise_id"  UUID     NOT NULL,
- "sort_signs_id" UUID     NOT NULL,
+CREATE TABLE "exercise_settings" 
+("id"                  UUID             DEFAULT gen_random_uuid(),
+ "level_1"             INTEGER          DEFAULT 20,
+ "level_2"             INTEGER          DEFAULT 50,
+ "level_3"             INTEGER NOT NULL DEFAULT 80,
+ "exercise_id"         UUID    NOT NULL,
+ "sort_signs_by_order" BOOLEAN NOT NULL DEFAULT TRUE,
 
- CONSTRAINT excercise_settings_pk
+ CONSTRAINT exercise_settings_pk
     PRIMARY KEY ("id"),
 
- CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id")     ON DELETE CASCADE,
-
- CONSTRAINT fk_sort_signs_id
-    FOREIGN KEY ("sort_signs_id") REFERENCES "e_sort_signs" ("id") ON DELETE CASCADE
+ CONSTRAINT fk_exercise_id
+    FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id")     ON DELETE CASCADE
 );
 
-CREATE TABLE "excercise_session" 
+CREATE TABLE "exercise_session" 
 ("id"               UUID                     DEFAULT gen_random_uuid(),
  "user_id"          UUID                     NOT NULL,
- "excercise_id"     UUID                     NOT NULL,
+ "exercise_id"      UUID                     NOT NULL,
  "start_time"       TIMESTAMP WITH TIME ZONE NOT NULL,
  "session_duration" INTERVAL,
 
- CONSTRAINT excercise_session_pk
+ CONSTRAINT exercise_session_pk
     PRIMARY KEY ("id"),
 
  CONSTRAINT fk_user_id
-    FOREIGN KEY ("user_id")      REFERENCES "user" ("id")      ON DELETE CASCADE,
+    FOREIGN KEY ("user_id")      REFERENCES "user" ("id")    ON DELETE CASCADE,
 
- CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id") ON DELETE CASCADE
+ CONSTRAINT fk_exercise_id
+    FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "task" 
-("id"           UUID         DEFAULT gen_random_uuid(),
- "name"         D_UNTAINTED  NOT NULL,
- "description"  D_UNTAINTED,
- "excercise_id" UUID         NOT NULL,
+("id"          UUID         DEFAULT gen_random_uuid(),
+ "name"        D_UNTAINTED  NOT NULL,
+ "description" D_UNTAINTED,
+ "exercise_id" UUID         NOT NULL,
 
  CONSTRAINT task_pk
     PRIMARY KEY ("id"),
 
- CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id") ON DELETE CASCADE,
+ CONSTRAINT fk_exercise_id
+    FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id") ON DELETE CASCADE,
 
- CONSTRAINT task_unique_name_and_excercise_id
-    UNIQUE ("name", "excercise_id")
+ CONSTRAINT task_unique_name_and_exercise_id
+    UNIQUE ("name", "exercise_id")
 );
 
 CREATE TABLE "sign" 
@@ -191,10 +176,10 @@ CREATE TABLE "sign_recording"
     PRIMARY KEY ("id"),
 
  CONSTRAINT fk_mimetype_id
-    FOREIGN KEY ("mimetype_id")    REFERENCES "e_mimetype" ("id")  ON DELETE CASCADE,
+    FOREIGN KEY ("mimetype_id")    REFERENCES "e_mimetype" ("id")    ON DELETE CASCADE,
 
  CONSTRAINT fk_sign_id
-    FOREIGN KEY ("sign_id")        REFERENCES "sign" ("id")        ON DELETE CASCADE,
+    FOREIGN KEY ("sign_id")        REFERENCES "sign" ("id")          ON DELETE CASCADE,
 
  CONSTRAINT fk_perspective_id
     FOREIGN KEY ("perspective_id") REFERENCES "e_perspective" ("id") ON DELETE CASCADE
@@ -236,26 +221,26 @@ CREATE TABLE "learns_sign"
     CHECK ("progress" >= 0)
 );
 
-CREATE TABLE "excercise_settings_user" 
-("user_id"        UUID    NOT NULL,
- "excercise_id"   UUID    NOT NULL,
- "task_split"     REAL    NOT NULL,
- "word_length"    INTEGER NOT NULL,
- "unlocked_signs" INTEGER NOT NULL,
+CREATE TABLE "exercise_settings_user" 
+("user_id"              UUID    NOT NULL,
+ "exercise_settings_id" UUID    NOT NULL,
+ "task_split"           REAL    NOT NULL DEFAULT 0.5,
+ "word_length"          INTEGER NOT NULL DEFAULT 4,
+ "unlocked_signs"       INTEGER NOT NULL DEFAULT 3,
 
- CONSTRAINT excercise_settings_user_pk
-    PRIMARY KEY ("user_id", "excercise_id"),
+ CONSTRAINT exercise_settings_user_pk
+    PRIMARY KEY ("user_id", "exercise_settings_id"),
 
  CONSTRAINT fk_user_id
-    FOREIGN KEY ("user_id")      REFERENCES "user" ("id")      ON DELETE CASCADE,
+    FOREIGN KEY ("user_id")               REFERENCES "user" ("id")             ON DELETE CASCADE,
 
- CONSTRAINT fk_excercise_id
-    FOREIGN KEY ("excercise_id") REFERENCES "excercise" ("id") ON DELETE CASCADE,
+ CONSTRAINT fk_exercise_settings_id
+    FOREIGN KEY ("exercise_settings_id") REFERENCES "exercise_settings" ("id") ON DELETE CASCADE,
 
-  CONSTRAINT excercise_settings_user_word_length_not_negative
+  CONSTRAINT exercise_settings_user_word_length_not_negative
     CHECK ("word_length" >= 0),
 
-  CONSTRAINT excercise_settings_user_task_split_between_0_1
+  CONSTRAINT exercise_settings_user_task_split_between_0_1
     CHECK ("task_split" >= 0 AND "task_split" <= 1)
 );
 
