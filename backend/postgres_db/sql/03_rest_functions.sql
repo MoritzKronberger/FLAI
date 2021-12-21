@@ -67,14 +67,19 @@ $$
                       ' WHERE ' || CASE WHEN _id IS NOT NULL
                                    THEN 'id = $2'
                                    ELSE '(' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
-                                                               ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))' 
+                                                                  ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))' 
                                    END;
         ElSIF LOWER(_method) = 'delete'
         THEN
             -- build a DELETE query deleting the row corresponding to _id from _table
+            -- datatypes are infered and cast from _table
             _query_ := 'DELETE'
                       ' FROM ' || QUOTE_IDENT(_table) ||
-                      ' WHERE id = $2';
+                      ' WHERE ' || CASE WHEN _id IS NOT NULL
+                                   THEN 'id = $2'
+                                   ELSE '(' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
+                                                                  ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))' 
+                                   END;
         ELSE
             _constraint_ := _method || ' exists';
         END IF;
@@ -223,4 +228,19 @@ FROM pg_axios
      );
 
 SELECT * FROM "learns_sign";
+
+
+SELECT * FROM "includes_sign";
+
+SELECT *
+FROM pg_axios
+     ('includes_sign', 
+      NULL,
+      'DELETE',
+      _ids => '{"task_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
+                "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c"
+               }'
+     );
+
+SELECT * FROM "includes_sign";
 */
