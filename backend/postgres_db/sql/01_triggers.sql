@@ -48,7 +48,7 @@ FOR EACH ROW
 CREATE FUNCTION new_exercise_settings_user_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN                                
-        IF(NOT EXISTS (SELECT "id"
+        IF(NOT EXISTS (SELECT "user_id"
                        FROM "exercise_session"
                        WHERE "user_id" = NEW."user_id"
                              AND "exercise_id" = NEW."exercise_id"))
