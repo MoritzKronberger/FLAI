@@ -11,7 +11,7 @@ POST http://localhost:5000/api/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFydGluIiwiaWF0IjoxNjQwMTY5NDEyfQ.x9iTPCSdPOLfXSQnk1skVi8HTbDFqGcjxkDlqUaoPUo"
+    "token": ""
 }
 
 ###
@@ -20,11 +20,11 @@ DELETE http://localhost:5000/api/logout
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFydGluIiwiaWF0IjoxNjQwMTcwMDUyfQ._CpMy7h6R2or0-F9Kq7IDLIhNgcJUYJfC40kOby3xjI"
+    "token": ""
 }
 
 ###
 
 GET http://localhost:5000/api/exercises
 Authorization: bearer
-bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFydGluIiwiaWF0IjoxNjQwMTY5NDU2LCJleHAiOjE2NDAxNjk0OTZ9.48g-NuylfOaPTM6BHmLFNXXG6kveupeWXCOHAqy8lkY
+bearer: 
