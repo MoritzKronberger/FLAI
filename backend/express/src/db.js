@@ -1,10 +1,34 @@
-import { Pool } from 'pg'
-const pool = new Pool({
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
-  database: process.env.PG_DB,
-  host: process.env.PG_HOSTNAME,
-  port: process.env.PG_PORT,
-})
+import pg from 'pg'
 
-export default pool
+const {
+    PGHOST = 'localhost',
+    PGUSER = 'mk',
+    PGPASSWORD = 'mk',
+    PGDATABASE = 'flai_db_v1',
+    PGPORT = 5432,
+  } = process.env,
+  pool = new pg.Pool({
+    host: PGHOST,
+    user: PGUSER,
+    password: PGPASSWORD,
+    database: PGDATABASE,
+    port: PGPORT,
+  }),
+  query = async (pSql, pParams) => await pool.query(pSql, pParams),
+  transaction = async (pQueryCallback) => {
+    const client = await pool.connect()
+    try {
+      await client.query('BEGIN')
+      await pQueryCallback(client)
+      await client.query('COMMIT')
+    } catch (pError) {
+      await client.query('ROLLBACK')
+      throw pError
+    } finally {
+      client.release()
+    }
+  }
+
+export { query, transaction }
+
+export default { query, transaction }
