@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-
 function authToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = req.headers[authHeader]
@@ -11,8 +10,8 @@ function authToken(req, res, next) {
   })
 }
 
-function generateAccessToken(user, ACCESS_TOKEN_SECRET) {
-  return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '40s' })
 }
 
 export { authToken, generateAccessToken }
