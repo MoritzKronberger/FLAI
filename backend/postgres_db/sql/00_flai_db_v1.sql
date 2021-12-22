@@ -165,10 +165,10 @@ CREATE TABLE "sign"
 );
 
 CREATE TABLE "sign_recording" 
-("id"             UUID  DEFAULT gen_random_uuid(),
- "video"          BYTEA NOT NULL,
- "mimetype_id"    UUID  NOT NULL,
- "sign_id"        UUID  NOT NULL,
+("id"             UUID    DEFAULT gen_random_uuid(),
+ "path"           VARCHAR NOT NULL,
+ "mimetype_id"    UUID    NOT NULL,
+ "sign_id"        UUID    NOT NULL,
  "perspective_id" UUID,
 
  CONSTRAINT sign_recording_pk
