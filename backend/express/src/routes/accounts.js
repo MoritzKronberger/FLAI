@@ -1,4 +1,5 @@
 import express from 'express'
+import { getUser } from '../db/user.js'
 import createAccount from '../schema/accounts-schema.js'
 const account = express.Router()
 
@@ -13,6 +14,15 @@ account.post('/', async (req, res) => {
     res.status(res.status).json(res)
   } catch (err) {
     console.log(err)
+  }
+})
+
+account.get('/:id', async (req, res) => {
+  try {
+    const response = await getUser(req.params.id)
+    res.status(response.status).json(response.result)
+  } catch (err) {
+    console.log(err.message)
   }
 })
 
