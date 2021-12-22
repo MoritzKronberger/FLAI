@@ -22,7 +22,7 @@ VALUES
 INSERT INTO "e_mimetype" ("name")
 VALUES
 ('webm'),
-('jpg');
+('png');
 
 /* exercise (exercises offered in the application) */
 INSERT INTO "exercise" ("name", "description")
