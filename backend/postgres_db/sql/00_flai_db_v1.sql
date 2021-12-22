@@ -118,14 +118,13 @@ CREATE TABLE "exercise_settings"
 );
 
 CREATE TABLE "exercise_session" 
-("id"               UUID                     DEFAULT gen_random_uuid(),
- "user_id"          UUID                     NOT NULL,
+("user_id"          UUID                     NOT NULL,
  "exercise_id"      UUID                     NOT NULL,
  "start_time"       TIMESTAMP WITH TIME ZONE NOT NULL,
  "session_duration" INTERVAL,
 
  CONSTRAINT exercise_session_pk
-    PRIMARY KEY ("id"),
+    PRIMARY KEY ("user_id", "exercise_id", "start_time"),
 
  CONSTRAINT fk_user_id
     FOREIGN KEY ("user_id")      REFERENCES "user" ("id")    ON DELETE CASCADE,

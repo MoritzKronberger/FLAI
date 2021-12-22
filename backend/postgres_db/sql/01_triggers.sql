@@ -48,7 +48,7 @@ FOR EACH ROW
 CREATE FUNCTION new_exercise_settings_user_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN                                
-        IF(NOT EXISTS (SELECT "id"
+        IF(NOT EXISTS (SELECT "user_id"
                        FROM "exercise_session"
                        WHERE "user_id" = NEW."user_id"
                              AND "exercise_id" = NEW."exercise_id"))
@@ -74,32 +74,25 @@ FOR EACH ROW
 CREATE FUNCTION new_learns_sign_function() RETURNS TRIGGER AS
 $_plpgsql_$
     DECLARE
-        _new_sign RECORD;
         _sign_delta INTEGER;
     BEGIN
         _sign_delta := NEW."unlocked_signs" - COALESCE(OLD."unlocked_signs", 0);
-        IF(_sign_delta > 0)
-            THEN
-                FOR _new_sign IN
-                    SELECT DISTINCT s."id", s."name", (CASE WHEN es.sort_signs_by_order THEN ins."order" END) AS "custom_order"
-                    FROM "sign" s
-                        JOIN "includes_sign" ins    ON s."id" = ins."sign_id"
-                        JOIN "task" t               ON ins."task_id" = t."id"
-                        JOIN "exercise" e           ON t."exercise_id" = e."id"
-                        JOIN "exercise_settings" es ON e."id" = es."exercise_id"
-                    WHERE e."id" = NEW."exercise_id"
-                    ORDER BY "custom_order" ASC, s."name" ASC
-                    LIMIT _sign_delta OFFSET OLD."unlocked_signs"
-                LOOP
-                    BEGIN
-                        INSERT INTO "learns_sign" ("user_id", "sign_id", "exercise_id")
-                        VALUES
-                        (NEW."user_id", _new_sign."id", NEW."exercise_id");
-                    EXCEPTION WHEN unique_violation THEN
-                        RAISE NOTICE 'Skipping new learns_sign insertion: Row already exists';
-                    END;
-                END LOOP;
-        END IF;
+
+        INSERT INTO "learns_sign" ("user_id", "sign_id", "exercise_id")
+        SELECT NEW."user_id", sub."sign_id", sub."exercise_id"
+        FROM (SELECT DISTINCT s."id" AS "sign_id", 
+                              s."name", 
+                              e."id" AS "exercise_id",
+                              (CASE WHEN es.sort_signs_by_order THEN ins."order" END) AS "custom_order"
+              FROM "sign" s
+              JOIN "includes_sign" ins    ON s."id" = ins."sign_id"
+              JOIN "task" t               ON ins."task_id" = t."id"
+              JOIN "exercise" e           ON t."exercise_id" = e."id"
+              JOIN "exercise_settings" es ON e."id" = es."exercise_id"
+              WHERE e."id" = NEW."exercise_id"
+              ORDER BY "custom_order" ASC, s."name" ASC
+              LIMIT _sign_delta OFFSET OLD."unlocked_signs"
+        ) sub;
 
         RETURN NULL;
     END;
