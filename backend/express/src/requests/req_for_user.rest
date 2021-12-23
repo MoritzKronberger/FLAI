@@ -1,19 +1,18 @@
-GET http://localhost:5000/api/accounts/e5fbc121-db91-4193-8d2d-5506a6f5ecf2
-
+GET http://localhost:5000/api/user/cca81d7a-a466-4f71-a0b0-42907e707ce0
 ### 
 
-POST http://localhost:5000/api/accounts
+POST http://localhost:5000/api/user
 Content-Type: application/json
 
 {
     "username": "martin",
     "password": "testmk1",
-    "email": "martin4.ko@cool.de"
+    "email": "martin1.ko@cool.de"
 }
 
 ###
 
-PATCH http://localhost:5000/api/accounts/1b4b4229-9e0a-42e1-b9b8-f28fd64a2b31	
+PATCH http://localhost:5000/api/user/1b729d93-f2e7-4701-b342-e60671a2bff5	
 Content-Type: application/json
 
 {
@@ -22,4 +21,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/api/accounts/239d7827-39c9-49fe-9c27-892bee5c9567
+DELETE http://localhost:5000/api/user/1b729d93-f2e7-4701-b342-e60671a2bff5
