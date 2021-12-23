@@ -1,18 +1,11 @@
 import pg from 'pg'
 
-const {
-    PGHOST = 'localhost',
-    PGUSER = 'mk',
-    PGPASSWORD = 'mk',
-    PGDATABASE = 'flai_db_v1',
-    PGPORT = 5432,
-  } = process.env,
-  pool = new pg.Pool({
-    host: PGHOST,
-    user: PGUSER,
-    password: PGPASSWORD,
-    database: PGDATABASE,
-    port: PGPORT,
+const pool = new pg.Pool({
+    host: process.env.PG_HOSTNAME,
+    user: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DB,
+    port: process.env.PG_PORT,
   }),
   query = async (pSql, pParams) => await pool.query(pSql, pParams),
   transaction = async (pQueryCallback) => {
