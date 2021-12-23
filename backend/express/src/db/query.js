@@ -14,7 +14,7 @@ const dbQuery = async (options) => {
     const selectParams = select.join(',')
     const result = await query(
       `SELECT ${selectParams}
-       FROM get_user 
+       FROM ${table} 
        WHERE "id"=$1::UUID`,
       [ids]
     )
