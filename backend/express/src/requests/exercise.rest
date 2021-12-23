@@ -1,0 +1,3 @@
+GET http://localhost:5000/api/exercise/e5fbc121-db91-4193-8d2d-5506a6f5ecf2
+
+### 
