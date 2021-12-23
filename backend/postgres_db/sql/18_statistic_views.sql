@@ -5,8 +5,9 @@
 BEGIN;
 
 /* Cleanup */
-DROP VIEW IF EXISTS get_time_learnt_by_day CASCADE;
+DROP VIEW IF EXISTS get_time_learnt_by_day         CASCADE;
 DROP VIEW IF EXISTS get_target_time_reached_by_day CASCADE;
+DROP VIEW IF EXISTS get_active_streaks             CASCADE;
 
 /* Views */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -20,5 +21,14 @@ AS
 SELECT "user_id", "day", ("time_learnt" >= "target_learning_time") AS "time_learnt"
 FROM get_time_learnt_by_day tld
      JOIN "user" u ON tld."user_id" = u."id";
+
+CREATE VIEW get_active_streaks ("user_id", "day")
+AS
+SELECT "user_id", MAX("day")
+FROM get_target_time_reached_by_day
+WHERE ("day" = DATE_TRUNC('day', CURRENT_DATE)
+      OR "day" = DATE_TRUNC('day', CURRENT_DATE - INTERVAL '1 day'))
+      AND "target_time_reached" IS TRUE
+GROUP BY "user_id";
 
 COMMIT;
