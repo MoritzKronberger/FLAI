@@ -7,7 +7,7 @@ dotenv.config()
 //import routes
 import { exercise } from './routes/exercise.js'
 import { signs } from './routes/signs.js'
-import { account } from './routes/accounts.js'
+import { user } from './routes/user.js'
 import { auth } from './routes/auth.js'
 
 // middleware
@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/api/exercises', exercise)
 app.use('/api/signs', signs)
-app.use('/api/accounts', account)
+app.use('/api/user', user)
 app.use('/api', auth)
 
 // server
