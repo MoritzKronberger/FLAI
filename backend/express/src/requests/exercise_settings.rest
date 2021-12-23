@@ -1,0 +1,8 @@
+GET http://localhost:5000/api/exercise-settings/715a3944-4abe-4e53-ba4f-eeea2959faf2
+Content-Type: application/json
+
+{
+    "task_split": "0.6"
+}
+
+### 
