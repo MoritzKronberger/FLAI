@@ -8,6 +8,8 @@ BEGIN;
 DROP VIEW IF EXISTS get_time_learnt_by_day         CASCADE;
 DROP VIEW IF EXISTS get_target_time_reached_by_day CASCADE;
 DROP VIEW IF EXISTS get_streaks                    CASCADE;
+DROP VIEW IF EXISTS get_active_streak              CASCADE;
+DROP VIEW IF EXISTS get_longest_streak             CASCADE;
 
 /* Views */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -36,6 +38,22 @@ FROM (SELECT "user_id",
       WHERE "target_time_reached" IS TRUE
      ) sub
 GROUP BY sub."user_id", sub."norm_day"
+;
+
+CREATE VIEW get_active_streak ("user_id", "streak")
+AS
+SELECT "user_id", "streak"
+FROM get_streaks
+WHERE "end_day" >= DATE_TRUNC('day', CURRENT_TIMESTAMP - INTERVAL '1 day')
+;
+
+CREATE VIEW get_longest_streak ("user_id", "start_day", "end_day", "streak")
+AS
+SELECT "user_id", "start_day", "end_day", "streak"
+FROM 
+    (SELECT "user_id", "start_day", "end_day", "streak", (DENSE_RANK() OVER(PARTITION BY "user_id" ORDER BY "streak" DESC)) AS "s_rank"
+     FROM get_streaks) sub
+WHERE sub."s_rank" = 1
 ;
 
 COMMIT;
