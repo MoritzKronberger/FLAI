@@ -32,8 +32,18 @@ NULL
 ),
 ((SELECT "id" FROM "user"     WHERE "username"='Katharina'), 
  (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen'),
- (CURRENT_TIMESTAMP - INTERVAL '1 hour'), 
-'8 min'
+ (CURRENT_TIMESTAMP - INTERVAL '1 hours'), 
+'15 min'
+),
+((SELECT "id" FROM "user"     WHERE "username"='Katharina'), 
+ (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen'),
+ (CURRENT_TIMESTAMP - INTERVAL '2 day 18 hours'), 
+'27 min'
+),
+((SELECT "id" FROM "user"     WHERE "username"='Katharina'), 
+ (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen'),
+ (CURRENT_TIMESTAMP - INTERVAL '1 day 3 hours'), 
+'25 min'
 );
 
 

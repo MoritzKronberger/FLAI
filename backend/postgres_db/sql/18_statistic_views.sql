@@ -7,7 +7,7 @@ BEGIN;
 /* Cleanup */
 DROP VIEW IF EXISTS get_time_learnt_by_day         CASCADE;
 DROP VIEW IF EXISTS get_target_time_reached_by_day CASCADE;
-DROP VIEW IF EXISTS get_active_streaks             CASCADE;
+DROP VIEW IF EXISTS get_streaks                    CASCADE;
 
 /* Views */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -22,13 +22,20 @@ SELECT "user_id", "day", ("time_learnt" >= "target_learning_time") AS "time_lear
 FROM get_time_learnt_by_day tld
      JOIN "user" u ON tld."user_id" = u."id";
 
-CREATE VIEW get_active_streaks ("user_id", "day")
+CREATE VIEW get_streaks ("user_id", "start_day", "end_day", "streak")
 AS
-SELECT "user_id", MAX("day")
-FROM get_target_time_reached_by_day
-WHERE ("day" = DATE_TRUNC('day', CURRENT_DATE)
-      OR "day" = DATE_TRUNC('day', CURRENT_DATE - INTERVAL '1 day'))
-      AND "target_time_reached" IS TRUE
-GROUP BY "user_id";
+SELECT "user_id", MIN("day") AS "start_day", MAX("day") AS "end_day", COUNT("day") AS "streak"
+FROM (SELECT "user_id", 
+             "day", 
+             -- inspired by https://newbedev.com/sql-count-consecutive-days
+             -- rank all days in ascending order partitioned by user
+             -- consecutive days will have the same norm_day value
+             -- this is because both their rank and day increase by 1 when stepping through the order
+             DATE_PART('day',"day") - (DENSE_RANK() OVER(PARTITION BY "user_id" ORDER BY "day" ASC)) AS "norm_day"
+      FROM get_target_time_reached_by_day
+      WHERE "target_time_reached" IS TRUE
+     ) sub
+GROUP BY sub."user_id", sub."norm_day"
+;
 
 COMMIT;
