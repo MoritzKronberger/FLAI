@@ -7,6 +7,7 @@ import InputField from './components/InputField.vue'
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
+onMounted(store.sessiondata.methods.startTimer)
 
 function handleInput(e: Event) {
   const target = <HTMLInputElement>e.target
