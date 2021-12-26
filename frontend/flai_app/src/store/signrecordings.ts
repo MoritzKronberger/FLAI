@@ -1,6 +1,5 @@
 import { readonly } from 'vue'
 import { Sign } from './signdata'
-
 export interface SignRecording {
   id: string
   video: string //for frontend purposes: url, should be BYTEA number?
@@ -19,13 +18,14 @@ const methods = {
       video: '',
       perspectiveId: 'front',
     }
-    signFront.video = `../ressources/${sign.name}_${signFront.perspectiveId}.mp4`
+    const name = sign.name.toUpperCase()
+    signFront.video = `@/assets/signs/vid/${signFront.perspectiveId}/${name} - ${signFront.perspectiveId}Video.webm`
     const signSide: SignRecording = {
       id: '' + sign.id,
       video: 'putUrlHere',
       perspectiveId: 'side',
     }
-    signSide.video = `../ressources/${sign.name}_${signSide.perspectiveId}.mp4`
+    signSide.video = `@/assets/signs/vid/${signSide.perspectiveId}/${name} - ${signSide.perspectiveId}Video.webm`
     signRecordings.push(signFront)
     signRecordings.push(signSide)
     return signRecordings
