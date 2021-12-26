@@ -1,6 +1,6 @@
 import { readonly, reactive } from 'vue'
 import { random } from '../ressources/ts/random'
-import signData from './signdata'
+import signData, { Sign } from './signdata'
 
 export interface ExerciseSettings {
   id: string
@@ -26,8 +26,7 @@ export interface Exercise {
   description: string
   firstStart: number
   sessionDuration: number
-  // TODO: type readonly not compatible if you change to type Sign[]
-  signs: any[]
+  signs: Sign[]
 }
 
 const exercises: Exercise[] = reactive([])
@@ -45,7 +44,7 @@ const methods = {
     exerciseSettings.unlockedSigns -= exerciseSettings.unlockedSigns > 0 ? 1 : 0
   },
   startNewExercise(name: string, description: string) {
-    const word: any[] = []
+    const word: Sign[] = []
     for (let i = 0; i < exerciseSettings.wordLength; i++) {
       const index = random(0, exerciseSettings.unlockedSigns)
       word.push(signData.signs[index])
@@ -71,8 +70,8 @@ const methods = {
 }
 
 const exerciseData = {
-  exerciseSettings: readonly(exerciseSettings),
-  exercises: readonly(exercises),
+  exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
+  exercises: readonly(exercises) as Exercise[],
   methods,
 }
 export default exerciseData

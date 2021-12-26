@@ -32,6 +32,9 @@ const methods = {
   },
 }
 
-const signRecordingData = { signRecording: readonly(signRecording), methods }
+const signRecordingData = {
+  signRecording: readonly(signRecording) as SignRecording[],
+  methods,
+}
 
 export default signRecordingData
