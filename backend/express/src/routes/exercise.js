@@ -14,7 +14,7 @@ exercise.get('/', (req, res) => {
 })
 */
 
-exercise.get('/:id', async (req, res) => {
+exercise.get('/', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_full_exercise_for_user',
@@ -32,9 +32,7 @@ exercise.get('/:id', async (req, res) => {
       'unlocked_signs',
       'tasks',
     ],
-    ids: {
-      id: req.params.id,
-    },
+    ids: req.body,
     res: res,
   })
 })
