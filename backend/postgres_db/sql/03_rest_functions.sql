@@ -10,6 +10,7 @@ BEGIN;
 DROP FUNCTION IF EXISTS json_status       CASCADE;
 DROP FUNCTION IF EXISTS pg_axios          CASCADE;
 DROP FUNCTION IF EXISTS json_keys_to_text CASCADE;
+DROP FUNCTION IF EXISTS arr_to_text       CASCADE;
 
 /* REST functions */
 
@@ -46,8 +47,7 @@ $$
         -- collect the columns making up the tables pk or unique identifier(provided by the json keys) into _pk_values_
         _pk_values_ := json_keys_to_text(_ids);
         -- collect the values that shoud be selected (provided by the array) into _select_values_  
-        SELECT STRING_AGG(QUOTE_IDENT(val), ',') STRICT INTO _select_values_
-        FROM UNNEST(_select_cols::TEXT[]) AS val;
+        _select_values_ := arr_to_text(_select_cols);
 
         IF LOWER(_method) = 'get'
         THEN        
@@ -166,6 +166,19 @@ $$
     -- collect all keys in the json and concatenate them to a comma seperated string
     SELECT STRING_AGG(QUOTE_IDENT(KEY), ',')
     FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
+$$
+;
+
+/* ARRAY TO TEXT */
+CREATE OR REPLACE FUNCTION arr_to_text(_data TEXT[])
+    RETURNS TEXT
+    IMMUTABLE PARALLEL SAFE
+LANGUAGE SQL
+AS
+$$
+    -- concatenate all array elements to a comma seperated string
+    SELECT STRING_AGG(QUOTE_IDENT(val), ',')
+    FROM UNNEST(_data::TEXT[]) AS val;
 $$
 ;
 
