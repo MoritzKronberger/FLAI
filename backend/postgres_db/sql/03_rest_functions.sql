@@ -97,7 +97,7 @@ $$
             ELSE
                 -- execute query using id(s) or other unique value(s)
                 -- if no id was provided try using the id attribute (helpful on INSERT)
-                EXECUTE _query_ || 'RETURNING ' || COALESCE(_pk_values_, 'id') INTO _ids_ USING _data, _ids;
+                EXECUTE _query_ || 'RETURNING ' || COALESCE(_pk_values_, _select_values_, 'id') INTO _ids_ USING _data, _ids;
                 -- convert returned id(s) to json and set to null if all values are null
                 _ids_json_ := NULLIF(JSONB_STRIP_NULLS(TO_JSONB(_ids_)), '{}');
             END IF;
@@ -238,11 +238,9 @@ FROM pg_axios
         "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
         "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
        }',
-       'POST',
-      '{"user_id": "",
-        "sign_id": "",
-        "exercise_id": ""
-       }'
+      'POST',
+       NULL,
+      '{user_id, sign_id, exercise_id}'
      );
 
 SELECT * FROM "learns_sign";
