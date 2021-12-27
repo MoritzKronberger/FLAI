@@ -1,22 +1,22 @@
 <template>
   <h1>Feedback Learning Exercise</h1>
-  {{ word }}
-  <!--span v-for="letter in word" :key="letter.name">{{ letter.name }}</span-->
+  word: {{ word }}
+  <span v-for="letter in word" :key="letter.name">{{ letter.name }}</span>
   <video src="source" type="video/webm" />
   <p>TODO: Add webcam component</p>
 </template>
 
 <script setup lang="ts">
-import { inject, reactive, onBeforeMount } from 'vue'
+import { inject, reactive, computed, onBeforeMount, ComputedRef } from 'vue'
 import { Sign } from '../store/signdata'
-import { Exercise } from '../store/exercisedata'
 
 const store: any = inject('store')
-const exercises: Exercise[] = reactive(store.exercisedata.exercises)
-const word: Sign[] = reactive(exercises[exercises.length - 1].signs)
+const word: ComputedRef<Sign[]> = computed(
+  () => store.exercisedata.exercises.at(-1).signs
+)
 onBeforeMount(() => {
   store.exercisedata.methods.startNewExercise('name', 'desc')
-  console.log('word', word)
+  console.log('word', JSON.stringify(word))
 })
 </script>
 
