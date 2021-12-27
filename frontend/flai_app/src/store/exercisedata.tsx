@@ -47,9 +47,10 @@ const methods = {
     const word: Sign[] = []
     for (let i = 0; i < exerciseSettings.wordLength; i++) {
       const index = random(0, exerciseSettings.unlockedSigns)
+      console.log('letter', signData.signs[index])
       word.push(signData.signs[index])
     }
-    console.log('word', word)
+    console.log('word after start', word)
     const exercise: Exercise = {
       id: '' + exercises.length,
       name: name,
