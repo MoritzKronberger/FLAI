@@ -14,6 +14,7 @@ DROP VIEW IF EXISTS get_total_exercise_progress          CASCADE;
 DROP VIEW IF EXISTS get_exercise_completion_progress     CASCADE;
 DROP VIEW IF EXISTS get_completed_exercises              CASCADE;
 DROP VIEW IF EXISTS get_exercise_completion_sign_unlocks CASCADE;
+DROP VIEW IF EXISTS get_best_exercise_sign               CASCADE;
 
 /* TIME BASED VIEWS */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -91,5 +92,14 @@ FROM "learns_sign" ls
      JOIN "task" t ON ls."exercise_id" = t."exercise_id"
      JOIN "includes_sign" ins ON t."id" = ins."task_id"
 GROUP BY ls."user_id", ls."exercise_id";
+
+CREATE VIEW get_best_exercise_sign ("user_id", "exercise_id", "sign_id", "sign_name")
+AS
+SELECT "user_id", "exercise_id", "sign_id", s."name" As "sign_name"
+FROM
+     (SELECT "user_id", "exercise_id", "sign_id", (DENSE_RANK() OVER(PARTITION BY "user_id", "exercise_id" ORDER BY "progress" DESC)) AS "p_rank"
+      FROM "learns_sign") sub
+     JOIN "sign" s ON sub."sign_id" = s."id"
+WHERE "p_rank" = 1;
 
 COMMIT;
