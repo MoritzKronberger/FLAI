@@ -10,8 +10,9 @@ DROP VIEW IF EXISTS get_target_time_reached_by_day CASCADE;
 DROP VIEW IF EXISTS get_streaks                    CASCADE;
 DROP VIEW IF EXISTS get_active_streak              CASCADE;
 DROP VIEW IF EXISTS get_longest_streak             CASCADE;
+DROP VIEW IF EXISTS get_total_exercise_progress    CASCADE;
 
-/* Views */
+/* TIME BASED VIEWS */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
 AS
 SELECT "user_id", DATE_TRUNC('day', "start_time"), SUM("session_duration") AS "time_learnt"
@@ -55,5 +56,15 @@ FROM
      FROM get_streaks) sub
 WHERE sub."s_rank" = 1
 ;
+
+/* PROGRESS BASED VIEWS */
+CREATE VIEW get_total_exercise_progress ("user_id", "exercise_id", "total_progress", "level_3")
+AS
+-- Progress is counted even above level_3, so that mistakes do not immediately se users back behind level_3,
+-- however for statistics purposes, the progress is capped at level_3 using LEAST.
+SELECT "user_id", ls."exercise_id", SUM(LEAST(ls."progress", es."level_3")), es."level_3"
+FROM "learns_sign" ls
+     JOIN "exercise_settings" es ON ls."exercise_id" = es."exercise_id"
+GROUP BY "user_id", ls."exercise_id", es."level_3";
 
 COMMIT;
