@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { provide, onMounted } from 'vue'
 import store from './store'
-import FeedbackExercise from './components/FeedbackExercise.vue'
 
 provide('store', store)
 
@@ -22,7 +21,6 @@ function handleInput(e: Event) {
     <router-link to="/store">ShowStore</router-link>
   </div>
   <main>
-    <FeedbackExercise />
     <router-view />
   </main>
 </template>

@@ -1,4 +1,5 @@
 <template>
+  <FeedbackExercise />
   <h2>
     Hallo, <b>{{ user.username }}!</b>
   </h2>
@@ -39,13 +40,13 @@
 
 <script lang="ts">
 import { inject, computed } from 'vue'
+import FeedbackExercise from '../components/FeedbackExercise.vue'
 
 export default {
+  components: { FeedbackExercise },
   setup() {
     const store: any = inject('store')
-
     const user = computed(() => store.userdata.user)
-
     return {
       user,
     }
