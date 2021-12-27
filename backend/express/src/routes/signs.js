@@ -6,8 +6,10 @@ signs.get('/:id', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_full_sign',
-    ids: req.params.id,
-    select: ['id', 'name', 'motion_category', 'recordings'],
+    ids: {
+      id: req.params.id,
+    },
+    selectCols: ['id', 'name', 'motion_category', 'recordings'],
     res: res,
   })
 })

@@ -6,8 +6,10 @@ signRecording.get('/:id', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_sign_recording',
-    ids: req.params.id,
-    select: ['id', 'path', 'mimetype', 'perspective'],
+    ids: {
+      id: req.params.id,
+    },
+    selectCols: ['id', 'path', 'mimetype', 'perspective'],
     res: res,
   })
 })

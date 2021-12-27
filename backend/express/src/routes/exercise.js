@@ -18,7 +18,7 @@ exercise.get('/:id', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_full_exercise_for_user',
-    select: [
+    selectCols: [
       'id',
       'user_id',
       'name',

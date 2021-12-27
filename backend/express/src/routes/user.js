@@ -17,8 +17,16 @@ user.get('/:id', async (req, res) => {
   await request({
     method: 'GET',
     table: 'user',
-    ids: req.params.id,
-    select: ['id', 'email', 'username', 'right_handed', 'target_learning_time'],
+    ids: {
+      id: req.params.id,
+    },
+    selectCols: [
+      'id',
+      'email',
+      'username',
+      'right_handed',
+      'target_learning_time',
+    ],
     res: res,
   })
 })

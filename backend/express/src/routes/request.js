@@ -5,7 +5,7 @@ const request = async (options) => {
   const table = options.table
   const data = options.data || null
   const ids = options.ids || null
-  const select = options.select
+  const selectCols = options.selectCols || null
   const validation = options.validation
   const res = options.res
 
@@ -19,7 +19,7 @@ const request = async (options) => {
       table: table,
       data: data,
       ids: ids,
-      select: select,
+      selectCols: selectCols,
     })
     console.log(result)
     res.status(result.status).json(result)
