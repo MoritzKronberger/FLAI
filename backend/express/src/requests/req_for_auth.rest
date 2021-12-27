@@ -1,0 +1,30 @@
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "username": "Martin"
+}
+
+###
+
+POST http://localhost:5000/api/token
+Content-Type: application/json
+
+{
+    "token": ""
+}
+
+###
+
+DELETE http://localhost:5000/api/logout
+Content-Type: application/json
+
+{
+    "token": ""
+}
+
+###
+
+GET http://localhost:5000/api/exercises
+Authorization: bearer
+bearer: 

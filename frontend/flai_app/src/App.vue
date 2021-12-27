@@ -1,12 +1,25 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+import { provide, onMounted } from 'vue'
+import store from './store'
 import HelloWorld from './components/HelloWorld.vue'
+import ShowStore from './components/ShowStore.vue'
+import InputField from './components/InputField.vue'
+provide('store', store)
+
+onMounted(store.signdata.methods.createNewSigns)
+
+function handleInput(e: Event) {
+  const target = <HTMLInputElement>e.target
+
+  console.log('Das ist der Input:', target.value)
+}
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hallo, wir sind FLAI!" />
+  <ShowStore />
+  <InputField placeholder="placeholder" @keyup.enter="handleInput" />
 </template>
 
 <style></style>
