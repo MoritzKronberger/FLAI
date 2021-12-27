@@ -19,6 +19,7 @@ CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT,
                                     _data              JSONB,
                                     _method            TEXT,
                                     _ids               JSONB   DEFAULT NULL,
+                                    _select_cols       TEXT[]  DEFAULT NULL,
                                     _postgres_status   TEXT    DEFAULT '02000',
                                     _http_status       INTEGER DEFAULT 200,
                                     _http_error_status INTEGER DEFAULT 400)
@@ -27,23 +28,39 @@ LANGUAGE plpgsql
 AS
 $$
     DECLARE
-        _data_values_ TEXT;
-        _query_       TEXT   DEFAULT NULL;
-        _pk_values_   TEXT;
-        _ids_         RECORD DEFAULT NULL;
-        _ids_json_    JSONB  DEFAULT NULL;
+        _data_values_   TEXT;
+        _pk_values_     TEXT;
+        _select_values_ TEXT;
+        _query_         TEXT   DEFAULT NULL;
+        _ids_           RECORD DEFAULT NULL;
+        _ids_json_      JSONB  DEFAULT NULL;
+        _rows_          JSONB  DEFAULT NULL;
 
         _constraint_  TEXT DEFAULT  _table || ' exists';
         _pgstate_     TEXT;
         _cname_       TEXT;
         _message_     TEXT;
     BEGIN
-        -- collect the values that shoud be posted (provided by the json keys) in _data_values_
+        -- collect the values that shoud be posted (provided by the json keys) into _data_values_
         _data_values_ := json_keys_to_text(_data);
         -- collect the columns making up the tables pk or unique identifier(provided by the json keys) into _pk_values_
         _pk_values_ := json_keys_to_text(_ids);
+        -- collect the values that shoud be selected (provided by the array) into _select_values_  
+        SELECT STRING_AGG(QUOTE_IDENT(val), ',') STRICT INTO _select_values_
+        FROM UNNEST(_select_cols::TEXT[]) AS val;
 
-        IF LOWER(_method) = 'post'
+        IF LOWER(_method) = 'get'
+        THEN        
+            -- build a simple SELECT ... FROM ... WHERE query
+            -- aggregate all results in one array row and convert to jsonb
+            _query_ := 'SELECT TO_JSONB(ARRAY_AGG(sub)) AS "rows"' ||
+                      ' FROM ('
+                            ' SELECT ' || _select_values_ ||
+                            ' FROM ' || QUOTE_IDENT(_table) ||
+                            ' WHERE (' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
+                                                             ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
+                        ') sub';
+        ELSIF LOWER(_method) = 'post'
         THEN        
             -- build an INSERT query inserting only the elements of _data into _table
             -- datatypes are infered and cast from _table
@@ -74,21 +91,27 @@ $$
         -- execute query if one was built
         IF _query_ IS NOT NULL
         THEN
-            -- execute query using id(s) or other unique value(s)
-            -- if no id was provided try using the id attribute (helpful on INSERT)
-            EXECUTE _query_ || 'RETURNING ' || COALESCE(_pk_values_, 'id') INTO _ids_ USING _data, _ids;
-            -- convert returned id(s) to json and set to null if all values are null
-            _ids_json_ := NULLIF(JSONB_STRIP_NULLS(TO_JSONB(_ids_)), '{}');
+            IF LOWER(_method) = 'get'
+            THEN
+                EXECUTE _query_ INTO _rows_ USING _ids;
+            ELSE
+                -- execute query using id(s) or other unique value(s)
+                -- if no id was provided try using the id attribute (helpful on INSERT)
+                EXECUTE _query_ || 'RETURNING ' || COALESCE(_pk_values_, 'id') INTO _ids_ USING _data, _ids;
+                -- convert returned id(s) to json and set to null if all values are null
+                _ids_json_ := NULLIF(JSONB_STRIP_NULLS(TO_JSONB(_ids_)), '{}');
+            END IF;
         END IF;
 
-        IF _ids_ IS NOT NULL
+        IF _ids_ IS NOT NULL OR _rows_ IS NOT NULL
         THEN 
             RETURN QUERY
-            SELECT json_status(_http_status, _ids_json_);
+            SELECT json_status(_http_status, _ids_json_, _rows_);
         ELSE 
             RETURN QUERY
             SELECT json_status(_http_error_status, 
                                _ids_json_, 
+                               _rows_,
                                _postgres_status, 
                                _constraint_, 
                                _message_);
@@ -102,6 +125,7 @@ $$
             RETURN QUERY
             SELECT json_status(400, 
                                _ids_json_, 
+                               _rows_,
                                _pgstate_, 
                                CASE WHEN _cname_ <> '' THEN _cname_ ELSE _message_ END, 
                                _message_);
@@ -113,6 +137,7 @@ $$
 /* JSON STATUS */
 CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
                                        _ids        JSONB,
+                                       _rows       JSONB   DEFAULT NULL,
                                        _pgstate    TEXT    DEFAULT '00000',
                                        _constraint TEXT    DEFAULT NULL,
                                        _message    TEXT    DEFAULT NULL)
@@ -124,6 +149,7 @@ $$
     SELECT JSONB_BUILD_OBJECT
            ('status', _status,
             'ids', _ids,
+            'rows', _rows,
             'pgstate', _pgstate,
             'constraint', _constraint,
             'message', _message);
@@ -238,4 +264,23 @@ FROM pg_axios
      );
 
 SELECT * FROM "includes_sign";
+*/
+
+/*
+SELECT * FROM "sign";
+
+SELECT * FROM pg_axios('sign', 
+                       NULL, 
+                       'GET', 
+                       '{"id": "2a6525f9-5d6b-4313-87d0-c94ca1eda9e0"}', 
+                       '{name}');
+
+
+SELECT * FROM "sign_recording";
+
+SELECT * FROM pg_axios('sign_recording', 
+                       NULL, 
+                       'GET', 
+                       '{"sign_id": "4277a0e5-2125-4b10-8c02-7dfdc0e101f5"}', 
+                       '{path, mimetype_id}');
 */
