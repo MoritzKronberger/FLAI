@@ -12,12 +12,14 @@ DROP VIEW IF EXISTS get_active_exercise_session CASCADE;
 CREATE VIEW get_exercise_session ("exercise_id", "user_id", "start_time", "session_duration")
 AS
 SELECT "exercise_id", "user_id", "start_time", "session_duration"
-FROM "exercise_session";
+FROM   "exercise_session"
+;
 
 CREATE VIEW get_active_exercise_session ("exercise_id", "user_id", "start_time")
 AS
 SELECT "exercise_id", "user_id", "start_time"
-FROM get_exercise_session
-WHERE "session_duration" IS NULL;
+FROM   get_exercise_session
+WHERE  "session_duration" IS NULL
+;
 
 COMMIT;
