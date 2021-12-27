@@ -12,6 +12,7 @@ DROP VIEW IF EXISTS get_active_streak                CASCADE;
 DROP VIEW IF EXISTS get_longest_streak               CASCADE;
 DROP VIEW IF EXISTS get_total_exercise_progress      CASCADE;
 DROP VIEW IF EXISTS get_exercise_completion_progress CASCADE;
+DROP VIEW IF EXISTS get_completed_exercises          CASCADE;
 
 /* TIME BASED VIEWS */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -75,5 +76,11 @@ FROM get_total_exercise_progress gtep
      JOIN "task" t ON gtep."exercise_id" = t."exercise_id"
      JOIN includes_sign ins ON t."id" = ins."task_id"
 GROUP BY gtep."user_id", gtep."exercise_id", gtep."total_progress", gtep."level_3";
+
+CREATE VIEW get_completed_exercises ("user_id", "exercise_id")
+AS
+SELECT "user_id", "exercise_id"
+FROM get_exercise_completion_progress
+WHERE "progress_completion" = 1;
 
 COMMIT;
