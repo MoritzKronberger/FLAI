@@ -2,14 +2,12 @@ import express from 'express'
 import { request } from './request.js'
 const exerciseSettings = express.Router()
 
-exerciseSettings.patch('/:id', async (req, res) => {
+exerciseSettings.patch('/', async (req, res) => {
   await request({
     method: 'PATCH',
     table: 'exercise_settings_user',
-    data: req.body,
-    ids: {
-      id: req.params.id,
-    },
+    data: req.body.data,
+    ids: req.body.ids,
     res: res,
   })
 })
