@@ -6,20 +6,17 @@
   <p>TODO: Add webcam component</p>
 </template>
 
-<script lang="ts">
-import { defineComponent, inject, onMounted } from 'vue'
+<script setup lang="ts">
+import { inject, reactive, onBeforeMount } from 'vue'
+import { Sign } from '../store/signdata'
+import { Exercise } from '../store/exercisedata'
 
-export default defineComponent({
-  name: 'FeedbackExercise',
-  setup() {
-    const store: any = inject('store')
-    onMounted(store.exercisedata.methods.startNewExercise('name', 'desc'))
-    const exercises = store.exercisedata.exercises
-    const word = exercises[exercises.length - 1].signs
-    console.log('word', word)
-
-    return { word }
-  },
+const store: any = inject('store')
+const exercises: Exercise[] = reactive(store.exercisedata.exercises)
+const word: Sign[] = reactive(exercises[exercises.length - 1].signs)
+onBeforeMount(() => {
+  store.exercisedata.methods.startNewExercise('name', 'desc')
+  console.log('word', word)
 })
 </script>
 
