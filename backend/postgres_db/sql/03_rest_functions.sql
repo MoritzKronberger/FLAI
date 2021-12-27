@@ -109,7 +109,7 @@ $$
             SELECT json_status(_http_status, _ids_json_, _rows_);
         ELSE 
             RETURN QUERY
-            SELECT json_status(_http_error_status, 
+            SELECT json_status(404, 
                                _ids_json_, 
                                _rows_,
                                _postgres_status, 
@@ -123,7 +123,7 @@ $$
                 _cname_   = CONSTRAINT_NAME,
                 _message_ = MESSAGE_TEXT;
             RETURN QUERY
-            SELECT json_status(400, 
+            SELECT json_status(_http_error_status, 
                                _ids_json_, 
                                _rows_,
                                _pgstate_, 
