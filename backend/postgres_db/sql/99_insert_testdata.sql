@@ -46,5 +46,43 @@ NULL
 '25 min'
 );
 
+/* update progress (simulate users making progress) */
+UPDATE "learns_sign"
+SET "progress" = 82
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
+;
+UPDATE "learns_sign"
+SET "progress" = 34
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='n')
+;
+UPDATE "learns_sign"
+SET "progress" = 105
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='i')
+;
+UPDATE "learns_sign"
+SET "progress" = 87
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
+;
+UPDATE "learns_sign"
+SET "progress" = 95
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='n')
+;
+UPDATE "learns_sign"
+SET "progress" = 64
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='i')
+;
+
 
 COMMIT;
