@@ -4,6 +4,7 @@ import store from './store'
 import HelloWorld from './components/HelloWorld.vue'
 import ShowStore from './components/ShowStore.vue'
 import InputField from './components/InputField.vue'
+import Webcam from './components/Webcam.vue'
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
@@ -18,6 +19,7 @@ function handleInput(e: Event) {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hallo, wir sind FLAI!" />
+  <Webcam ref="camera" autoplay />
   <ShowStore />
   <InputField placeholder="placeholder" @keyup.enter="handleInput" />
 </template>
