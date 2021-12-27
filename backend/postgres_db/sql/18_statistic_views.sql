@@ -5,12 +5,13 @@
 BEGIN;
 
 /* Cleanup */
-DROP VIEW IF EXISTS get_time_learnt_by_day         CASCADE;
-DROP VIEW IF EXISTS get_target_time_reached_by_day CASCADE;
-DROP VIEW IF EXISTS get_streaks                    CASCADE;
-DROP VIEW IF EXISTS get_active_streak              CASCADE;
-DROP VIEW IF EXISTS get_longest_streak             CASCADE;
-DROP VIEW IF EXISTS get_total_exercise_progress    CASCADE;
+DROP VIEW IF EXISTS get_time_learnt_by_day           CASCADE;
+DROP VIEW IF EXISTS get_target_time_reached_by_day   CASCADE;
+DROP VIEW IF EXISTS get_streaks                      CASCADE;
+DROP VIEW IF EXISTS get_active_streak                CASCADE;
+DROP VIEW IF EXISTS get_longest_streak               CASCADE;
+DROP VIEW IF EXISTS get_total_exercise_progress      CASCADE;
+DROP VIEW IF EXISTS get_exercise_completion_progress CASCADE;
 
 /* TIME BASED VIEWS */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -66,5 +67,13 @@ SELECT "user_id", ls."exercise_id", SUM(LEAST(ls."progress", es."level_3")), es.
 FROM "learns_sign" ls
      JOIN "exercise_settings" es ON ls."exercise_id" = es."exercise_id"
 GROUP BY "user_id", ls."exercise_id", es."level_3";
+
+CREATE VIEW get_exercise_completion_progress ("user_id", "exercise_id", "progress_completion")
+AS
+SELECT gtep."user_id", gtep."exercise_id", gtep."total_progress"::REAL / (COUNT(DISTINCT ins."sign_id") * gtep."level_3") AS "progress_completion"
+FROM get_total_exercise_progress gtep
+     JOIN "task" t ON gtep."exercise_id" = t."exercise_id"
+     JOIN includes_sign ins ON t."id" = ins."task_id"
+GROUP BY gtep."user_id", gtep."exercise_id", gtep."total_progress", gtep."level_3";
 
 COMMIT;
