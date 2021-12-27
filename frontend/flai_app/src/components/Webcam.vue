@@ -1,34 +1,18 @@
 <template>
   <div id="webcam-container">
-    <video id="webcam-feed" ref="webcamFeed" autoplay></video>
+    <video id="webcam-feed" ref="webcamFeed" autoplay="true"></video>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 
 export default defineComponent({
   name: 'WebCam',
-  props: {
-    autoplay: {
-      type: Boolean,
-      default: false,
-    },
-    constraints: {
-      type: Object,
-      //required: false,
-      default: function () {
-        return {
-          width: 500,
-          height: 500,
-        }
-      },
-    },
-  },
-  /*setup(props) {
+  setup() {
     const webcamFeed = ref<HTMLVideoElement>()
     const stream = ref<MediaStream>()
-    const constraints = props['constraints'] || {
+    const constraints = {
       video: {
         width: 500,
         height: 500,
@@ -41,14 +25,14 @@ export default defineComponent({
       webcamFeed.value.srcObject = stream.value
     }
     onMounted(() => {
-      if (props.autoplay) start()
+      start()
     })
     return {
       start,
       webcamFeed,
       stream,
     }
-  },*/
+  },
 })
 </script>
 
