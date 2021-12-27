@@ -5,14 +5,15 @@
 BEGIN;
 
 /* Cleanup */
-DROP VIEW IF EXISTS get_time_learnt_by_day           CASCADE;
-DROP VIEW IF EXISTS get_target_time_reached_by_day   CASCADE;
-DROP VIEW IF EXISTS get_streaks                      CASCADE;
-DROP VIEW IF EXISTS get_active_streak                CASCADE;
-DROP VIEW IF EXISTS get_longest_streak               CASCADE;
-DROP VIEW IF EXISTS get_total_exercise_progress      CASCADE;
-DROP VIEW IF EXISTS get_exercise_completion_progress CASCADE;
-DROP VIEW IF EXISTS get_completed_exercises          CASCADE;
+DROP VIEW IF EXISTS get_time_learnt_by_day               CASCADE;
+DROP VIEW IF EXISTS get_target_time_reached_by_day       CASCADE;
+DROP VIEW IF EXISTS get_streaks                          CASCADE;
+DROP VIEW IF EXISTS get_active_streak                    CASCADE;
+DROP VIEW IF EXISTS get_longest_streak                   CASCADE;
+DROP VIEW IF EXISTS get_total_exercise_progress          CASCADE;
+DROP VIEW IF EXISTS get_exercise_completion_progress     CASCADE;
+DROP VIEW IF EXISTS get_completed_exercises              CASCADE;
+DROP VIEW IF EXISTS get_exercise_completion_sign_unlocks CASCADE;
 
 /* TIME BASED VIEWS */
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
@@ -82,5 +83,13 @@ AS
 SELECT "user_id", "exercise_id"
 FROM get_exercise_completion_progress
 WHERE "progress_completion" = 1;
+
+CREATE VIEW get_exercise_completion_sign_unlocks ("user_id", "exercise_id", "sign_unlock_completion")
+AS
+SELECT ls."user_id", ls."exercise_id", COUNT(DISTINCT ls."sign_id")::REAL / COUNT(DISTINCT ins."sign_id") AS "sign_unlock_completion"
+FROM "learns_sign" ls
+     JOIN "task" t ON ls."exercise_id" = t."exercise_id"
+     JOIN "includes_sign" ins ON t."id" = ins."task_id"
+GROUP BY ls."user_id", ls."exercise_id";
 
 COMMIT;
