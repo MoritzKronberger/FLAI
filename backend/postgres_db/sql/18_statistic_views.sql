@@ -103,3 +103,16 @@ FROM
 WHERE "p_rank" = 1;
 
 COMMIT;
+
+/*
+SELECT * FROM get_time_learnt_by_day;
+SELECT * FROM get_target_time_reached_by_day;
+SELECT * FROM get_streaks;
+SELECT * FROM get_active_streak;
+SELECT * FROM get_longest_streak;
+SELECT * FROM get_total_exercise_progress;
+SELECT * FROM get_exercise_completion_progress;
+SELECT * FROM get_completed_exercises;
+SELECT * FROM get_exercise_completion_sign_unlocks;
+SELECT * FROM get_best_exercise_sign;
+*/
