@@ -16,6 +16,7 @@ exerciseSession.post('/', async (req, res) => {
   await request({
     method: 'POST',
     table: 'exercise_session',
+    selectCols: ['exercise_id', 'user_id', 'start_time'],
     data: req.body,
     res: res,
   })
