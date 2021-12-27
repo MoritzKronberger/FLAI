@@ -1,0 +1,25 @@
+GET http://localhost:5000/api/user/cca81d7a-a466-4f71-a0b0-42907e707ce0
+
+### 
+
+POST http://localhost:5000/api/user
+Content-Type: application/json
+
+{
+    "username": "martin",
+    "password": "testmk1",
+    "email": "martin1.ko@cool.de"
+}
+
+###
+
+PATCH http://localhost:5000/api/user/1b729d93-f2e7-4701-b342-e60671a2bff5	
+Content-Type: application/json
+
+{
+    "username": "martinne"
+}
+
+###
+
+DELETE http://localhost:5000/api/user/1b729d93-f2e7-4701-b342-e60671a2bff5

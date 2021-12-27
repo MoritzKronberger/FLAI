@@ -1,34 +1,40 @@
 import express from 'express'
-import { authToken } from '../util/auth.js'
+// import { authToken } from '../util/auth.js'
+import { request } from './request.js'
 const exercise = express.Router()
 
-const exercises = [
-  {
-    id: '1',
-    username: 'Martin',
-    name: 'Buchstabieren',
-    description: 'Übung mit Feedback',
-    firstStart: '0',
-    sessionDuration: '0',
-  },
-  {
-    id: '2',
-    username: 'Lea',
-    name: 'Buchstabieren',
-    description: 'Übung ohne Feedback',
-    firstStart: '0',
-    sessionDuration: '0',
-  },
-]
-
-// get all exercises
-exercise.get('/', authToken, (req, res) => {
+/* get all exercises
+exercise.get('/', (req, res) => {
   try {
     const response = exercises.filter((ex) => ex.username === req.user.name)
     res.json(response)
   } catch (err) {
     console.log(err.message)
   }
+})
+*/
+
+exercise.get('/', async (req, res) => {
+  await request({
+    method: 'GET',
+    table: 'get_full_exercise_for_user',
+    selectCols: [
+      'id',
+      'user_id',
+      'name',
+      'description',
+      'level_1',
+      'level_2',
+      'level_3',
+      'sort_signs_by_order',
+      'task_split',
+      'word_length',
+      'unlocked_signs',
+      'tasks',
+    ],
+    ids: req.body,
+    res: res,
+  })
 })
 
 /*

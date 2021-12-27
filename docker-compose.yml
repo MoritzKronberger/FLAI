@@ -23,10 +23,12 @@ services:
                 PG_USER: ${DEV_USER}
                 PG_PASSWORD: ${DEV_PASSWORD}
                 PG_DB: ${DEV_DB}
-                PG_HOSTNAME: ${PG_HOSTNAME}
+                PG_HOSTNAME: 'postgres-db'
                 PG_PORT: ${POSTGRES_DB_HOST_PORT}
         ports:
             - ${EXPRESS_APP_HOST_PORT}:${EXPRESS_APP_CONTAINER_PORT}
+        depends_on:
+            - postgres-db
 
     postgres-db:
         container_name: flai-postgres-db
