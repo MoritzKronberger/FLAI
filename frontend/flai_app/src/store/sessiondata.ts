@@ -26,6 +26,9 @@ const methods = {
   },
 }
 
-const sessiondata = { session: readonly(session), methods }
+const sessiondata = {
+  session: readonly(session) as Session,
+  methods,
+}
 
 export default sessiondata
