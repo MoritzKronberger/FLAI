@@ -19,6 +19,7 @@ function handleInput(e: Event) {
   <div id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/store">ShowStore</router-link>
+    <router-link to="/exercise">Exercise</router-link>
   </div>
   <main>
     <router-view />
