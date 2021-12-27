@@ -1,20 +1,22 @@
 <template>
   <h1>Feedback Learning Exercise</h1>
   {{ word }}
-  <span v-for="letter in word" :key="letter.name">{{ letter.name }}</span>
+  <!--span v-for="letter in word" :key="letter.name">{{ letter.name }}</span-->
   <video src="source" type="video/webm" />
   <p>TODO: Add webcam component</p>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue'
+import { defineComponent, inject, onMounted } from 'vue'
 
 export default defineComponent({
   name: 'FeedbackExercise',
   setup() {
     const store: any = inject('store')
+    onMounted(store.exercisedata.methods.startNewExercise('name', 'desc'))
     const exercises = store.exercisedata.exercises
     const word = exercises[exercises.length - 1].signs
+    console.log('word', word)
 
     return { word }
   },
