@@ -18,6 +18,13 @@ services:
             context: ./backend/express
             args:
                 PORT: ${EXPRESS_APP_CONTAINER_PORT}
+                ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+                REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+                PG_USER: ${DEV_USER}
+                PG_PASSWORD: ${DEV_PASSWORD}
+                PG_DB: ${DEV_DB}
+                PG_HOSTNAME: ${PG_HOSTNAME}
+                PG_PORT: ${POSTGRES_DB_HOST_PORT}
         ports:
             - ${EXPRESS_APP_HOST_PORT}:${EXPRESS_APP_CONTAINER_PORT}
 

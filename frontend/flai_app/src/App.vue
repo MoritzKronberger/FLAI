@@ -5,6 +5,12 @@ import store from './store'
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
+
+function handleInput(e: Event) {
+  const target = <HTMLInputElement>e.target
+
+  console.log('Das ist der Input:', target.value)
+}
 </script>
 
 <template>
