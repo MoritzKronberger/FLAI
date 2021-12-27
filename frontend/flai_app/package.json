@@ -15,9 +15,9 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "test": "jest src",
-    "lint": "eslint \"src/**/*.{js,vue,ts}\"",
-    "lint-fix": "eslint \"src/**/*.{js,vue,ts}\" --fix",
-    "prettier-fix": "prettier --write \"src/**/*.{js,vue,ts}\""
+    "lint": "eslint \"src/**/*.{js,vue,ts,tsx}\"",
+    "lint-fix": "eslint \"src/**/*.{js,vue,ts,tsx}\" --fix",
+    "prettier-fix": "prettier --write \"src/**/*.{js,vue,ts,tsx}\""
   },
   "dependencies": {
     "vue": "^3.2.16",
@@ -50,8 +50,8 @@
   },
   "lint-staged": {
     "**/*.{js,ts,vue}": [
-      "eslint \"src/**/*.{js,vue,ts}\" --fix",
-      "eslint \"src/**/*.{js,vue,ts}\""
+      "eslint \"src/**/*.{js,vue,ts,tsx}\" --fix",
+      "eslint \"src/**/*.{js,vue,ts,tsx}\""
     ]
   }
 }
