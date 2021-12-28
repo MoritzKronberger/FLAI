@@ -39,8 +39,7 @@ $_plpgsql_$
 
         _s_id_     UUID;
         _mc_id_    UUID;
-        _t1_id_    UUID;
-        _t2_id_    UUID;
+        _e_id_    UUID;
         _vid_id_   UUID;
         _pic_id_   UUID;
         _front_id_ UUID;
@@ -49,13 +48,12 @@ $_plpgsql_$
     BEGIN
         _letters_ := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
 
-        SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category INTO _mc_id_;
-        SELECT "id" FROM "task"              WHERE "name" = 'AI Feedback'    INTO _t1_id_;
-        SELECT "id" FROM "task"              WHERE "name" = 'Memory'         INTO _t2_id_;
-        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webm'           INTO _vid_id_;
-        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'png'            INTO _pic_id_;
-        SELECT "id" FROM "e_perspective"     WHERE "name" = 'front'          INTO _front_id_;
-        SELECT "id" FROM "e_perspective"     WHERE "name" = 'side'           INTO _side_id_;
+        SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category       INTO _mc_id_;
+        SELECT "id" FROM "exercise"          WHERE "name" = 'Buchstabieren lernen' INTO _e_id_;
+        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webm'                 INTO _vid_id_;
+        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'png'                  INTO _pic_id_;
+        SELECT "id" FROM "e_perspective"     WHERE "name" = 'front'                INTO _front_id_;
+        SELECT "id" FROM "e_perspective"     WHERE "name" = 'side'                 INTO _side_id_;
         _path_     := './assets/signs';
 
         FOREACH _letter_ IN ARRAY _letters_ LOOP
@@ -72,10 +70,9 @@ $_plpgsql_$
             (_path_ || '/pic/front/' || _letter_ || '_pic_front', _pic_id_, _s_id_, _front_id_),
             (_path_ || '/pic/front/' || _letter_ || '_pic_front', _pic_id_, _s_id_, _side_id_);
 
-            INSERT INTO "includes_sign" ("task_id", "sign_id", "order")
+            INSERT INTO "includes_sign" ("exercise_id", "sign_id", "order")
             VALUES
-            (_t1_id_, _s_id_, _i),
-            (_t2_id_, _s_id_, _i);
+            (_e_id_, _s_id_, _i);
             
             _i := _i + 1;
 
