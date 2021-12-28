@@ -5,9 +5,7 @@
 // Grid Variables
 $grid-width: max-width;
 $gutter-vertical: 25px;
-//$gutter-horizontal: 25px;
-
-
+/*$gutter-horizontal: 25px;*/
 
 // breakpoints
    
@@ -15,9 +13,68 @@ $S: 768px;
 $M: 1024px;     
 $L: 1600px;   
 
-
 // default Font
-$default-font: 'Gotham SSm';
+/*$default-font: 'Gotham SSm';*/
+
+$used-fonts: ();
+$base-font-stack:(
+    GothamSSm:(
+      light: (
+      family: (Gotham SSm, Gotham),
+      weight: 300,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light.otf',
+      )
+    ),
+      light-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: 300,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf',
+      )
+    ),
+      medium: (
+      family: (Gotham SSm, Gotham),
+      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium.otf") format("opentype"),
+      weight: normal,
+      style: normal
+    ),
+      medium-italic: (
+      family: (Gotham SSm, Gotham),
+      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-MediumItalic.otf") format("opentype"),
+      weight: normal,
+      style: italic
+    ),
+      xlight: (
+      family: (Gotham SSm, Gotham),
+      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-xLight.otf") format("opentype"),
+      weight: 200,
+      style: normal
+    ),
+      xlight-italic: (
+      family: (Gotham SSm, Gotham),
+      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-xLightItalic.otf") format("opentype"),
+      weight: 200,
+      style: italic
+    ),
+      bold: (
+      family: (Gotham SSm, Gotham),
+      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-bold.otf") format("opentype"),
+      weight: bold,
+      style: normal
+    ),
+      bold-italic: (
+      family: (Gotham SSm, Gotham),
+      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-boldItalic.otf") format("opentype"),
+      weight: bold,
+      style: italic
+    ),
+    )
+);
 
 // Main Colors
 
