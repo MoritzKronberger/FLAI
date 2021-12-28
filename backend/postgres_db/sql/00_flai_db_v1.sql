@@ -99,12 +99,13 @@ CREATE TABLE "exercise"
 );
 
 CREATE TABLE "exercise_settings" 
-("id"                  UUID             DEFAULT gen_random_uuid(),
- "level_1"             INTEGER          DEFAULT 20,
- "level_2"             INTEGER          DEFAULT 50,
- "level_3"             INTEGER NOT NULL DEFAULT 80,
- "exercise_id"         UUID    NOT NULL,
- "sort_signs_by_order" BOOLEAN NOT NULL DEFAULT TRUE,
+("id"                     UUID             DEFAULT gen_random_uuid(),
+ "level_1"                INTEGER          DEFAULT 20,
+ "level_2"                INTEGER          DEFAULT 50,
+ "level_3"                INTEGER NOT NULL DEFAULT 80,
+ "exercise_id"            UUID    NOT NULL,
+ "sort_signs_by_order"    BOOLEAN NOT NULL DEFAULT TRUE,
+ "initial_unlocked_signs" INTEGER NOT NULL DEFAULT 3,
 
  CONSTRAINT exercise_settings_pk
     PRIMARY KEY ("id"),
@@ -226,7 +227,7 @@ CREATE TABLE "exercise_settings_user"
  "exercise_id"    UUID    NOT NULL,
  "task_split"     REAL    NOT NULL DEFAULT 0.5,
  "word_length"    INTEGER NOT NULL DEFAULT 4,
- "unlocked_signs" INTEGER NOT NULL DEFAULT 3,
+ "unlocked_signs" INTEGER NOT NULL,
 
  CONSTRAINT exercise_settings_user_pk
     PRIMARY KEY ("user_id", "exercise_id"),

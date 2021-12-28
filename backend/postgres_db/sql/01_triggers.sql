@@ -10,15 +10,18 @@ BEGIN;
 
 
 /* Cleanup */
-DROP TRIGGER IF EXISTS hash_password_trigger              ON "user"                   CASCADE;
-DROP TRIGGER IF EXISTS new_exercise_settings_user_trigger ON "exercise_session"       CASCADE;
-DROP TRIGGER IF EXISTS new_learns_sign_trigger            ON "exercise_settings_user" CASCADE;
-DROP TRIGGER IF EXISTS update_unlocked_signs_trigger      ON "learns_sign"            CASCADE;
+DROP TRIGGER IF EXISTS hash_password_trigger                 ON "user"                   CASCADE;
+DROP TRIGGER IF EXISTS set_unlocked_signs_to_default_trigger ON "exercise_settings_user" CASCADE;
+DROP TRIGGER IF EXISTS new_exercise_settings_user_trigger    ON "exercise_session"       CASCADE;
+DROP TRIGGER IF EXISTS new_learns_sign_trigger               ON "exercise_settings_user" CASCADE;
+DROP TRIGGER IF EXISTS update_unlocked_signs_trigger         ON "learns_sign"            CASCADE;
 
-DROP FUNCTION IF EXISTS hash_password_function                                        CASCADE;
-DROP FUNCTION IF EXISTS new_exercise_settings_user_function                           CASCADE;
-DROP FUNCTION IF EXISTS new_learns_sign_function                                      CASCADE;
-DROP FUNCTION IF EXISTS update_unlocked_signs_function                                CASCADE;
+DROP FUNCTION IF EXISTS hash_password_function                                           CASCADE;
+DROP FUNCTION IF EXISTS set_unlocked_signs_to_default_function                           CASCADE;
+DROP FUNCTION IF EXISTS new_exercise_settings_user_function                              CASCADE;
+DROP FUNCTION IF EXISTS new_learns_sign_function                                         CASCADE;
+DROP FUNCTION IF EXISTS update_unlocked_signs_function                                   CASCADE;
+
 
 /* Trigger */
 -- account and authentication triggers + functions
@@ -45,6 +48,30 @@ BEFORE INSERT OR UPDATE
 ON "user"
 FOR EACH ROW
     EXECUTE PROCEDURE hash_password_function()
+;
+
+-- sets the unlocked_signs attribute to the exercises default if no value was provided
+CREATE FUNCTION set_unlocked_signs_to_default_function() RETURNS TRIGGER AS
+$_plpgsql_$
+    BEGIN
+        IF NEW."unlocked_signs" IS NULL
+        THEN
+            NEW."unlocked_signs" = (SELECT "initial_unlocked_signs"
+                                    FROM   "exercise_settings"
+                                    WHERE  "exercise_id" = NEW."exercise_id");  
+        END IF;
+
+        RETURN NEW;
+    END;
+$_plpgsql_$
+LANGUAGE plpgsql
+;
+
+CREATE TRIGGER set_unlocked_signs_to_default_trigger
+BEFORE INSERT
+ON "exercise_settings_user"
+FOR EACH ROW
+    EXECUTE PROCEDURE set_unlocked_signs_to_default_function()
 ;
 
 -- insert new exercise_settings_user when first exercise_session for user and exercise is inserted
