@@ -2,14 +2,23 @@ import express from 'express'
 import { request } from './request.js'
 const signs = express.Router()
 
-signs.get('/:id', async (req, res) => {
+signs.get('/:exercise_id', async (req, res) => {
   await request({
     method: 'GET',
-    table: 'get_full_sign',
+    table: 'get_full_sign_for_exercise',
+    selectCols: [
+      'id',
+      'name',
+      'motion_category',
+      'recordings',
+      'exercise_id',
+      'order',
+    ],
+    /* eslint-disable */
     ids: {
-      id: req.params.id,
+      exercise_id: req.params.exercise_id,
     },
-    selectCols: ['id', 'name', 'motion_category', 'recordings'],
+    /* eslint-enable */
     res: res,
   })
 })

@@ -57,9 +57,13 @@ $$
                       ' FROM ('
                             ' SELECT ' || _select_values_ ||
                             ' FROM ' || QUOTE_IDENT(_table) ||
+                            CASE WHEN _ids IS NOT NULL
+                            THEN
                             ' WHERE (' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
-                                                             ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
-                        ') sub';
+                                                             ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))) sub'
+                            ELSE
+                            ') sub'
+                            END;
         ELSIF LOWER(_method) = 'post'
         THEN        
             -- build an INSERT query inserting only the elements of _data into _table
