@@ -5,6 +5,7 @@ module.exports = {
   printWidth: 80,
   tabWidth: 2,
   bracketSpacing: true,
+  endOfLine: "auto",
   overrides: [
     {
       files: ".js",
