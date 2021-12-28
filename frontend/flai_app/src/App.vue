@@ -4,10 +4,11 @@ import store from './store'
 import HelloWorld from './components/HelloWorld.vue'
 import ShowStore from './components/ShowStore.vue'
 import InputField from './components/InputField.vue'
+import RestApi from './common/service/rest.js'
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
-
+onMounted(RestApi.JsonAction('get', 'exercises/'))
 function handleInput(e: Event) {
   const target = <HTMLInputElement>e.target
 
