@@ -1,7 +1,10 @@
-
-body {
-    background-color: $white;
-    font-family: $default-font;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
+body {
+  background-color: $main-white;
+  font-family: $default-font;
+}
