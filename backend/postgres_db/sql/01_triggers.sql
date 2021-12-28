@@ -1,6 +1,10 @@
-/*************************************************************************************
+/***************************************************************************************
  * Create triggers and functions for flai_db_v1
- *************************************************************************************/
+ *
+ * Since the application should also be able to function without an internet connection,
+ * all triggers regarding the learning activity must merely be optional convenience
+ * and can't be used to drive the exercise procedure in the frontend.
+ ***************************************************************************************/
 
 BEGIN;
 
@@ -14,7 +18,7 @@ DROP TRIGGER IF EXISTS update_unlocked_signs_trigger      ON "learns_sign"      
 DROP FUNCTION IF EXISTS hash_password_function                                        CASCADE;
 DROP FUNCTION IF EXISTS new_exercise_settings_user_function                           CASCADE;
 DROP FUNCTION IF EXISTS new_learns_sign_function                                      CASCADE;
-DROP FUNCTION IF EXISTS  update_unlocked_signs_function                               CASCADE;
+DROP FUNCTION IF EXISTS update_unlocked_signs_function                                CASCADE;
 
 /* Trigger */
 -- account and authentication triggers + functions
@@ -44,17 +48,24 @@ FOR EACH ROW
 ;
 
 -- insert new exercise_settings_user when first exercise_session for user and exercise is inserted
+-- only insert if exercise_settings_user does not already exist
 CREATE FUNCTION new_exercise_settings_user_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN                                
         IF(NOT EXISTS (SELECT "user_id"
-                       FROM "exercise_session"
-                       WHERE "user_id" = NEW."user_id"
-                             AND "exercise_id" = NEW."exercise_id"))
-            THEN
-                INSERT INTO "exercise_settings_user" ("user_id", "exercise_id")
-                VALUES
-                (NEW."user_id", NEW."exercise_id");
+                       FROM   "exercise_session"
+                       WHERE  "user_id" = NEW."user_id"
+                              AND "exercise_id" = NEW."exercise_id")
+           AND
+           NOT EXISTS (SELECT "user_id"
+                       FROM   "exercise_settings_user"
+                       WHERE  "user_id" = NEW."user_id"
+                              AND "exercise_id" = NEW."exercise_id")
+          )
+        THEN
+            INSERT INTO "exercise_settings_user" ("user_id", "exercise_id")
+            VALUES
+            (NEW."user_id", NEW."exercise_id");
         END IF;
 
         RETURN NEW;
@@ -70,31 +81,43 @@ FOR EACH ROW
     EXECUTE PROCEDURE new_exercise_settings_user_function()
 ;
 
--- TODO: NULL if not custom order?
--- TODO: Cleaner solution than limit?
--- insert new learns_sign when unlocked_signs is added to in exercise_settings_user
+-- insert new learns_sign when unlocked_signs is increased in exercise_settings_user
 CREATE FUNCTION new_learns_sign_function() RETURNS TRIGGER AS
 $_plpgsql_$
     DECLARE
-        _sign_delta_ INTEGER;
+        _sign_delta_     INTEGER;
+        _old_unlock_num_ INTEGER;
     BEGIN
-        _sign_delta_ := NEW."unlocked_signs" - COALESCE(OLD."unlocked_signs", 0);
+        -- get difference between old "unlocked_signs" value and new one
+        _old_unlock_num_ := COALESCE(OLD."unlocked_signs", 0);
+        _sign_delta_ := NEW."unlocked_signs" - _old_unlock_num_;
 
-        INSERT INTO "learns_sign" ("user_id", "sign_id", "exercise_id")
-        SELECT NEW."user_id", sub."sign_id", sub."exercise_id"
-        FROM (SELECT DISTINCT s."id" AS "sign_id", 
-                              s."name", 
-                              e."id" AS "exercise_id",
-                              CASE WHEN es.sort_signs_by_order THEN ins."order" END AS "custom_order"
-              FROM "sign" s
-              JOIN "includes_sign" ins    ON s."id" = ins."sign_id"
-              JOIN "task" t               ON ins."task_id" = t."id"
-              JOIN "exercise" e           ON t."exercise_id" = e."id"
-              JOIN "exercise_settings" es ON e."id" = es."exercise_id"
-              WHERE e."id" = NEW."exercise_id"
-              ORDER BY "custom_order" ASC, s."name" ASC
-              LIMIT _sign_delta_ OFFSET OLD."unlocked_signs"
-        ) sub;
+        -- only try inserting if unlocked_signs has increased
+        IF _sign_delta_ > 0
+        THEN
+            INSERT INTO "learns_sign" ("user_id", "sign_id", "exercise_id")
+            SELECT NEW."user_id", ins_q."sign_id", ins_q."exercise_id"
+            FROM   (SELECT DISTINCT s."id" AS "sign_id",
+                                    e."id" AS "exercise_id",
+                                    -- insert new signs in the order specified in exercise_settings
+                                    CASE 
+                                    WHEN es.sort_signs_by_order 
+                                        THEN ins."order" 
+                                    ELSE
+                                        DENSE_RANK() OVER(ORDER BY s."name" ASC)
+                                    END AS "sign_order"
+                    FROM   "sign" s
+                           JOIN "includes_sign" ins    ON s."id" = ins."sign_id"
+                           JOIN "task" t               ON ins."task_id" = t."id"
+                           JOIN "exercise" e           ON t."exercise_id" = e."id"
+                           JOIN "exercise_settings" es ON e."id" = es."exercise_id"
+                    WHERE  e."id" = NEW."exercise_id"
+                   ) ins_q
+            WHERE  ins_q."sign_order" >= _old_unlock_num_
+                   AND ins_q."sign_order" < _old_unlock_num_ + _sign_delta_
+            -- only insert new signs if they don't already exist
+            ON CONFLICT ON CONSTRAINT learns_sign_pk DO NOTHING;
+        END IF;
 
         RETURN NULL;
     END;
@@ -109,26 +132,29 @@ FOR EACH ROW
     EXECUTE PROCEDURE new_learns_sign_function()
 ;
 
-/* Count up the corresponding unlocked_signs attribue if a signs progress reaches level_3 for the first time */
+-- TODO: only increase unlocked_signs if the new sign has not already been inserted
+--       this requires knowledge of the initial unlocked_values, which currently does not exist
+-- increase unlocked_signs if a sign's progress reaches level_3 for the first time 
 CREATE FUNCTION update_unlocked_signs_function() RETURNS TRIGGER AS
 $_plpgsql_$
     DECLARE
         _level_3_ INTEGER;
     BEGIN
         _level_3_ := (SELECT "level_3" 
-                      FROM "exercise_settings" 
-                      WHERE "exercise_id" = NEW."exercise_id");
+                      FROM   "exercise_settings" 
+                      WHERE  "exercise_id" = NEW."exercise_id");
+        
         IF(NEW."progress" >= _level_3_ AND NOT OLD."level_3_reached")
             THEN
                 UPDATE "exercise_settings_user"
-                SET "unlocked_signs" = (SELECT "unlocked_signs"
-                                        FROM "exercise_settings_user"
-                                        WHERE "exercise_id" = NEW."exercise_id"
-                                              AND "user_id" = NEW."user_id")
-                                        + 1
-                WHERE "exercise_id" = NEW."exercise_id"
-                      AND "user_id" = NEW."user_id";
-                
+                SET    "unlocked_signs" = (SELECT "unlocked_signs"
+                                           FROM   "exercise_settings_user"
+                                           WHERE  "exercise_id" = NEW."exercise_id"
+                                                  AND "user_id" = NEW."user_id")
+                                          + 1
+                WHERE  "exercise_id" = NEW."exercise_id"
+                        AND "user_id" = NEW."user_id";
+
                 NEW."level_3_reached" = TRUE;
         END IF;
 
