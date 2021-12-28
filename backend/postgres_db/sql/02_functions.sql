@@ -51,10 +51,10 @@ $_plpgsql_$
         SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category       INTO _mc_id_;
         SELECT "id" FROM "exercise"          WHERE "name" = 'Buchstabieren lernen' INTO _e_id_;
         SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webm'                 INTO _vid_id_;
-        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'png'                  INTO _pic_id_;
+        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webp'                 INTO _pic_id_;
         SELECT "id" FROM "e_perspective"     WHERE "name" = 'front'                INTO _front_id_;
         SELECT "id" FROM "e_perspective"     WHERE "name" = 'side'                 INTO _side_id_;
-        _path_     := './assets/signs';
+        _path_ := '@/assets/signs';
 
         FOREACH _letter_ IN ARRAY _letters_ LOOP
 
