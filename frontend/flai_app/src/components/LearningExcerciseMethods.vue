@@ -7,6 +7,9 @@
       />
     </video>
     <div>
+      <button @click="toggleState">play/pause</button>
+    </div>
+    <div>
       <button @click="play">play</button>
       <button @click="pause">pause</button>
       <button @click="setSpeed(0.5)">0.5x</button>
@@ -24,7 +27,7 @@ export default defineComponent({
   name: 'LearningExerciseMethods',
 
   setup() {
-    let isPlaying: true
+    let isPlaying = false
 
     function play() {
       this.$refs.videoPlayer.play()
@@ -37,7 +40,19 @@ export default defineComponent({
     function setSpeed(speed: number) {
       this.$refs.videoPlayer.playbackRate = speed
     }
-    return { play, pause, setSpeed }
+
+    function toggleState() {
+      isPlaying = !isPlaying
+      console.log(isPlaying)
+
+      if (isPlaying) {
+        this.$refs.videoPlayer.play()
+      } else {
+        this.$refs.videoPlayer.pause()
+      }
+    }
+
+    return { toggleState, play, pause, setSpeed }
   },
 })
 </script>
