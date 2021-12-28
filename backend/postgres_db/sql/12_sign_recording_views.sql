@@ -8,6 +8,7 @@ BEGIN;
 DROP VIEW IF EXISTS get_sign_recording CASCADE;
 
 /* Views */
+-- returns sign_recording with mimetype and perspective as names
 CREATE VIEW get_sign_recording ("id", "path", "mimetype", "perspective")
 AS
 SELECT sr."id", sr."path", mt."name" As "mmimetype", p."name" AS "perspective"
