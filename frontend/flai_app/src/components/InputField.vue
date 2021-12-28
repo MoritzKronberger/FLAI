@@ -4,7 +4,7 @@
       v-model="newInput"
       type="text"
       :placeholder="placeholder"
-      @input="$emit('input', inputData)"
+      @input="$emit(inputData)"
       @keyup.enter="addInput"
     />
   </div>
