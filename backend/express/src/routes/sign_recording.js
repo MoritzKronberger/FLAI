@@ -2,14 +2,16 @@ import express from 'express'
 import { request } from './request.js'
 const signRecording = express.Router()
 
-signRecording.get('/:id', async (req, res) => {
+signRecording.get('/:sign_id', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_sign_recording',
+    /* eslint-disable */
     ids: {
-      id: req.params.id,
+      sign_id: req.params.sign_id,
     },
-    selectCols: ['id', 'path', 'mimetype', 'perspective'],
+    /* eslint-enable */
+    selectCols: ['id', 'path', 'mimetype', 'perspective', 'sign_id'],
     res: res,
   })
 })
