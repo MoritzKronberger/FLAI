@@ -159,9 +159,17 @@ FOR EACH ROW
     EXECUTE PROCEDURE new_learns_sign_function()
 ;
 
--- TODO: only increase unlocked_signs if the new sign has not already been inserted
---       this requires knowledge of the initial unlocked_values, which currently does not exist
 -- increase unlocked_signs if a sign's progress reaches level_3 for the first time 
+---
+-- ! unlocked_signs should only be increased if the new sign has not already been accounted for !
+-- This is relevant in the following scenario:
+-- A user is learning without an internet connection.
+-- When they connect to the backend a day later their local progress should be synced.
+-- They have reached level_3 on one sign and therefore unlocked a new one:
+-- -> 1. exercise_settings_user is updated and unlocked_signs is increased by 1
+-- -> 2. The new_learns_sign_trigger now automatically inserts a new row into learns_sign.
+-- -> 3. learns_sign is now updated with the progress values made offline, but even though one sign now reaches level_3,
+--       unlocked_signs should not be increased, since this is what already happened in the first step
 CREATE FUNCTION update_unlocked_signs_function() RETURNS TRIGGER AS
 $_plpgsql_$
     DECLARE
@@ -171,16 +179,35 @@ $_plpgsql_$
                       FROM   "exercise_settings" 
                       WHERE  "exercise_id" = NEW."exercise_id");
         
+        -- increase unlocked_signs if level_3 has been reached for the first time
         IF(NEW."progress" >= _level_3_ AND NOT OLD."level_3_reached")
             THEN
-                UPDATE "exercise_settings_user"
-                SET    "unlocked_signs" = (SELECT "unlocked_signs"
-                                           FROM   "exercise_settings_user"
-                                           WHERE  "exercise_id" = NEW."exercise_id"
-                                                  AND "user_id" = NEW."user_id")
-                                          + 1
-                WHERE  "exercise_id" = NEW."exercise_id"
-                        AND "user_id" = NEW."user_id";
+                -- Only increase unlocked_signs if the increase has not already happened.
+                -- Since a new sign should only be added if another reaches level_3,
+                -- there can only be as many signs without level 3 as were initially inserted.
+                -- Therefore unlocked_signs should only be increased if less than the initial signs without progress exist
+                -- (excluding the currently updated sign). 
+                IF (SELECT   COUNT("user_id")
+                    FROM     "learns_sign"
+                    WHERE    "level_3_reached" = FALSE
+                             AND "user_id" = NEW."user_id"
+                             AND "exercise_id" = NEW."exercise_id"
+                             AND "sign_id" <> NEW."sign_id"
+                    GROUP BY "user_id", "exercise_id")
+                   <
+                   (SELECT "initial_unlocked_signs"
+                    FROM   "exercise_settings"
+                    WHERE  "exercise_id" = NEW."exercise_id")
+                THEN
+                    UPDATE "exercise_settings_user"
+                    SET    "unlocked_signs" = (SELECT "unlocked_signs"
+                                               FROM   "exercise_settings_user"
+                                               WHERE  "exercise_id" = NEW."exercise_id"
+                                                      AND "user_id" = NEW."user_id")
+                                              + 1
+                    WHERE  "exercise_id" = NEW."exercise_id"
+                            AND "user_id" = NEW."user_id";
+                END IF;
 
                 NEW."level_3_reached" = TRUE;
         END IF;
@@ -204,8 +231,7 @@ COMMIT;
 
 /*************************************************************************************
  * Test queries for trigger and function development
- * (test queries might no longer work, since inserted test data has been modified)
- * TODO: Update test queries?
+ * (some test queries might no longer work, since inserted test data has been modified)
  *************************************************************************************/
 
 -- test new_exercise_settings_user_trigger and function
@@ -244,11 +270,51 @@ SELECT * FROM "learns_sign";
 
 -- test update_unlocked_signs_trigger and function
 /*
+-- this should (in isolation) increase unlocked_signs and add a new sign to learns_sign
+SELECT * FROM "learns_sign";
+SELECT * FROM "exercise_settings_user";
+
 UPDATE "learns_sign"
 SET "progress" = 100
 WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
+      AND "sign_id" = (SELECT "sign_id" FROM "learns_sign"
+                       WHERE "level_3_reached" IS FALSE
+                       AND "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+                       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+                       LIMIT 1)
+;
+
+SELECT * FROM "learns_sign";
+SELECT * FROM "exercise_settings_user";
+
+-- this should (in isolation) not increase unlocked_signs via the trigger (at UPDATE "learns_sign")
+SELECT * FROM "learns_sign";
+SELECT * FROM "exercise_settings_user";
+
+UPDATE "exercise_settings_user"
+SET "unlocked_signs" = (SELECT "unlocked_signs"
+                        FROM "exercise_settings_user"
+                        WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+                        AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+                       )
+                       + 1
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+;
+
+SELECT * FROM "learns_sign";
+SELECT * FROM "exercise_settings_user";
+
+UPDATE "learns_sign"
+SET "progress" = 100
+WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+      AND "sign_id" = (SELECT "sign_id" FROM "learns_sign"
+                       WHERE "level_3_reached" IS FALSE
+                       AND "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+                       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+                       LIMIT 1)
 ;
 
 SELECT * FROM "learns_sign";
