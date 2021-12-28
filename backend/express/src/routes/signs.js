@@ -5,8 +5,15 @@ const signs = express.Router()
 signs.get('/:exercise_id', async (req, res) => {
   await request({
     method: 'GET',
-    table: 'get_full_sign',
-    selectCols: ['id', 'name', 'motion_category', 'recordings'],
+    table: 'get_full_sign_for_exercise',
+    selectCols: [
+      'id',
+      'name',
+      'motion_category',
+      'recordings',
+      'exercise_id',
+      'order',
+    ],
     /* eslint-disable */
     ids: {
       exercise_id: req.params.exercise_id,
