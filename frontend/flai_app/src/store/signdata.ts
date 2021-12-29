@@ -34,6 +34,9 @@ const methods = {
   },
 }
 
-const signData = { signs: readonly(signs), methods }
+const signData = {
+  signs: readonly(signs) as Sign[],
+  methods,
+}
 
 export default signData

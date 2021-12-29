@@ -51,11 +51,14 @@ services:
 
     adminer:
         container_name: flai-adminer
-        image: adminer
-        environment:
-            ADMINER_DEFAULT_DB_DRIVER: pgsql
-            ADMINER_DEFAULT_SERVER: flai-postgres-db
-            ADMINER_DEFAULT_USER: ${DEV_USER}
-            ADMINER_DESIGN: rmsoft
+        image: adminer:${IMAGE_TAG}
+        build:
+            context: ./backend/adminer
+            args:
+                ADMINER_DEFAULT_DB_DRIVER: pgsql
+                ADMINER_DEFAULT_SERVER: flai-postgres-db
+                ADMINER_DEFAULT_USER: ${DEV_USER}
+                ADMINER_DEFAULT_DB_NAME: ${DEV_DB}
+                ADMINER_DESIGN: rmsoft
         ports:
             - ${ADMINER_HOST_PORT}:${ADMINER_CONTAINER_PORT}

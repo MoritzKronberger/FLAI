@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { provide, onMounted } from 'vue'
 import store from './store'
-import HelloWorld from './components/HelloWorld.vue'
-import ShowStore from './components/ShowStore.vue'
-import InputField from './components/InputField.vue'
+
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
 onMounted(store.exercisedata.actions.getAllExercises)
+onMounted(store.sessiondata.methods.startTimer)
 
 function handleInput(e: Event) {
   const target = <HTMLInputElement>e.target
@@ -17,19 +16,39 @@ function handleInput(e: Event) {
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hallo, wir sind FLAI!" />
-  <ShowStore />
-  <InputField placeholder="placeholder" @keyup.enter="handleInput" />
+  <img id="logo" alt="flai logo" src="./assets/flai_logo.jpg" />
+  <div id="nav">
+    <router-link to="/">Home</router-link>
+    <router-link to="/store">ShowStore</router-link>
+  </div>
+  <main>
+    <router-view />
+  </main>
 </template>
 
 <style>
+main {
+  margin-left: 20%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+a {
+  margin: 1%;
+  text-decoration: none;
+}
+#nav {
+  text-align: center;
+}
+#logo {
+  margin: 1%;
+  max-width: 15%;
+  left: 0;
+  top: 0;
+  position: absolute;
 }
 </style>
