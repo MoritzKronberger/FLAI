@@ -3,7 +3,7 @@
 h1, h2, h3{
   @include font(GothamSSm, bold);
   line-height: 1.3;
-  color: $black;
+  color: $main-black;
 }
 
 h1 {

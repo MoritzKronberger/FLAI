@@ -8,6 +8,7 @@ const count = ref(0)
 
 <template>
   <h1>{{ msg }}</h1>
+  <h1>Das ist ein Test</h1>
 </template>
 
 <style lang="scss" scoped>

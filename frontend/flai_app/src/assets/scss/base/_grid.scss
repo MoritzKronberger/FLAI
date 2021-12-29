@@ -4,15 +4,15 @@
     display: grid;
     grid-column-gap: $gutter-vertical;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
-    background-color: $white;
+    background-color: $main-white;
     // still testing
     background-color: $main-blue;
     padding: 10px;
   }
 
   .grid-item {
-    background-color: $white;
-    border: 1px solid $black;
+    background-color: $main-white;
+    border: 1px solid $main-black;
     padding: 20px;
     font-size: 30px;
     text-align: center;

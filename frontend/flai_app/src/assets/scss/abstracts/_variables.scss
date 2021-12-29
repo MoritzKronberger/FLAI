@@ -25,7 +25,7 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light.otf',
         format: ('opentype')
       )
     ),
@@ -35,7 +35,7 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf',
         format: ('opentype')
       )
     ),
@@ -45,7 +45,7 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium.otf',
         format: ('opentype')
       )
     ),
@@ -55,7 +55,7 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf',
         format: ('opentype')
       )
     ),
@@ -65,7 +65,7 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLight.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLight.otf',
         format: ('opentype')
       )
     ),
@@ -75,7 +75,7 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLightItalic.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLightItalic.otf',
         format: ('opentype')
       )
     ),
@@ -85,7 +85,7 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Bold.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Bold.otf',
         format: ('opentype')
       )
     ),
@@ -95,7 +95,7 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BoldItalic.otf"),
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BoldItalic.otf',
         format: ('opentype')
       )
     ),

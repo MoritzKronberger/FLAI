@@ -6,5 +6,5 @@
 
 body {
   background-color: $main-white;
-  font-family: $default-font;
+  @include font(GothamSSm, bold);
 }
