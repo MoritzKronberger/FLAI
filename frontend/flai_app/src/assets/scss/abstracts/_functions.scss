@@ -4,6 +4,7 @@
     $src: ();
   
     $formats-map: (
+      otf: '#{file-path}.otf' format('opentype'),
       eot:   '#{$file-path}.eot?#iefix' format('embedded-opentype'),
       woff2: '#{$file-path}.woff2' format('woff2'),
       woff:  '#{$file-path}.woff' format('woff'),
