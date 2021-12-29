@@ -25,7 +25,9 @@ export default defineComponent({
     }
     onMounted(() => {
       if (!navigator.mediaDevices) {
-        window.alert('Es steht keine Webcam zur Verfügung.')
+        window.alert(
+          'Es steht keine Webcam zur Verfügung. Bitte schließen Sie ein Gerät an und versuchen Sie es erneut.'
+        )
         throw new Error('Webcam is not available')
       } else {
         start()
