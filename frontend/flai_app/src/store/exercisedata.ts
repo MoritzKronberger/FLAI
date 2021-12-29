@@ -72,7 +72,7 @@ const methods = {
 
 const actions = {
   async getAllExercises() {
-    RestApi.JsonAction('get', 'exercise/', {})
+    RestApi.JsonAction('get', 'exercise/all')
   },
 }
 
