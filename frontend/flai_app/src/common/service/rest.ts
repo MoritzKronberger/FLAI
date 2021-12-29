@@ -17,6 +17,7 @@ const config = (method: Method, url: string, data: object) => {
 const jsonResult = async (method: Method, url: string, data: object) => {
   try {
     const res = await axios(config(method, url, data))
+    console.log(res.data)
     return {
       status: res.status,
       headers: res.headers,
@@ -28,7 +29,7 @@ const jsonResult = async (method: Method, url: string, data: object) => {
 }
 
 export default {
-  async JsonAction(method: Method, url: string, data: object) {
+  async JsonAction(method: Method, url: string, data: object = {}) {
     return await jsonResult(method, url, data)
   },
 }
