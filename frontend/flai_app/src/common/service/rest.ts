@@ -6,7 +6,7 @@ import axios from 'axios'
 axios.defaults.baseURL = 'https://localhost:5000/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-const config = (_method, _url, _data = null) => {
+const config = (_method: string, _url: string, _data: object) => {
   return {
     method: _method,
     url: _url,
@@ -14,7 +14,7 @@ const config = (_method, _url, _data = null) => {
   }
 }
 
-const jsonResult = async (method, url, data = null) => {
+const jsonResult = async (method: string, url: string, data: object) => {
   try {
     const res = await axios(config(method, url, data))
     return {
@@ -28,7 +28,7 @@ const jsonResult = async (method, url, data = null) => {
 }
 
 export default {
-  async JsonAction(method, url, data = null) {
+  async JsonAction(method: string, url: string, data: object) {
     return await jsonResult(method, url, data)
   },
 }
