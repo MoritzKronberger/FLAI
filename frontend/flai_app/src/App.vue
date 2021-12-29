@@ -19,7 +19,7 @@ function handleInput(e: Event) {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hallo, wir sind FLAI!" />
-  <Webcam ref="camera" autoplay />
+  <Webcam />
   <ShowStore />
   <InputField placeholder="placeholder" @keyup.enter="handleInput" />
 </template>
