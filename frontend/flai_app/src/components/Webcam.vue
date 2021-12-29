@@ -16,6 +16,7 @@ export default defineComponent({
       video: {
         width: 500,
         height: 500,
+        facingMode: 'user',
       },
       audio: false,
     }
@@ -28,9 +29,7 @@ export default defineComponent({
       start()
     })
     return {
-      start,
       webcamFeed,
-      stream,
     }
   },
 })
