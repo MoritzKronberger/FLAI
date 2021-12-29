@@ -32,7 +32,10 @@ const wordLength = ref()
 const exerciseSession = ref()
 
 const exerciseMethods = store.exercisedata.methods
-const exercisesettings = computed(() => store.exercisedata.exerciseSettings)
+const exerciseSettings = computed(() => store.exercisedata.exerciseSettings)
+const exerciseSettingsUser = computed(
+  () => store.exercisedata.exerciseSettingsUser
+)
 const exercises = computed(() => store.exercisedata.exercises)
 const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
 
@@ -69,8 +72,12 @@ const letter = ref()
     @keyup.enter="changeTargetLearningTime"
   />
   <h2>Exercisedata</h2>
-  <p>Settings:</p>
-  <p v-for="(value, name) in exercisesettings" :key="value">
+  <h3>Settings per Exercise:</h3>
+  <p v-for="(value, name) in exerciseSettings" :key="value">
+    {{ name }}: {{ value }}
+  </p>
+  <h3>Settings per User:</h3>
+  <p v-for="(value, name) in exerciseSettingsUser" :key="value">
     {{ name }}: {{ value }}
   </p>
   <label>Change wordLength:</label
