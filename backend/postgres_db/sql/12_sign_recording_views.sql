@@ -13,6 +13,7 @@ AS
 SELECT sr."id", sr."path", mt."name" AS "mimetype", p."name" AS "perspective", sr."sign_id"
 FROM   "sign_recording" sr
        JOIN "e_mimetype" mt   ON sr."mimetype_id" = mt."id"
-       JOIN "e_perspective" p ON sr."perspective_id" = p."id";
+       JOIN "e_perspective" p ON sr."perspective_id" = p."id"
+;
 
 COMMIT;

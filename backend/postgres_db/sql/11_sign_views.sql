@@ -31,6 +31,7 @@ CREATE VIEW get_full_sign_for_exercise ("id", "name", "motion_category", "record
 AS
 SELECT gfs."id", gfs."name", gfs."motion_category", gfs."recordings", ins."exercise_id", ins."order"
 FROM   get_full_sign gfs
-       JOIN "includes_sign" ins ON gfs."id" = ins."sign_id";
+       JOIN "includes_sign" ins ON gfs."id" = ins."sign_id"
+;
 
 COMMIT;
