@@ -1,6 +1,6 @@
 import { readonly, reactive } from 'vue'
 import { random } from '../ressources/ts/random'
-import RestApi from '../common/service/rest'
+import { jsonAction } from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
 export interface ExerciseSettings {
@@ -72,13 +72,18 @@ const methods = {
 
 const actions = {
   async getAllExercises() {
-    RestApi.JsonAction('get', 'exercise/all')
+    jsonAction({ method: 'get', url: 'exercise/all', data: {} })
   },
 
-  async getFullExerciseForUser(exerciseId: string, userId: string) {
-    /* eslint-disable */
-    RestApi.JsonAction('get', 'exercise/', { id: exerciseId, user_id: userId })
-    /* eslint-enable */
+  async getFullExerciseForUser() {
+    jsonAction({
+      method: 'get',
+      url: 'exercise/',
+      data: {
+        id: '81cb9652-c202-4675-a55d-81296b7d17b6',
+        user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac', // eslint-disable-line
+      },
+    })
   },
 }
 
