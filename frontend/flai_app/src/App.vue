@@ -5,6 +5,7 @@ import store from './store'
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
+onMounted(store.exercisedata.actions.getAllExercises)
 onMounted(store.sessiondata.methods.startTimer)
 
 function handleInput(e: Event) {

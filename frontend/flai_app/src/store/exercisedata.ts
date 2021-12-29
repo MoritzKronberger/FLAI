@@ -1,5 +1,6 @@
 import { readonly, reactive } from 'vue'
 import { random } from '../ressources/ts/random'
+import RestApi from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
 export interface ExerciseSettings {
@@ -69,9 +70,15 @@ const methods = {
   },
 }
 
+const actions = {
+  async getAllExercises() {
+    RestApi.JsonAction('get', 'exercise/all')
+  },
+}
+
 const exerciseData = {
   exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
   exercises: readonly(exercises) as Exercise[],
   methods,
 }
-export default exerciseData
+export default { exerciseData, actions }
