@@ -34,10 +34,10 @@ $$
         _ids_json_      JSONB  DEFAULT NULL;
         _rows_          JSONB  DEFAULT NULL;
 
-        _constraint_  TEXT DEFAULT  _table || ' exists';
-        _pgstate_     TEXT;
-        _cname_       TEXT;
-        _message_     TEXT;
+        _constraint_    TEXT   DEFAULT _table || ' exists';
+        _pgstate_       TEXT;
+        _cname_         TEXT;
+        _message_       TEXT;
     BEGIN
         -- collect the names of the columns into which should be inserted (provided by the json keys) into _data_values_
         _data_values_ := json_keys_to_text(_data);

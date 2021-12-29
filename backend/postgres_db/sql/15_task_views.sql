@@ -12,6 +12,6 @@ DROP VIEW IF EXISTS get_full_task CASCADE;
 CREATE VIEW get_task ("id", "name", "description", "exercise_id")
 AS
 SELECT "id", "name", "description", "exercise_id"
-FROM "task";
+FROM   "task";
 
 COMMIT;

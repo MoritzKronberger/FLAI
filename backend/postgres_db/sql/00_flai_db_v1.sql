@@ -189,10 +189,10 @@ CREATE TABLE "includes_sign"
  CONSTRAINT includes_sign_pk
     PRIMARY KEY ("exercise_id", "sign_id"),
 
- CONSTRAINT fk_exercise_id
+ CONSTRAINT includes_sign_fk_exercise_id
     FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id") ON DELETE CASCADE,
 
- CONSTRAINT fk_sign_id
+ CONSTRAINT includes_sign_fk_sign_id
     FOREIGN KEY ("sign_id")     REFERENCES "sign" ("id")     ON DELETE CASCADE,
 
  CONSTRAINT includes_sign_unique_order_per_exercise

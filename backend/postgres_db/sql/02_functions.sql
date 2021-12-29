@@ -45,6 +45,7 @@ $_plpgsql_$
         _path_     TEXT;
     BEGIN
         _letters_ := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
+        _path_ := '@/assets/signs';
 
         SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category       INTO _mc_id_;
         SELECT "id" FROM "exercise"          WHERE "name" = 'Buchstabieren lernen' INTO _e_id_;
@@ -52,7 +53,6 @@ $_plpgsql_$
         SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webp'                 INTO _pic_id_;
         SELECT "id" FROM "e_perspective"     WHERE "name" = 'front'                INTO _front_id_;
         SELECT "id" FROM "e_perspective"     WHERE "name" = 'side'                 INTO _side_id_;
-        _path_ := '@/assets/signs';
 
         FOREACH _letter_ IN ARRAY _letters_ LOOP
 
