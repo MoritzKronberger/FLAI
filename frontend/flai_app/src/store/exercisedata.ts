@@ -3,6 +3,14 @@ import { random } from '../ressources/ts/random'
 import RestApi from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
+export interface Exercise {
+  id: string
+  name: string
+  description: string
+}
+
+const exercises: Exercise[] = reactive([])
+
 export interface ExerciseSettings {
   id: string
   level1: number
@@ -21,7 +29,7 @@ const exerciseSettings: ExerciseSettings = reactive({
   unlockedSigns: 4,
 })
 
-export interface Exercise {
+export interface ExerciseSession {
   id: string
   name: string
   description: string
@@ -30,7 +38,7 @@ export interface Exercise {
   signs: Sign[]
 }
 
-const exercises: Exercise[] = reactive([])
+const exerciseSessions: ExerciseSession[] = reactive([])
 
 const methods = {
   //TODO: change methods to suit database
