@@ -1,4 +1,5 @@
 import express from 'express'
+import { jsonHelper } from '../util/jsonhelper.js'
 // import { authToken } from '../util/auth.js'
 import { request } from './request.js'
 const exercise = express.Router()
@@ -29,7 +30,7 @@ exercise.get('/', async (req, res) => {
       'word_length',
       'unlocked_signs',
     ],
-    ids: req.body,
+    ids: jsonHelper(req.query),
     res: res,
   })
 })
