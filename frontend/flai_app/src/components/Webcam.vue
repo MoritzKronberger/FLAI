@@ -1,7 +1,5 @@
 <template>
-  <div id="webcam-container">
-    <video id="webcam-feed" ref="webcamFeed" autoplay="true"></video>
-  </div>
+  <video id="webcam-feed" ref="webcamFeed" autoplay="true"></video>
 </template>
 
 <script lang="ts">
@@ -41,12 +39,6 @@ export default defineComponent({
 </script>
 
 <style lang="css" scoped>
-#webcam-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 #webcam-feed {
   transform: rotateY(180deg);
 }
