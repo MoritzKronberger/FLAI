@@ -59,6 +59,7 @@ const methods = {
       signs: signData.methods.createNewSigns(),
     }
     exercises.push(exercise)
+    console.log('exercises:', JSON.stringify(exercises))
   },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
