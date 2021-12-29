@@ -12,12 +12,14 @@ BEGIN;
 /* Cleanup */
 DROP TRIGGER IF EXISTS hash_password_trigger                 ON "user"                   CASCADE;
 DROP TRIGGER IF EXISTS set_unlocked_signs_to_default_trigger ON "exercise_settings_user" CASCADE;
+DROP TRIGGER IF EXISTS order_not_null_trigger                ON "learns_sign"            CASCADE;
 DROP TRIGGER IF EXISTS new_exercise_settings_user_trigger    ON "exercise_session"       CASCADE;
 DROP TRIGGER IF EXISTS new_learns_sign_trigger               ON "exercise_settings_user" CASCADE;
 DROP TRIGGER IF EXISTS update_unlocked_signs_trigger         ON "learns_sign"            CASCADE;
 
 DROP FUNCTION IF EXISTS hash_password_function                                           CASCADE;
 DROP FUNCTION IF EXISTS set_unlocked_signs_to_default_function                           CASCADE;
+DROP FUNCTION IF EXISTS order_not_null_function                                          CASCADE;
 DROP FUNCTION IF EXISTS new_exercise_settings_user_function                              CASCADE;
 DROP FUNCTION IF EXISTS new_learns_sign_function                                         CASCADE;
 DROP FUNCTION IF EXISTS update_unlocked_signs_function                                   CASCADE;
@@ -72,6 +74,32 @@ BEFORE INSERT
 ON "exercise_settings_user"
 FOR EACH ROW
     EXECUTE PROCEDURE set_unlocked_signs_to_default_function()
+;
+
+-- enforces includes_sign order attribute to be not null if sort_signs_by_order is true in exercise_settings
+CREATE FUNCTION order_not_null_function() RETURNS TRIGGER AS
+$_plpgsql_$
+    BEGIN
+        IF NEW."order" IS NULL
+           AND
+           (SELECT "sort_signs_by_order"
+            FROM   "exercise_settings"
+            WHERE  "exercise_id" = NEW."exercise_id")
+        THEN
+            RAISE EXCEPTION 'includes_signs_order_not_null';
+        END IF;
+
+        RETURN NEW;
+    END;
+$_plpgsql_$
+LANGUAGE plpgsql
+;
+
+CREATE TRIGGER order_not_null_trigger
+BEFORE INSERT OR UPDATE
+ON "includes_sign"
+FOR EACH ROW
+    EXECUTE PROCEDURE order_not_null_function()
 ;
 
 -- insert new exercise_settings_user when first exercise_session for user and exercise is inserted
@@ -232,6 +260,23 @@ COMMIT;
  * Test queries for trigger and function development
  * (some test queries might no longer work, since inserted test data has been modified)
  *************************************************************************************/
+
+-- test order_not_null_trigger and function
+/*
+-- first update should raise "includes_signs_order_not_null" exception
+UPDATE "includes_sign"
+SET "order" = NULL
+WHERE "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
+
+-- second update should be allowed after updating exercise_settings
+UPDATE "exercise_settings"
+SET "sort_signs_by_order" = FALSE
+WHERE "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
+
+UPDATE "includes_sign"
+SET "order" = NULL
+WHERE "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
+*/
 
 -- test new_exercise_settings_user_trigger and function
 /*
