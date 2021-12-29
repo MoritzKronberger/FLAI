@@ -52,38 +52,33 @@ const exerciseSessions: ExerciseSession[] = reactive([])
 const methods = {
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
-    exerciseSettings.wordLength = wordLength
+    exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
-    exerciseSettings.unlockedSigns +=
-      exerciseSettings.unlockedSigns < 26 ? 1 : 0
+    exerciseSettingsUser.unlockedSigns +=
+      exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    exerciseSettings.unlockedSigns -= exerciseSettings.unlockedSigns > 0 ? 1 : 0
+    exerciseSettingsUser.unlockedSigns -=
+      exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
-  startNewExercise(name: string, description: string) {
+  startNewExerciseSession(name: string, description: string) {
     const word: Sign[] = []
-    for (let i = 0; i < exerciseSettings.wordLength; i++) {
-      const index = random(0, exerciseSettings.unlockedSigns)
+    for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+      const index = random(0, exerciseSettingsUser.unlockedSigns)
       word.push(signData.signs[index])
     }
     console.log('word', word)
-    const exercise: Exercise = {
-      id: '' + exercises.length,
-      name: name,
-      description: description,
-      firstStart: Date.now(),
+    const newSession: ExerciseSession = {
+      startTime: Date.now(),
       sessionDuration: 0,
       signs: word,
     }
-    exercises.push(exercise)
-    console.log('exerciseId', exercise.id)
-    return exercise.id
+    exerciseSessions.push(newSession)
+    return exerciseSessions
   },
   stopExercise(searchId: string) {
-    const index = exercises.findIndex((el) => el.id === searchId)
-    exercises[index].sessionDuration = Date.now() - exercises[index].firstStart
-    console.log(exercises[index])
+    //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
   },
 }
 
@@ -94,8 +89,12 @@ const actions = {
 }
 
 const exerciseData = {
-  exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
   exercises: readonly(exercises) as Exercise[],
+  exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
+  exerciseSettingsUser: readonly(exerciseSettingsUser) as ExerciseSettingsUser,
+  exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
   methods,
+  actions,
 }
-export default { exerciseData, actions }
+
+export default exerciseData
