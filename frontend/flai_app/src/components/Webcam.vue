@@ -12,8 +12,6 @@ export default defineComponent({
     const stream = ref<MediaStream>()
     const constraints = {
       video: {
-        width: 500,
-        height: 500,
         facingMode: 'user',
       },
       audio: false,
