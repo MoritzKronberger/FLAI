@@ -7,6 +7,7 @@ export interface Exercise {
   id: string
   name: string
   description: string
+  signs: Sign[]
 }
 
 const exercises: Exercise[] = reactive([])
@@ -50,6 +51,15 @@ export interface ExerciseSession {
 const exerciseSessions: ExerciseSession[] = reactive([])
 
 const methods = {
+  getExercises() {
+    const exercise: Exercise = {
+      id: '0',
+      name: 'test',
+      description: 'this is testdata',
+      signs: signData.methods.createNewSigns(),
+    }
+    exercises.push(exercise)
+  },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
     exerciseSettingsUser.wordLength = wordLength
@@ -62,7 +72,7 @@ const methods = {
     exerciseSettingsUser.unlockedSigns -=
       exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
-  startNewExerciseSession(name: string, description: string) {
+  startNewExerciseSession() {
     const word: Sign[] = []
     for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
       const index = random(0, exerciseSettingsUser.unlockedSigns)
@@ -79,6 +89,21 @@ const methods = {
   },
   stopExercise(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
+  },
+  updateProgress(exerciseId: string, letter: string, difference: number) {
+    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
+    const signIndex = exercises[exerciseIndex].signs.findIndex(
+      (el) => el.name === letter
+    )
+    exercises[exerciseIndex].signs[signIndex].progress += difference
+    exercises[exerciseIndex].signs[signIndex].progress =
+      exercises[exerciseIndex].signs[signIndex].progress > 0
+        ? exercises[exerciseIndex].signs[signIndex].progress
+        : 0
+    console.log(
+      'updatedSign',
+      exercises[exerciseIndex].signs[signIndex].progress
+    )
   },
 }
 
