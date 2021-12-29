@@ -16,8 +16,8 @@ export interface ExerciseSettings {
   level1: number
   level2: number
   level3: number
-  wordLength: number
-  unlockedSigns: number
+  exerciseId: string
+  sortSignsByOrder: boolean
 }
 
 const exerciseSettings: ExerciseSettings = reactive({
@@ -25,6 +25,18 @@ const exerciseSettings: ExerciseSettings = reactive({
   level1: 100,
   level2: 200,
   level3: 300,
+  exerciseId: '',
+  sortSignsByOrder: true,
+})
+
+export interface ExerciseSettingsUser {
+  exerciseId: string
+  wordLength: number
+  unlockedSigns: number
+}
+
+const exerciseSettingsUser: ExerciseSettingsUser = reactive({
+  exerciseId: '',
   wordLength: 4,
   unlockedSigns: 4,
 })
