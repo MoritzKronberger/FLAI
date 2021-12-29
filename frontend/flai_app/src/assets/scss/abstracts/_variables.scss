@@ -25,7 +25,8 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light.otf',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light.otf"),
+        format: ('opentype')
       )
     ),
       light-italic: (
@@ -34,44 +35,69 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf"),
+        format: ('opentype')
       )
     ),
       medium: (
       family: (Gotham SSm, Gotham),
-      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium.otf") format("opentype"),
       weight: normal,
-      style: normal
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium.otf"),
+        format: ('opentype')
+      )
     ),
       medium-italic: (
       family: (Gotham SSm, Gotham),
-      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-MediumItalic.otf") format("opentype"),
       weight: normal,
-      style: italic
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic.otf"),
+        format: ('opentype')
+      )
     ),
       xlight: (
       family: (Gotham SSm, Gotham),
-      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-xLight.otf") format("opentype"),
       weight: 200,
-      style: normal
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLight.otf"),
+        format: ('opentype')
+      )
     ),
       xlight-italic: (
       family: (Gotham SSm, Gotham),
-      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-xLightItalic.otf") format("opentype"),
       weight: 200,
-      style: italic
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLightItalic.otf"),
+        format: ('opentype')
+      )
     ),
       bold: (
       family: (Gotham SSm, Gotham),
-      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-bold.otf") format("opentype"),
       weight: bold,
-      style: normal
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Bold.otf"),
+        format: ('opentype')
+      )
     ),
       bold-italic: (
       family: (Gotham SSm, Gotham),
-      src: url("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-boldItalic.otf") format("opentype"),
       weight: bold,
-      style: italic
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        src: url ("ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BoldItalic.otf"),
+        format: ('opentype')
+      )
     ),
     )
 );
