@@ -4,7 +4,9 @@ import signrecordings, { SignRecording } from './signrecordings'
 export interface Sign {
   id: string
   name: string
+  motionCategoryId: string
   progress: number
+  level3Reached: boolean
   recordings: SignRecording[]
 }
 
@@ -17,7 +19,9 @@ const methods = {
       const sign: Sign = {
         id: '' + i,
         name: String.fromCharCode(97 + i),
+        motionCategoryId: '',
         progress: 0,
+        level3Reached: false,
         recordings: [],
       }
       sign.recordings = signrecordings.methods.createSignRecording(sign)
