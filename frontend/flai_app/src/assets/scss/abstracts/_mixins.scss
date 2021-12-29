@@ -14,10 +14,11 @@
 
 // font mixins
 
-@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack) {
+@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack){
   $font-properties: map-deep-get($font-stack, $group, $variant);
   
   @if $font-properties {
+    @include track-fonts($group, $variant);
     @each $property, $values in $font-properties {
       @if contains($properties, $property) {
         font-#{$property}: map-get($font-properties, $property);

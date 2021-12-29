@@ -24,9 +24,25 @@
   }
 
 // deep get function
-  @function map-deep-get($map, $keys...) {
-    @each $key in $keys {
-        $map: map-get($map, $key);
+
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    @if type-of($map) != "map" {
+      @warn '`#{$map}` is not a map.';
+      @return false;
     }
-    @return $map;
+    $map: map-get($map, $key);
+  }
+
+  @return $map;
+}
+
+@function contains($list, $values...) {
+  @each $value in $values {
+    @if type-of(index($list, $value)) != 'number' {
+      @return false;
+    }
+  }
+
+  @return true;
 }
