@@ -182,21 +182,21 @@ CREATE TABLE "sign_recording"
 );
 
 CREATE TABLE "includes_sign" 
-("task_id" UUID    NOT NULL,
- "sign_id" UUID    NOT NULL,
- "order"  INTEGER,
+("exercise_id" UUID    NOT NULL,
+ "sign_id"     UUID    NOT NULL,
+ "order"       INTEGER,
 
  CONSTRAINT includes_sign_pk
-    PRIMARY KEY ("task_id", "sign_id"),
+    PRIMARY KEY ("exercise_id", "sign_id"),
 
- CONSTRAINT includes_sign_fk_task_id
-    FOREIGN KEY ("task_id") REFERENCES "task" ("id") ON DELETE CASCADE,
+ CONSTRAINT fk_exercise_id
+    FOREIGN KEY ("exercise_id") REFERENCES "exercise" ("id") ON DELETE CASCADE,
 
- CONSTRAINT includes_sign_fk_sign_id
-    FOREIGN KEY ("sign_id") REFERENCES "sign" ("id") ON DELETE CASCADE,
+ CONSTRAINT fk_sign_id
+    FOREIGN KEY ("sign_id")     REFERENCES "sign" ("id")     ON DELETE CASCADE,
 
- CONSTRAINT includes_sign_unique_order_per_task
-    UNIQUE ("task_id", "order")
+ CONSTRAINT includes_sign_unique_order_per_exercise
+    UNIQUE ("exercise_id", "order")
 );
 
 CREATE TABLE "learns_sign" 

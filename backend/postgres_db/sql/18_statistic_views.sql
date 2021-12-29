@@ -90,13 +90,10 @@ GROUP BY "user_id", ls."exercise_id", es."level_3"
 -- returns the fraction of all possible progress a user has reached in one exercise
 CREATE VIEW get_exercise_completion_progress ("user_id", "exercise_id", "progress_completion")
 AS
-SELECT   gtep."user_id", gtep."exercise_id", 
-         gtep."total_progress"::REAL / (COUNT(DISTINCT ins."sign_id") * gtep."level_3") AS "progress_completion"
-FROM     get_total_exercise_progress gtep
-         JOIN "task" t ON gtep."exercise_id" = t."exercise_id"
-         JOIN includes_sign ins ON t."id" = ins."task_id"
-GROUP BY gtep."user_id", gtep."exercise_id", gtep."total_progress", gtep."level_3"
-;
+SELECT gtep."user_id", gtep."exercise_id", gtep."total_progress"::REAL / (COUNT(DISTINCT ins."sign_id") * gtep."level_3") AS "progress_completion"
+FROM get_total_exercise_progress gtep
+     JOIN includes_sign ins ON gtep."exercise_id" = ins."exercise_id"
+GROUP BY gtep."user_id", gtep."exercise_id", gtep."total_progress", gtep."level_3";
 
 -- returns exercises a user has reached all possible progress on
 CREATE VIEW get_completed_exercises ("user_id", "exercise_id")
@@ -109,13 +106,10 @@ WHERE  "progress_completion" = 1
 -- returns the fraction of all possible sign unlocks a user has achieved in one exercise
 CREATE VIEW get_exercise_completion_sign_unlocks ("user_id", "exercise_id", "sign_unlock_completion")
 AS
-SELECT   ls."user_id", ls."exercise_id", 
-         COUNT(DISTINCT ls."sign_id")::REAL / COUNT(DISTINCT ins."sign_id") AS "sign_unlock_completion"
-FROM     "learns_sign" ls
-         JOIN "task" t ON ls."exercise_id" = t."exercise_id"
-         JOIN "includes_sign" ins ON t."id" = ins."task_id"
-GROUP BY ls."user_id", ls."exercise_id"
-;
+SELECT ls."user_id", ls."exercise_id", COUNT(DISTINCT ls."sign_id")::REAL / COUNT(DISTINCT ins."sign_id") AS "sign_unlock_completion"
+FROM "learns_sign" ls
+     JOIN "includes_sign" ins ON ls."exercise_id" = ins."exercise_id"
+GROUP BY ls."user_id", ls."exercise_id";
 
 -- returns the sign a user has made the most progress on in one exercise
 -- in this case the progress is not capped at level_3
