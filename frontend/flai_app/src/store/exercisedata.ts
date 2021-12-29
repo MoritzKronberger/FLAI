@@ -74,6 +74,12 @@ const actions = {
   async getAllExercises() {
     RestApi.JsonAction('get', 'exercise/all')
   },
+
+  async getFullExerciseForUser(exerciseId: string, userId: string) {
+    /* eslint-disable */
+    RestApi.JsonAction('get', 'exercise/', { id: exerciseId, user_id: userId })
+    /* eslint-enable */
+  },
 }
 
 const exerciseData = {
