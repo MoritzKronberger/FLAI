@@ -28,7 +28,6 @@ exercise.get('/', async (req, res) => {
       'task_split',
       'word_length',
       'unlocked_signs',
-      'tasks',
     ],
     ids: req.body,
     res: res,

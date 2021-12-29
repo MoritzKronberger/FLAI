@@ -21,7 +21,6 @@ const request = async (options) => {
       ids: ids,
       selectCols: selectCols,
     })
-    console.log(result)
     res.status(result.status).json(result)
   } catch (err) {
     console.log(err.message)

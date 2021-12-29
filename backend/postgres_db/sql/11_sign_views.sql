@@ -18,20 +18,12 @@ FROM   "sign" s
        JOIN "e_motion_category" mc ON s."motion_category_id" = mc."id"
 ;
 
--- returns get_sign with sign_recording ids in array aggregation
-CREATE VIEW get_full_sign ("id", "name", "motion_category", "recordings")
+-- returns get_sign with exercise_id and order attributes added
+CREATE VIEW get_full_sign_for_exercise ("id", "name", "motion_category", "exercise_id", "order")
 AS
-SELECT   s."id", s."name", s."motion_category", ARRAY_AGG(sr."id") "recordings"
-FROM     get_sign s
-         JOIN "sign_recording" sr ON s."id" = sr."sign_id"
-GROUP BY s."id", s."name", s."motion_category"
-;
-
-CREATE VIEW get_full_sign_for_exercise ("id", "name", "motion_category", "recordings", "exercise_id", "order")
-AS
-SELECT gfs."id", gfs."name", gfs."motion_category", gfs."recordings", ins."exercise_id", ins."order"
-FROM   get_full_sign gfs
-       JOIN "includes_sign" ins ON gfs."id" = ins."sign_id"
+SELECT gs."id", gs."name", gs."motion_category", ins."exercise_id", ins."order"
+FROM   get_sign gs
+       JOIN "includes_sign" ins ON gs."id" = ins."sign_id"
 ;
 
 COMMIT;
