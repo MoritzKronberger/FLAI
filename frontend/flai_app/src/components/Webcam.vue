@@ -22,11 +22,16 @@ export default defineComponent({
     }
     const start = async (): Promise<void> => {
       stream.value = await navigator.mediaDevices.getUserMedia(constraints)
-      if (!webcamFeed.value) throw new Error('Video ref is null')
+      if (!webcamFeed.value) throw new Error('Video reference is null')
       webcamFeed.value.srcObject = stream.value
     }
     onMounted(() => {
-      start()
+      if (!navigator.mediaDevices) {
+        window.alert('Es steht keine Webcam zur Verfügung.')
+        throw new Error('Webcam is not available')
+      } else {
+        start()
+      }
     })
     return {
       webcamFeed,
