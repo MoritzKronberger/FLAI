@@ -42,10 +42,7 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
 })
 
 export interface ExerciseSession {
-  id: string
-  name: string
-  description: string
-  firstStart: number
+  startTime: number
   sessionDuration: number
   signs: Sign[]
 }
