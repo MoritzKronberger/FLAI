@@ -45,6 +45,7 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
 export interface ExerciseSession {
   startTime: number
   sessionDuration: number
+  order: number
   signs: Sign[]
 }
 
@@ -83,6 +84,7 @@ const methods = {
     const newSession: ExerciseSession = {
       startTime: Date.now(),
       sessionDuration: 0,
+      order: 0,
       signs: word,
     }
     exerciseSessions.push(newSession)
