@@ -1,7 +1,7 @@
 import { readonly, reactive } from 'vue'
 import { random } from '../ressources/ts/random'
 import signData from './signdata'
-
+import RestApi from '../common/service/rest'
 export interface ExerciseSettings {
   id: string
   level1: number
@@ -67,6 +67,12 @@ const methods = {
     const index = exercises.findIndex((el) => el.id === searchId)
     exercises[index].sessionDuration = Date.now() - exercises[index].firstStart
     console.log(exercises[index])
+  },
+}
+
+const actions = {
+  async getAllExercises() {
+    RestApi.JsonAction
   },
 }
 
