@@ -5,31 +5,31 @@ import axios, { Method } from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-
-const config = (method: Method, url: string, data: object) => {
-  return {
-    method: method,
-    url: url,
-    data: data,
-  }
+export interface AxiosOptions {
+  method: Method
+  url: string
+  data: object
 }
-
 const jsonResult = async (method: Method, url: string, data: object) => {
   try {
-    const res = await axios(config(method, url, data))
-    console.log(res.data)
+    const res = await axios({ method: method, url: url, params: { data } })
+    console.log(res.data.rows)
     return {
       status: res.status,
       headers: res.headers,
-      data: res.data,
+      data: res.data.rows,
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-export default {
-  async JsonAction(method: Method, url: string, data: object = {}) {
-    return await jsonResult(method, url, data)
-  },
+const jsonAction = async (options: AxiosOptions) => {
+  const method = options.method
+  const url = options.url
+  const data = options.data
+  return await jsonResult(method, url, data)
 }
+
+export { jsonAction }
+export default { jsonAction }
