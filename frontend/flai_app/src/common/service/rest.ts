@@ -1,20 +1,20 @@
-import axios from 'axios'
+import axios, { Method } from 'axios'
 
 //const AUTH_TOKEN = ''
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
 
-axios.defaults.baseURL = 'https://localhost:5000/'
+axios.defaults.baseURL = 'http://localhost:5000/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-const config = (_method: string, _url: string, _data: object) => {
+const config = (method: Method, url: string, data: object) => {
   return {
-    method: _method,
-    url: _url,
-    data: _data,
+    method: method,
+    url: url,
+    data: data,
   }
 }
 
-const jsonResult = async (method: string, url: string, data: object) => {
+const jsonResult = async (method: Method, url: string, data: object) => {
   try {
     const res = await axios(config(method, url, data))
     return {
@@ -28,7 +28,7 @@ const jsonResult = async (method: string, url: string, data: object) => {
 }
 
 export default {
-  async JsonAction(method: string, url: string, data: object) {
+  async JsonAction(method: Method, url: string, data: object) {
     return await jsonResult(method, url, data)
   },
 }
