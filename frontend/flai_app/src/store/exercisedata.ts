@@ -72,7 +72,7 @@ const methods = {
 
 const actions = {
   async getAllExercises() {
-    RestApi.JsonAction
+    RestApi.JsonAction('get', 'exercise/', {})
   },
 }
 
@@ -81,4 +81,4 @@ const exerciseData = {
   exercises: readonly(exercises),
   methods,
 }
-export default exerciseData
+export default { exerciseData, actions }
