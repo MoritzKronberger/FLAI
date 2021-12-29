@@ -7,7 +7,9 @@
       />
     </video>
     <div>
-      <button @click="toggleState">play/pause</button>
+      <button @click="toggleState">
+        {{ playOrPause }}
+      </button>
     </div>
     <div>
       <button @click="play">play</button>
@@ -21,13 +23,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'LearningExerciseMethods',
 
   setup() {
     let isPlaying = false
+    const playOrPause = ref<string>('play')
 
     function play() {
       this.$refs.videoPlayer.play()
@@ -43,16 +46,18 @@ export default defineComponent({
 
     function toggleState() {
       isPlaying = !isPlaying
-      console.log(isPlaying)
+      console.log(isPlaying === true ? 'play' : 'pause')
 
       if (isPlaying) {
         this.$refs.videoPlayer.play()
+        playOrPause.value = 'pause'
       } else {
         this.$refs.videoPlayer.pause()
+        playOrPause.value = 'play'
       }
     }
 
-    return { toggleState, play, pause, setSpeed }
+    return { playOrPause, toggleState, play, pause, setSpeed }
   },
 })
 </script>
