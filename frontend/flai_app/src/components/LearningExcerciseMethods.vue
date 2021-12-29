@@ -10,6 +10,7 @@
       <button @click="toggleState">
         {{ playOrPause }}
       </button>
+      <SpeedDropDown title="1x" :items="speeds" @clicked="click()" />
     </div>
     <div>
       <button @click="play">play</button>
@@ -24,9 +25,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import SpeedDropDown from './SpeedDropDown.vue'
 
 export default defineComponent({
   name: 'LearningExerciseMethods',
+  components: {
+    SpeedDropDown,
+  },
 
   setup() {
     let isPlaying = false
@@ -57,7 +62,17 @@ export default defineComponent({
       }
     }
 
-    return { playOrPause, toggleState, play, pause, setSpeed }
+    function click() {
+      console.log('clicked')
+    }
+
+    return { playOrPause, toggleState, play, pause, setSpeed, click }
+  },
+
+  data() {
+    return {
+      speeds: ['0.5x', '0.25x'],
+    }
   },
 })
 </script>
