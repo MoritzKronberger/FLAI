@@ -1,26 +1,23 @@
 /*************************************************************************************
  * functions for REST functionality
- * json_status and error_handler from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
  *************************************************************************************/
 
 BEGIN;
 
 /* Cleanup */
-
 DROP FUNCTION IF EXISTS json_status       CASCADE;
 DROP FUNCTION IF EXISTS pg_axios          CASCADE;
 DROP FUNCTION IF EXISTS json_keys_to_text CASCADE;
 DROP FUNCTION IF EXISTS arr_to_text       CASCADE;
 
-/* REST functions */
-
-/* REST helper to end all REST helpers */
-/* insprired by https://stackoverflow.com/questions/17905501/postgresql-insert-data-into-table-from-json/17908760#17908760*/
-CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT, 
-                                    _data              JSONB,
-                                    _method            TEXT,
-                                    _ids               JSONB   DEFAULT NULL,
-                                    _select_cols       TEXT[]  DEFAULT NULL,
+/* Rest helper */
+-- REST helper that provides GET, PUT, PATCH and DELETE functionality independently from table an data types
+-- insprired by https://stackoverflow.com/questions/17905501/postgresql-insert-data-into-table-from-json/17908760#17908760
+CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT,                   -- table to perform REST action on and infer data types from 
+                                    _data              JSONB,                  -- data that should be inserted or updated
+                                    _method            TEXT,                   -- GET, PUT, PATCH or DELETE (case insensitive)
+                                    _ids               JSONB   DEFAULT NULL,   -- key value pairs of attributes identifying the row(s) to perform REST actions on
+                                    _select_cols       TEXT[]  DEFAULT NULL,   -- names of columns to return on GET or PATCH
                                     _postgres_status   TEXT    DEFAULT '02000',
                                     _http_status       INTEGER DEFAULT 200,
                                     _http_error_status INTEGER DEFAULT 400)
@@ -37,22 +34,23 @@ $$
         _ids_json_      JSONB  DEFAULT NULL;
         _rows_          JSONB  DEFAULT NULL;
 
-        _constraint_  TEXT DEFAULT  _table || ' exists';
-        _pgstate_     TEXT;
-        _cname_       TEXT;
-        _message_     TEXT;
+        _constraint_    TEXT   DEFAULT _table || ' exists';
+        _pgstate_       TEXT;
+        _cname_         TEXT;
+        _message_       TEXT;
     BEGIN
-        -- collect the values that shoud be posted (provided by the json keys) into _data_values_
+        -- collect the names of the columns into which should be inserted (provided by the json keys) into _data_values_
         _data_values_ := json_keys_to_text(_data);
-        -- collect the columns making up the tables pk or unique identifier(provided by the json keys) into _pk_values_
+        -- collect the column names making up the tables pk or unique identifier(provided by the json keys) into _pk_values_
         _pk_values_ := json_keys_to_text(_ids);
-        -- collect the values that shoud be selected (provided by the array) into _select_values_  
+        -- collect the names of the columns that shoud be selected and returned (provided by the array) into _select_values_  
         _select_values_ := arr_to_text(_select_cols);
 
         IF LOWER(_method) = 'get'
         THEN        
-            -- build a simple SELECT ... FROM ... WHERE query
-            -- aggregate all results in one array row and convert to jsonb
+            -- build a simple SELECT ... FROM ... WHERE ... query
+            -- SELECT the columns specified in _select_cols and return rows matching the identifiers in _ids
+            -- aggregate all result rows in one array and convert it to jsonb
             _query_ := 'SELECT TO_JSONB(ARRAY_AGG(sub)) AS "rows"' ||
                       ' FROM ('
                             ' SELECT ' || _select_values_ ||
@@ -67,14 +65,14 @@ $$
         ELSIF LOWER(_method) = 'post'
         THEN        
             -- build an INSERT query inserting only the elements of _data into _table
-            -- datatypes are infered and cast from _table
+            -- data types are infered and cast from _table using JSONB_POPULATE_RECORD
             _query_ := 'INSERT INTO ' || QUOTE_IDENT(_table) || ' (' || _data_values_ || ') ' ||
                        'SELECT ' || _data_values_ ||  
                       ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1) ';
         ElSIF LOWER(_method) = 'patch'
         THEN
             -- build an UPADTE query updating only the elements of _data on _table
-            -- datatypes are infered and cast from _table
+            -- data types are infered and cast from _table using JSONB_POPULATE_RECORD
             _query_ := 'UPDATE ' || QUOTE_IDENT(_table) || 
                       ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
                                                              ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
@@ -82,19 +80,22 @@ $$
                                                        ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))';
         ElSIF LOWER(_method) = 'delete'
         THEN
-            -- build a DELETE query deleting the row corresponding to _id from _table
-            -- datatypes are infered and cast from _table
+            -- build a DELETE query deleting the row(s) corresponding to the identifiers in _ids from _table
+            -- data types are infered and cast from _table using JSONB_POPULATE_RECORD
             _query_ := 'DELETE'
                       ' FROM ' || QUOTE_IDENT(_table) ||
                       ' WHERE (' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
                                                        ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $2))';
         ELSE
+            -- if _method matches no known method return fitting constraint
+            -- don't build query if method is unknown
             _constraint_ := _method || ' exists';
         END IF;
 
         -- execute query if one was built
         IF _query_ IS NOT NULL
         THEN
+            -- return results into different variables, depending on REST-method
             IF LOWER(_method) = 'get'
             THEN
                 EXECUTE _query_ INTO _rows_ USING _ids;
@@ -109,9 +110,11 @@ $$
 
         IF _ids_ IS NOT NULL OR _rows_ IS NOT NULL
         THEN 
+            -- return query results if they exists
             RETURN QUERY
             SELECT json_status(_http_status, _ids_json_, _rows_);
         ELSE 
+            -- else return 404 constraint
             RETURN QUERY
             SELECT json_status(404, 
                                _ids_json_, 
@@ -121,6 +124,8 @@ $$
                                _message_);
         END IF;
 
+        -- in case of any other uncaught exception: return it with error code
+        -- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
         EXCEPTION WHEN OTHERS THEN 
             GET STACKED DIAGNOSTICS
                 _pgstate_ = RETURNED_SQLSTATE,
@@ -138,7 +143,9 @@ $$
 $$
 ;
 
-/* JSON STATUS */
+/* JSON status */
+-- build result json from pg_axios results
+-- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
 CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
                                        _ids        JSONB,
                                        _rows       JSONB   DEFAULT NULL,
@@ -160,27 +167,27 @@ $$
 $$
 ;
 
-/* JSON KEYS TO TEXT */
+/* JSON keys to text */
 CREATE OR REPLACE FUNCTION json_keys_to_text(_data JSONB)
     RETURNS TEXT
     IMMUTABLE PARALLEL SAFE
 LANGUAGE SQL
 AS
 $$
-    -- collect all keys in the json and concatenate them to a comma seperated string
+    -- collect all keys in the json and concatenate them to a comma seperated string with correct quoting
     SELECT STRING_AGG(QUOTE_IDENT(KEY), ',')
     FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
 $$
 ;
 
-/* ARRAY TO TEXT */
+/* Array to text */
 CREATE OR REPLACE FUNCTION arr_to_text(_data TEXT[])
     RETURNS TEXT
     IMMUTABLE PARALLEL SAFE
 LANGUAGE SQL
 AS
 $$
-    -- concatenate all array elements to a comma seperated string
+    -- concatenate all array elements to a comma seperated string with correct quoting
     SELECT STRING_AGG(QUOTE_IDENT(val), ',')
     FROM UNNEST(_data::TEXT[]) AS val;
 $$
@@ -188,6 +195,12 @@ $$
 
 COMMIT;
 
+/****************************************************************************************
+ * Test queries for functions
+ * Depending on the state of the database not all queries will work with the given values
+ ****************************************************************************************/
+
+-- test POST, PATCH, DELETE for tables with single-id-pk
 /*
 SELECT * FROM "user";
 
@@ -227,6 +240,7 @@ SELECT * FROM pg_axios
 SELECT * FROM "user";
 */
 
+-- test POST, PATCH, DELETE for tables with combined pk
 /*
 SELECT * FROM "sign"
 WHERE "name"='y';
@@ -238,9 +252,9 @@ SELECT * FROM "learns_sign";
 SELECT *
 FROM pg_axios
      ('learns_sign', 
-      '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
-        "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
-        "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
+      '{"user_id": "<user-id>",
+        "sign_id": "<sign-id>",
+        "exercise_id": "<exercise-id>"
        }',
       'POST',
        NULL,
@@ -257,9 +271,9 @@ FROM pg_axios
      ('learns_sign', 
       '{"progress": "90"}',
       'PATCH',
-      '{"user_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
-        "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c",
-        "exercise_id": "f2c8731c-139e-4522-9609-94171af82c3a"
+      '{"user_id": "<user-id>",
+        "sign_id": "<sign-id>",
+        "exercise_id": "<exercise-id>"
        }'
      );
 
@@ -273,21 +287,22 @@ FROM pg_axios
      ('includes_sign', 
       NULL,
       'DELETE',
-      '{"task_id": "cfc7fe0a-8bda-46e8-b180-c866c19e5ae4",
-        "sign_id": "e86250ca-523d-414b-b2c1-57732d2f1b9c"
+      '{"task_id": "<task-id>",
+        "sign_id": "<sign-id>"
        }'
      );
 
 SELECT * FROM "includes_sign";
 */
 
+-- test GET requests for one or multiple returned rows
 /*
 SELECT * FROM "sign";
 
 SELECT * FROM pg_axios('sign', 
                        NULL, 
                        'GET', 
-                       '{"id": "2a6525f9-5d6b-4313-87d0-c94ca1eda9e0"}', 
+                       '{"id": "<id>"}', 
                        '{name}');
 
 
@@ -296,6 +311,6 @@ SELECT * FROM "sign_recording";
 SELECT * FROM pg_axios('sign_recording', 
                        NULL, 
                        'GET', 
-                       '{"sign_id": "4277a0e5-2125-4b10-8c02-7dfdc0e101f5"}', 
+                       '{"sign_id": "<sign-id>"}', 
                        '{path, mimetype_id}');
 */
