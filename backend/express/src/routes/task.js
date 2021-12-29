@@ -2,14 +2,16 @@ import express from 'express'
 import { request } from './request.js'
 const task = express.Router()
 
-task.get('/:id', async (req, res) => {
+task.get('/:exercise_id', async (req, res) => {
   await request({
     method: 'GET',
-    table: 'get_full_task',
+    table: 'get_task',
+    /* eslint-disable */
     ids: {
-      id: req.params.id,
+      exercise_id: req.params.exercise_id,
     },
-    selectCols: ['id', 'name', 'description', 'signs'],
+    /* eslint-enable */
+    selectCols: ['id', 'name', 'description', 'exercise_id'],
     res: res,
   })
 })
