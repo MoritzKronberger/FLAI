@@ -135,8 +135,7 @@ $_plpgsql_$
                                     END AS "sign_order"
                     FROM   "sign" s
                            JOIN "includes_sign" ins    ON s."id" = ins."sign_id"
-                           JOIN "task" t               ON ins."task_id" = t."id"
-                           JOIN "exercise" e           ON t."exercise_id" = e."id"
+                           JOIN "exercise" e           ON ins."exercise_id" = e."id"
                            JOIN "exercise_settings" es ON e."id" = es."exercise_id"
                     WHERE  e."id" = NEW."exercise_id"
                    ) ins_q

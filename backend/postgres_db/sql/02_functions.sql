@@ -70,7 +70,7 @@ $_plpgsql_$
 
             INSERT INTO "includes_sign" ("exercise_id", "sign_id", "order")
             VALUES
-            (_e_id_, _s_id_, _i);
+            (_e_id_, _s_id_, _i_);
             
             _i_ := _i_ + 1;
 
