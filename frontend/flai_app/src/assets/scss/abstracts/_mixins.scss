@@ -12,7 +12,7 @@
   }
 }
 
-// font mixin
+// font mixins
 
 @mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack) {
   $font-properties: map-deep-get($font-stack, $group, $variant);
@@ -35,5 +35,32 @@
   @if index($font-map, $variant) == null {
     $variations: append($font-map, $variant);
     $used-fonts: map-merge($used-fonts, ($group: $variations)) !global;
+  }
+}
+
+
+@mixin import-fonts($font-stack: $base-font-stack) {
+  @each $group, $variations in $used-fonts {
+    @each $variant in $variations {
+      $font-properties: map-deep-get($font-stack, $group, $variant);
+
+      @if $font-properties {
+        // If we have a font-face key we create the font-face rule
+        $font-face: map-get($font-properties, font-face);
+        @if $font-face {
+          $font-family: map-get($font-face, family);
+          $file-path: map-get($font-face, path);
+          $file-formats: map-get($font-face, formats);
+          $font-weight: map-get($font-properties, weight);
+          $font-style: map-get($font-properties, style);
+          
+          @if $file-formats {
+            @include font-face($font-family, $file-path, $font-weight, $font-style, $file-formats);
+          } @else {
+            @include font-face($font-family, $file-path, $font-weight, $font-style);
+          }
+        }
+      }
+    }
   }
 }
