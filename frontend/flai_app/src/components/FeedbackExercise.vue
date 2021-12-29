@@ -1,12 +1,13 @@
 <template>
   <h1>Feedback Learning Exercise</h1>
-  <p>
-    word:
-    <span v-for="letter in signs" :key="letter.name">{{ letter.name }}</span>
-  </p>
+  <VButton label="zurück" btnclass="controls" @click="decreaseIndex" />
+  <span>{{ signs[index].name.toUpperCase() }}</span>
+  <VButton label="weiter" btnclass="controls" @click="increaseIndex" />
+  <br />
   <video :src="videoSource" type="video/webm" autoplay loop />
-  <Vbutton
-    label="Switch Perspective"
+  <br />
+  <VButton
+    label="Perspektive wechseln"
     btnclass="controls"
     @click="switchPerspective()"
   />
@@ -16,16 +17,18 @@
 <script setup lang="ts">
 import { inject, ref, computed, onBeforeMount, ComputedRef } from 'vue'
 import { Sign } from '../store/signdata'
+import VButton from './vbutton.vue'
 
 const store: any = inject('store')
 const signs: ComputedRef<Sign[]> = computed(
   () => store.exercisedata.exercises.at(-1).signs
 )
-const index = ref(0)
+
 const perspective = ref('front')
+const index = ref(0)
 
 function getSource() {
-  const rec = signs.value[0].recordings.find(
+  const rec = signs.value[index.value].recordings.find(
     (el) => el.perspectiveId === perspective.value
   )
   console.log('el', JSON.stringify(rec))
@@ -35,6 +38,27 @@ function getSource() {
   return rec.video
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
+
+function decreaseIndex() {
+  index.value = index.value > 1 ? index.value - 1 : 0
+  getSource()
+  console.log(index.value)
+}
+function increaseIndex() {
+  index.value =
+    index.value < signs.value.length - 1
+      ? index.value + 1
+      : signs.value.length - 1
+  getSource()
+  console.log(index.value)
+}
+function switchPerspective() {
+  if (perspective.value === 'front') {
+    perspective.value = 'side'
+  } else {
+    perspective.value = 'front'
+  }
+}
 
 onBeforeMount(() => {
   store.exercisedata.methods.startNewExercise('name', 'desc')
