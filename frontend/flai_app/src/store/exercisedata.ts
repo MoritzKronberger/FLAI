@@ -60,6 +60,8 @@ const methods = {
       signs: signData.methods.createNewSigns(),
     }
     exercises.push(exercise)
+    exerciseSettings.exerciseId = exercise.id
+    exerciseSettingsUser.exerciseId = exercise.id
     console.log('exercises:', JSON.stringify(exercises))
   },
   //TODO: change methods to suit database
