@@ -41,7 +41,7 @@ const actions = {
     jsonAction({
       method: 'get',
       url: 'sign',
-      data: { id: 'deb2570c-0b58-41a1-8819-142cd04dda15' },
+      data: { exercise_id: 'deb2570c-0b58-41a1-8819-142cd04dda15' },
     })
   },
   async getSignRecording() {
@@ -75,7 +75,7 @@ const actions = {
       url: 'progress',
       data: {
         data: {
-          "progress": 20
+          progress: 20,
         },
         ids: {
           user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
@@ -91,6 +91,7 @@ const actions = {
 const signData = {
   signs: readonly(signs) as Sign[],
   methods,
+  actions,
 }
 
-export default { signData, actions }
+export default signData
