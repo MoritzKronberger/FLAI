@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { provide, onMounted, ref } from 'vue'
 import store from './store'
-import textInputField from './components/TextInputField.vue'
 
 provide('store', store)
 
 onMounted(store.signdata.methods.createNewSigns)
 onMounted(store.exercisedata.actions.getAllExercises)
 onMounted(store.sessiondata.methods.startTimer)
-
-const testInput = ref('')
 </script>
 
 <template>
@@ -17,13 +14,8 @@ const testInput = ref('')
   <div id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/store">ShowStore</router-link>
-    <text-input-field
-      v-model="testInput"
-      label-name="Test Input"
-      placeholder="your test input"
-    />
+    <router-link to="/components">TestComponents</router-link>
   </div>
-  <div>Test Input is: {{ testInput }}</div>
   <main>
     <router-view />
   </main>
