@@ -1,4 +1,5 @@
 <template>
+  <h1>Feedback Learning Exercise</h1>
   <WatchWord v-if="stepOneWatch" :signs="signs" @next="onNextStep" />
   <ShowWord v-else :signs="signs" />
 </template>

@@ -1,9 +1,4 @@
 <template>
-  <h1>Feedback Learning Exercise</h1>
-  <VButton label="zurück" btnclass="controls" @click="decreaseIndex" />
-  <span>{{ signs[index].name.toUpperCase() }}</span>
-  <VButton label="weiter" btnclass="controls" @click="increaseIndex" />
-  <br />
   <video :src="videoSource" type="video/webm" autoplay loop />
   <br />
   <VButton
@@ -14,17 +9,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef } from 'vue'
+import { ref, computed, ComputedRef, watchEffect } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
 
-const props = defineProps<{ signs: Sign[] }>()
+const props = defineProps<{ signs: Sign[]; index: number }>()
 
 const perspective = ref('front')
-const index = ref(0)
 
 function getSource() {
-  const rec = props.signs[index.value].recordings.find(
+  const rec = props.signs[props.index].recordings.find(
     (el) => el.perspectiveId === perspective.value
   )
   console.log('el', JSON.stringify(rec))
@@ -34,20 +28,7 @@ function getSource() {
   return rec.video
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
-
-function decreaseIndex() {
-  index.value = index.value > 1 ? index.value - 1 : 0
-  getSource()
-  console.log(index.value)
-}
-function increaseIndex() {
-  index.value =
-    index.value < props.signs.length - 1
-      ? index.value + 1
-      : props.signs.length - 1
-  getSource()
-  console.log(index.value)
-}
+watchEffect(() => console.log('newIndex', props.index))
 
 function switchPerspective() {
   if (perspective.value === 'front') {

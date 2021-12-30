@@ -1,7 +1,8 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <Video :signs="signs" />
+      <SignControls :signs="signs" :index="index" @new-index="onNewIndex" />
+      <Video :signs="signs" :index="index" />
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <VButton label="Fertig" btnclass="controls" @click="emit('next')" />
     </div>
@@ -13,9 +14,11 @@ import { ref } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
 import Video from './Video.vue'
+import SignControls from './SignControls.vue'
 
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
+const index = ref(0)
 
 const props = defineProps<{ signs: Sign[] }>()
 
@@ -34,6 +37,11 @@ function wrong() {
   console.log('wrong')
   isCorrect.value = false
   feedbackClass.value = 'wrong'
+}
+
+function onNewIndex(newIndex: number) {
+  index.value = newIndex
+  console.log(index.value)
 }
 
 const emit = defineEmits(['next'])
