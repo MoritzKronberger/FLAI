@@ -98,6 +98,26 @@ $base-font-stack:(
         formats: (otf)
       )
     ),
+    book: (
+      family: (Gotham SSm, Gotham),
+      weight: normal,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Book',
+        formats: (otf)
+      )
+    ),
+      book-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: normal,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BookItalic',
+        formats: (otf)
+      )
+    ),
     )
 );
 
