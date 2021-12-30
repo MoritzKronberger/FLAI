@@ -10,10 +10,28 @@ export interface AxiosOptions {
   url: string
   data: object
 }
-const jsonResult = async (method: Method, url: string, data: object) => {
+
+const config = (options: AxiosOptions) => {
+  if (options.method === 'get') {
+    return {
+      method: options.method,
+      url: options.url,
+      params: options.data,
+    }
+  } else {
+    return {
+      method: options.method,
+      url: options.url,
+      data: options.data,
+    }
+  }
+}
+
+const jsonResult = async (config: object) => {
   try {
-    const res = await axios({ method: method, url: url, params: { data } })
-    console.log(res.data.rows)
+    const res = await axios(config)
+    console.log('+++ Response received +++')
+    console.log(res)
     return {
       status: res.status,
       headers: res.headers,
@@ -25,10 +43,7 @@ const jsonResult = async (method: Method, url: string, data: object) => {
 }
 
 const jsonAction = async (options: AxiosOptions) => {
-  const method = options.method
-  const url = options.url
-  const data = options.data
-  return await jsonResult(method, url, data)
+  return await jsonResult(config(options))
 }
 
 export { jsonAction }
