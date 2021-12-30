@@ -1,18 +1,15 @@
 /*************************************************************************************
- * Create global functions, seperate from REST functions
+ * Create global functions, seperate from REST helpers
  *************************************************************************************/
 
 BEGIN;
 
-
 /* Cleanup */
 DROP FUNCTION IF EXISTS populate_spelling_exercise CASCADE;
 
-
 /* Functions*/
-
-/* Compare given password against stored hash*/
-/* from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01a.git */
+-- Compare given password against stored hash
+-- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01a.git
 CREATE FUNCTION check_password(_email VARCHAR, _password VARCHAR) RETURNS BOOLEAN AS
 $_SQL_$
     SELECT EXISTS
@@ -25,8 +22,9 @@ LANGUAGE SQL
 IMMUTABLE
 RETURNS NULL ON NULL INPUT;
 
-/* inserts a sign for each letter provided in the alphabet string */
-/* and adds the sign to both the 'AI Feedback' and 'Memory' task */
+-- ONLY USED TO INSERT TESTDATA, NOT FOR FINAL PRODUCTION APPLICATION WITH CMS
+-- inserts a sign for each letter provided in the alphabet string
+-- and adds the sign to both the 'AI Feedback' and 'Memory' task
 CREATE FUNCTION populate_spelling_exercise(_alphabet TEXT, _motion_category TEXT)
     RETURNS VOID
 LANGUAGE plpgsql
@@ -35,12 +33,11 @@ $_plpgsql_$
     DECLARE 
         _letters_   TEXT[];
         _letter_    TEXT;
-        _i         INTEGER DEFAULT 0;
+        _i_         INTEGER DEFAULT 0;
 
         _s_id_     UUID;
         _mc_id_    UUID;
-        _t1_id_    UUID;
-        _t2_id_    UUID;
+        _e_id_    UUID;
         _vid_id_   UUID;
         _pic_id_   UUID;
         _front_id_ UUID;
@@ -48,15 +45,14 @@ $_plpgsql_$
         _path_     TEXT;
     BEGIN
         _letters_ := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
+        _path_ := '@/assets/signs';
 
-        SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category INTO _mc_id_;
-        SELECT "id" FROM "task"              WHERE "name" = 'AI Feedback'    INTO _t1_id_;
-        SELECT "id" FROM "task"              WHERE "name" = 'Memory'         INTO _t2_id_;
-        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webm'           INTO _vid_id_;
-        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'png'            INTO _pic_id_;
-        SELECT "id" FROM "e_perspective"     WHERE "name" = 'front'          INTO _front_id_;
-        SELECT "id" FROM "e_perspective"     WHERE "name" = 'side'           INTO _side_id_;
-        _path_     := './assets/signs';
+        SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category       INTO _mc_id_;
+        SELECT "id" FROM "exercise"          WHERE "name" = 'Buchstabieren lernen' INTO _e_id_;
+        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webm'                 INTO _vid_id_;
+        SELECT "id" FROM "e_mimetype"        WHERE "name" = 'webp'                 INTO _pic_id_;
+        SELECT "id" FROM "e_perspective"     WHERE "name" = 'front'                INTO _front_id_;
+        SELECT "id" FROM "e_perspective"     WHERE "name" = 'side'                 INTO _side_id_;
 
         FOREACH _letter_ IN ARRAY _letters_ LOOP
 
@@ -72,25 +68,24 @@ $_plpgsql_$
             (_path_ || '/pic/front/' || _letter_ || '_pic_front', _pic_id_, _s_id_, _front_id_),
             (_path_ || '/pic/front/' || _letter_ || '_pic_front', _pic_id_, _s_id_, _side_id_);
 
-            INSERT INTO "includes_sign" ("task_id", "sign_id", "order")
+            INSERT INTO "includes_sign" ("exercise_id", "sign_id", "order")
             VALUES
-            (_t1_id_, _s_id_, _i),
-            (_t2_id_, _s_id_, _i);
+            (_e_id_, _s_id_, _i_);
             
-            _i := _i + 1;
+            _i_ := _i_ + 1;
 
         END LOOP;
     END
 $_plpgsql_$
 ;
 
-
 COMMIT;
 
 /*************************************************************************************
  * Test queries for functions
  *************************************************************************************/
-/* test new_exercise_settings_user_trigger and function */
+
+-- test new_exercise_settings_user_trigger and function
 /*
 SELECT * FROM check_password('miriam.weber@email.com', 'supersecret');
 SELECT * FROM check_password('miriam.weber@email.com', 'notcorrect');
