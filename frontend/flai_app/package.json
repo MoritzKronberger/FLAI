@@ -20,6 +20,7 @@
     "prettier-fix": "prettier --write \"src/**/*.{js,vue,ts,tsx}\""
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },
