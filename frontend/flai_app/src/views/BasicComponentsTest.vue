@@ -4,16 +4,31 @@ import textInputField from '../components/TextInputField.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import iconLoader from '../components/IconLoader.vue'
 import webcam from '../components/Webcam.vue'
+import customButton from '../components/CustomButton.vue'
 
 const testInput = ref('')
 const testCheckbox = ref(false)
+const clickCount = ref(0)
 
 const logWebcamFeed = (webcamFeed: object): void => {
   console.log(webcamFeed)
 }
+const buttonClick = (): void => {
+  clickCount.value++
+}
 </script>
 
 <template>
+  <div>
+    <h1>Buttons</h1>
+    <custom-button
+      label="Test Button"
+      btnclass="button-primary"
+      @button-click="buttonClick"
+    />
+    <div>Test Button click count is: {{ clickCount }}</div>
+  </div>
+  <br />
   <div>
     <h1>Input Fields</h1>
     <text-input-field
