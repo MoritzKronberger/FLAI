@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import { provide, onMounted } from 'vue'
+import { provide, onMounted, ref } from 'vue'
 import store from './store'
 
 provide('store', store)
 
-onMounted(store.signdata.methods.createNewSigns)
-onMounted(store.exercisedata.actions.getAllExercises)
+onMounted(store.exercisedata.methods.getExercises) // fake frontend method
+onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
-
-function handleInput(e: Event) {
-  const target = <HTMLInputElement>e.target
-
-  console.log('Das ist der Input:', target.value)
-}
 </script>
 
 <template>
