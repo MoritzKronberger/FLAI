@@ -28,8 +28,8 @@ import {
   watchEffect,
   watch,
 } from 'vue'
-import { Sign } from '../store/signdata'
-import VButton from './vbutton.vue'
+import { Sign } from '../../store/signdata'
+import VButton from './../vbutton.vue'
 
 const store: any = inject('store')
 const signs: ComputedRef<Sign[]> = computed(
