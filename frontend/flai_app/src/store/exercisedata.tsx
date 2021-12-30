@@ -13,9 +13,9 @@ export interface ExerciseSettings {
 
 const exerciseSettings: ExerciseSettings = reactive({
   id: '',
-  level1: 100,
-  level2: 200,
-  level3: 300,
+  level1: 10,
+  level2: 20,
+  level3: 30,
   wordLength: 4,
   unlockedSigns: 4,
 })
