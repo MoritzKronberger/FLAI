@@ -37,6 +37,8 @@
   @return $map;
 }
 
+// contains function
+
 @function contains($list, $values...) {
   @each $value in $values {
     @if type-of(index($list, $value)) != 'number' {
