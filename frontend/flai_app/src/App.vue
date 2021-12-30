@@ -17,9 +17,9 @@ function handleInput(e: Event) {
 <template>
   <img id="logo" alt="flai logo" src="./assets/flai_logo.jpg" />
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link to="/store">ShowStore</router-link>
-    <router-link to="/exercise">Exercise</router-link>
+    <router-link :to="{ name: 'HomePage' }">Home</router-link>
+    <router-link :to="{ name: 'ShowStore' }">ShowStore</router-link>
+    <router-link :to="{ name: 'LearningExercise' }">Exercise</router-link>
   </div>
   <main>
     <router-view />

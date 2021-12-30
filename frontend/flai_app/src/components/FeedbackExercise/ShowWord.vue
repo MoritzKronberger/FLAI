@@ -24,7 +24,8 @@ function correct() {
   if (index.value < props.signs.length - 1) {
     index.value++
   } else {
-    router.push('HomePage')
+    //TODO: view is not reloading
+    router.push({ name: 'ShowStore' })
   }
 }
 function wrong() {
@@ -32,7 +33,8 @@ function wrong() {
   if (index.value < props.signs.length - 1) {
     index.value++
   } else {
-    router.push('HomePage')
+    //TODO: view is not reloading
+    router.push({ name: 'ShowStore' })
   }
 }
 </script>
