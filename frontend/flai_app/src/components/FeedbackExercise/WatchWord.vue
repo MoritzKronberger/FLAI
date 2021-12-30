@@ -9,18 +9,15 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, computed, onBeforeMount, ComputedRef } from 'vue'
+import { ref } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
 import Video from './Video.vue'
 
-const store: any = inject('store')
-const signs: ComputedRef<Sign[]> = computed(
-  () => store.exercisedata.exercises.at(-1).signs
-)
-
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
+
+const props = defineProps<{ signs: Sign[] }>()
 
 const vFocus = {
   inserted: (el: any) => {
@@ -40,10 +37,6 @@ function wrong() {
 }
 
 const emit = defineEmits(['next'])
-
-onBeforeMount(() => {
-  store.exercisedata.methods.startNewExercise('name', 'desc')
-})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
