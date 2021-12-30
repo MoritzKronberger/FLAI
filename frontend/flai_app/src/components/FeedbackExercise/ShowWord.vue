@@ -3,6 +3,7 @@
     <div vFocus tabindex="0" @keydown.w="wrong">
       <p v-for="letter in props.signs" :key="letter.name">{{ letter.name }}</p>
       <Video :signs="signs" :index="index" />
+      <p :class="feedbackClass">TODO: Add webcam component</p>
     </div>
   </div>
 </template>
@@ -16,25 +17,40 @@ import Video from './Video.vue'
 const store: any = inject('store')
 
 const index = ref(0)
+const feedbackClass = ref('waiting')
 
 const props = defineProps<{ signs: Sign[] }>()
 
 function correct() {
   store.signdata.methods.updateProgress(props.signs[index.value].name, 10)
+  feedbackClass.value = 'right'
   if (index.value < props.signs.length - 1) {
     index.value++
   } else {
     //TODO: view is not reloading
-    router.push({ name: 'ShowStore' })
+    router.push({ name: 'HomePage' })
   }
 }
 function wrong() {
   store.signdata.methods.updateProgress(props.signs[index.value].name, -10)
+  feedbackClass.value = 'wrong'
   if (index.value < props.signs.length - 1) {
     index.value++
   } else {
     //TODO: view is not reloading
-    router.push({ name: 'ShowStore' })
+    router.push({ name: 'HomePage' })
   }
 }
 </script>
+
+<style>
+.waiting {
+  color: grey;
+}
+.right {
+  color: green;
+}
+.wrong {
+  color: red;
+}
+</style>
