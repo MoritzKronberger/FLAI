@@ -9,7 +9,7 @@
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
-      <VButton label="Fertig" btnclass="controls" @click="emit('next')" />
+      <CustomButton label="Fertig" btnclass="controls" @click="emit('next')" />
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { ref, watchEffect, inject } from 'vue'
 import { Sign } from '../../store/signdata'
-import VButton from './../vbutton.vue'
+import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
 import SignControls from './SignControls.vue'
 

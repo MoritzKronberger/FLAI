@@ -1,14 +1,14 @@
 <template>
-  <VButton label="zurück" btnclass="controls" @click="decreaseIndex" />
+  <CustomButton label="zurück" btnclass="controls" @click="decreaseIndex" />
   <span>{{ signs[index].name.toUpperCase() }}</span>
-  <VButton label="weiter" btnclass="controls" @click="increaseIndex" />
+  <CustomButton label="weiter" btnclass="controls" @click="increaseIndex" />
   <br />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
-import VButton from './../vbutton.vue'
+import CustomButton from '../CustomButton.vue'
 
 const props = defineProps<{ signs: Sign[] }>()
 

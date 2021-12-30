@@ -2,13 +2,13 @@
   <div v-if="showSign">
     <video :src="videoSource" type="video/webm" autoplay loop />
     <br />
-    <VButton
+    <CustomButton
       label="Perspektive wechseln"
       btnclass="controls"
       @click="switchPerspective()"
     />
   </div>
-  <VButton
+  <CustomButton
     v-else
     label="Hinweis"
     btnclass="controls"
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ref, computed, ComputedRef, watchEffect } from 'vue'
 import { Sign } from '../../store/signdata'
-import VButton from './../vbutton.vue'
+import CustomButton from '../CustomButton.vue'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
