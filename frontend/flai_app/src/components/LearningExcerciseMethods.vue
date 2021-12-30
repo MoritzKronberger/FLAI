@@ -1,6 +1,6 @@
 <template>
   <div>
-    <video ref="videoPlayer">
+    <video ref="videoPlayer" loop>
       <source
         src="../assets/signs/vid/front/a_vid_front.webm"
         type="video/mp4"
@@ -10,15 +10,13 @@
       <button @click="toggleState">
         {{ playOrPause }}
       </button>
-      <SpeedDropDown title="1x" :items="speeds" @clicked="click()" />
-    </div>
-    <div>
-      <button @click="play">play</button>
-      <button @click="pause">pause</button>
-      <button @click="setSpeed(0.5)">0.5x</button>
-      <button @click="setSpeed(1)">1x</button>
-      <button @click="setSpeed(1.5)">1.5x</button>
-      <button @click="setSpeed(2)">2x</button>
+      <SpeedDropDown
+        title=">>"
+        :items="speeds"
+        @first="setSpeed(1)"
+        @second="setSpeed(0.5)"
+        @third="setSpeed(0.25)"
+      />
     </div>
   </div>
 </template>
@@ -47,6 +45,7 @@ export default defineComponent({
 
     function setSpeed(speed: number) {
       this.$refs.videoPlayer.playbackRate = speed
+      console.log('speed is:', speed)
     }
 
     function toggleState() {
@@ -62,34 +61,15 @@ export default defineComponent({
       }
     }
 
-    function click() {
-      console.log('clicked')
-    }
-
-    return { playOrPause, toggleState, play, pause, setSpeed, click }
+    return { playOrPause, toggleState, play, pause, setSpeed }
   },
 
   data() {
     return {
-      speeds: ['0.5x', '0.25x'],
+      speeds: ['1x', '0.5x', '0.25x'],
     }
   },
 })
 </script>
 
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+<style scoped></style>
