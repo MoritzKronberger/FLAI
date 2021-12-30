@@ -1,21 +1,32 @@
 <template>
-  <h1>Feedback Learning Exercise</h1>
-  <VButton label="zurück" btnclass="controls" @click="decreaseIndex" />
-  <span>{{ signs[index].name.toUpperCase() }}</span>
-  <VButton label="weiter" btnclass="controls" @click="increaseIndex" />
-  <br />
-  <video :src="videoSource" type="video/webm" autoplay loop />
-  <br />
-  <VButton
-    label="Perspektive wechseln"
-    btnclass="controls"
-    @click="switchPerspective()"
-  />
-  <p>TODO: Add webcam component</p>
+  <div vFocus tabindex="0" @keydown.c="correct">
+    <div vFocus tabindex="0" @keydown.w="wrong">
+      <h1>Feedback Learning Exercise</h1>
+      <VButton label="zurück" btnclass="controls" @click="decreaseIndex" />
+      <span>{{ signs[index].name.toUpperCase() }}</span>
+      <VButton label="weiter" btnclass="controls" @click="increaseIndex" />
+      <br />
+      <video :src="videoSource" type="video/webm" autoplay loop />
+      <br />
+      <VButton
+        label="Perspektive wechseln"
+        btnclass="controls"
+        @click="switchPerspective()"
+      />
+      <p ref="feedbackClass" class="waiting">TODO: Add webcam component</p>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { inject, ref, computed, onBeforeMount, ComputedRef } from 'vue'
+import {
+  inject,
+  ref,
+  computed,
+  onBeforeMount,
+  ComputedRef,
+  watchEffect,
+} from 'vue'
 import { Sign } from '../store/signdata'
 import VButton from './vbutton.vue'
 
@@ -26,8 +37,31 @@ const signs: ComputedRef<Sign[]> = computed(
 
 const perspective = ref('front')
 const index = ref(0)
+const isCorrect = ref(false)
+const feedbackClass = ref(null)
+
+const vFocus = {
+  inserted: (el: any) => {
+    el.focus()
+  },
+}
+
+function correct() {
+  console.log('correct')
+  isCorrect.value = true
+}
+function wrong() {
+  console.log('wrong')
+  isCorrect.value = false
+}
+function changeFeedbackClass() {
+  console.log('isCorrect', isCorrect.value)
+  console.log(feedbackClass.value)
+}
+watchEffect(() => console.log('isCorrect', isCorrect.value))
 
 function getSource() {
+  isCorrect.value = true
   const rec = signs.value[index.value].recordings.find(
     (el) => el.perspectiveId === perspective.value
   )
@@ -67,6 +101,9 @@ onBeforeMount(() => {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+div:focus {
+  outline: none;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -75,5 +112,14 @@ video {
 }
 .controls {
   background: lightblue;
+}
+.waiting {
+  color: grey;
+}
+.right {
+  color: green;
+}
+.wrong {
+  color: red;
 }
 </style>
