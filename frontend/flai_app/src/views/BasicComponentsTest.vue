@@ -3,9 +3,14 @@ import { ref } from 'vue'
 import textInputField from '../components/TextInputField.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import iconLoader from '../components/IconLoader.vue'
+import webcam from '../components/Webcam.vue'
 
 const testInput = ref('')
 const testCheckbox = ref(false)
+
+const logWebcamFeed = (webcamFeed: object): void => {
+  console.log(webcamFeed)
+}
 </script>
 
 <template>
@@ -38,5 +43,9 @@ const testCheckbox = ref(false)
       alt="This is the icon's alt description"
       element-class="icon-large"
     />
+  </div>
+  <div>
+    <h1>Webcam</h1>
+    <webcam @webcam-ready="logWebcamFeed" />
   </div>
 </template>
