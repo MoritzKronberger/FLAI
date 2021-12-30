@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import textInputField from '../components/TextInputField.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
+import iconLoader from '../components/IconLoader.vue'
 
 const testInput = ref('')
 const testCheckbox = ref(false)
@@ -28,7 +29,14 @@ const testCheckbox = ref(false)
     />
     <div>Test Checkbox is: {{ testCheckbox }}</div>
   </div>
-  <main>
-    <router-view />
-  </main>
+  <br />
+  <div>
+    <h1>Icons</h1>
+    <icon-loader
+      path="../assets/signs/pic/front/a_pic_front"
+      mimetype="webp"
+      alt="This is the icon's alt description"
+      element-class="icon-large"
+    />
+  </div>
 </template>
