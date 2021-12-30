@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { provide, onMounted } from 'vue'
 import store from './store'
+import LearningExcerciseMethods from './components/LearningExcerciseMethods.vue'
 
 provide('store', store)
 
@@ -16,14 +17,15 @@ function handleInput(e: Event) {
 </script>
 
 <template>
-  <img id="logo" alt="flai logo" src="./assets/flai_logo.jpg" />
+  <!--<img id="logo" alt="flai logo" src="./assets/flai_logo.jpg" />
   <div id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/store">ShowStore</router-link>
   </div>
   <main>
     <router-view />
-  </main>
+  </main>-->
+  <LearningExcerciseMethods />
 </template>
 
 <style>

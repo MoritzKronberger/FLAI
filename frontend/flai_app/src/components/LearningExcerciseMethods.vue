@@ -6,7 +6,7 @@
         type="video/mp4"
       />
     </video>
-    <div>
+    <div id="wrapper">
       <button @click="toggleState">
         {{ playOrPause }}
       </button>
@@ -72,4 +72,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+#wrapper {
+  display: flex;
+}
+</style>
