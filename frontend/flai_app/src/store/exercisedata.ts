@@ -78,7 +78,7 @@ const actions = {
   async getFullExerciseForUser() {
     jsonAction({
       method: 'get',
-      url: 'exercise/',
+      url: 'exercise',
       data: {
         id: '81cb9652-c202-4675-a55d-81296b7d17b6',
         user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac', // eslint-disable-line
