@@ -2,7 +2,12 @@
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
       <SignControls :signs="signs" @new-index="onNewIndex" />
-      <Video :signs="signs" :index="index" />
+      <Video
+        :signs="signs"
+        :index="index"
+        :show-sign="showSign"
+        @use-hint="showSign = true"
+      />
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <VButton label="Fertig" btnclass="controls" @click="emit('next')" />
     </div>
@@ -10,15 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watchEffect, inject } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
 import Video from './Video.vue'
 import SignControls from './SignControls.vue'
 
+const store: any = inject('store')
+
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
 const index = ref(0)
+const showSign = ref(true)
 
 const props = defineProps<{ signs: Sign[] }>()
 
@@ -44,6 +52,14 @@ function onNewIndex(newIndex: number) {
   console.log(index.value)
 }
 
+function checkProgress(sign: Sign) {
+  if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
+    showSign.value = false
+  } else {
+    showSign.value = true
+  }
+}
+watchEffect(() => checkProgress(props.signs[index.value]))
 const emit = defineEmits(['next'])
 </script>
 

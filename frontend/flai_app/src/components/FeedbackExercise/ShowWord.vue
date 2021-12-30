@@ -2,8 +2,12 @@
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
       <p v-for="letter in props.signs" :key="letter.name">{{ letter.name }}</p>
-      <Video v-if="showSign" :signs="signs" :index="index" />
-      <Vbutton v-else label="Hinweis" btnclass="" @click="showSign = true" />
+      <Video
+        :show-sign="showSign"
+        :signs="signs"
+        :index="index"
+        @use-hint="showSign = true"
+      />
       <p :class="feedbackClass">TODO: Add webcam component</p>
     </div>
   </div>

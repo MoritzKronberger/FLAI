@@ -1,10 +1,18 @@
 <template>
-  <video :src="videoSource" type="video/webm" autoplay loop />
-  <br />
+  <div v-if="showSign">
+    <video :src="videoSource" type="video/webm" autoplay loop />
+    <br />
+    <VButton
+      label="Perspektive wechseln"
+      btnclass="controls"
+      @click="switchPerspective()"
+    />
+  </div>
   <VButton
-    label="Perspektive wechseln"
+    v-else
+    label="Hinweis"
     btnclass="controls"
-    @click="switchPerspective()"
+    @click="emit('useHint')"
   />
 </template>
 
@@ -13,7 +21,7 @@ import { ref, computed, ComputedRef, watchEffect } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
 
-const props = defineProps<{ signs: Sign[]; index: number }>()
+const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
 const perspective = ref('front')
 
@@ -37,6 +45,8 @@ function switchPerspective() {
     perspective.value = 'front'
   }
 }
+
+const emit = defineEmits(['useHint'])
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
