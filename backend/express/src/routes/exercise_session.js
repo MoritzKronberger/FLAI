@@ -7,7 +7,7 @@ exerciseSession.get('/', async (req, res) => {
     method: 'GET',
     table: 'get_active_exercise_session',
     selectCols: ['exercise_id', 'user_id', 'start_time'],
-    ids: req.body,
+    ids: req.query,
     res: res,
   })
 })
