@@ -20,21 +20,26 @@ const store: any = inject('store')
 
 const index = ref(0)
 const feedbackClass = ref('waiting')
+const progressSmallerLevelOne = ref(true)
+const showSign = ref(true)
 
 const props = defineProps<{ signs: Sign[] }>()
 
 function correct() {
-  store.signdata.methods.updateProgress(props.signs[index.value].name, 10)
+  if (progressSmallerLevelOne.value || !showSign.value) {
+    store.signdata.methods.updateProgress(props.signs[index.value].name, 10)
+  }
   feedbackClass.value = 'right'
   if (index.value < props.signs.length - 1) {
     index.value++
   } else {
-    //TODO: view is not reloading
     router.push({ name: 'HomePage' })
   }
 }
 function wrong() {
-  store.signdata.methods.updateProgress(props.signs[index.value].name, -10)
+  if (progressSmallerLevelOne.value || !showSign.value) {
+    store.signdata.methods.updateProgress(props.signs[index.value].name, -10)
+  }
   feedbackClass.value = 'wrong'
   if (index.value < props.signs.length - 1) {
     index.value++
@@ -44,12 +49,13 @@ function wrong() {
   }
 }
 
-const showSign = ref(true)
 function checkProgress(sign: Sign) {
   console.log('progress', sign.progress)
   if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
+    progressSmallerLevelOne.value = false
     showSign.value = false
   } else {
+    progressSmallerLevelOne.value = true
     showSign.value = true
   }
 }
