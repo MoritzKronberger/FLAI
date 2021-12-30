@@ -1,15 +1,14 @@
 <script setup lang="ts">
 defineProps<{
   labelName: string
-  placeholder: string
   elementClass: string
-  modelValue: string
+  modelValue: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
 const onInput = (e: Event): void => {
   // emit is placed in method so that validation for input value can be added
-  emit('update:modelValue', (e.target as HTMLInputElement).value)
+  emit('update:modelValue', (e.target as HTMLInputElement).checked)
 }
 </script>
 
@@ -17,10 +16,9 @@ const onInput = (e: Event): void => {
   <label :for="labelName">
     {{ labelName }}
     <input
-      :value="modelValue"
-      type="text"
+      :checked="modelValue"
+      type="checkbox"
       :name="labelName"
-      :placeholder="placeholder"
       :class="elementClass"
       @input="onInput"
     />
