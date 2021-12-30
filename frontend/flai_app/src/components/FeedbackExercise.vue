@@ -13,7 +13,7 @@
         btnclass="controls"
         @click="switchPerspective()"
       />
-      <p ref="feedbackClass" class="waiting">TODO: Add webcam component</p>
+      <p :class="feedbackClass">TODO: Add webcam component</p>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ import {
   onBeforeMount,
   ComputedRef,
   watchEffect,
+  watch,
 } from 'vue'
 import { Sign } from '../store/signdata'
 import VButton from './vbutton.vue'
@@ -38,7 +39,7 @@ const signs: ComputedRef<Sign[]> = computed(
 const perspective = ref('front')
 const index = ref(0)
 const isCorrect = ref(false)
-const feedbackClass = ref(null)
+const feedbackClass = ref('waiting')
 
 const vFocus = {
   inserted: (el: any) => {
@@ -49,16 +50,13 @@ const vFocus = {
 function correct() {
   console.log('correct')
   isCorrect.value = true
+  feedbackClass.value = 'right'
 }
 function wrong() {
   console.log('wrong')
   isCorrect.value = false
+  feedbackClass.value = 'wrong'
 }
-function changeFeedbackClass() {
-  console.log('isCorrect', isCorrect.value)
-  console.log(feedbackClass.value)
-}
-watchEffect(() => console.log('isCorrect', isCorrect.value))
 
 function getSource() {
   isCorrect.value = true
