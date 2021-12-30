@@ -1,7 +1,7 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <SignControls :signs="signs" :index="index" @new-index="onNewIndex" />
+      <SignControls :signs="signs" @new-index="onNewIndex" />
       <Video :signs="signs" :index="index" />
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <VButton label="Fertig" btnclass="controls" @click="emit('next')" />
