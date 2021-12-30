@@ -4,9 +4,10 @@ import store from './store'
 
 provide('store', store)
 
+const exercisedata = store.exercisedata.actions
+const sessiondata = store.sessiondata.actions
 onMounted(store.signdata.methods.createNewSigns)
-onMounted(store.exercisedata.actions.getFullExerciseForUser)
-onMounted(store.sessiondata.methods.startTimer)
+onMounted(store.sessiondata.sessiondata.methods)
 
 function handleInput(e: Event) {
   const target = <HTMLInputElement>e.target
@@ -23,6 +24,7 @@ function handleInput(e: Event) {
   </div>
   <main>
     <router-view />
+    <Button @click="sessiondata.deleteExerciseSession">Call Actions</Button>
   </main>
 </template>
 
