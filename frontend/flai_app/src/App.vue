@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { provide, onMounted } from 'vue'
+import { provide, onMounted, ref } from 'vue'
 import store from './store'
+import textInputField from './components/TextInputField.vue'
 
 provide('store', store)
 
@@ -8,11 +9,7 @@ onMounted(store.signdata.methods.createNewSigns)
 onMounted(store.exercisedata.actions.getAllExercises)
 onMounted(store.sessiondata.methods.startTimer)
 
-function handleInput(e: Event) {
-  const target = <HTMLInputElement>e.target
-
-  console.log('Das ist der Input:', target.value)
-}
+const testInput = ref('')
 </script>
 
 <template>
@@ -20,7 +17,13 @@ function handleInput(e: Event) {
   <div id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/store">ShowStore</router-link>
+    <text-input-field
+      v-model="testInput"
+      label-name="Test Input"
+      placeholder="your test input"
+    />
   </div>
+  <div>Test Input is: {{ testInput }}</div>
   <main>
     <router-view />
   </main>
