@@ -83,6 +83,7 @@ const actions = {
 const sessiondata = {
   session: readonly(session) as Session,
   methods,
+  actions,
 }
 
-export default { sessiondata, actions }
+export default sessiondata
