@@ -1,7 +1,7 @@
 <template>
   <h1>Feedback Learning Exercise</h1>
   <WatchWord v-if="stepOneWatch" :signs="signs" @next="onNextStep" />
-  <ShowWord v-else :signs="signs" />
+  <ShowWord v-else :signs="signs" :exercise-id="exerciseId" />
 </template>
 
 <script setup lang="ts">
@@ -12,12 +12,15 @@ import ShowWord from './ShowWord.vue'
 
 const store: any = inject('store')
 const signs: ComputedRef<Sign[]> = computed(
-  () => store.exercisedata.exercises.at(-1).signs
+  () => store.exercisedata.exerciseSessions.at(-1).signs
 )
 const stepOneWatch = ref(true)
+const exerciseId: ComputedRef<string> = computed(
+  () => store.exercisedata.exercises.at(-1).id
+)
 
 onBeforeMount(() => {
-  store.exercisedata.methods.startNewExercise('name', 'desc')
+  store.exercisedata.methods.startNewExerciseSession()
 })
 
 function onNextStep() {

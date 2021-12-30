@@ -18,7 +18,6 @@ import { inject, ref, watchEffect } from 'vue'
 import router from '../../router'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
-import Vbutton from '../vbutton.vue'
 
 const store: any = inject('store')
 
@@ -27,11 +26,15 @@ const feedbackClass = ref('waiting')
 const progressSmallerLevelOne = ref(true)
 const showSign = ref(true)
 
-const props = defineProps<{ signs: Sign[] }>()
+const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 function correct() {
   if (progressSmallerLevelOne.value || !showSign.value) {
-    store.signdata.methods.updateProgress(props.signs[index.value].name, 10)
+    store.exercisedata.methods.updateProgress(
+      props.exerciseId,
+      props.signs[index.value].name,
+      10
+    )
   }
   feedbackClass.value = 'right'
   if (index.value < props.signs.length - 1) {
@@ -42,7 +45,11 @@ function correct() {
 }
 function wrong() {
   if (progressSmallerLevelOne.value || !showSign.value) {
-    store.signdata.methods.updateProgress(props.signs[index.value].name, -10)
+    store.signdata.methods.updateProgress(
+      props.exerciseId,
+      props.signs[index.value].name,
+      -10
+    )
   }
   feedbackClass.value = 'wrong'
   if (index.value < props.signs.length - 1) {
