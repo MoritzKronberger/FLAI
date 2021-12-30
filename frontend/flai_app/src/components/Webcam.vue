@@ -24,15 +24,15 @@ const start = async (): Promise<void> => {
   webcamFeed.value.srcObject = stream.value
 }
 onMounted(async () => {
-  if (!navigator.mediaDevices) {
-    window.alert(
-      'Es steht keine Webcam zur Verfügung. Bitte schließen Sie ein Gerät an und versuchen Sie es erneut.'
-    )
-    throw new Error('Webcam is not available')
-  } else {
+  try {
     await start()
     emitFeed(webcamFeed)
     webcamLoading.value = false
+  } catch (error) {
+    console.log(error)
+    window.alert(
+      'Es steht keine Webcam zur Verfügung. Bitte schließen Sie ein Gerät an und versuchen Sie es erneut.'
+    )
   }
 })
 </script>
