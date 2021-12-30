@@ -12,6 +12,7 @@ const testInput = ref('')
       v-model="testInput"
       label-name="Test Input"
       placeholder="your test input"
+      element-class="input-primary"
     />
     <div>Test Input is: {{ testInput }}</div>
   </div>

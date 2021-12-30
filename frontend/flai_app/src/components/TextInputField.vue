@@ -2,6 +2,7 @@
 defineProps<{
   labelName: string
   placeholder: string
+  elementClass: string
   modelValue: string
 }>()
 const emit = defineEmits(['update:modelValue'])
@@ -21,6 +22,7 @@ const onInput = (e: Event): void => {
         type="text"
         :name="labelName"
         :placeholder="placeholder"
+        :class="elementClass"
         @input="onInput"
       />
     </label>
