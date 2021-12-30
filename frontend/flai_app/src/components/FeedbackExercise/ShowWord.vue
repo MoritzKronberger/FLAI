@@ -2,17 +2,19 @@
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
       <p v-for="letter in props.signs" :key="letter.name">{{ letter.name }}</p>
-      <Video :signs="signs" :index="index" />
+      <Video v-if="showSign" :signs="signs" :index="index" />
+      <Vbutton v-else label="Hinweis" btnclass="" @click="showSign = true" />
       <p :class="feedbackClass">TODO: Add webcam component</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, ref, watchEffect } from 'vue'
 import router from '../../router'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
+import Vbutton from '../vbutton.vue'
 
 const store: any = inject('store')
 
@@ -41,6 +43,17 @@ function wrong() {
     router.push({ name: 'HomePage' })
   }
 }
+
+const showSign = ref(true)
+function checkProgress(sign: Sign) {
+  console.log('progress', sign.progress)
+  if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
+    showSign.value = false
+  } else {
+    showSign.value = true
+  }
+}
+watchEffect(() => checkProgress(props.signs[index.value]))
 </script>
 
 <style>

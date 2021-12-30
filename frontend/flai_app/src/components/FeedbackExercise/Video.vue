@@ -1,5 +1,5 @@
 <template>
-  <video v-if="showSign" :src="videoSource" type="video/webm" autoplay loop />
+  <video :src="videoSource" type="video/webm" autoplay loop />
   <br />
   <VButton
     label="Perspektive wechseln"
@@ -9,26 +9,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, watchEffect, inject } from 'vue'
+import { ref, computed, ComputedRef, watchEffect } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
-
-const store: any = inject('store')
 
 const props = defineProps<{ signs: Sign[]; index: number }>()
 
 const perspective = ref('front')
-const showSign = ref(true)
-
-function checkProgress(sign: Sign) {
-  console.log('progress', sign.progress)
-  if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
-    showSign.value = false
-  } else {
-    showSign.value = true
-  }
-}
-watchEffect(() => checkProgress(props.signs[props.index]))
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
