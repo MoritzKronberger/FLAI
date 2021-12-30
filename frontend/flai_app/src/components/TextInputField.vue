@@ -14,17 +14,15 @@ const onInput = (e: Event): void => {
 </script>
 
 <template>
-  <div>
-    <label :for="labelName">
-      {{ labelName }}
-      <input
-        :value="modelValue"
-        type="text"
-        :name="labelName"
-        :placeholder="placeholder"
-        :class="elementClass"
-        @input="onInput"
-      />
-    </label>
-  </div>
+  <label :for="labelName">
+    {{ labelName }}
+    <input
+      :value="modelValue"
+      type="text"
+      :name="labelName"
+      :placeholder="placeholder"
+      :class="elementClass"
+      @input="onInput"
+    />
+  </label>
 </template>

@@ -10,7 +10,7 @@ const testCheckbox = ref(false)
 
 <template>
   <div>
-    <h1>Buttons</h1>
+    <h1>Input Fields</h1>
     <text-input-field
       v-model="testInput"
       label-name="Test Input"
