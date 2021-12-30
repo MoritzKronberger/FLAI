@@ -14,20 +14,13 @@
         @click="switchPerspective()"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
+      <VButton label="Fertig" btnclass="controls" @click="emit('next')" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  inject,
-  ref,
-  computed,
-  onBeforeMount,
-  ComputedRef,
-  watchEffect,
-  watch,
-} from 'vue'
+import { inject, ref, computed, onBeforeMount, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
 import VButton from './../vbutton.vue'
 
@@ -84,6 +77,7 @@ function increaseIndex() {
   getSource()
   console.log(index.value)
 }
+
 function switchPerspective() {
   if (perspective.value === 'front') {
     perspective.value = 'side'
@@ -91,6 +85,8 @@ function switchPerspective() {
     perspective.value = 'front'
   }
 }
+
+const emit = defineEmits(['next'])
 
 onBeforeMount(() => {
   store.exercisedata.methods.startNewExercise('name', 'desc')
