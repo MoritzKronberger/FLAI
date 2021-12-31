@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
-import HandposeTest from '../views/HandposeTest.vue'
+import FlaiNetTest from '../views/FlaiNetTest.vue'
 
 const routes = [
   {
@@ -21,9 +21,9 @@ const routes = [
     component: ShowStore,
   },
   {
-    path: '/handpose',
-    name: 'TestHandpose',
-    component: HandposeTest,
+    path: '/flainet',
+    name: 'TestFlaiNet',
+    component: FlaiNetTest,
   },
 ]
 
