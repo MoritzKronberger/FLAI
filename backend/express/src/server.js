@@ -26,7 +26,7 @@ app.use('/api/sign-recording', signRecording)
 app.use('/api/user', user)
 app.use('/api/task', task)
 app.use('/api/progress', progress)
-app.use('/api', auth)
+app.use('/api/auth', auth)
 
 // server
 const port = process.env.PORT
