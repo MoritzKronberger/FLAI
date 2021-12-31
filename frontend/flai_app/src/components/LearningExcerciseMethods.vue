@@ -10,25 +10,19 @@
       <button @click="toggleState">
         {{ playOrPause }}
       </button>
-      <SpeedDropDown
-        title=">>"
-        :items="speeds"
-        @first="setSpeed(1)"
-        @second="setSpeed(0.5)"
-        @third="setSpeed(0.25)"
-      />
+      <DropDownMenu title=">>" :items="speeds" @change-speed="setSpeed" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import SpeedDropDown from './SpeedDropDown.vue'
+import DropDownMenu from './DropDownMenu.vue'
 
 export default defineComponent({
   name: 'LearningExerciseMethods',
   components: {
-    SpeedDropDown,
+    DropDownMenu: DropDownMenu,
   },
 
   setup() {
@@ -44,8 +38,8 @@ export default defineComponent({
     }
 
     function setSpeed(speed: number) {
-      this.$refs.videoPlayer.playbackRate = speed
       console.log('speed is:', speed)
+      this.$refs.videoPlayer.playbackRate = speed
     }
 
     function toggleState() {

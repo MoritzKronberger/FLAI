@@ -3,7 +3,7 @@ import { provide, onMounted } from 'vue'
 import store from './store'
 import { DropDown } from './ressources/ts/interfaces'
 import LearningExcerciseMethods from './components/LearningExcerciseMethods.vue'
-import SpeedDropDown from './components/SpeedDropDown.vue'
+import DropDownMenu from './components/DropDownMenu.vue'
 
 provide('store', store)
 
@@ -38,7 +38,7 @@ function handleInput(e: Event) {
     <router-view />
   </main>-->
   <LearningExcerciseMethods />
-  <SpeedDropDown
+  <DropDownMenu
     title="Geschwindigkeit"
     :items="dropDownItems"
     @click-element="changeSpeed"
