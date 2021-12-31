@@ -29,14 +29,10 @@ const config = (options: AxiosOptions) => {
 
 const jsonResult = async (config: object) => {
   try {
-    const res = await axios(config)
-    console.log('+++ Response received +++')
-    console.log(res)
-    return {
-      status: res.status,
-      headers: res.headers,
-      data: res.data.rows,
-    }
+    const res = await axios(config).then((value) => {
+      return { status: value.status, headers: value.headers, data: value.data }
+    })
+    return res
   } catch (error) {
     const err = error as AxiosError
     console.log('--- Something went wrong ---')
