@@ -1,7 +1,8 @@
 import axios, { AxiosError, Method } from 'axios'
-
-//const AUTH_TOKEN = ''
-//axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
+import userData from '../../store/authdata'
+const AUTH_TOKEN =
+  'eyJhbGciOiJIUzI1NiJ9.MDc5Yzg3MjUtM2I0Ny00MzRjLWJhMWEtYWZlM2E4MTYyZGFj.X2bs0vZQyfT-asu-S_hHdwpfhzTFm2rvQmy65LzeWmU'
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
 
 axios.defaults.baseURL = 'http://localhost:5000/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
