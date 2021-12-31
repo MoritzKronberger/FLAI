@@ -3,9 +3,11 @@ import sessiondata from './sessiondata'
 import exercisedata from './exercisedata'
 import signdata from './signdata'
 
-export default {
+const store = {
   userdata,
   sessiondata,
   exercisedata,
   signdata,
 }
+
+export default store
