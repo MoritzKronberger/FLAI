@@ -78,10 +78,25 @@ const methods = {
   },
   startNewExerciseSession() {
     const word: Sign[] = []
-    for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
-      const index = random(0, exerciseSettingsUser.unlockedSigns)
-      word.push(signData.signs[index])
+    if (exercises.length > 0) {
+      for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+        const index = random(0, exerciseSettingsUser.unlockedSigns)
+        console.log('letter in word?', exercises[0].signs[index])
+        if (exercises[0].signs[index].progress >= exerciseSettings.level3) {
+          console.log('BIGGER LEVEL 3')
+          const fiftyFiftyChance = random(0, 10)
+          console.log('fiftyfifty', fiftyFiftyChance)
+          if (fiftyFiftyChance >= 5) {
+            word.push(exercises[0].signs[index])
+          } else {
+            i--
+          }
+        } else {
+          word.push(exercises[0].signs[index])
+        }
+      }
     }
+
     console.log('word', word)
     const newSession: ExerciseSession = {
       startTime: Date.now(),
@@ -107,6 +122,7 @@ const methods = {
         : 0
     console.log(
       'updatedSign',
+      exercises[exerciseIndex].signs[signIndex].name,
       exercises[exerciseIndex].signs[signIndex].progress
     )
   },

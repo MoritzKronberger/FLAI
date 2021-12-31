@@ -61,11 +61,15 @@ function wrong() {
 }
 
 function checkProgress(sign: Sign) {
-  console.log('progress', sign.progress)
+  console.log('sign', sign.name, 'progress', sign.progress)
   if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
     progressSmallerLevelOne.value = false
     showSign.value = false
-    if (sign.progress >= store.exercisedata.exerciseSettings.level2) {
+    if (
+      sign.progress >= store.exercisedata.exerciseSettings.level2 &&
+      sign.progress < store.exercisedata.exerciseSettings.level3
+    ) {
+      console.log('increaseUnlockedSigns')
       store.exercisedata.methods.increaseUnlockedSigns()
     }
   } else {
