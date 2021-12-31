@@ -1,9 +1,9 @@
 import express from 'express'
-// import { authToken } from '../util/auth.js'
+import { authToken } from '../util/auth.js'
 import { request } from './request.js'
 const exercise = express.Router()
 
-exercise.get('/all', async (req, res) => {
+exercise.get('/all', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_exercise',
