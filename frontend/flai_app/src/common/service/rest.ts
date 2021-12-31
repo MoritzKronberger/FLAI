@@ -1,4 +1,4 @@
-import axios, { Method } from 'axios'
+import axios, { AxiosError, Method } from 'axios'
 
 //const AUTH_TOKEN = ''
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
@@ -38,7 +38,9 @@ const jsonResult = async (config: object) => {
       data: res.data.rows,
     }
   } catch (error) {
-    console.log(error)
+    const err = error as AxiosError
+    console.log('--- Something went wrong ---')
+    console.log(err.response?.status)
   }
 }
 
