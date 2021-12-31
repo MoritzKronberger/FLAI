@@ -6,10 +6,9 @@ provide('store', store)
 
 const userdata = store.userdata.actions
 //const exercisedata = store.exercisedata.actions
-//const sessiondata = store.sessiondata.actions
 //const signdata = store.signdata.actions
 //onMounted(store.signdata.methods.createNewSigns)
-onMounted(store.sessiondata.sessiondata.methods)
+//onMounted(store.sessiondata.sessiondata.methods)
 
 function handleInput(e: Event) {
   const target = <HTMLInputElement>e.target
