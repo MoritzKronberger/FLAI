@@ -74,6 +74,9 @@ watchEffect(() => checkProgress(props.signs[index.value]))
 </script>
 
 <style>
+div:focus {
+  outline: none;
+}
 .waiting {
   color: grey;
 }
