@@ -1,11 +1,22 @@
 <template>
   <div v-if="showSign">
-    <video :src="videoSource" type="video/webm" autoplay loop />
+    <video
+      ref="videoPlayer"
+      :src="videoSource"
+      type="video/webm"
+      autoplay
+      loop
+    />
     <br />
     <CustomButton
       label="Perspektive wechseln"
       btnclass="controls"
       @click="switchPerspective()"
+    />
+    <DropDownMenu
+      title="Geschwindigkeit"
+      :items="dropDownItems"
+      @click-element="changeSpeed"
     />
   </div>
   <CustomButton
@@ -17,13 +28,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, watchEffect } from 'vue'
+import { ref, computed, ComputedRef, watchEffect, unref } from 'vue'
 import { Sign } from '../../store/signdata'
+import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
+import DropDownMenu from '../DropDownMenu.vue'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
 const perspective = ref('front')
+const videoPlayer = ref()
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
@@ -43,6 +57,19 @@ function switchPerspective() {
     perspective.value = 'side'
   } else {
     perspective.value = 'front'
+  }
+}
+
+const dropDownItems: DropDown[] = [
+  { label: '1x', value: 1 },
+  { label: '0.5x', value: 0.5 },
+  { label: '0.25x', value: 0.25 },
+]
+
+function changeSpeed(output: any) {
+  const videoHtml = unref(videoPlayer)
+  if (videoHtml) {
+    videoHtml.playbackRate = output
   }
 }
 
