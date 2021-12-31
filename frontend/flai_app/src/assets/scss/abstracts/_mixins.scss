@@ -1,0 +1,83 @@
+// media queries
+
+@mixin media-query($canvas) {
+    @if $canvas == S {
+     @media only screen and (min-width: $S) { @content; } 
+    }
+    @else if $canvas == M {
+     @media only screen and (min-width: $M) { @content; } 
+    }
+    @else if $canvas == L {
+     @media only screen and (min-width: $L) { @content; } 
+  }
+}
+
+// font mixins
+// from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
+@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack){
+  $font-properties: map-deep-get($font-stack, $group, $variant);
+  
+  @if $font-properties {
+    @include track-fonts($group, $variant);
+    @each $property, $values in $font-properties {
+      @if contains($properties, $property) {
+        font-#{$property}: map-get($font-properties, $property);
+      }
+    }
+  }
+}
+
+// keeping track of used fonts
+// from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
+@mixin track-fonts($group, $variant) {
+  @if map-has-key($used-fonts, $group) == false {
+    $used-fonts: map-merge($used-fonts, ($group: ())) !global;
+  }
+  
+  $font-map: map-get($used-fonts, $group);
+  @if index($font-map, $variant) == null {
+    $variations: append($font-map, $variant);
+    $used-fonts: map-merge($used-fonts, ($group: $variations)) !global;
+  }
+}
+
+
+// font import mixin
+
+@mixin import-fonts($font-stack: $base-font-stack) {
+  @each $group, $variations in $used-fonts {
+    @each $variant in $variations {
+      $font-properties: map-deep-get($font-stack, $group, $variant);
+
+      @if $font-properties {
+        // If we have a font-face key we create the font-face rule
+        $font-face: map-get($font-properties, font-face);
+        @if $font-face {
+          $font-family: map-get($font-face, family);
+          $file-path: map-get($font-face, path);
+          $file-formats: map-get($font-face, formats);
+          $font-weight: map-get($font-properties, weight);
+          $font-style: map-get($font-properties, style);
+          
+          @if $file-formats {
+            @include font-face($font-family, $file-path, $font-weight, $font-style, $file-formats);
+          } @else {
+            @include font-face($font-family, $file-path, $font-weight, $font-style);
+          }
+        }
+      }
+    }
+  }
+}
+
+// creating font face rule
+
+@mixin font-face($font-family, $file-path, $font-weight: 400, $font-style: normal, $file-formats: eot woff2 woff ttf svg) {
+  @font-face {
+    font-family: $font-family;
+    font-style: $font-style;
+    font-weight: $font-weight;
+
+    src: font-source-declaration($font-family, $file-path, $file-formats);
+  }
+}

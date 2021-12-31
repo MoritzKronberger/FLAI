@@ -1,0 +1,164 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+// Grid Variables
+$grid-width: max-width;
+$gutter-vertical: 25px;
+/*$gutter-horizontal: 25px;*/
+
+// breakpoints
+   
+$S: 768px;   
+$M: 1024px;     
+$L: 1600px;   
+
+// font stack
+// from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
+$used-fonts: ();
+$base-font-stack:(
+    GothamSSm:(
+      light: (
+      family: (Gotham SSm, Gotham),
+      weight: 300,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light',
+        formats: (otf)
+      )
+    ),
+      light-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: 300,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic',
+        formats: (otf)
+      )
+    ),
+      medium: (
+      family: (Gotham SSm, Gotham),
+      weight: normal,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium',
+        formats: (otf)
+      )
+    ),
+      medium-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: normal,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic',
+        formats: (otf)
+      )
+    ),
+      xlight: (
+      family: (Gotham SSm, Gotham),
+      weight: 200,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLight',
+        formats: (otf)
+      )
+    ),
+      xlight-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: 200,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLightItalic',
+        formats: (otf)
+      )
+    ),
+      bold: (
+      family: (Gotham SSm, Gotham),
+      weight: bold,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Bold',
+        formats: (otf)
+      )
+    ),
+      bold-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: bold,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BoldItalic',
+        formats: (otf)
+      )
+    ),
+    book: (
+      family: (Gotham SSm, Gotham),
+      weight: normal,
+      style: normal,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Book',
+        formats: (otf)
+      )
+    ),
+      book-italic: (
+      family: (Gotham SSm, Gotham),
+      weight: normal,
+      style: italic,
+      font-face:(
+        family: 'Gotham SSm',
+        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BookItalic',
+        formats: (otf)
+      )
+    ),
+    )
+);
+
+// Main Colors
+
+$main-blue: #4A7BF6;
+$dark-blue: #355BBC;
+$light-blue: #7AA0FF;
+$subtle-blue: #C5DCFF;
+
+// Secondary Colors
+
+$main-yellow: #FFF21C;
+$dark-yellow: #E9E20B;
+$light-yellow: #FFFF60;
+$subtle-yellow: #FFFDB9;
+
+$main-orange: #FF8722;
+$dark-orange: #C55800;
+$light-orange: #FFB855;
+$subtle-orange: #FFCD86;
+
+// Status Colors
+
+$main-red: #FF0000;
+$dark-red: #CC0000;
+$light-red: #FF6565;
+$subtle-red: #FFACAC;
+
+$main-green: #00BD2A;
+$dark-green: #018B1F;
+$light-green: #70CD84;
+$subtle-green: #BBF3C7;
+
+// Greyscale
+
+$main-black: #000000;
+$dark-grey: #525252;
+$light-grey: #959595;
+$subtle-grey: #CECECE;
+$main-white: #FFFFFF;
+
+
+
