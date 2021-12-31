@@ -7,7 +7,8 @@ const auth = express.Router()
 let refreshTokens = []
 
 auth.post('/login', async (req, res) => {
-  const { status, id } = await loginUser(req.body.email, req.body.password)
+  console.log(req.query)
+  const { status, id } = await loginUser(req.query.email, req.query.password)
   if (status === 200) {
     const accessToken = generateAccessToken(id)
     res
