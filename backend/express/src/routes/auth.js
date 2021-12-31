@@ -1,18 +1,22 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import { generateAccessToken } from '../util/auth.js'
+import { loginUser } from '../db/auth.js'
 const auth = express.Router()
 
 let refreshTokens = []
 
-auth.post('/login', (req, res) => {
-  const username = req.body.username
-  const user = { name: username }
-  // DB Querie
-  const accessToken = generateAccessToken(user)
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-  refreshTokens.push(refreshToken)
-  res.json({ accessToken: accessToken, refreshToken: refreshToken })
+auth.post('/login', async (req, res) => {
+  const { status, id } = await loginUser(req.body.email, req.body.password)
+  if (status === 200) {
+    const accessToken = generateAccessToken(id)
+    res
+      .set('Authorization', `Bearer ${accessToken}`)
+      .status(status)
+      .json({ message: 'logged in' })
+  } else {
+    res.status(status).json({ message: 'not logged in' })
+  }
 })
 
 auth.post('/token', (req, res) => {
