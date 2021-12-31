@@ -4,8 +4,8 @@ import store from './store'
 
 provide('store', store)
 
-const userdata = store.userdata.actions
-//const exercisedata = store.exercisedata.actions
+//const userdata = store.userdata.actions
+const exercisedata = store.exercisedata.actions
 //const signdata = store.signdata.actions
 //onMounted(store.signdata.methods.createNewSigns)
 //onMounted(store.sessiondata.sessiondata.methods)
@@ -25,7 +25,7 @@ function handleInput(e: Event) {
   </div>
   <main>
     <router-view />
-    <Button @click="userdata.deleteUser">Call Actions</Button>
+    <Button @click="exercisedata.getAllExercises">Call Actions</Button>
   </main>
 </template>
 
