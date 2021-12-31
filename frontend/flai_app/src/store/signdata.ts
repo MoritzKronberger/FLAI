@@ -41,7 +41,7 @@ const actions = {
     jsonAction({
       method: 'get',
       url: 'sign',
-      data: { exercise_id: 'deb2570c-0b58-41a1-8819-142cd04dda15' },
+      data: { exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6' },
     })
   },
   async getSignRecording() {
@@ -75,7 +75,8 @@ const actions = {
       url: 'progress',
       data: {
         data: {
-          progress: 20,
+          progress: 42,
+          level_3_reached: 1,
         },
         ids: {
           user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
