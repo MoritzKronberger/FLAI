@@ -3,13 +3,22 @@ import { random } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
+export interface Exercise {
+  id: string
+  name: string
+  description: string
+  signs: Sign[]
+}
+
+const exercises: Exercise[] = reactive([])
+
 export interface ExerciseSettings {
   id: string
   level1: number
   level2: number
   level3: number
-  wordLength: number
-  unlockedSigns: number
+  exerciseId: string
+  sortSignsByOrder: boolean
 }
 
 const exerciseSettings: ExerciseSettings = reactive({
@@ -17,56 +26,89 @@ const exerciseSettings: ExerciseSettings = reactive({
   level1: 100,
   level2: 200,
   level3: 300,
+  exerciseId: '',
+  sortSignsByOrder: true,
+})
+
+export interface ExerciseSettingsUser {
+  exerciseId: string
+  wordLength: number
+  unlockedSigns: number
+}
+
+const exerciseSettingsUser: ExerciseSettingsUser = reactive({
+  exerciseId: '',
   wordLength: 4,
   unlockedSigns: 4,
 })
 
-export interface Exercise {
-  id: string
-  name: string
-  description: string
-  firstStart: number
+export interface ExerciseSession {
+  startTime: number
   sessionDuration: number
+  order: number
   signs: Sign[]
 }
 
-const exercises: Exercise[] = reactive([])
+const exerciseSessions: ExerciseSession[] = reactive([])
 
 const methods = {
+  getExercises() {
+    const exercise: Exercise = {
+      id: '0',
+      name: 'test',
+      description: 'this is testdata',
+      signs: signData.methods.createNewSigns(),
+    }
+    exercises.push(exercise)
+    exerciseSettings.exerciseId = exercise.id
+    exerciseSettingsUser.exerciseId = exercise.id
+    console.log('exercises:', JSON.stringify(exercises))
+  },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
-    exerciseSettings.wordLength = wordLength
+    exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
-    exerciseSettings.unlockedSigns +=
-      exerciseSettings.unlockedSigns < 26 ? 1 : 0
+    exerciseSettingsUser.unlockedSigns +=
+      exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    exerciseSettings.unlockedSigns -= exerciseSettings.unlockedSigns > 0 ? 1 : 0
+    exerciseSettingsUser.unlockedSigns -=
+      exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
-  startNewExercise(name: string, description: string) {
+  startNewExerciseSession() {
     const word: Sign[] = []
-    for (let i = 0; i < exerciseSettings.wordLength; i++) {
-      const index = random(0, exerciseSettings.unlockedSigns)
+    for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+      const index = random(0, exerciseSettingsUser.unlockedSigns)
       word.push(signData.signs[index])
     }
     console.log('word', word)
-    const exercise: Exercise = {
-      id: '' + exercises.length,
-      name: name,
-      description: description,
-      firstStart: Date.now(),
+    const newSession: ExerciseSession = {
+      startTime: Date.now(),
       sessionDuration: 0,
+      order: 0,
       signs: word,
     }
-    exercises.push(exercise)
-    console.log('exerciseId', exercise.id)
-    return exercise.id
+    exerciseSessions.push(newSession)
+    return exerciseSessions
   },
   stopExercise(searchId: string) {
-    const index = exercises.findIndex((el) => el.id === searchId)
-    exercises[index].sessionDuration = Date.now() - exercises[index].firstStart
-    console.log(exercises[index])
+    //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
+  },
+  updateProgress(exerciseId: string, letter: string, difference: number) {
+    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
+    const signIndex = exercises[exerciseIndex].signs.findIndex(
+      (el) => el.name === letter
+    )
+    exercises[exerciseIndex].signs[signIndex].progress += difference
+    exercises[exerciseIndex].signs[signIndex].progress =
+      exercises[exerciseIndex].signs[signIndex].progress > 0
+        ? exercises[exerciseIndex].signs[signIndex].progress
+        : 0
+    console.log(
+      'updatedSign',
+      exercises[exerciseIndex].signs[signIndex].progress
+    )
   },
 }
 
@@ -171,9 +213,12 @@ const actions = {
 }
 
 const exerciseData = {
-  exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
   exercises: readonly(exercises) as Exercise[],
+  exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
+  exerciseSettingsUser: readonly(exerciseSettingsUser) as ExerciseSettingsUser,
+  exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
   methods,
   actions,
 }
+
 export default exerciseData

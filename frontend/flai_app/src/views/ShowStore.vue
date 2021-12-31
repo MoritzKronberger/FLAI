@@ -29,24 +29,25 @@ function changeTargetLearningTime() {
 
 //exercises
 const wordLength = ref()
-const exerciseId = ref()
+const exerciseSession = ref()
 
 const exerciseMethods = store.exercisedata.methods
-const exercisesettings = computed(() => store.exercisedata.exerciseSettings)
+const exerciseSettings = computed(() => store.exercisedata.exerciseSettings)
+const exerciseSettingsUser = computed(
+  () => store.exercisedata.exerciseSettingsUser
+)
 const exercises = computed(() => store.exercisedata.exercises)
+const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
 
 function changeExerciseSettingsWordLength() {
   store.exercisedata.methods.changeExerciseSettingsWordLength(wordLength.value)
 }
-function startNewExercise() {
-  exerciseId.value = store.exercisedata.methods.startNewExercise(
-    'Exercise',
-    'Description'
-  )
+function startNewExerciseSession() {
+  exerciseSession.value = store.exercisedata.methods.startNewExerciseSession()
 }
 
 //signdata
-const signs = computed(() => store.signdata.signs)
+const signs = computed(() => store.exercisedata.exercises[0].signs)
 const signMethods = store.signdata.methods
 
 const letter = ref()
@@ -71,8 +72,12 @@ const letter = ref()
     @keyup.enter="changeTargetLearningTime"
   />
   <h2>Exercisedata</h2>
-  <p>Settings:</p>
-  <p v-for="(value, name) in exercisesettings" :key="value">
+  <h3>Settings per Exercise:</h3>
+  <p v-for="(value, name) in exerciseSettings" :key="value">
+    {{ name }}: {{ value }}
+  </p>
+  <h3>Settings per User:</h3>
+  <p v-for="(value, name) in exerciseSettingsUser" :key="value">
     {{ name }}: {{ value }}
   </p>
   <label>Change wordLength:</label
@@ -89,23 +94,24 @@ const letter = ref()
   >
   <p>Exercises:</p>
   <p v-for="(value, name) in exercises" :key="value">{{ name }}: {{ value }}</p>
-  <Button @click="startNewExercise">Start new exercise</Button>
-  <Button @click="store.exercisedata.methods.stopExercise(exerciseId)"
-    >Stop last exercise</Button
-  >
+  <br />
+  <p>ExerciseSessions:</p>
+  <p v-for="(value, name) in exerciseSessions" :key="value">
+    {{ name }}: {{ value }}
+  </p>
+  <Button @click="startNewExerciseSession">Start new exerciseSession</Button>
+
   <h2>Session</h2>
   <p v-for="(value, name) in session" :key="value">{{ name }}: {{ value }}</p>
   <Button @click="sessionMethods.startTimer">Start Timer</Button>
   <Button @click="sessionMethods.updateTimer">Update Timer</Button>
   <h2>Signdata</h2>
-  <p v-for="(value, name) in signs" :key="value">{{ name }}: {{ value }}</p>
-  <Button @click="signMethods.createNewSigns">Create new signs</Button>
   <h3>Update progress + 10:</h3>
   <label>letter:</label>
   <input
     v-model="letter"
     type="text"
-    @keyup.enter="signMethods.updateProgress(letter, 10)"
+    @keyup.enter="exerciseMethods.updateProgress('0', letter, 10)"
   />
 </template>
 
