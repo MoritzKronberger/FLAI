@@ -1,12 +1,31 @@
 <script setup lang="ts">
 import { provide, onMounted, ref } from 'vue'
 import store from './store'
+import { DropDown } from './ressources/ts/interfaces'
+import LearningExcerciseMethods from './components/LearningExcerciseMethods.vue'
+import DropDownMenu from './components/DropDownMenu.vue'
 
 provide('store', store)
 
 onMounted(store.exercisedata.methods.getExercises) // fake frontend method
 onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
+
+const dropDownItems: DropDown[] = [
+  { label: '1x', value: 1 },
+  { label: '0.5x', value: 0.5 },
+  { label: '0.25x', value: 0.25 },
+]
+
+function changeSpeed(output: any) {
+  console.log(output)
+}
+
+function handleInput(e: Event) {
+  const target = <HTMLInputElement>e.target
+
+  console.log('Das ist der Input:', target.value)
+}
 </script>
 
 <template>
@@ -19,6 +38,11 @@ onMounted(store.sessiondata.methods.startTimer)
   <main>
     <router-view />
   </main>
+  <DropDownMenu
+    title="Geschwindigkeit"
+    :items="dropDownItems"
+    @click-element="changeSpeed"
+  />
 </template>
 
 <style>
