@@ -65,6 +65,9 @@ function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
     progressSmallerLevelOne.value = false
     showSign.value = false
+    if (sign.progress >= store.exercisedata.exerciseSettings.level2) {
+      store.exercisedata.methods.increaseUnlockedSigns()
+    }
   } else {
     progressSmallerLevelOne.value = true
     showSign.value = true
