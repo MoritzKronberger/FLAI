@@ -111,7 +111,7 @@ const letter = ref()
   <input
     v-model="letter"
     type="text"
-    @keyup.enter="exerciseMethods.updateProgress('0', letter, 10)"
+    @keyup.enter="exerciseMethods.increaseProgress('0', letter)"
   />
 </template>
 

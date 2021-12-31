@@ -30,10 +30,9 @@ const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 function correct() {
   if (progressSmallerLevelOne.value || !showSign.value) {
-    store.exercisedata.methods.updateProgress(
+    store.exercisedata.methods.increaseProgress(
       props.exerciseId,
-      props.signs[index.value].name,
-      10
+      props.signs[index.value].name
     )
   }
   feedbackClass.value = 'right'
@@ -45,10 +44,9 @@ function correct() {
 }
 function wrong() {
   if (progressSmallerLevelOne.value || !showSign.value) {
-    store.exercisedata.methods.updateProgress(
+    store.exercisedata.methods.decreaseProgress(
       props.exerciseId,
-      props.signs[index.value].name,
-      -10
+      props.signs[index.value].name
     )
   }
   feedbackClass.value = 'wrong'

@@ -12,6 +12,7 @@ export interface Exercise {
 
 const exercises: Exercise[] = reactive([])
 
+const progressStep: number = 10
 export interface ExerciseSettings {
   id: string
   level1: number
@@ -110,12 +111,24 @@ const methods = {
   stopExercise(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
   },
-  updateProgress(exerciseId: string, letter: string, difference: number) {
+  increaseProgress(exerciseId: string, letter: string) {
     const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
     const signIndex = exercises[exerciseIndex].signs.findIndex(
       (el) => el.name === letter
     )
-    exercises[exerciseIndex].signs[signIndex].progress += difference
+    exercises[exerciseIndex].signs[signIndex].progress += progressStep
+    console.log(
+      'updatedSign',
+      exercises[exerciseIndex].signs[signIndex].name,
+      exercises[exerciseIndex].signs[signIndex].progress
+    )
+  },
+  decreaseProgress(exerciseId: string, letter: string) {
+    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
+    const signIndex = exercises[exerciseIndex].signs.findIndex(
+      (el) => el.name === letter
+    )
+    exercises[exerciseIndex].signs[signIndex].progress -= progressStep
     exercises[exerciseIndex].signs[signIndex].progress =
       exercises[exerciseIndex].signs[signIndex].progress > 0
         ? exercises[exerciseIndex].signs[signIndex].progress
