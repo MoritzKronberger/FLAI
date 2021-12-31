@@ -55,8 +55,10 @@ const flaiNetPredict = (handposeResults: Results): void => {
   const resultsTensor = handposeResultsToFlaiNetInput(handposeResults)
   if (resultsTensor.size > 0) {
     const prediction = flaiNet.predict(resultsTensor) as tf.Tensor
+    resultsTensor.dispose()
     const maxArg = prediction.argMax(-1).dataSync() as Int32Array
     const confidence = prediction.max(-1).dataSync() as Float32Array
+    prediction.dispose()
     const flaiNetResult: FlaiNetResult = {
       label: flaiNetOptions.value.labels[maxArg[0]],
       confidence: confidence[0],
