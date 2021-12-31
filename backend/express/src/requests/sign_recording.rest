@@ -1,0 +1,7 @@
+GET http://localhost:5000/api/sign-recording/sign/6c1089a0-0a7f-4682-9902-1da22749e007
+
+### 
+
+GET http://localhost:5000/api/sign-recording/exercise/7980a96b-5e00-4c72-8bcc-4d256fe599fc
+
+### 

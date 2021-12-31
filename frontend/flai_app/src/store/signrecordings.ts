@@ -1,9 +1,10 @@
 import { readonly } from 'vue'
 import { Sign } from './signdata'
-
 export interface SignRecording {
   id: string
-  video: string //for frontend purposes: url, should be BYTEA number?
+  path: string //for frontend purposes: url, should be BYTEA number?
+  mimetypeId: string
+  signId: string
   perspectiveId: string //for frontend purposes: 'front' or 'side'
 }
 
@@ -16,22 +17,30 @@ const methods = {
     const signFront: SignRecording = {
       //TODO: id is not unique!
       id: '' + sign.id,
-      video: '',
+      path: '',
+      mimetypeId: '',
+      signId: '',
       perspectiveId: 'front',
     }
-    signFront.video = `../ressources/${sign.name}_${signFront.perspectiveId}.mp4`
+    const name = sign.name.toUpperCase()
+    signFront.path = `@/assets/signs/vid/${signFront.perspectiveId}/${name} - ${signFront.perspectiveId}Video.webm`
     const signSide: SignRecording = {
       id: '' + sign.id,
-      video: 'putUrlHere',
+      path: 'putUrlHere',
+      mimetypeId: '',
+      signId: '',
       perspectiveId: 'side',
     }
-    signSide.video = `../ressources/${sign.name}_${signSide.perspectiveId}.mp4`
+    signSide.path = `@/assets/signs/vid/${signSide.perspectiveId}/${name} - ${signSide.perspectiveId}Video.webm`
     signRecordings.push(signFront)
     signRecordings.push(signSide)
     return signRecordings
   },
 }
 
-const signRecordingData = { signRecording: readonly(signRecording), methods }
+const signRecordingData = {
+  signRecording: readonly(signRecording) as SignRecording[],
+  methods,
+}
 
 export default signRecordingData

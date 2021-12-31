@@ -4,7 +4,9 @@ import signrecordings, { SignRecording } from './signrecordings'
 export interface Sign {
   id: string
   name: string
+  motionCategoryId: string
   progress: number
+  level3Reached: boolean
   recordings: SignRecording[]
 }
 
@@ -17,23 +19,22 @@ const methods = {
       const sign: Sign = {
         id: '' + i,
         name: String.fromCharCode(97 + i),
+        motionCategoryId: '',
         progress: 0,
+        level3Reached: false,
         recordings: [],
       }
       sign.recordings = signrecordings.methods.createSignRecording(sign)
       signs.push(sign)
     }
     console.log('signs', signs)
-  },
-  updateProgress(letter: string, difference: number) {
-    const index = signs.findIndex((el) => el.name === letter)
-    signs[index].progress += difference
-    signs[index].progress =
-      signs[index].progress > 0 ? signs[index].progress : 0
-    console.log('updatedSign', signs[index])
+    return signs
   },
 }
 
-const signData = { signs: readonly(signs), methods }
+const signData = {
+  signs: readonly(signs) as Sign[],
+  methods,
+}
 
 export default signData
