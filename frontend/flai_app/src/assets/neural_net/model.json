@@ -1,0 +1,364 @@
+{
+  "format": "layers-model",
+  "generatedBy": "keras v2.7.0",
+  "convertedBy": "TensorFlow.js Converter v3.12.0",
+  "modelTopology": {
+    "keras_version": "2.7.0",
+    "backend": "tensorflow",
+    "model_config": {
+      "class_name": "Functional",
+      "config": {
+        "name": "Deep_Flai_6",
+        "layers": [
+          {
+            "class_name": "InputLayer",
+            "config": {
+              "batch_input_shape": [null, 21, 3],
+              "dtype": "float32",
+              "sparse": false,
+              "ragged": false,
+              "name": "input_1"
+            },
+            "name": "input_1",
+            "inbound_nodes": []
+          },
+          {
+            "class_name": "LayerNormalization",
+            "config": {
+              "name": "layer_normalization",
+              "trainable": true,
+              "dtype": "float32",
+              "axis": [2],
+              "epsilon": 0.001,
+              "center": true,
+              "scale": true,
+              "beta_initializer": { "class_name": "Zeros", "config": {} },
+              "gamma_initializer": { "class_name": "Ones", "config": {} },
+              "beta_regularizer": null,
+              "gamma_regularizer": null,
+              "beta_constraint": null,
+              "gamma_constraint": null
+            },
+            "name": "layer_normalization",
+            "inbound_nodes": [[["input_1", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Flatten",
+            "config": {
+              "name": "flatten",
+              "trainable": true,
+              "dtype": "float32",
+              "data_format": "channels_last"
+            },
+            "name": "flatten",
+            "inbound_nodes": [[["layer_normalization", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense_1",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 1728,
+              "activation": "selu",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "LeCunNormal",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "Dense_1",
+            "inbound_nodes": [[["flatten", 0, 0, {}]]]
+          },
+          {
+            "class_name": "AlphaDropout",
+            "config": {
+              "name": "Dropout_1",
+              "trainable": true,
+              "dtype": "float32",
+              "rate": 0.05,
+              "seed": null
+            },
+            "name": "Dropout_1",
+            "inbound_nodes": [[["Dense_1", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense_2",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 1200,
+              "activation": "selu",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "LeCunNormal",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "Dense_2",
+            "inbound_nodes": [[["Dropout_1", 0, 0, {}]]]
+          },
+          {
+            "class_name": "AlphaDropout",
+            "config": {
+              "name": "Dropout_2",
+              "trainable": true,
+              "dtype": "float32",
+              "rate": 0.05,
+              "seed": null
+            },
+            "name": "Dropout_2",
+            "inbound_nodes": [[["Dense_2", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense_3",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 768,
+              "activation": "selu",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "LeCunNormal",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "Dense_3",
+            "inbound_nodes": [[["Dropout_2", 0, 0, {}]]]
+          },
+          {
+            "class_name": "AlphaDropout",
+            "config": {
+              "name": "Dropout_3",
+              "trainable": true,
+              "dtype": "float32",
+              "rate": 0.05,
+              "seed": null
+            },
+            "name": "Dropout_3",
+            "inbound_nodes": [[["Dense_3", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense_4",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 432,
+              "activation": "selu",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "LeCunNormal",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "Dense_4",
+            "inbound_nodes": [[["Dropout_3", 0, 0, {}]]]
+          },
+          {
+            "class_name": "AlphaDropout",
+            "config": {
+              "name": "Dropout_4",
+              "trainable": true,
+              "dtype": "float32",
+              "rate": 0.05,
+              "seed": null
+            },
+            "name": "Dropout_4",
+            "inbound_nodes": [[["Dense_4", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense_5",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 192,
+              "activation": "selu",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "LeCunNormal",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "Dense_5",
+            "inbound_nodes": [[["Dropout_4", 0, 0, {}]]]
+          },
+          {
+            "class_name": "AlphaDropout",
+            "config": {
+              "name": "Dropout_5",
+              "trainable": true,
+              "dtype": "float32",
+              "rate": 0.05,
+              "seed": null
+            },
+            "name": "Dropout_5",
+            "inbound_nodes": [[["Dense_5", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "Dense_6",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 48,
+              "activation": "selu",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "LeCunNormal",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "Dense_6",
+            "inbound_nodes": [[["Dropout_5", 0, 0, {}]]]
+          },
+          {
+            "class_name": "AlphaDropout",
+            "config": {
+              "name": "Dropout_6",
+              "trainable": true,
+              "dtype": "float32",
+              "rate": 0.05,
+              "seed": null
+            },
+            "name": "Dropout_6",
+            "inbound_nodes": [[["Dense_6", 0, 0, {}]]]
+          },
+          {
+            "class_name": "Dense",
+            "config": {
+              "name": "output_dense",
+              "trainable": true,
+              "dtype": "float32",
+              "units": 24,
+              "activation": "softmax",
+              "use_bias": true,
+              "kernel_initializer": {
+                "class_name": "GlorotUniform",
+                "config": { "seed": null }
+              },
+              "bias_initializer": { "class_name": "Zeros", "config": {} },
+              "kernel_regularizer": null,
+              "bias_regularizer": null,
+              "activity_regularizer": null,
+              "kernel_constraint": null,
+              "bias_constraint": null
+            },
+            "name": "output_dense",
+            "inbound_nodes": [[["Dropout_6", 0, 0, {}]]]
+          }
+        ],
+        "input_layers": [["input_1", 0, 0]],
+        "output_layers": [["output_dense", 0, 0]]
+      }
+    },
+    "training_config": {
+      "loss": "categorical_crossentropy",
+      "metrics": [
+        [
+          {
+            "class_name": "MeanMetricWrapper",
+            "config": {
+              "name": "acc",
+              "dtype": "float32",
+              "fn": "categorical_accuracy"
+            }
+          }
+        ]
+      ],
+      "weighted_metrics": null,
+      "loss_weights": null,
+      "optimizer_config": {
+        "class_name": "Adam",
+        "config": {
+          "name": "Adam",
+          "learning_rate": 9.999999747378752e-6,
+          "decay": 0.0,
+          "beta_1": 0.8999999761581421,
+          "beta_2": 0.9900000095367432,
+          "epsilon": 0.01,
+          "amsgrad": false
+        }
+      }
+    }
+  },
+  "weightsManifest": [
+    {
+      "paths": [
+        "group1-shard1of4.bin",
+        "group1-shard2of4.bin",
+        "group1-shard3of4.bin",
+        "group1-shard4of4.bin"
+      ],
+      "weights": [
+        { "name": "Dense_1/kernel", "shape": [63, 1728], "dtype": "float32" },
+        { "name": "Dense_1/bias", "shape": [1728], "dtype": "float32" },
+        { "name": "Dense_2/kernel", "shape": [1728, 1200], "dtype": "float32" },
+        { "name": "Dense_2/bias", "shape": [1200], "dtype": "float32" },
+        { "name": "Dense_3/kernel", "shape": [1200, 768], "dtype": "float32" },
+        { "name": "Dense_3/bias", "shape": [768], "dtype": "float32" },
+        { "name": "Dense_4/kernel", "shape": [768, 432], "dtype": "float32" },
+        { "name": "Dense_4/bias", "shape": [432], "dtype": "float32" },
+        { "name": "Dense_5/kernel", "shape": [432, 192], "dtype": "float32" },
+        { "name": "Dense_5/bias", "shape": [192], "dtype": "float32" },
+        { "name": "Dense_6/kernel", "shape": [192, 48], "dtype": "float32" },
+        { "name": "Dense_6/bias", "shape": [48], "dtype": "float32" },
+        {
+          "name": "layer_normalization/gamma",
+          "shape": [3],
+          "dtype": "float32"
+        },
+        {
+          "name": "layer_normalization/beta",
+          "shape": [3],
+          "dtype": "float32"
+        },
+        {
+          "name": "output_dense/kernel",
+          "shape": [48, 24],
+          "dtype": "float32"
+        },
+        { "name": "output_dense/bias", "shape": [24], "dtype": "float32" }
+      ]
+    }
+  ]
+}
