@@ -73,7 +73,12 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async getAllExercises() {
-    jsonAction({ method: 'get', url: 'exercise/all', data: {} })
+    const jsonData = await jsonAction({
+      method: 'get',
+      url: 'exercise/all',
+      data: {},
+    })
+    console.log(jsonData)
   },
 
   async getFullExerciseForUser() {
