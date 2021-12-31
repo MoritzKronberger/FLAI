@@ -27,6 +27,8 @@
   }
 }
 
+// keeping track of used fonts
+
 @mixin track-fonts($group, $variant) {
   @if map-has-key($used-fonts, $group) == false {
     $used-fonts: map-merge($used-fonts, ($group: ())) !global;
@@ -39,6 +41,8 @@
   }
 }
 
+
+// font import mixin
 
 @mixin import-fonts($font-stack: $base-font-stack) {
   @each $group, $variations in $used-fonts {
@@ -65,6 +69,8 @@
     }
   }
 }
+
+// creating font face rule
 
 @mixin font-face($font-family, $file-path, $font-weight: 400, $font-style: normal, $file-formats: eot woff2 woff ttf svg) {
   @font-face {

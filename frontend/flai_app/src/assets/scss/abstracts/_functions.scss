@@ -23,7 +23,7 @@
     @return $src;
   }
 
-// deep get function
+// map deep get function
 
 @function map-deep-get($map, $keys...) {
   @each $key in $keys {
