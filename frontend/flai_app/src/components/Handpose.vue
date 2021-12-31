@@ -20,7 +20,7 @@ const onResults = (results: Results) => {
 // setup from https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
 const loadMediapipeHands = (): void => {
   hands = new Hands({
-    locateFile: (file) => {
+    locateFile: (file: string) => {
       return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
     },
   })
