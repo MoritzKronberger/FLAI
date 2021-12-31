@@ -1,35 +1,48 @@
-import axios, { Method } from 'axios'
+import axios, { AxiosError, Method } from 'axios'
 
 //const AUTH_TOKEN = ''
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
 
 axios.defaults.baseURL = 'http://localhost:5000/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-
-const config = (method: Method, url: string, data: object) => {
-  return {
-    method: method,
-    url: url,
-    data: data,
-  }
+export interface AxiosOptions {
+  method: Method
+  url: string
+  data: object
 }
 
-const jsonResult = async (method: Method, url: string, data: object) => {
-  try {
-    const res = await axios(config(method, url, data))
-    console.log(res.data)
+const config = (options: AxiosOptions) => {
+  if (options.method === 'get') {
     return {
-      status: res.status,
-      headers: res.headers,
-      data: res.data,
+      method: options.method,
+      url: options.url,
+      params: options.data,
     }
-  } catch (error) {
-    console.log(error)
+  } else {
+    return {
+      method: options.method,
+      url: options.url,
+      data: options.data,
+    }
   }
 }
 
-export default {
-  async JsonAction(method: Method, url: string, data: object = {}) {
-    return await jsonResult(method, url, data)
-  },
+const jsonResult = async (config: object) => {
+  try {
+    const res = await axios(config).then((value) => {
+      return { status: value.status, headers: value.headers, data: value.data }
+    })
+    return res
+  } catch (error) {
+    const err = error as AxiosError
+    console.log('--- Something went wrong ---')
+    console.log(err.response?.status)
+  }
 }
+
+const jsonAction = async (options: AxiosOptions) => {
+  return await jsonResult(config(options))
+}
+
+export { jsonAction }
+export default { jsonAction }

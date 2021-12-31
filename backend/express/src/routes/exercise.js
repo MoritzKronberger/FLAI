@@ -29,7 +29,7 @@ exercise.get('/', async (req, res) => {
       'word_length',
       'unlocked_signs',
     ],
-    ids: req.body,
+    ids: req.query,
     res: res,
   })
 })

@@ -1,4 +1,5 @@
 import { reactive, readonly } from 'vue'
+import { jsonAction } from '../common/service/rest'
 
 export interface User {
   id: string //uuid
@@ -31,9 +32,57 @@ const methods = {
   },
 }
 
-const userdata = {
-  user: readonly(user) as User,
-  methods,
+const actions = {
+  /* eslint-disable */
+  async getUser() {
+    jsonAction({
+      method: 'get',
+      url: 'user',
+      data: { id: '079c8725-3b47-434c-ba1a-afe3a8162dac' },
+    })
+  },
+
+  async postNewUser() {
+    jsonAction({
+      method: 'post',
+      url: 'user',
+      data: {
+        username: 'martin',
+        password: 'testmk1',
+        email: 'martin.kohnle@flai-team.de',
+      },
+    })
+  },
+  async patchUser() {
+    jsonAction({
+      method: 'patch',
+      url: 'user',
+      data: {
+        data: {
+          username: 'marti',
+        },
+        ids: {
+          id: '25cb10b9-baee-455b-9c22-fca251b324f5',
+        },
+      },
+    })
+  },
+  async deleteUser() {
+    jsonAction({
+      method: 'delete',
+      url: 'user',
+      data: {
+        id: '25cb10b9-baee-455b-9c22-fca251b324f5',
+      },
+    })
+  },
+  /* eslint-enable */
 }
 
-export default userdata
+const userData = {
+  user: readonly(user) as User,
+  methods,
+  actions,
+}
+
+export default userData

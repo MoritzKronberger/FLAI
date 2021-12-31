@@ -19,6 +19,7 @@ onMounted(store.sessiondata.methods.startTimer)
   </div>
   <main>
     <router-view />
+    <Button @click="exercisedata.getAllExercises">Call Actions</Button>
   </main>
 </template>
 
