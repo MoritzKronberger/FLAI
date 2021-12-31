@@ -6,17 +6,18 @@ export interface FlaiNetResult {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { inject, onMounted, ref, computed } from 'vue'
 import { Results } from '@mediapipe/hands'
 import handpose from '../components/Handpose.vue'
 import * as tf from '@tensorflow/tfjs'
 
+const store: any = inject('store')
+
 const emit = defineEmits(['newResult', 'statusChange'])
 
-// TODO: load labels from store
-const labels = 'abcdefghiklmnopqrstuvwxy'
 const flaiNetPath = new URL('../assets/neural_net/model.json', import.meta.url)
 let flaiNet: tf.LayersModel
+const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
 const flaiNetReady = ref(false)
 
 const handposeReady = ref(false)
@@ -57,7 +58,7 @@ const flaiNetPredict = (handposeResults: Results): void => {
     const maxArg = prediction.argMax(-1).dataSync() as Int32Array
     const confidence = prediction.max(-1).dataSync() as Float32Array
     const flaiNetResult: FlaiNetResult = {
-      label: labels[maxArg[0]],
+      label: flaiNetOptions.value.labels[maxArg[0]],
       confidence: confidence[0],
     }
     emit('newResult', flaiNetResult)
