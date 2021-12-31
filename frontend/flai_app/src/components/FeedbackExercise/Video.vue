@@ -33,7 +33,7 @@ function getSource() {
   if (rec === undefined) {
     return 'src/assets/error.webm'
   }
-  return rec.video
+  return rec.path
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
 watchEffect(() => console.log('newIndex', props.index))

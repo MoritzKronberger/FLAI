@@ -45,7 +45,7 @@ function correct() {
 }
 function wrong() {
   if (progressSmallerLevelOne.value || !showSign.value) {
-    store.signdata.methods.updateProgress(
+    store.exercisedata.methods.updateProgress(
       props.exerciseId,
       props.signs[index.value].name,
       -10
