@@ -1,42 +1,40 @@
 <template>
-  <div @click="isOpen = !isOpen">
-    <button>
+  <div class="menu" @click="isOpen = !isOpen">
+    <div class="dropDownMenu">
       {{ title }}
-    </button>
+    </div>
     <div v-if="isOpen">
       <div v-for="(item, i) in items" :key="i">
-        <button v-if="i === 0" @click="$emit('first')">{{ item }}</button>
-        <button v-if="i === 1" @click="$emit('second')">{{ item }}</button>
-        <button v-if="i === 2" @click="$emit('third')">{{ item }}</button>
+        <div v-if="i === 0" class="dropDownMenu" @click="emit('first')">
+          {{ item }}
+        </div>
+        <div v-if="i === 1" class="dropDownMenu" @click="emit('second')">
+          {{ item }}
+        </div>
+        <div v-if="i === 2" class="dropDownMenu" @click="emit('third')">
+          {{ item }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-export default defineComponent({
-  name: 'SpeedDropdown',
-  props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    items: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-  },
+const props = defineProps<{ title: string; items: string[] }>()
 
-  emits: ['first', 'second', 'third'],
+const isOpen = ref(false)
 
-  data() {
-    return {
-      isOpen: false,
-    }
-  },
-})
+const emit = defineEmits(['first', 'second', 'third'])
 </script>
 
-<style></style>
+<style>
+.menu {
+  border: 1px solid black;
+  min-width: 5%;
+}
+.dropDownMenu {
+  cursor: pointer;
+}
+</style>
