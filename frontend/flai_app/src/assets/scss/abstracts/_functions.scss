@@ -1,5 +1,5 @@
 // Used for creating the source string for fonts using @font-face
-
+// from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 @function font-source-declaration($font-family, $file-path, $file-formats) {
     $src: ();
   
@@ -24,7 +24,7 @@
   }
 
 // map deep get function
-
+// from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 @function map-deep-get($map, $keys...) {
   @each $key in $keys {
     @if type-of($map) != "map" {
@@ -38,7 +38,7 @@
 }
 
 // contains function
-
+// from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 @function contains($list, $values...) {
   @each $value in $values {
     @if type-of(index($list, $value)) != 'number' {
