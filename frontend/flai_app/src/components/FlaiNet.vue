@@ -1,8 +1,9 @@
 <script lang="ts">
-export interface FlaiNetResult {
+export interface FlaiNetPrediction {
   label: string
   confidence: number
 }
+export type FlaiNetResults = FlaiNetPrediction[]
 </script>
 
 <script setup lang="ts">
@@ -49,22 +50,24 @@ onMounted(() => {
   loadFlaiNet()
 })
 
-// currently only returns prediction for first frame
-// could be updated to return an array of all predictions for batch processing
 const flaiNetPredict = (handposeResults: Results): void => {
   const resultsTensor = handposeResultsToFlaiNetInput(handposeResults)
+  const flaiNetResults: FlaiNetPrediction[] = []
   if (resultsTensor.size > 0) {
     const prediction = flaiNet.predict(resultsTensor) as tf.Tensor
     resultsTensor.dispose()
     const maxArg = prediction.argMax(-1).dataSync() as Int32Array
     const confidence = prediction.max(-1).dataSync() as Float32Array
     prediction.dispose()
-    const flaiNetResult: FlaiNetResult = {
-      label: flaiNetOptions.value.labels[maxArg[0]],
-      confidence: confidence[0],
-    }
-    emit('newResult', flaiNetResult)
+    // TODO: update to be strictly functional?
+    maxArg.forEach((arg, index) => {
+      flaiNetResults.push({
+        label: flaiNetOptions.value.labels[arg],
+        confidence: confidence[index],
+      })
+    })
   }
+  emit('newResult', flaiNetResults)
 }
 </script>
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { FlaiNetResult } from '../components/FlaiNet.vue'
+import { FlaiNetResults } from '../components/FlaiNet.vue'
 import flaiNet from '../components/FlaiNet.vue'
 
-const flaiNetResults = ref<FlaiNetResult>()
+const flaiNetResults = ref<FlaiNetResults>([])
 const flaiNetReady = ref(false)
 
-const setFlaiNetResults = (result: FlaiNetResult): void => {
+const setFlaiNetResults = (result: FlaiNetResults): void => {
   flaiNetResults.value = result
 }
 const setflaiNetReady = (result: boolean): void => {
@@ -22,8 +22,8 @@ const setflaiNetReady = (result: boolean): void => {
   <div>
     Prediction:
     {{
-      flaiNetResults
-        ? `${flaiNetResults.label} [${flaiNetResults.confidence}]`
+      flaiNetResults.length > 0
+        ? `${flaiNetResults[0].label} [${flaiNetResults[0].confidence}]`
         : 'No hand detected'
     }}
   </div>
