@@ -5,18 +5,28 @@ export interface Auth {
   email: string
   password: string
   username: string
+  id: string
 }
 
 const auth = reactive({
   token: '',
-  email: '',
-  password: '',
-  username: '',
+  email: 'miriam.weber@email.com',
+  password: 'supersecret',
+  userId: '',
 })
 
 const methods = {
   fetchToken() {
     return auth.token
+  },
+  fetchUserId() {
+    return auth.userId
+  },
+
+  logoutUser() {
+    auth.token = ''
+    window.location.href = 'localhost:3000/'
+    console.log('User logged out')
   },
 }
 
@@ -26,18 +36,11 @@ const actions = {
     const jsonData = await jsonAction({
       method: 'post',
       url: 'auth/login',
-      data: { email: 'miriam.weber@email.com', password: 'supersecret' },
+      data: { email: auth.email, password: auth.password },
     })
     auth.token = jsonData?.data.jwt
-    console.log(auth.token)
-  },
-
-  async logoutUser() {
-    jsonAction({
-      method: 'post',
-      url: 'auth/logout',
-      data: { id: '079c8725-3b47-434c-ba1a-afe3a8162dac' },
-    })
+    auth.userId = jsonData?.data.id
+    console.log(jsonData)
   },
   /* eslint-enable */
 }
