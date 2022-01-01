@@ -1,8 +1,6 @@
 import axios, { AxiosError, Method } from 'axios'
-import userData from '../../store/authdata'
-const AUTH_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.MDc5Yzg3MjUtM2I0Ny00MzRjLWJhMWEtYWZlM2E4MTYyZGFj.X2bs0vZQyfT-asu-S_hHdwpfhzTFm2rvQmy65LzeWmU'
-axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
+import { methods } from '../../store/authdata'
+let AUTH_TOKEN = ''
 
 axios.defaults.baseURL = 'http://localhost:5000/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -31,7 +29,7 @@ const config = (options: AxiosOptions) => {
 const jsonResult = async (config: object) => {
   try {
     const res = await axios(config).then((value) => {
-      return { status: value.status, headers: value.headers, data: value.data }
+      return { status: value, data: value.data }
     })
     return res
   } catch (error) {
@@ -42,6 +40,11 @@ const jsonResult = async (config: object) => {
 }
 
 const jsonAction = async (options: AxiosOptions) => {
+  if (AUTH_TOKEN === '') {
+    AUTH_TOKEN = methods.fetchToken()
+    axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
+  }
+
   return await jsonResult(config(options))
 }
 
