@@ -14,11 +14,13 @@ export interface ResultBuffer {
 }
 
 export interface FlaiNetOptions {
+  path: URL
   labels: string
   bufferedResult: boolean
 }
 
 const flaiNetOptions: FlaiNetOptions = reactive({
+  path: new URL('../assets/neural_net/model.json', import.meta.url),
   labels: 'abcdefghiklmnopqrstuvwxy',
   bufferedResult: true,
 })
@@ -30,6 +32,9 @@ const resultBuffer: ResultBuffer = reactive({
 
 const methods = {
   // TODO set Options properties in cleaner way or define setters for individual properties
+  changePath(path: URL) {
+    flaiNetOptions.path = path
+  },
   changeLabels(labels: string) {
     flaiNetOptions.labels = labels
   },

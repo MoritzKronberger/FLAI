@@ -9,12 +9,12 @@ const store: any = inject('store')
 
 const emit = defineEmits(['newResult', 'statusChange'])
 
-const flaiNetPath = new URL('../assets/neural_net/model.json', import.meta.url)
 let flaiNet: tf.LayersModel
 const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
 const flaiNetMethods = computed(() => store.flainetdata.methods)
-const labels = flaiNetOptions.value.labels
-const bufferedResult = flaiNetOptions.value.bufferedResult
+const flaiNetPath = flaiNetOptions.value.path as URL
+const labels = flaiNetOptions.value.labels as string
+const bufferedResult = flaiNetOptions.value.bufferedResult as boolean
 
 const flaiNetReady = ref(false)
 const handposeReady = ref(false)
@@ -22,19 +22,20 @@ const handposeReady = ref(false)
 const setHandposeReady = (result: boolean): void => {
   handposeReady.value = result
 }
-const clearResultBuffer = () => {
+const clearResultBuffer = (): void => {
   flaiNetMethods.value.clearResultBuffer()
 }
-const addToResultBuffer = (prediction: FlaiNetPrediction) => {
+const addToResultBuffer = (prediction: FlaiNetPrediction): void => {
   flaiNetMethods.value.addToResultBuffer(prediction)
 }
-const evaluateResultBuffer = () => {
+const evaluateResultBuffer = (): FlaiNetResults => {
   return flaiNetMethods.value.evaluateResultBuffer()
 }
 
-// The python tenforflowjs coverter falsely names the 'LeCunNormal' initializer 'LecunNormal'.
-// This means the name has to be changed by hand in the /assets/neural_net/model.json,
-// whenever model.jon is updated
+/* The python tenforflowjs coverter falsely names the 'LeCunNormal' initializer 'LecunNormal'.
+   This means the name has to be changed by hand in the /assets/neural_net/model.json,
+   whenever model.jon is updated
+*/
 const loadFlaiNet = async (): Promise<void> => {
   flaiNet = await tf.loadLayersModel(flaiNetPath.toString())
   flaiNetReady.value = true
