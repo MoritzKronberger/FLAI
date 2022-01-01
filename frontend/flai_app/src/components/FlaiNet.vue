@@ -2,7 +2,7 @@
 export interface FlaiNetPrediction {
   label: string
   confidence: number
-  inconclusive?: boolean
+  uniformLabels?: boolean
 }
 export type FlaiNetResults = FlaiNetPrediction[]
 </script>
@@ -72,15 +72,15 @@ const resultBufferEvaluate = (): FlaiNetResults => {
   const returnBuffer = [...resultBuffer]
   return resultBuffer.every((val) => val?.label === resultBuffer[0]?.label) &&
     returnBuffer.length === resultBufferSize
-    ? returnBuffer.map((res) => ({ ...res, inconclusive: false }))
-    : returnBuffer.map((res) => ({ ...res, inconclusive: true }))
+    ? returnBuffer.map((res) => ({ ...res, uniformLabels: true }))
+    : returnBuffer.map((res) => ({ ...res, uniformLabels: false }))
 }
 
 /* if bufferedResult is true: returns array containing predictions (empty if no hand was detected):
-     - with no 'inconclusive' property if the whole buffer is filled and all buffered predictions are of the same label
-     - with 'inconclusive': true if not the whole buffer is filled or not all buffered predictions are of the same label
+     - with no 'uniformLabels' property if the whole buffer is filled and all buffered predictions are of the same label
+     - with 'uniformLabels': true if not the whole buffer is filled or not all buffered predictions are of the same label
 
-   else: returns array containing predictions (empty if no hand was detected) with no 'inconclusive' property
+   else: returns array containing predictions (empty if no hand was detected) with no 'uniformLabels' property
 */
 const flaiNetPredict = (handposeResults: Results): FlaiNetResults => {
   const resultsTensor = handposeResultsToFlaiNetInput(handposeResults)
