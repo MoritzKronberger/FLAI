@@ -6,7 +6,7 @@ provide('store', store)
 
 const exercisedata = store.exercisedata.actions
 const authdata = store.authdata.actions
-
+const userdata = store.userdata.actions
 //onMounted(store.exercisedata.methods.getExercises) // fake frontend method
 //onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
@@ -22,7 +22,7 @@ onMounted(store.sessiondata.methods.startTimer)
   </div>
   <main>
     <router-view />
-    <Button @click="exercisedata.getAllExercises">Exercise</Button>
+    <Button @click="userdata.getUser">Userdata</Button>
     <Button @click="authdata.loginUser">Login</Button>
   </main>
 </template>
