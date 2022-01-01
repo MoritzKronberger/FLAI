@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { FlaiNetResults } from '../components/FlaiNet.vue'
+import { FlaiNetResults } from '../store/flainetdata'
 import flaiNet from '../components/FlaiNet.vue'
 
 const flaiNetResults = ref<FlaiNetResults>()

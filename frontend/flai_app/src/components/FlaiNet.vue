@@ -1,15 +1,7 @@
-<script lang="ts">
-export interface FlaiNetPrediction {
-  label: string
-  confidence: number
-  uniformLabels?: boolean
-}
-export type FlaiNetResults = FlaiNetPrediction[]
-</script>
-
 <script setup lang="ts">
 import { inject, onMounted, ref, computed } from 'vue'
 import { Results } from '@mediapipe/hands'
+import { FlaiNetPrediction, FlaiNetResults } from '../store/flainetdata'
 import handpose from '../components/Handpose.vue'
 import * as tf from '@tensorflow/tfjs'
 
@@ -20,16 +12,24 @@ const emit = defineEmits(['newResult', 'statusChange'])
 const flaiNetPath = new URL('../assets/neural_net/model.json', import.meta.url)
 let flaiNet: tf.LayersModel
 const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
+const flaiNetMethods = computed(() => store.flainetdata.methods)
+const labels = flaiNetOptions.value.labels
+const bufferedResult = flaiNetOptions.value.bufferedResult
+
 const flaiNetReady = ref(false)
-
-// TODO: Move buffer vars into store
-const bufferedResult = true
-const resultBufferSize = 15
-let resultBuffer: FlaiNetResults = []
-
 const handposeReady = ref(false)
+
 const setHandposeReady = (result: boolean): void => {
   handposeReady.value = result
+}
+const clearResultBuffer = () => {
+  flaiNetMethods.value.clearResultBuffer()
+}
+const addToResultBuffer = (prediction: FlaiNetPrediction) => {
+  flaiNetMethods.value.addToResultBuffer(prediction)
+}
+const evaluateResultBuffer = () => {
+  return flaiNetMethods.value.evaluateResultBuffer()
 }
 
 // The python tenforflowjs coverter falsely names the 'LeCunNormal' initializer 'LecunNormal'.
@@ -57,23 +57,8 @@ onMounted(() => {
 })
 
 // if no hand is detected the buffer is cleared
-const resultBufferAdd = (flaiNetResults: FlaiNetResults): void => {
-  if (flaiNetResults[0]) {
-    if (resultBuffer.length === resultBufferSize) {
-      resultBuffer.shift()
-    }
-    resultBuffer.push(flaiNetResults[0])
-  } else {
-    resultBuffer = []
-  }
-}
-
-const resultBufferEvaluate = (): FlaiNetResults => {
-  const returnBuffer = [...resultBuffer]
-  return resultBuffer.every((val) => val?.label === resultBuffer[0]?.label) &&
-    returnBuffer.length === resultBufferSize
-    ? returnBuffer.map((res) => ({ ...res, uniformLabels: true }))
-    : returnBuffer.map((res) => ({ ...res, uniformLabels: false }))
+const resultBufferUpdate = (flaiNetResults: FlaiNetResults): void => {
+  flaiNetResults[0] ? addToResultBuffer(flaiNetResults[0]) : clearResultBuffer()
 }
 
 /* if bufferedResult is true: returns array containing predictions (empty if no hand was detected):
@@ -94,7 +79,7 @@ const flaiNetPredict = (handposeResults: Results): FlaiNetResults => {
     // TODO: update to be strictly functional?
     maxArg.forEach((arg, index) => {
       flaiNetResults.push({
-        label: flaiNetOptions.value.labels[arg],
+        label: labels[arg],
         confidence: confidence[index],
       })
     })
@@ -106,8 +91,9 @@ const flaiNetPredict = (handposeResults: Results): FlaiNetResults => {
 const emitResults = (handposeResults: Results): void => {
   const flaiNetResults = flaiNetPredict(handposeResults)
   if (bufferedResult) {
-    resultBufferAdd(flaiNetResults)
-    emit('newResult', resultBufferEvaluate())
+    resultBufferUpdate(flaiNetResults)
+    // this emit is only used for demo purposes, since evaluateResultBuffer() is always available through the store
+    emit('newResult', evaluateResultBuffer())
   } else {
     emit('newResult', flaiNetResults)
   }
