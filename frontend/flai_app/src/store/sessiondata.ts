@@ -1,5 +1,4 @@
 import { reactive, readonly } from 'vue'
-import { jsonAction } from '../common/service/rest'
 
 export interface Session {
   token: string
