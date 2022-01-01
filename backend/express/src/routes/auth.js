@@ -7,14 +7,10 @@ const auth = express.Router()
 let refreshTokens = []
 
 auth.post('/login', async (req, res) => {
-  console.log(req.query)
-  const { status, id } = await loginUser(req.query.email, req.query.password)
+  const { status, id } = await loginUser(req.body.email, req.body.password)
   if (status === 200) {
     const accessToken = generateAccessToken(id)
-    res
-      .set('Authorization', `Bearer ${accessToken}`)
-      .status(status)
-      .json({ message: 'logged in' })
+    res.status(status).json({ message: 'logged in', jwt: accessToken })
   } else {
     res.status(status).json({ message: 'not logged in' })
   }
