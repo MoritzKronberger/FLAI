@@ -17,6 +17,7 @@ const setflaiNetReady = (result: boolean): void => {
           ? 'Detecting ... please hold.'
           : `${flaiNetResults[0].label} [${flaiNetResults[0].confidence}]`
         : 'No hand detected.'*/
+//(!flaiNetResults[0].uniformLabels ? 'Detecting... Please hold.' : `${flaiNetResults[0].label} [${flaiNetResults[0].confidence}]`)
 </script>
 
 <template>
@@ -26,6 +27,12 @@ const setflaiNetReady = (result: boolean): void => {
   <br />
   <div>
     Prediction:
-    {{ flaiNetResults }}
+    {{
+      flaiNetResults?.[0]
+        ? !flaiNetResults[0].uniformLabels
+          ? 'Detecting... Please hold.'
+          : `${flaiNetResults[0].label} [${flaiNetResults[0].confidence}]`
+        : 'No hand detected.'
+    }}
   </div>
 </template>
