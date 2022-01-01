@@ -1,6 +1,5 @@
-import { reactive, readonly } from 'vue'
+import { reactive } from 'vue'
 import { jsonAction } from '../common/service/rest'
-
 export interface Auth {
   token: string
   email: string
@@ -8,24 +7,29 @@ export interface Auth {
   username: string
 }
 
-const auth: Auth = reactive({
+const auth = reactive({
   token: '',
   email: '',
   password: '',
   username: '',
 })
 
-const methods = {}
+const methods = {
+  fetchToken() {
+    return auth.token
+  },
+}
 
 const actions = {
   /* eslint-disable */
   async loginUser() {
     const jsonData = await jsonAction({
-      method: 'get',
+      method: 'post',
       url: 'auth/login',
-      data: { email: 'miriam.weber@email.com', password: 'supersecret'},
+      data: { email: 'miriam.weber@email.com', password: 'supersecret' },
     })
-    console.log(jsonData)
+    auth.token = jsonData?.data.jwt
+    console.log(auth.token)
   },
 
   async logoutUser() {
@@ -38,10 +42,11 @@ const actions = {
   /* eslint-enable */
 }
 
-const userData = {
-  user: readonly(auth) as Auth,
+const authData = {
+  auth,
   methods,
   actions,
 }
 
-export default userData
+export { methods }
+export default authData
