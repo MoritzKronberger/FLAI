@@ -72,18 +72,17 @@ const resultBufferEvaluate = (): FlaiNetResults => {
   const returnBuffer = [...resultBuffer]
   return resultBuffer.every((val) => val?.label === resultBuffer[0]?.label) &&
     returnBuffer.length === resultBufferSize
-    ? returnBuffer
+    ? returnBuffer.map((res) => ({ ...res, inconclusive: false }))
     : returnBuffer.map((res) => ({ ...res, inconclusive: true }))
 }
 
-/* if bufferedResult is true: emits array containing predictions (empty if no hand was detected):
+/* if bufferedResult is true: returns array containing predictions (empty if no hand was detected):
      - with no 'inconclusive' property if the whole buffer is filled and all buffered predictions are of the same label
      - with 'inconclusive': true if not the whole buffer is filled or not all buffered predictions are of the same label
 
-   else: emits array containing predictions (empty if no hand was detected) with no 'inconclusive' property
+   else: returns array containing predictions (empty if no hand was detected) with no 'inconclusive' property
 */
-// TODO: split into predict and emit
-const flaiNetPredict = (handposeResults: Results): void => {
+const flaiNetPredict = (handposeResults: Results): FlaiNetResults => {
   const resultsTensor = handposeResultsToFlaiNetInput(handposeResults)
   const flaiNetResults: FlaiNetPrediction[] = []
   if (resultsTensor.size > 0) {
@@ -100,6 +99,12 @@ const flaiNetPredict = (handposeResults: Results): void => {
       })
     })
   }
+
+  return flaiNetResults
+}
+
+const emitResults = (handposeResults: Results): void => {
+  const flaiNetResults = flaiNetPredict(handposeResults)
   if (bufferedResult) {
     resultBufferAdd(flaiNetResults)
     emit('newResult', resultBufferEvaluate())
@@ -110,6 +115,6 @@ const flaiNetPredict = (handposeResults: Results): void => {
 </script>
 
 <template>
-  <handpose @new-result="flaiNetPredict" @status-change="setHandposeReady" />
+  <handpose @new-result="emitResults" @status-change="setHandposeReady" />
   <div>Handpose Status: {{ handposeReady ? 'ready' : 'loading' }}</div>
 </template>
