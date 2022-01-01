@@ -2,6 +2,7 @@
 export interface FlaiNetPrediction {
   label: string
   confidence: number
+  inconclusive?: boolean
 }
 export type FlaiNetResults = FlaiNetPrediction[]
 </script>
@@ -20,6 +21,11 @@ const flaiNetPath = new URL('../assets/neural_net/model.json', import.meta.url)
 let flaiNet: tf.LayersModel
 const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
 const flaiNetReady = ref(false)
+
+// TODO: Move buffer vars into store
+const bufferedResult = true
+const resultBufferSize = 15
+let resultBuffer: FlaiNetResults = []
 
 const handposeReady = ref(false)
 const setHandposeReady = (result: boolean): void => {
@@ -50,6 +56,33 @@ onMounted(() => {
   loadFlaiNet()
 })
 
+// if no hand is detected the buffer is cleared
+const resultBufferAdd = (flaiNetResults: FlaiNetResults): void => {
+  if (flaiNetResults[0]) {
+    if (resultBuffer.length === resultBufferSize) {
+      resultBuffer.shift()
+    }
+    resultBuffer.push(flaiNetResults[0])
+  } else {
+    resultBuffer = []
+  }
+}
+
+const resultBufferEvaluate = (): FlaiNetResults => {
+  const returnBuffer = [...resultBuffer]
+  return resultBuffer.every((val) => val?.label === resultBuffer[0]?.label) &&
+    returnBuffer.length === resultBufferSize
+    ? returnBuffer
+    : returnBuffer.map((res) => ({ ...res, inconclusive: true }))
+}
+
+/* if bufferedResult is true: emits array containing predictions (empty if no hand was detected):
+     - with no 'inconclusive' property if the whole buffer is filled and all buffered predictions are of the same label
+     - with 'inconclusive': true if not the whole buffer is filled or not all buffered predictions are of the same label
+
+   else: emits array containing predictions (empty if no hand was detected) with no 'inconclusive' property
+*/
+// TODO: split into predict and emit
 const flaiNetPredict = (handposeResults: Results): void => {
   const resultsTensor = handposeResultsToFlaiNetInput(handposeResults)
   const flaiNetResults: FlaiNetPrediction[] = []
@@ -67,7 +100,12 @@ const flaiNetPredict = (handposeResults: Results): void => {
       })
     })
   }
-  emit('newResult', flaiNetResults)
+  if (bufferedResult) {
+    resultBufferAdd(flaiNetResults)
+    emit('newResult', resultBufferEvaluate())
+  } else {
+    emit('newResult', flaiNetResults)
+  }
 }
 </script>
 

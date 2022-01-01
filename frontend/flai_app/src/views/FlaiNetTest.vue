@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { FlaiNetResults } from '../components/FlaiNet.vue'
 import flaiNet from '../components/FlaiNet.vue'
 
-const flaiNetResults = ref<FlaiNetResults>([])
+const flaiNetResults = ref<FlaiNetResults>()
 const flaiNetReady = ref(false)
 
 const setFlaiNetResults = (result: FlaiNetResults): void => {
@@ -12,6 +12,11 @@ const setFlaiNetResults = (result: FlaiNetResults): void => {
 const setflaiNetReady = (result: boolean): void => {
   flaiNetReady.value = result
 }
+/*       flaiNetResults?.[0]
+        ? flaiNetResults?.[0].inconclusive
+          ? 'Detecting ... please hold.'
+          : `${flaiNetResults[0].label} [${flaiNetResults[0].confidence}]`
+        : 'No hand detected.'*/
 </script>
 
 <template>
@@ -21,10 +26,6 @@ const setflaiNetReady = (result: boolean): void => {
   <br />
   <div>
     Prediction:
-    {{
-      flaiNetResults.length > 0
-        ? `${flaiNetResults[0].label} [${flaiNetResults[0].confidence}]`
-        : 'No hand detected'
-    }}
+    {{ flaiNetResults }}
   </div>
 </template>
