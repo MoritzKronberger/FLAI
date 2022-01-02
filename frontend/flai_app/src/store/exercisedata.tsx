@@ -67,7 +67,8 @@ const methods = {
   },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
-    exerciseSettingsUser.wordLength = wordLength
+    if (wordLength <= exerciseSettingsUser.unlockedSigns)
+      exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
     exerciseSettingsUser.unlockedSigns +=
