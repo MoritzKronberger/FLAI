@@ -35,8 +35,7 @@ const jsonResult = async (config: object) => {
     return res
   } catch (error) {
     const err = error as AxiosError
-    console.log('--- Something went wrong ---')
-    console.log(err.response?.status)
+    return err.response
   }
 }
 
