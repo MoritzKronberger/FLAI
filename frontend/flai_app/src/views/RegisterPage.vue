@@ -6,7 +6,7 @@ import { inject, ref } from 'vue'
 
 const store: any = inject('store')
 
-declare interface LoginUser {
+declare interface RegisterUser {
   username: string
   email: string
   password: string
@@ -15,7 +15,7 @@ declare interface LoginUser {
   /* eslint-enable */
 }
 
-const user = ref<LoginUser>({
+const user = ref<RegisterUser>({
   username: '',
   email: '',
   password: '',
