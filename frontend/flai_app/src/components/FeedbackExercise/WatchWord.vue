@@ -49,6 +49,7 @@ function wrong() {
 
 function onNewIndex(newIndex: number) {
   index.value = newIndex
+  store.exercisedata.methods.signAlreadySeen(props.signs[index.value].name)
   console.log(index.value)
 }
 
