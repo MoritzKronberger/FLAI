@@ -4,6 +4,7 @@ import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
 import HandposeTest from '../views/HandposeTest.vue'
 import RegisterPage from '../views/RegisterPage.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/register',
     name: 'RegisterPage',
     component: RegisterPage,
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
   },
 ]
 
