@@ -1,11 +1,17 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
+
 export interface Auth {
   token: string
   email: string
   password: string
   userId: string
   isAuth: boolean
+}
+
+export interface LoginUser {
+  email: string
+  password: string
 }
 
 const auth: Auth = reactive({
@@ -35,11 +41,11 @@ const methods = {
 
 const actions = {
   /* eslint-disable */
-  async loginUser(authdata: object) {
+  async loginUser(loginUser: LoginUser) {
     const jsonData = await jsonAction({
       method: 'post',
       url: 'auth/login',
-      data: authdata,
+      data: loginUser,
     })
     auth.token = jsonData?.data.jwt
     auth.userId = jsonData?.data.id

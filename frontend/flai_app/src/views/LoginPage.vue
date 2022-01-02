@@ -3,13 +3,9 @@ import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
 import router from '../router'
 import { computed, inject, onMounted, ref } from 'vue'
+import { LoginUser } from '../store/authdata'
 
 const store: any = inject('store')
-
-declare interface LoginUser {
-  email: string
-  password: string
-}
 
 const userMethods = store.userdata.methods
 const authActions = store.authdata.actions
@@ -61,7 +57,11 @@ const submit = async (): Promise<void> => {
       @button-click="submit"
     />
   </form>
-  <div>Du hast noch keinen Account?<router-link to="/register">Registrieren</router-link></div>
+  <div>
+    Du hast noch keinen Account?<router-link to="/register"
+      >Registrieren</router-link
+    >
+  </div>
 </template>
 
 <style scoped>

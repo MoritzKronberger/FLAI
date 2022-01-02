@@ -4,17 +4,9 @@ import customCheckbox from '../components/CustomCheckbox.vue'
 import customButton from '../components/CustomButton.vue'
 import router from '../router'
 import { inject, ref } from 'vue'
+import { RegisterUser } from '../store/userdata'
 
 const store: any = inject('store')
-
-declare interface RegisterUser {
-  username: string
-  email: string
-  password: string
-  /* eslint-disable */
-  right_handed: boolean
-  /* eslint-enable */
-}
 
 const user = ref<RegisterUser>({
   username: '',
@@ -80,7 +72,9 @@ const submit = async (): Promise<void> => {
       @button-click="submit"
     />
   </form>
-  <div>Du hast bereits einen Account?<router-link to="/login">Login</router-link></div>
+  <div>
+    Du hast bereits einen Account?<router-link to="/login">Login</router-link>
+  </div>
 </template>
 
 <style scoped>
