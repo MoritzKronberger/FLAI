@@ -80,12 +80,6 @@ function checkProgress(sign: Sign) {
       }
     }
   } else {
-    progressSmallerLevelThree.value = true
-    if (sign.progress >= store.exercisedata.exerciseSettings.level2) {
-      progressSmallerLevelTwo.value = false
-    } else {
-      progressSmallerLevelTwo.value = true
-    }
     showSign.value = true
   }
   console.log(
