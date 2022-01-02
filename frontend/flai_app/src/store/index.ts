@@ -3,6 +3,8 @@ import sessiondata from './sessiondata'
 import exercisedata from './exercisedata'
 import signdata from './signdata'
 import handposedata from './handposedata'
+import flainetdata from './flainetdata'
+
 import authdata from './authdata'
 export default {
   userdata,
@@ -10,5 +12,6 @@ export default {
   exercisedata,
   signdata,
   handposedata,
+  flainetdata,
   authdata,
 }
