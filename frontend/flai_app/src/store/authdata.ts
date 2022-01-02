@@ -25,7 +25,6 @@ const methods = {
   },
 
   fetchIsAuth() {
-    //console.log(auth.isAuth)
     return auth.isAuth
   },
 
