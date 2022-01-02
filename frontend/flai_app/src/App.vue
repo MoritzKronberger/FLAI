@@ -4,8 +4,8 @@ import store from './store'
 
 provide('store', store)
 
-onMounted(store.exercisedata.methods.getExercises) // fake frontend method
-onMounted(store.exercisedata.actions.getAllExercises) // real backend action
+//onMounted(store.exercisedata.methods.getExercises) // fake frontend method
+//onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
 </script>
 

@@ -1,8 +1,9 @@
 import express from 'express'
+import { authToken } from '../util/auth.js'
 import { request } from './request.js'
 const exerciseSettings = express.Router()
 
-exerciseSettings.patch('/', async (req, res) => {
+exerciseSettings.patch('/', authToken, async (req, res) => {
   await request({
     method: 'PATCH',
     table: 'exercise_settings_user',

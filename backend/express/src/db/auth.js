@@ -2,15 +2,15 @@ import { query } from '../db.js'
 
 const loginUser = async (email, password) => {
   const result = await query(
-    `SELECT check_password($1::VARCHAR, $2::VARCHAR) AS authorized, 
+    `SELECT check_password($1::D_EMAIL, $2::VARCHAR) AS authorized, 
     "id"
 FROM  "user"
-WHERE "email" = $1::VARCHAR
+WHERE "email" = $1::D_EMAIL
 `,
     [email, password]
-  ).rows[0]
-  return result
-    ? { status: result.authorized ? 200 : 401, id: result.id }
+  )
+  return result.rows[0]
+    ? { status: result.rows[0].authorized ? 200 : 401, id: result.rows[0].id }
     : { status: 401, id: '' }
 }
 
