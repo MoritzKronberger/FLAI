@@ -61,6 +61,7 @@ const submit = async (): Promise<void> => {
       @button-click="submit"
     />
   </form>
+  <div>Du hast noch keinen Account?<router-link to="/register">Registrieren</router-link></div>
 </template>
 
 <style scoped>
