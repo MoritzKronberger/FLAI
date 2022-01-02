@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { inject, onMounted, ref, computed } from 'vue'
+import { inject, onMounted, ref, computed, ComputedRef } from 'vue'
 import { Results } from '@mediapipe/hands'
-import { FlaiNetPrediction, FlaiNetResults } from '../store/flainetdata'
+import {
+  FlaiNetOptions,
+  FlaiNetPrediction,
+  FlaiNetResults,
+} from '../store/flainetdata'
 import handpose from '../components/Handpose.vue'
 import * as tf from '@tensorflow/tfjs'
 
@@ -10,11 +14,13 @@ const store: any = inject('store')
 const emit = defineEmits(['newResult', 'statusChange'])
 
 let flaiNet: tf.LayersModel
-const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
-const flaiNetMethods = computed(() => store.flainetdata.methods)
-const flaiNetPath = flaiNetOptions.value.path as URL
-const labels = flaiNetOptions.value.labels as string
-const bufferedResult = flaiNetOptions.value.bufferedResult as boolean
+const flaiNetOptions = computed(
+  () => store.flainetdata.flaiNetOptions
+) as ComputedRef<FlaiNetOptions>
+const flaiNetMethods = store.flainetdata.methods
+const flaiNetPath = flaiNetOptions.value.path
+const labels = flaiNetOptions.value.labels
+const bufferedResult = flaiNetOptions.value.bufferedResult
 
 const flaiNetReady = ref(false)
 const handposeReady = ref(false)
@@ -23,13 +29,13 @@ const setHandposeReady = (result: boolean): void => {
   handposeReady.value = result
 }
 const clearResultBuffer = (): void => {
-  flaiNetMethods.value.clearResultBuffer()
+  flaiNetMethods.clearResultBuffer()
 }
 const addToResultBuffer = (prediction: FlaiNetPrediction): void => {
-  flaiNetMethods.value.addToResultBuffer(prediction)
+  flaiNetMethods.addToResultBuffer(prediction)
 }
 const evaluateResultBuffer = (): FlaiNetResults => {
-  return flaiNetMethods.value.evaluateResultBuffer()
+  return flaiNetMethods.evaluateResultBuffer()
 }
 
 /* The python tenforflowjs coverter falsely names the 'LeCunNormal' initializer 'LecunNormal'.
