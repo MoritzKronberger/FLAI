@@ -2,14 +2,15 @@
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
 import router from '../router'
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, ComputedRef, inject, onMounted, ref } from 'vue'
 import { LoginUser } from '../store/authdata'
+import { User } from '../store/userdata'
 
 const store: any = inject('store')
 
 const userMethods = store.userdata.methods
 const authActions = store.authdata.actions
-const userData = computed(() => store.userdata.user)
+const userData = computed(() => store.userdata.user) as ComputedRef<User>
 
 const user = ref<LoginUser>({
   email: '',
