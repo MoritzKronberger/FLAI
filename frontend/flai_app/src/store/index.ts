@@ -5,6 +5,7 @@ import signdata from './signdata'
 import handposedata from './handposedata'
 import flainetdata from './flainetdata'
 
+import authdata from './authdata'
 export default {
   userdata,
   sessiondata,
@@ -12,4 +13,5 @@ export default {
   signdata,
   handposedata,
   flainetdata,
+  authdata,
 }

@@ -1,9 +1,9 @@
 import express from 'express'
-// import { authToken } from '../util/auth.js'
+import { authToken } from '../util/auth.js'
 import { request } from './request.js'
 const exercise = express.Router()
 
-exercise.get('/all', async (req, res) => {
+exercise.get('/all', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_exercise',
@@ -12,7 +12,7 @@ exercise.get('/all', async (req, res) => {
   })
 })
 
-exercise.get('/', async (req, res) => {
+exercise.get('/', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_full_exercise_for_user',
@@ -29,7 +29,7 @@ exercise.get('/', async (req, res) => {
       'word_length',
       'unlocked_signs',
     ],
-    ids: req.body,
+    ids: req.query,
     res: res,
   })
 })

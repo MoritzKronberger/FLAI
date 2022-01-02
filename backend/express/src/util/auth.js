@@ -1,17 +1,16 @@
 import jwt from 'jsonwebtoken'
 function authToken(req, res, next) {
-  const authHeader = req.headers['authorization']
-  const token = req.headers[authHeader]
+  const token = req.headers['authorization']
   if (token == null) return res.sendStatus(401)
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, id) => {
     if (err) return res.sendStatus(403) // unvalid token
-    req.user = user
+    req.id = id
     next()
   })
 }
 
-function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '40s' })
+function generateAccessToken(id) {
+  return jwt.sign(id, process.env.ACCESS_TOKEN_SECRET)
 }
 
 export { authToken, generateAccessToken }

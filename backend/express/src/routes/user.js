@@ -1,6 +1,7 @@
 import express from 'express'
 import { request } from './request.js'
 import { createUser, updateUser } from '../schema/user-schema.js'
+import { authToken } from '../util/auth.js'
 const user = express.Router()
 
 user.post('/', async (req, res) => {
@@ -13,13 +14,11 @@ user.post('/', async (req, res) => {
   })
 })
 
-user.get('/:id', async (req, res) => {
+user.get('/', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'user',
-    ids: {
-      id: req.params.id,
-    },
+    ids: req.query,
     selectCols: [
       'id',
       'email',
@@ -31,24 +30,22 @@ user.get('/:id', async (req, res) => {
   })
 })
 
-user.patch('/:id', async (req, res) => {
+user.patch('/', authToken, async (req, res) => {
   await request({
     method: 'PATCH',
     table: 'user',
-    data: req.body,
-    ids: {
-      id: req.params.id,
-    },
+    data: req.body.data,
+    ids: req.body.ids,
     validation: updateUser,
     res: res,
   })
 })
 
-user.delete('/:id', async (req, res) => {
+user.delete('/', authToken, async (req, res) => {
   await request({
     method: 'DELETE',
     table: 'user',
-    ids: { id: req.params.id },
+    ids: req.body,
     res: res,
   })
 })
