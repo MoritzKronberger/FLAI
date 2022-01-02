@@ -1,8 +1,9 @@
 import express from 'express'
+import { authToken } from '../util/auth.js'
 import { request } from './request.js'
 const exerciseSession = express.Router()
 
-exerciseSession.get('/', async (req, res) => {
+exerciseSession.get('/', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_active_exercise_session',
@@ -12,7 +13,7 @@ exerciseSession.get('/', async (req, res) => {
   })
 })
 
-exerciseSession.post('/', async (req, res) => {
+exerciseSession.post('/', authToken, async (req, res) => {
   await request({
     method: 'POST',
     table: 'exercise_session',
@@ -22,7 +23,7 @@ exerciseSession.post('/', async (req, res) => {
   })
 })
 
-exerciseSession.patch('/', async (req, res) => {
+exerciseSession.patch('/', authToken, async (req, res) => {
   await request({
     method: 'PATCH',
     table: 'exercise_session',
@@ -32,7 +33,7 @@ exerciseSession.patch('/', async (req, res) => {
   })
 })
 
-exerciseSession.delete('/', async (req, res) => {
+exerciseSession.delete('/', authToken, async (req, res) => {
   await request({
     method: 'DELETE',
     table: 'exercise_session',
