@@ -1,6 +1,6 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
-import { methods as auth } from './authdata'
+import authData from './authdata'
 export interface User {
   id: string //uuid
   email: string
@@ -35,7 +35,7 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async getUser() {
-    const userid = auth.fetchUserId()
+    const userid = authData.methods.fetchUserId()
     const jsonData = await jsonAction({
       method: 'get',
       url: 'user',
