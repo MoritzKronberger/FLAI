@@ -1,6 +1,7 @@
 import express from 'express'
 import { request } from './request.js'
 import { createUser, updateUser } from '../schema/user-schema.js'
+import { authToken } from '../util/auth.js'
 const user = express.Router()
 
 user.post('/', async (req, res) => {
@@ -13,7 +14,7 @@ user.post('/', async (req, res) => {
   })
 })
 
-user.get('/', async (req, res) => {
+user.get('/', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'user',
