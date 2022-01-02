@@ -35,11 +35,11 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async getUser() {
-    const userid = authData.methods.fetchUserId()
+    user.id = authData.methods.fetchUserId()
     const jsonData = await jsonAction({
       method: 'get',
       url: 'user',
-      data: { id: userid },
+      data: { id: user.id },
     })
     console.log(jsonData)
   },
