@@ -30,7 +30,7 @@ user.get('/', authToken, async (req, res) => {
   })
 })
 
-user.patch('/', async (req, res) => {
+user.patch('/', authToken, async (req, res) => {
   await request({
     method: 'PATCH',
     table: 'user',
@@ -41,7 +41,7 @@ user.patch('/', async (req, res) => {
   })
 })
 
-user.delete('/', async (req, res) => {
+user.delete('/', authToken, async (req, res) => {
   await request({
     method: 'DELETE',
     table: 'user',
