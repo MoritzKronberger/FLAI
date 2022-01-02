@@ -24,6 +24,7 @@ onMounted(store.sessiondata.methods.startTimer)
     <router-view />
     <Button @click="userdata.getUser">Userdata</Button>
     <Button @click="authdata.loginUser">Login</Button>
+    <Button @click="authdata.logoutUser">Logout</Button>
   </main>
 </template>
 
