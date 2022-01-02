@@ -75,8 +75,9 @@ const methods = {
       exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    exerciseSettingsUser.unlockedSigns -=
-      exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
+    if (exerciseSettingsUser.wordLength < exerciseSettingsUser.unlockedSigns)
+      exerciseSettingsUser.unlockedSigns -=
+        exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
   startNewExerciseSession() {
     let word = this.generateWord()
