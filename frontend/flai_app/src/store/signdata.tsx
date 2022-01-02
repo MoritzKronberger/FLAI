@@ -9,7 +9,7 @@ export interface Sign {
   progress: number
   level3Reached: boolean
   recordings: SignRecording[]
-  isUnlocked: boolean
+  alreadySeen: boolean
 }
 
 const signs: Sign[] = reactive([])
@@ -25,8 +25,7 @@ const methods = {
         progress: 0,
         level3Reached: false,
         recordings: [],
-        isUnlocked:
-          i < exerciseData.exerciseSettingsUser.unlockedSigns ? true : false,
+        alreadySeen: false,
       }
       sign.recordings = signrecordings.methods.createSignRecording(sign)
       signs.push(sign)

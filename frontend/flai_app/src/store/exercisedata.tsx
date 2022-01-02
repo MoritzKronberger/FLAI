@@ -70,13 +70,10 @@ const methods = {
     exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
-    exercises[0].signs[exerciseSettingsUser.unlockedSigns].isUnlocked = true
     exerciseSettingsUser.unlockedSigns +=
       exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    exercises[0].signs[exerciseSettingsUser.unlockedSigns - 1].isUnlocked =
-      false
     exerciseSettingsUser.unlockedSigns -=
       exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
@@ -141,6 +138,12 @@ const methods = {
       exercises[exerciseIndex].signs[signIndex].name,
       exercises[exerciseIndex].signs[signIndex].progress
     )
+  },
+  signAlreadySeen(letter: string) {
+    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+    if (sign) {
+      sign.alreadySeen = true
+    }
   },
 }
 
