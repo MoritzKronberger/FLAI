@@ -6,10 +6,23 @@ import { inject, ref } from 'vue'
 
 const store: any = inject('store')
 
-const username = ref('')
-const email = ref('')
-const password = ref('')
-const rightHanded = ref(true)
+declare interface LoginUser {
+  username: string
+  email: string
+  password: string
+  /* eslint-disable */
+  right_handed: boolean
+  /* eslint-enable */
+}
+
+const user = ref<LoginUser>({
+  username: '',
+  email: '',
+  password: '',
+  /* eslint-disable */
+  right_handed: true,
+  /* eslint-enable */
+})
 
 const errorMessage = ref('')
 
@@ -17,19 +30,15 @@ const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
 
 const submit = async (): Promise<void> => {
-  const user = {
-    username: username.value,
-    email: email.value,
-    password: password.value,
-    /* eslint-disable */
-    right_handed: rightHanded.value,
-    /* eslint-enable */
-  }
-
-  const result = await userActions.postNewUser(user)
+  const submitUser = { ...user.value }
+  const result = await userActions.postNewUser(submitUser)
   if (result.status === 200) {
     userMethods.changeId(result.data.ids.id)
-    console.log(result.data)
+    userMethods.changeEmail(submitUser.email)
+    userMethods.changeUsername(submitUser.username)
+    /* eslint-disable */
+    userMethods.changeRightHanded(submitUser.right_handed)
+    /* eslint-enable */
   } else {
     errorMessage.value = result.data.message
   }
@@ -41,25 +50,25 @@ const submit = async (): Promise<void> => {
   <div class="error-message">{{ errorMessage }}</div>
   <form>
     <text-input-field
-      v-model="username"
+      v-model="user.username"
       label-name="Name"
       placeholder="Dein Benutzername"
       element-class="input-primary"
     />
     <text-input-field
-      v-model="email"
+      v-model="user.email"
       label-name="E-Mail"
       placeholder="Deine E-Mail-Adresse"
       element-class="input-primary"
     />
     <text-input-field
-      v-model="password"
+      v-model="user.password"
       label-name="Passwort"
       placeholder="Passwort"
       element-class="input-primary"
     />
     <custom-checkbox
-      v-model="rightHanded"
+      v-model="user.right_handed"
       label-name="Rechtshänder:in"
       element-class="checkbox-primary"
     />
