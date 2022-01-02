@@ -2,6 +2,7 @@
 import textInputField from '../components/TextInputField.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import customButton from '../components/CustomButton.vue'
+import router from '../router'
 import { inject, ref } from 'vue'
 
 const store: any = inject('store')
@@ -39,6 +40,7 @@ const submit = async (): Promise<void> => {
     /* eslint-disable */
     userMethods.changeRightHanded(submitUser.right_handed)
     /* eslint-enable */
+    router.push({ name: 'LoginPage' })
   } else {
     errorMessage.value = result.data.message
   }
@@ -78,6 +80,7 @@ const submit = async (): Promise<void> => {
       @button-click="submit"
     />
   </form>
+  <div>Du hast bereits einen Account?<router-link to="/login">Login</router-link></div>
 </template>
 
 <style scoped>
