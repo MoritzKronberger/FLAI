@@ -3,6 +3,7 @@ import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
 import HandposeTest from '../views/HandposeTest.vue'
+import RegisterPage from '../views/RegisterPage.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/handpose',
     name: 'TestHandpose',
     component: HandposeTest,
+  },
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: RegisterPage,
   },
 ]
 

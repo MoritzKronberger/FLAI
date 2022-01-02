@@ -16,10 +16,10 @@ onMounted(store.sessiondata.methods.startTimer)
     <router-link to="/store">ShowStore</router-link>
     <router-link to="/components">TestComponents</router-link>
     <router-link to="/handpose">TestHandpose</router-link>
+    <router-link to="/register">Register</router-link>
   </div>
   <main>
     <router-view />
-    <Button @click="exercisedata.getAllExercises">Call Actions</Button>
   </main>
 </template>
 
