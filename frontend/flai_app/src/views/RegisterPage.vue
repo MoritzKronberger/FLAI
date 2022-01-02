@@ -9,23 +9,36 @@ const store: any = inject('store')
 const username = ref('')
 const email = ref('')
 const password = ref('')
-const passwordRepeat = ref('')
 const rightHanded = ref(true)
 
-const submit = (): void => {
+const errorMessage = ref('')
+
+const userActions = store.userdata.actions
+const userMethods = store.userdata.methods
+
+const submit = async (): Promise<void> => {
   const user = {
     username: username.value,
     email: email.value,
     password: password.value,
-    passwordRepeat: passwordRepeat.value,
-    rightHanded: rightHanded.value,
+    /* eslint-disable */
+    right_handed: rightHanded.value,
+    /* eslint-enable */
   }
-  console.log(user)
+
+  const result = await userActions.postNewUser(user)
+  if (result.status === 200) {
+    userMethods.changeId(result.data.ids.id)
+    console.log(result.data)
+  } else {
+    errorMessage.value = result.data.message
+  }
 }
 </script>
 
 <template>
   <h1>Registrieren</h1>
+  <div class="error-message">{{ errorMessage }}</div>
   <form>
     <text-input-field
       v-model="username"
@@ -43,12 +56,6 @@ const submit = (): void => {
       v-model="password"
       label-name="Passwort"
       placeholder="Passwort"
-      element-class="input-primary"
-    />
-    <text-input-field
-      v-model="passwordRepeat"
-      label-name="Passwort wiederholen"
-      placeholder="Passwort wiederholen"
       element-class="input-primary"
     />
     <custom-checkbox
