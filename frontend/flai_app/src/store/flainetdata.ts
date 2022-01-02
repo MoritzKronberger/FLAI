@@ -31,7 +31,6 @@ const resultBuffer: ResultBuffer = reactive({
 })
 
 const methods = {
-  // TODO set Options properties in cleaner way or define setters for individual properties
   changePath(path: URL) {
     flaiNetOptions.path = path
   },

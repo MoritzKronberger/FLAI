@@ -77,7 +77,6 @@ const flaiNetPredict = (handposeResults: Results): FlaiNetResults => {
     const maxArg = prediction.argMax(-1).dataSync() as Int32Array
     const confidence = prediction.max(-1).dataSync() as Float32Array
     prediction.dispose()
-    // TODO: update to be strictly functional?
     maxArg.forEach((arg, index) => {
       flaiNetResults.push({
         label: labels[arg],
