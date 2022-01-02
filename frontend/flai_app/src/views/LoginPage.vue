@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
-import { inject, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 
 const store: any = inject('store')
 
 declare interface LoginUser {
-  username: string
   email: string
   password: string
 }
 
+const userActions = store.userdata.actions
+const userMethods = store.userdata.methods
+const userData = computed(() => store.userdata.user)
+
 const user = ref<LoginUser>({
-  username: '',
   email: '',
   password: '',
 })
 
 const errorMessage = ref('')
 
-const userActions = store.userdata.actions
-const userMethods = store.userdata.methods
+onMounted(() => {
+  user.value.email = userData.value.email
+})
 
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
