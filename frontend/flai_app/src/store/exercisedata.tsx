@@ -78,35 +78,42 @@ const methods = {
       exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
   startNewExerciseSession() {
-    const word: Sign[] = []
-    if (exercises.length > 0) {
-      for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
-        const index = random(0, exerciseSettingsUser.unlockedSigns)
-        console.log('letter in word?', exercises[0].signs[index])
-        if (exercises[0].signs[index].progress >= exerciseSettings.level3) {
-          console.log('BIGGER LEVEL 3')
-          const fiftyFiftyChance = random(0, 10)
-          console.log('fiftyfifty', fiftyFiftyChance)
-          if (fiftyFiftyChance >= 5) {
-            word.push(exercises[0].signs[index])
-          } else {
-            i--
-          }
-        } else {
-          word.push(exercises[0].signs[index])
-        }
-      }
-    }
-
-    console.log('word', word)
     const newSession: ExerciseSession = {
       startTime: Date.now(),
       sessionDuration: 0,
       order: 0,
-      signs: word,
+      signs: [],
     }
     exerciseSessions.push(newSession)
     return exerciseSessions
+  },
+  generateWord() {
+    /* weighted random algorithm adapted from https://stackoverflow.com/questions/1761626/weighted-random-numbers */
+    const word: Sign[] = []
+    if (exercises.length > 0) {
+      //get sum of progress
+      let maxProgress = 0
+      for (let i = 0; i < exerciseSettingsUser.unlockedSigns; i++) {
+        maxProgress += exercises[0].signs[i].progress
+      }
+      //get as many random numbers as signs in word
+      const randomNumbers: number[] = []
+      for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+        randomNumbers.push(random(0, maxProgress))
+      }
+      for (let index = exercises[0].signs.length; index > 0; index--) {
+        const weight =
+          exerciseSettings.level3 - exercises[0].signs[index].progress
+        for (let r = 0; r < randomNumbers.length; r++) {
+          if (randomNumbers[r] < weight) {
+            word.push(exercises[0].signs[index])
+          }
+          randomNumbers[r] -= weight
+        }
+      }
+    }
+    console.log('word', word)
+    return word
   },
   stopExercise(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
