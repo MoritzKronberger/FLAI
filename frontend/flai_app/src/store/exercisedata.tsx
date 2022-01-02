@@ -1,5 +1,5 @@
 import { readonly, reactive } from 'vue'
-import { random } from '../ressources/ts/random'
+import { random, weightedRandomIndex } from '../ressources/ts/random'
 import RestApi from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
@@ -78,38 +78,29 @@ const methods = {
       exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
   startNewExerciseSession() {
+    let word = this.generateWord()
     const newSession: ExerciseSession = {
       startTime: Date.now(),
       sessionDuration: 0,
       order: 0,
-      signs: [],
+      signs: word,
     }
     exerciseSessions.push(newSession)
     return exerciseSessions
   },
   generateWord() {
-    /* weighted random algorithm adapted from https://stackoverflow.com/questions/1761626/weighted-random-numbers */
     const word: Sign[] = []
     if (exercises.length > 0) {
-      //get sum of progress
-      let maxProgress = 0
-      for (let i = 0; i < exerciseSettingsUser.unlockedSigns; i++) {
-        maxProgress += exercises[0].signs[i].progress
-      }
-      //get as many random numbers as signs in word
-      const randomNumbers: number[] = []
+      let signCopy = [...exercises[0].signs]
       for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
-        randomNumbers.push(random(0, maxProgress))
-      }
-      for (let index = exercises[0].signs.length; index > 0; index--) {
-        const weight =
-          exerciseSettings.level3 - exercises[0].signs[index].progress
-        for (let r = 0; r < randomNumbers.length; r++) {
-          if (randomNumbers[r] < weight) {
-            word.push(exercises[0].signs[index])
-          }
-          randomNumbers[r] -= weight
+        //get sum of progress
+        let weightArray = []
+        for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) {
+          weightArray.push(signCopy[k].progress + 1)
         }
+        let index = weightedRandomIndex(weightArray)
+        word.push(signCopy[index])
+        signCopy.splice(index, 1)
       }
     }
     console.log('word', word)
