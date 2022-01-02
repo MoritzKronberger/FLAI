@@ -18,6 +18,9 @@ const user: User = reactive({
 })
 
 const methods = {
+  changeId(id: string) {
+    user.id = id
+  },
   changeEmail(email: string) {
     user.email = email
   },
@@ -42,15 +45,11 @@ const actions = {
     })
   },
 
-  async postNewUser() {
-    jsonAction({
+  async postNewUser(userdata: object) {
+    return await jsonAction({
       method: 'post',
       url: 'user',
-      data: {
-        username: 'martin',
-        password: 'testmk1',
-        email: 'martin.kohnle@flai-team.de',
-      },
+      data: userdata,
     })
   },
   async patchUser() {
@@ -79,10 +78,10 @@ const actions = {
   /* eslint-enable */
 }
 
-const userData = {
+const userdata = {
   user: readonly(user) as User,
   methods,
   actions,
 }
 
-export default userData
+export default userdata
