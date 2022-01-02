@@ -70,10 +70,13 @@ const methods = {
     exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
+    exercises[0].signs[exerciseSettingsUser.unlockedSigns].isUnlocked = true
     exerciseSettingsUser.unlockedSigns +=
       exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
+    exercises[0].signs[exerciseSettingsUser.unlockedSigns - 1].isUnlocked =
+      false
     exerciseSettingsUser.unlockedSigns -=
       exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },

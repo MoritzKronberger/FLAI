@@ -1,4 +1,5 @@
 import { readonly, reactive } from 'vue'
+import exerciseData from './exercisedata'
 import signrecordings, { SignRecording } from './signrecordings'
 
 export interface Sign {
@@ -8,6 +9,7 @@ export interface Sign {
   progress: number
   level3Reached: boolean
   recordings: SignRecording[]
+  isUnlocked: boolean
 }
 
 const signs: Sign[] = reactive([])
@@ -23,6 +25,8 @@ const methods = {
         progress: 0,
         level3Reached: false,
         recordings: [],
+        isUnlocked:
+          i < exerciseData.exerciseSettingsUser.unlockedSigns ? true : false,
       }
       sign.recordings = signrecordings.methods.createSignRecording(sign)
       signs.push(sign)
