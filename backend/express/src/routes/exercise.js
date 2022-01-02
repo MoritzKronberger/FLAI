@@ -12,7 +12,7 @@ exercise.get('/all', authToken, async (req, res) => {
   })
 })
 
-exercise.get('/', async (req, res) => {
+exercise.get('/', authToken, async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_full_exercise_for_user',
