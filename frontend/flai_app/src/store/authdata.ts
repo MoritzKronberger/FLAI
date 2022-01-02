@@ -35,16 +35,16 @@ const methods = {
 
 const actions = {
   /* eslint-disable */
-  async loginUser() {
+  async loginUser(authdata: object) {
     const jsonData = await jsonAction({
       method: 'post',
       url: 'auth/login',
-      data: { email: auth.email, password: auth.password },
+      data: authdata,
     })
     auth.token = jsonData?.data.jwt
     auth.userId = jsonData?.data.id
     auth.isAuth = methods.setAuth(true)
-    console.log(jsonData)
+    return jsonData
   },
 
   logoutUser() {
@@ -55,10 +55,10 @@ const actions = {
   /* eslint-enable */
 }
 
-const authData = {
+const authdata = {
   auth: readonly(auth) as Auth,
   methods,
   actions,
 }
 
-export default authData
+export default authdata
