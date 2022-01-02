@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
+import router from '../router'
 import { computed, inject, onMounted, ref } from 'vue'
 
 const store: any = inject('store')
@@ -10,8 +11,8 @@ declare interface LoginUser {
   password: string
 }
 
-const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
+const authActions = store.authdata.actions
 const userData = computed(() => store.userdata.user)
 
 const user = ref<LoginUser>({
@@ -27,7 +28,14 @@ onMounted(() => {
 
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
-  console.log(submitUser)
+  const result = await authActions.loginUser(submitUser)
+  if (result.status === 200) {
+    userMethods.changeId(result.data.id)
+    // TODO: call download all userdata method
+    router.push({ name: 'HomePage' })
+  } else {
+    errorMessage.value = result.data.message
+  }
 }
 </script>
 
@@ -48,7 +56,7 @@ const submit = async (): Promise<void> => {
       element-class="input-primary"
     />
     <custom-button
-      label="Registrieren"
+      label="Login"
       btnclass="button-primary"
       @button-click="submit"
     />
