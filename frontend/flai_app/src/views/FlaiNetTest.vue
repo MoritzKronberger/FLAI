@@ -22,7 +22,6 @@ const flaiNetReady = ref(false)
 
 const setFlaiNetResults = (result: FlaiNetResults): void => {
   flaiNetResults.value = result
-  console.log(result)
 }
 const setflaiNetReady = (result: boolean): void => {
   flaiNetReady.value = result
