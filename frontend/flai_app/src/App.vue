@@ -15,7 +15,7 @@ onMounted(store.sessiondata.methods.startTimer)
     <router-link to="/">Home</router-link>
     <router-link to="/store">ShowStore</router-link>
     <router-link to="/components">TestComponents</router-link>
-    <router-link to="/handpose">TestHandpose</router-link>
+    <router-link to="/flainet">TestFlaiNet</router-link>
     <router-link to="/register">Register</router-link>
     <router-link to="/login">Login</router-link>
   </div>
