@@ -8,7 +8,6 @@ export interface User {
   rightHanded: boolean
   targetLearningTime: number
 }
-
 const user: User = reactive({
   id: '',
   email: '',
@@ -25,7 +24,12 @@ const actions = {
       url: 'user',
       data: { id: user.id },
     })
-    const data = jsonData?.data.rows[0] as User
+    const data = jsonData?.data.rows[0]
+    user.email = data.email
+    user.username = data.username
+    user.rightHanded = data.rightHanded
+    user.targetLearningTime = data.targetLearningTime
+    return jsonData
   },
 
   async postNewUser() {
