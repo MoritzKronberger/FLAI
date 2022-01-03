@@ -1,26 +1,99 @@
 /*************************************************************************************
- * Create global functions, seperate from REST helpers
+ * Create global functions, seperate from REST helper
  *************************************************************************************/
 
 BEGIN;
 
 /* Cleanup */
+DROP FUNCTION IF EXISTS json_status                CASCADE;
+DROP FUNCTION IF EXISTS check_password             CASCADE;
 DROP FUNCTION IF EXISTS populate_spelling_exercise CASCADE;
 
-/* Functions*/
--- Compare given password against stored hash
--- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01a.git
-CREATE FUNCTION check_password(_email VARCHAR, _password VARCHAR) RETURNS BOOLEAN AS
-$_SQL_$
-    SELECT EXISTS
-        (SELECT *
-         FROM   "user"
-         WHERE  _email = "email" AND "password" = crypt(_password, "password")
-        );
-$_SQL_$
+/* JSON status */
+-- build result json from pg_axios results
+-- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
+CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
+                                       _ids        JSONB,
+                                       _rows       JSONB   DEFAULT NULL,
+                                       _pgstate    TEXT    DEFAULT '00000',
+                                       _constraint TEXT    DEFAULT NULL,
+                                       _message    TEXT    DEFAULT NULL)
+    RETURNS JSONB
+    IMMUTABLE PARALLEL SAFE
 LANGUAGE SQL
-IMMUTABLE
-RETURNS NULL ON NULL INPUT;
+AS
+$$
+    SELECT JSONB_BUILD_OBJECT
+           ('status', _status,
+            'ids', _ids,
+            'rows', _rows,
+            'pgstate', _pgstate,
+            'constraint', _constraint,
+            'message', _message);
+$$
+;
+
+/* Functions */
+-- compares given password against stored hash (for user)
+-- return id in result.ids and authorized in result.data
+CREATE FUNCTION check_password(_login_data JSONB) 
+    RETURNS TABLE (result JSONB) 
+LANGUAGE plpgsql
+AS
+$_plpgsql_$
+    DECLARE
+    _password_correct_ BOOLEAN;
+    _id_               UUID;
+    _id_json_          JSONB DEFAULT NULL;
+
+    _http_status_       INTEGER DEFAULT 200;
+    _http_error_status_ INTEGER DEFAULT 400;
+    _pgstate_           TEXT DEFAULT '02000';
+    _cname_             TEXT;
+    _message_           TEXT;
+    BEGIN
+        SELECT EXISTS (SELECT "id"
+                       FROM   "user"
+                       WHERE  "email" = (_login_data->> 'email')::D_EMAIL 
+                              AND "password" = crypt((_login_data->> 'password')::VARCHAR, "password")
+                       ),
+               "id" INTO _password_correct_, _id_
+        FROM   "user"
+        WHERE  "email" = (_login_data->> 'email')::D_EMAIL;
+        
+        -- only return id if password is correct
+        -- if not return unauthorized status
+        IF _password_correct_ 
+           AND _password_correct_  IS NOT NULL 
+        THEN
+            _id_json_ :=  JSONB_BUILD_OBJECT('id', _id_);
+            RETURN QUERY
+            SELECT json_status(_http_status_, 
+                               _id_json_);
+        ELSE
+            RETURN QUERY
+            SELECT json_status(401, 
+                               _id_json_,
+                               _pgstate => _pgstate_);
+        END IF;
+
+        -- in case of any uncaught exception: return it with error code
+        -- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
+        EXCEPTION WHEN OTHERS THEN 
+        GET STACKED DIAGNOSTICS
+            _pgstate_ = RETURNED_SQLSTATE,
+            _cname_   = CONSTRAINT_NAME,
+            _message_ = MESSAGE_TEXT;
+        RETURN QUERY
+        SELECT json_status(_http_error_status_, 
+                           _id_json_, 
+                           NULL,
+                           _pgstate_, 
+                           CASE WHEN _cname_ <> '' THEN _cname_ ELSE _message_ END, 
+                           _message_);
+    END;
+$_plpgsql_$
+;
 
 -- ONLY USED TO INSERT TESTDATA, NOT FOR FINAL PRODUCTION APPLICATION WITH CMS
 -- inserts a sign for each letter provided in the alphabet string
@@ -37,7 +110,7 @@ $_plpgsql_$
 
         _s_id_     UUID;
         _mc_id_    UUID;
-        _e_id_    UUID;
+        _e_id_     UUID;
         _vid_id_   UUID;
         _pic_id_   UUID;
         _front_id_ UUID;
@@ -87,6 +160,8 @@ COMMIT;
 
 -- test new_exercise_settings_user_trigger and function
 /*
-SELECT * FROM check_password('miriam.weber@email.com', 'supersecret');
-SELECT * FROM check_password('miriam.weber@email.com', 'notcorrect');
+SELECT * FROM check_password('{"email":"miriam.weber@email.com", "password":"supersecret"}');
+SELECT * FROM check_password('{"email":"miriam.weber@email.com", "password":"superwrong"}');
+SELECT * FROM check_password('{"email":"miriam.weber@online.com", "password":"supersecret"}');
+SELECT * FROM check_password('{"email":"miriamweberemailcom", "password":"superwrong"}');
 */
