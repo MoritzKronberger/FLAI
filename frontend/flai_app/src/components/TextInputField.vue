@@ -3,7 +3,8 @@ defineProps<{
   labelName: string
   placeholder: string
   elementClass: string
-  modelValue: string
+  componentClass: string
+  modelValue: string | number
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -14,15 +15,17 @@ const onInput = (e: Event): void => {
 </script>
 
 <template>
-  <label :for="labelName">
-    {{ labelName }}
-    <input
-      :value="modelValue"
-      type="text"
-      :name="labelName"
-      :placeholder="placeholder"
-      :class="elementClass"
-      @input="onInput"
-    />
-  </label>
+  <div :class="componentClass">
+    <label :for="labelName">
+      {{ labelName }}
+      <input
+        :value="modelValue"
+        type="text"
+        :name="labelName"
+        :placeholder="placeholder"
+        :class="elementClass"
+        @input="onInput"
+      />
+    </label>
+  </div>
 </template>
