@@ -55,9 +55,23 @@ const signs = computed(() => store.exercisedata.exercises[0].signs)
 const signMethods = store.signdata.methods
 
 const letter = ref()
+
+async function getAllExercises() {
+  ;(await store.exercisedata.actions.getAllExercises()).then(() =>
+    console.log('exercises in showstore', JSON.stringify(exercises.value))
+  )
+}
 </script>
 
 <template>
+  <button label="action" @click="getAllExercises">all exercises</button>
+  <button
+    label="action"
+    @click="store.exercisedata.actions.getFullExerciseForUser(exercises[0])"
+  >
+    Action
+  </button>
+
   <h2>Userdata</h2>
   <p v-for="(value, name) in user" :key="value">{{ name }}: {{ value }}</p>
   <label>Change Email:</label
