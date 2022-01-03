@@ -40,11 +40,12 @@ const actions = {
       method: 'post',
       url: 'auth/login',
       data: { email: auth.email, password: auth.password },
-    })
-    auth.token = jsonData?.data.jwt
-    auth.userId = jsonData?.data.id
-    auth.isAuth = methods.setAuth(true)
-    console.log(jsonData)
+    }, console.log('login failed'))
+    if (jsonData?.status === 200) {
+      auth.token = jsonData?.data.jwt
+      auth.userId = jsonData?.data.id
+      auth.isAuth = methods.setAuth(true)
+    }
   },
 
   logoutUser() {
