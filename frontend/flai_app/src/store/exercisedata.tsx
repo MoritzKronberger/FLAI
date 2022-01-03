@@ -11,7 +11,7 @@ export interface Exercise {
   signs: Sign[]
 }
 
-let exercises: Exercise[] = reactive([])
+const exercises: Exercise[] = reactive([])
 
 const progressStep: number = 10
 export interface ExerciseSettings {
@@ -156,36 +156,29 @@ const actions = {
       url: 'exercise/all',
       data: {},
     })
-    exercises = jsonData?.data.rows
+    Object.assign(exercises, jsonData?.data.rows)
     console.log(exercises)
   },
 
-  async getFullExerciseForUser(exerciseId: Exercise) {
-    console.log('exercises', exercises)
-    console.log('exercise', exerciseId)
+  async getFullExerciseForUser(exerciseId: string) {
     const jsonData = await jsonAction({
       method: 'get',
       url: 'exercise',
       // id == exercise_id
       data: {
-        id: exerciseId.id,
+        id: exerciseId,
         user_id: userData.user.id,
       },
     })
     const exerciseData = jsonData?.data.rows[0]
-    console.log('data', exerciseData)
 
     // TODO: missing?: exerciseSettings.id
-    exerciseSettings.exerciseId = exerciseId.id
-    exerciseSettings.id = exerciseData.id
+    //exerciseSettings.id = exerciseData.id
+    exerciseSettings.exerciseId = exerciseId
     exerciseSettings.level1 = exerciseData.level_1
     exerciseSettings.level2 = exerciseData.level_2
     exerciseSettings.level3 = exerciseData.level_3
     exerciseSettings.sortSignsByOrder = exerciseData.sort_signs_by_order
-
-    for (let prop in exerciseData) {
-      exerciseSettings[prop] = exerciseDatat[prop]
-    }
 
     exerciseSettingsUser.wordLength = exerciseData.word_length
     exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
