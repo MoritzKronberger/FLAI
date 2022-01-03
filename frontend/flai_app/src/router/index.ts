@@ -3,6 +3,7 @@ import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
 import FlaiNetTest from '../views/FlaiNetTest.vue'
+import ProfilePage from '../views/ProfilePage.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/flainet',
     name: 'TestFlaiNet',
     component: FlaiNetTest,
+  },
+  {
+    path: '/profile',
+    name: 'ProfilePage',
+    component: ProfilePage,
   },
 ]
 
