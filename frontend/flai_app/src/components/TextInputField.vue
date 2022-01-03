@@ -4,7 +4,7 @@ defineProps<{
   placeholder: string
   elementClass: string
   componentClass: string
-  modelValue: string | number
+  modelValue: string | number | undefined
 }>()
 const emit = defineEmits(['update:modelValue'])
 
