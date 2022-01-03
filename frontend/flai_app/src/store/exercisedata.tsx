@@ -20,7 +20,7 @@ export interface ExerciseSettings {
   level1: number
   level2: number
   level3: number
-  exercise_id: string
+  exerciseId: string
   sortSignsByOrder: boolean
 }
 
@@ -29,7 +29,7 @@ const exerciseSettings: ExerciseSettings = reactive({
   level1: 10,
   level2: 20,
   level3: 30,
-  exercise_id: '',
+  exerciseId: '',
   sortSignsByOrder: true,
 })
 
@@ -66,6 +66,11 @@ const methods = {
     exerciseSettings.exerciseId = exercise.id
     exerciseSettingsUser.exerciseId = exercise.id
     console.log('exercises:', JSON.stringify(exercises))
+  },
+  createSignsForExercises() {
+    for (let i = 0; i < exercises.length; i++) {
+      exercises[i].signs = signData.methods.createNewSigns()
+    }
   },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
@@ -114,7 +119,8 @@ const methods = {
   changeExerciseSessionDuration(startTime: number, duration: number) {
     let session = exerciseSessions.find((el) => el.startTime === startTime)
     if (session) {
-      session.sessionDuration = durationconsole.log('new duration', session)
+      session.sessionDuration = duration
+      console.log('new duration', session)
     }
   },
   deleteExerciseSession(startTime: number) {
@@ -222,8 +228,11 @@ const actions = {
       },
       errorMessage(networkMessage)
     )
+    console.log(jsonData)
     if (jsonData?.status === 200) {
-      methods.changeExerciseSettingsWordLength(wordLength)
+      if (wordLength <= exerciseSettingsUser.unlockedSigns) {
+        methods.changeExerciseSettingsWordLength(wordLength)
+      }
       console.log(exerciseSettingsUser.wordLength)
     }
   },
@@ -250,9 +259,12 @@ const actions = {
     )
     if (jsonData?.status === 200) {
       //TODO: does overwriting sessions make sense?
-      Object.assign(exerciseSessions, jsonData?.data)
+      Object.assign(exerciseSessions, jsonData?.data.rows)
+      console.log(exerciseSessions)
     }
   },
+
+  // TODO: actions down are not working
   async postNewExerciseSession(exerciseId: string) {
     const jsonData = await jsonAction(
       {
@@ -262,7 +274,8 @@ const actions = {
           exercise_id: exerciseId,
           user_id: userData.user.id,
           // TODO: parse date into right format?
-          start_time: Date.now(),
+          //start_time: Date.now(),
+          start_time: '2021-12-31 13:12:00.595133+00',
         },
       },
       errorMessage(networkMessage)
@@ -273,8 +286,8 @@ const actions = {
   },
   async patchExerciseSession(
     exerciseId: string,
-    sessionDuration: number,
-    exerciseSession: ExerciseSession
+    exerciseSession: ExerciseSession,
+    sessionDuration: number
   ) {
     const jsonData = await jsonAction(
       {
