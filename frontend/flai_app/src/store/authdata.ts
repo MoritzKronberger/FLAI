@@ -47,9 +47,11 @@ const actions = {
       url: 'auth/login',
       data: loginUser,
     })
-    auth.token = jsonData?.data.jwt
-    auth.userId = jsonData?.data.id
-    auth.isAuth = methods.setAuth(true)
+    if(jsonData?.status === 200){
+      auth.token = jsonData?.data.jwt
+      auth.userId = jsonData?.data.ids.id
+      auth.isAuth = methods.setAuth(true)
+    }
     return jsonData
   },
 
