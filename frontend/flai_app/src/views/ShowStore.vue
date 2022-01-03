@@ -57,19 +57,67 @@ const signMethods = store.signdata.methods
 const letter = ref()
 
 async function getAllExercises() {
-  ;(await store.exercisedata.actions.getAllExercises()).then(() =>
-    console.log('exercises in showstore', JSON.stringify(exercises.value))
+  await store.exercisedata.actions.getAllExercises()
+  console.log('exercises in showstore', JSON.stringify(exercises.value))
+}
+async function postNewExerciseSession() {
+  await store.exercisedata.actions.postNewExerciseSession(
+    exercises.value.at(-1).id
+  )
+}
+async function patchExerciseSession() {
+  await store.exercisedata.actions.patchExerciseSession(
+    exercises.value.at(-1).id,
+    session.value,
+    100
   )
 }
 </script>
 
 <template>
+  <h2>Test Actions</h2>
   <button label="action" @click="getAllExercises">all exercises</button>
   <button
     label="action"
-    @click="store.exercisedata.actions.getFullExerciseForUser(exercises[0])"
+    @click="store.exercisedata.methods.createSignsForExercises"
   >
-    Action
+    create signs for exercises
+  </button>
+  <button
+    label="action"
+    @click="store.exercisedata.actions.getFullExerciseForUser(exercises[0].id)"
+  >
+    getFullExerciseForUser
+  </button>
+  <button
+    label="action"
+    @click="
+      store.exercisedata.actions.patchExerciseSettings(exercises[0].id, 15)
+    "
+  >
+    patchExerciseSettings
+  </button>
+  <button
+    label="action"
+    @click="
+      store.exercisedata.actions.getActiveExerciseSession(exercises[0].id)
+    "
+  >
+    getActiveExerciseSession
+  </button>
+  <button label="action" @click="postNewExerciseSession">
+    postNewExerciseSession
+  </button>
+  <button label="action" @click="patchExerciseSession">
+    patchExerciseSession
+  </button>
+  <button
+    label="action"
+    @click="
+      store.exercisedata.actions.deleteExerciseSession(exercises[0].id, session)
+    "
+  >
+    deleteExerciseSession
   </button>
 
   <h2>Userdata</h2>
