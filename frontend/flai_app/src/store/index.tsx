@@ -6,7 +6,11 @@ import handposedata from './handposedata'
 import flainetdata from './flainetdata'
 import authdata from './authdata'
 
+export const networkMessage =
+  'Sorry, you need  to have internet access to do this!'
+
 const store = {
+  networkMessage,
   userdata,
   sessiondata,
   exercisedata,
