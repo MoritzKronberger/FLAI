@@ -1,5 +1,5 @@
 import { readonly, reactive } from 'vue'
-import { random } from '../ressources/ts/random'
+import { random, weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
@@ -12,6 +12,7 @@ export interface Exercise {
 
 const exercises: Exercise[] = reactive([])
 
+const progressStep: number = 10
 export interface ExerciseSettings {
   id: string
   level1: number
@@ -23,9 +24,9 @@ export interface ExerciseSettings {
 
 const exerciseSettings: ExerciseSettings = reactive({
   id: '',
-  level1: 100,
-  level2: 200,
-  level3: 300,
+  level1: 10,
+  level2: 20,
+  level3: 30,
   exerciseId: '',
   sortSignsByOrder: true,
 })
@@ -66,23 +67,20 @@ const methods = {
   },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
-    exerciseSettingsUser.wordLength = wordLength
+    if (wordLength <= exerciseSettingsUser.unlockedSigns)
+      exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
     exerciseSettingsUser.unlockedSigns +=
       exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    exerciseSettingsUser.unlockedSigns -=
-      exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
+    if (exerciseSettingsUser.wordLength < exerciseSettingsUser.unlockedSigns)
+      exerciseSettingsUser.unlockedSigns -=
+        exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
   startNewExerciseSession() {
-    const word: Sign[] = []
-    for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
-      const index = random(0, exerciseSettingsUser.unlockedSigns)
-      word.push(signData.signs[index])
-    }
-    console.log('word', word)
+    let word = this.generateWord()
     const newSession: ExerciseSession = {
       startTime: Date.now(),
       sessionDuration: 0,
@@ -92,23 +90,60 @@ const methods = {
     exerciseSessions.push(newSession)
     return exerciseSessions
   },
+  generateWord() {
+    const word: Sign[] = []
+    if (exercises.length > 0) {
+      let signCopy = [...exercises[0].signs]
+      for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+        //get sum of progress
+        let weightArray = []
+        for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) {
+          weightArray.push(signCopy[k].progress + 1)
+        }
+        let index = weightedRandomIndex(weightArray)
+        word.push(signCopy[index])
+        signCopy.splice(index, 1)
+      }
+    }
+    console.log('word', word)
+    return word
+  },
   stopExercise(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
   },
-  updateProgress(exerciseId: string, letter: string, difference: number) {
+  increaseProgress(exerciseId: string, letter: string) {
     const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
     const signIndex = exercises[exerciseIndex].signs.findIndex(
       (el) => el.name === letter
     )
-    exercises[exerciseIndex].signs[signIndex].progress += difference
+    exercises[exerciseIndex].signs[signIndex].progress += progressStep
+    console.log(
+      'updatedSign',
+      exercises[exerciseIndex].signs[signIndex].name,
+      exercises[exerciseIndex].signs[signIndex].progress
+    )
+  },
+  decreaseProgress(exerciseId: string, letter: string) {
+    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
+    const signIndex = exercises[exerciseIndex].signs.findIndex(
+      (el) => el.name === letter
+    )
+    exercises[exerciseIndex].signs[signIndex].progress -= progressStep
     exercises[exerciseIndex].signs[signIndex].progress =
       exercises[exerciseIndex].signs[signIndex].progress > 0
         ? exercises[exerciseIndex].signs[signIndex].progress
         : 0
     console.log(
       'updatedSign',
+      exercises[exerciseIndex].signs[signIndex].name,
       exercises[exerciseIndex].signs[signIndex].progress
     )
+  },
+  signAlreadySeen(letter: string) {
+    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+    if (sign) {
+      sign.alreadySeen = true
+    }
   },
 }
 

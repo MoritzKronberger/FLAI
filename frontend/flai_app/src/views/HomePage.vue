@@ -43,9 +43,7 @@ import { inject, computed } from 'vue'
 export default {
   setup() {
     const store: any = inject('store')
-
     const user = computed(() => store.userdata.user)
-
     return {
       user,
     }

@@ -23,7 +23,7 @@ const methods = {
       perspectiveId: 'front',
     }
     const name = sign.name.toUpperCase()
-    signFront.path = `@/assets/signs/vid/${signFront.perspectiveId}/${name} - ${signFront.perspectiveId}Video.webm`
+    signFront.path = `src/assets/signs/vid/${signFront.perspectiveId}/${name}_vid_${signFront.perspectiveId}.webm`
     const signSide: SignRecording = {
       id: '' + sign.id,
       path: 'putUrlHere',
@@ -31,7 +31,7 @@ const methods = {
       signId: '',
       perspectiveId: 'side',
     }
-    signSide.path = `@/assets/signs/vid/${signSide.perspectiveId}/${name} - ${signSide.perspectiveId}Video.webm`
+    signSide.path = `src/assets/signs/vid/${signSide.perspectiveId}/${name}_vid_${signSide.perspectiveId}.webm`
     signRecordings.push(signFront)
     signRecordings.push(signSide)
     return signRecordings

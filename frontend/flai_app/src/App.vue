@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { provide, onMounted, ref } from 'vue'
 import store from './store'
+import DropDownMenu from './components/DropDownMenu.vue'
 
 provide('store', store)
 
@@ -10,16 +11,23 @@ const userdata = store.userdata.actions
 //onMounted(store.exercisedata.methods.getExercises) // fake frontend method
 //onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
+
+function handleInput(e: Event) {
+  const target = <HTMLInputElement>e.target
+
+  console.log('Das ist der Input:', target.value)
+}
 </script>
 
 <template>
   <img id="logo" alt="flai logo" src="./assets/flai_logo.jpg" />
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link to="/store">ShowStore</router-link>
-    <router-link to="/components">TestComponents</router-link>
-    <router-link to="/flainet">TestFlaiNet</router-link>
-    <router-link to="/profile">Profile</router-link>
+    <router-link :to="{ name: 'HomePage' }">Home</router-link>
+    <router-link :to="{ name: 'ShowStore' }">ShowStore</router-link>
+    <router-link :to="{ name: 'LearningExercise' }">Exercise</router-link>
+    <router-link :to="{ name: 'TestComponents' }">TestComponents</router-link>
+    <router-link :to="{ name: 'HandposeTest' }">TestHandpose</router-link>
+    <router-link :to="{ name: 'TestFlaiNet' }">TestFlaiNet</router-link>
   </div>
   <main>
     <router-view />
