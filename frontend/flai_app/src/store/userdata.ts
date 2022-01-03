@@ -2,7 +2,7 @@ import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
 import authData from './authdata'
 export interface User {
-  id: string
+  [id: string]: string | number | undefined | boolean
   email: string
   username: string
   rightHanded: boolean
@@ -16,6 +16,14 @@ const user: User = reactive({
   targetLearningTime: 10 * 60 * 1000, //millisec
 })
 
+const methods = {
+  patchOptionsLocally(changes: User) {
+    for (const prop in changes) {
+      user[prop] = changes[prop]
+    }
+  },
+}
+
 const actions = {
   async getUser() {
     user.id = authData.methods.fetchUserId()
@@ -27,8 +35,8 @@ const actions = {
     const data = jsonData?.data.rows[0]
     user.email = data.email
     user.username = data.username
-    user.rightHanded = data.rightHanded
-    user.targetLearningTime = data.targetLearningTime
+    user.rightHanded = data.right_handed
+    user.targetLearningTime = data.target_learning_time
     return jsonData
   },
 
@@ -43,7 +51,7 @@ const actions = {
       },
     })
   },
-  async patchUser(patch: object) {
+  async patchValues(patch: object) {
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'user',
@@ -54,9 +62,6 @@ const actions = {
         },
       },
     })
-    if (jsonData?.status === 200) {
-      this.getUser()
-    }
     return jsonData
   },
   async deleteUser() {
@@ -67,25 +72,6 @@ const actions = {
         id: user.id,
       },
     })
-  },
-}
-
-const methods = {
-  changeEmail(email: string) {
-    user.email = email
-    actions.patchUser({ email: email })
-  },
-  changeUsername(username: string) {
-    user.username = username
-    actions.patchUser({ username: username })
-  },
-  changeRightHanded(rightHanded: boolean) {
-    user.rightHanded = rightHanded
-    actions.patchUser({ right_handed: rightHanded }) // eslint-disable-line
-  },
-  changeTargetLearningTime(minutes: number) {
-    user.targetLearningTime = minutes * 60 * 1000
-    actions.patchUser({ targetLearningTime: minutes })
   },
 }
 
