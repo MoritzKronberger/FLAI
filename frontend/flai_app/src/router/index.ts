@@ -3,7 +3,6 @@ import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
 import LearningExercise from '../views/LearningExercise.vue'
-import HandposeTest from '../views/HandposeTest.vue'
 import FlaiNetTest from '../views/FlaiNetTest.vue'
 
 const routes = [
@@ -26,11 +25,6 @@ const routes = [
     path: '/exercise',
     name: 'LearningExercise',
     component: LearningExercise,
-  },
-  {
-    path: '/handpose',
-    name: 'HandposeTest',
-    component: HandposeTest,
   },
   {
     path: '/flainet',
