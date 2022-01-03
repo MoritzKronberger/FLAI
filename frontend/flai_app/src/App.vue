@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { provide, onMounted, ref } from 'vue'
 import store from './store'
-import DropDownMenu from './components/DropDownMenu.vue'
 
 provide('store', store)
 
@@ -26,7 +25,6 @@ function handleInput(e: Event) {
     <router-link :to="{ name: 'ShowStore' }">ShowStore</router-link>
     <router-link :to="{ name: 'LearningExercise' }">Exercise</router-link>
     <router-link :to="{ name: 'TestComponents' }">TestComponents</router-link>
-    <router-link :to="{ name: 'HandposeTest' }">TestHandpose</router-link>
     <router-link :to="{ name: 'TestFlaiNet' }">TestFlaiNet</router-link>
   </div>
   <main>
