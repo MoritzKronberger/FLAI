@@ -1,9 +1,10 @@
 import { readonly, reactive } from 'vue'
-import { random, weightedRandomIndex } from '../ressources/ts/random'
+import { weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
+import { errorMessage } from '../ressources/ts/methods'
 import signData, { Sign } from './signdata'
 import userData from './userdata'
-
+import { networkMessage } from './index'
 export interface Exercise {
   id: string
   name: string
@@ -19,7 +20,7 @@ export interface ExerciseSettings {
   level1: number
   level2: number
   level3: number
-  exerciseId: string
+  exercise_id: string
   sortSignsByOrder: boolean
 }
 
@@ -28,7 +29,7 @@ const exerciseSettings: ExerciseSettings = reactive({
   level1: 10,
   level2: 20,
   level3: 30,
-  exerciseId: '',
+  exercise_id: '',
   sortSignsByOrder: true,
 })
 
@@ -83,6 +84,7 @@ const methods = {
   startNewExerciseSession() {
     let word = this.generateWord()
     const newSession: ExerciseSession = {
+      // TODO: parse date into right format?
       startTime: Date.now(),
       sessionDuration: 0,
       order: 0,
@@ -109,7 +111,17 @@ const methods = {
     console.log('word', word)
     return word
   },
-  stopExercise(searchId: string) {
+  changeExerciseSessionDuration(startTime: number, duration: number) {
+    let session = exerciseSessions.find((el) => el.startTime === startTime)
+    if (session) {
+      session.sessionDuration = durationconsole.log('new duration', session)
+    }
+  },
+  deleteExerciseSession(startTime: number) {
+    let index = exerciseSessions.findIndex((el) => el.startTime === startTime)
+    exerciseSessions.splice(index, 0)
+  },
+  stopExerciseSession(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
   },
   increaseProgress(exerciseId: string, letter: string) {
@@ -157,7 +169,7 @@ const actions = {
         url: 'exercise/all',
         data: {},
       },
-      alert('Sorry, you need  to have internet access to get exerciseData!')
+      errorMessage(networkMessage)
     )
     if (jsonData?.status === 200) {
       Object.assign(exercises, jsonData?.data.rows)
@@ -174,7 +186,7 @@ const actions = {
           user_id: userData.user.id,
         },
       },
-      alert('Sorry, you need  to have internet access to get exerciseData!')
+      errorMessage(networkMessage)
     )
     if (jsonData?.status === 200) {
       const exerciseData = jsonData?.data.rows[0]
@@ -193,22 +205,27 @@ const actions = {
     }
   },
   async patchExerciseSettings(exerciseId: string, wordLength: number) {
-    const jsonData = await jsonAction({
-      method: 'patch',
-      url: 'exercise-settings',
-      data: {
-        ids: {
-          exercise_id: exerciseId,
-          user_id: userData.user.id,
-        },
+    const jsonData = await jsonAction(
+      {
+        method: 'patch',
+        url: 'exercise-settings',
         data: {
-          //task_split: 0.7,
-          word_length: wordLength,
+          ids: {
+            exercise_id: exerciseId,
+            user_id: userData.user.id,
+          },
+          data: {
+            //task_split: 0.7,
+            word_length: wordLength,
+          },
         },
       },
-    })
-    methods.changeExerciseSettingsWordLength(wordLength)
-    console.log(exerciseSettingsUser.wordLength)
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      methods.changeExerciseSettingsWordLength(wordLength)
+      console.log(exerciseSettingsUser.wordLength)
+    }
   },
   /*async getTask() {
     jsonAction({
@@ -220,52 +237,89 @@ const actions = {
     })
   },*/
   async getActiveExerciseSession(exerciseId: string) {
-    jsonAction({
-      method: 'get',
-      url: 'exercise-session',
-      data: {
-        exercise_id: exerciseId,
-        user_id: userData.user.id,
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'exercise-session',
+        data: {
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
+        },
       },
-    })
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      //TODO: does overwriting sessions make sense?
+      Object.assign(exerciseSessions, jsonData?.data)
+    }
   },
   async postNewExerciseSession(exerciseId: string) {
-    jsonAction({
-      method: 'post',
-      url: 'exercise-session',
-      data: {
-        exercise_id: exerciseId,
-        user_id: userData.user.id,
-        start_time: new Date(),
-      },
-    })
-  },
-  async patchExerciseSession() {
-    jsonAction({
-      method: 'patch',
-      url: 'exercise-session',
-      data: {
+    const jsonData = await jsonAction(
+      {
+        method: 'post',
+        url: 'exercise-session',
         data: {
-          session_duration: '00:50:00',
-        },
-        ids: {
-          exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-          user_id: '7600c936-7c07-4e4d-98ec-243612652ca3',
-          start_time: '2021-12-31 13:12:00.595133+00',
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
+          // TODO: parse date into right format?
+          start_time: Date.now(),
         },
       },
-    })
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      methods.startNewExerciseSession()
+    }
   },
-  async deleteExerciseSession() {
-    jsonAction({
-      method: 'delete',
-      url: 'exercise-session',
-      data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '7600c936-7c07-4e4d-98ec-243612652ca3',
-        start_time: '2021-12-31 13:12:00.595133+00',
+  async patchExerciseSession(
+    exerciseId: string,
+    sessionDuration: number,
+    exerciseSession: ExerciseSession
+  ) {
+    const jsonData = await jsonAction(
+      {
+        method: 'patch',
+        url: 'exercise-session',
+        data: {
+          data: {
+            session_duration: sessionDuration,
+          },
+          ids: {
+            exercise_id: exerciseId,
+            user_id: userData.user.id,
+            start_time: exerciseSession.startTime,
+          },
+        },
       },
-    })
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      methods.changeExerciseSessionDuration(
+        exerciseSession.startTime,
+        sessionDuration
+      )
+    }
+  },
+  async deleteExerciseSession(
+    exerciseId: string,
+    exerciseSession: ExerciseSession
+  ) {
+    const jsonData = await jsonAction(
+      {
+        method: 'delete',
+        url: 'exercise-session',
+        data: {
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
+          start_time: exerciseSession.startTime,
+        },
+      },
+      errorMessage(networkMessage)
+    )
+    // TODO: check for status code
+    if (jsonData?.status === 200 || jsonData?.status === 204) {
+      methods.deleteExerciseSession(exerciseSession.startTime)
+    }
   },
   /* eslint-enable */
 }
