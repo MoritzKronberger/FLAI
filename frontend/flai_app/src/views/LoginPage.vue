@@ -8,7 +8,7 @@ import { User } from '../store/userdata'
 
 const store: any = inject('store')
 
-const userMethods = store.userdata.methods
+const userActions = store.userdata.actions
 const authActions = store.authdata.actions
 const userData = computed(() => store.userdata.user) as ComputedRef<User>
 
@@ -27,8 +27,7 @@ const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await authActions.loginUser(submitUser)
   if (result.status === 200) {
-    userMethods.changeId(result.data.id)
-    // TODO: call download all userdata method
+    await userActions.getUser()
     router.push({ name: 'HomePage' })
   } else {
     errorMessage.value = result.data.message
