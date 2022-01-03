@@ -2,6 +2,7 @@ import { readonly, reactive } from 'vue'
 import { random, weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
 import signData, { Sign } from './signdata'
+import userData from './userdata'
 
 export interface Exercise {
   id: string
@@ -10,7 +11,7 @@ export interface Exercise {
   signs: Sign[]
 }
 
-const exercises: Exercise[] = reactive([])
+let exercises: Exercise[] = reactive([])
 
 const progressStep: number = 10
 export interface ExerciseSettings {
@@ -155,19 +156,40 @@ const actions = {
       url: 'exercise/all',
       data: {},
     })
-    console.log(jsonData)
+    exercises = jsonData?.data.rows
+    console.log(exercises)
   },
 
-  async getFullExerciseForUser() {
-    jsonAction({
+  async getFullExerciseForUser(exerciseId: Exercise) {
+    console.log('exercises', exercises)
+    console.log('exercise', exerciseId)
+    const jsonData = await jsonAction({
       method: 'get',
       url: 'exercise',
       // id == exercise_id
       data: {
-        id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
+        id: exerciseId.id,
+        user_id: userData.user.id,
       },
     })
+    const exerciseData = jsonData?.data.rows[0]
+    console.log('data', exerciseData)
+
+    // TODO: missing?: exerciseSettings.id
+    exerciseSettings.exerciseId = exerciseId.id
+    exerciseSettings.id = exerciseData.id
+    exerciseSettings.level1 = exerciseData.level_1
+    exerciseSettings.level2 = exerciseData.level_2
+    exerciseSettings.level3 = exerciseData.level_3
+    exerciseSettings.sortSignsByOrder = exerciseData.sort_signs_by_order
+
+    for (let prop in exerciseData) {
+      exerciseSettings[prop] = exerciseDatat[prop]
+    }
+
+    exerciseSettingsUser.wordLength = exerciseData.word_length
+    exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
+    console.log(exercises, exerciseSettings)
   },
 
   async patchExerciseSettings() {
