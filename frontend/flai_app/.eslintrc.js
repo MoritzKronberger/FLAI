@@ -18,7 +18,7 @@ module.exports = {
     indent: ['error', 2],
     'no-multiple-empty-lines': 'warn',
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-    camelcase: 'error', // Checks for lowerCamelCase
+    camelcase: ['error', { properties: 'never' }], //// Checks for lowerCamelCase, except for property names (db compatibility)
     quotes: ['error', 'single'],
     'no-var': 'error',
     'prefer-const': [
