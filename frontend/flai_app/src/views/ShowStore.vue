@@ -38,12 +38,16 @@ const exerciseSettingsUser = computed(
 )
 const exercises = computed(() => store.exercisedata.exercises)
 const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
+const word = ref('')
 
 function changeExerciseSettingsWordLength() {
   store.exercisedata.methods.changeExerciseSettingsWordLength(wordLength.value)
 }
 function startNewExerciseSession() {
   exerciseSession.value = store.exercisedata.methods.startNewExerciseSession()
+}
+function generateWord() {
+  word.value = exerciseSession.value = store.exercisedata.methods.generateWord()
 }
 
 //signdata
@@ -100,6 +104,7 @@ const letter = ref()
     {{ name }}: {{ value }}
   </p>
   <Button @click="startNewExerciseSession">Start new exerciseSession</Button>
+  <Button @click="generateWord">Generate new word</Button> {{ word }}
 
   <h2>Session</h2>
   <p v-for="(value, name) in session" :key="value">{{ name }}: {{ value }}</p>
@@ -111,7 +116,7 @@ const letter = ref()
   <input
     v-model="letter"
     type="text"
-    @keyup.enter="exerciseMethods.updateProgress('0', letter, 10)"
+    @keyup.enter="exerciseMethods.increaseProgress('0', letter)"
   />
 </template>
 
