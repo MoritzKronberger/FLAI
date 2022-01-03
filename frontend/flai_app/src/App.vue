@@ -22,6 +22,8 @@ function handleInput(e: Event) {
     <router-link :to="{ name: 'HomePage' }">Home</router-link>
     <router-link :to="{ name: 'ShowStore' }">ShowStore</router-link>
     <router-link :to="{ name: 'LearningExercise' }">Exercise</router-link>
+    <router-link :to="{ name: 'TestComponents' }">TestComponents</router-link>
+    <router-link :to="{ name: 'HandposeTest' }">TestHandpose</router-link>
   </div>
   <main>
     <router-view />
