@@ -3,27 +3,35 @@ import { inject, ref } from 'vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
 
+interface Options {
+  [key: string]: string | number | undefined | boolean
+  email?: string
+  username?: string
+  rightHanded?: boolean
+  targetLearningTime?: number
+}
+
 const store: any = inject('store')
 const userData = store.userdata
 
 const user = userData.user
 
-const newEmail = ref('')
-const newUserName = ref('')
-const newRightHand = ref(false)
-const newTargetTime = ref(15)
+const options: Options = {
+  id: user.id,
+  email: user.email,
+  username: user.username,
+  rightHanded: user.rightHanded,
+  targetLearningTime: user.targetLearningTime,
+}
 
-const setNewEmail = (): void => {
-  userData.methods.changeEmail(newEmail.value)
-}
-const setNewUserName = (): void => {
-  userData.methods.changeUsername(newUserName.value)
-}
-const setNewRightHand = (): void => {
-  userData.methods.changeRightHanded(newRightHand.value)
-}
-const setNewTargetLearningTime = (): void => {
-  userData.methods.changeTargetLearningTime(newTargetTime.value)
+const submitChanges = (): void => {
+  const changes: Options = {}
+  for (const prop in user) {
+    if (user[prop] !== options[prop]) {
+      changes[prop] = options[prop]
+    }
+  }
+  userData.actions.patchValues(changes)
 }
 </script>
 
@@ -35,38 +43,35 @@ const setNewTargetLearningTime = (): void => {
       <p>{{ key }} : {{ value }}</p>
     </li>
   </div>
-  <div class="login">
+  <form>
     <text-input-field
-      v-model="newEmail"
+      v-model="options.email"
       label-name="Email"
       placeholder="x.y@email.com"
       element-class="input-primary"
       component-class="input"
-      @keyup.enter="setNewEmail"
     />
     <text-input-field
-      v-model="newUserName"
+      v-model="options.username"
       label-name="Username"
       placeholder="username"
       element-class="input-primary"
       component-class="input"
-      @keyup.enter="setNewUserName"
     />
     <text-input-field
-      v-model="newTargetTime"
+      v-model="options.targetLearningTime"
       label-name="Target Learning Time"
       placeholder="15"
       element-class="input-primary"
       component-class="input"
-      @keyup.enter="setNewTargetLearningTime"
     />
     <custom-checkbox
-      v-model="newRightHand"
+      v-model="options.rightHanded"
       label-name="Use right hand"
       element-class="checkbox-primary"
-      @input="setNewRightHand"
     />
-  </div>
+    <input type="button" value="Submit Changes" @click="submitChanges" />
+  </form>
 </template>
 
 <style>
