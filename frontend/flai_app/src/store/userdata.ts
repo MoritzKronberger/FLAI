@@ -2,7 +2,7 @@ import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
 import authData from './authdata'
 export interface User {
-  id: string //uuid
+  id: string
   email: string
   username: string
   rightHanded: boolean
@@ -17,23 +17,7 @@ const user: User = reactive({
   targetLearningTime: 10 * 60 * 1000, //millisec
 })
 
-const methods = {
-  changeEmail(email: string) {
-    user.email = email
-  },
-  changeUsername(username: string) {
-    user.username = username
-  },
-  changeRightHanded(rightHanded: boolean) {
-    user.rightHanded = rightHanded
-  },
-  changeTargetLearningTime(minutes: number) {
-    user.targetLearningTime = minutes * 60 * 1000
-  },
-}
-
 const actions = {
-  /* eslint-disable */
   async getUser() {
     user.id = authData.methods.fetchUserId()
     const jsonData = await jsonAction({
@@ -41,7 +25,7 @@ const actions = {
       url: 'user',
       data: { id: user.id },
     })
-    console.log(jsonData)
+    const data = jsonData?.data.rows[0] as User
   },
 
   async postNewUser() {
@@ -55,30 +39,50 @@ const actions = {
       },
     })
   },
-  async patchUser() {
-    jsonAction({
+  async patchUser(patch: object) {
+    const jsonData = await jsonAction({
       method: 'patch',
       url: 'user',
       data: {
-        data: {
-          username: 'marti',
-        },
+        data: patch,
         ids: {
-          id: '25cb10b9-baee-455b-9c22-fca251b324f5',
+          id: user.id,
         },
       },
     })
+    if (jsonData?.status === 200) {
+      this.getUser()
+    }
+    return jsonData
   },
   async deleteUser() {
     jsonAction({
       method: 'delete',
       url: 'user',
       data: {
-        id: '25cb10b9-baee-455b-9c22-fca251b324f5',
+        id: user.id,
       },
     })
   },
-  /* eslint-enable */
+}
+
+const methods = {
+  changeEmail(email: string) {
+    user.email = email
+    actions.patchUser({ email: email })
+  },
+  changeUsername(username: string) {
+    user.username = username
+    actions.patchUser({ username: username })
+  },
+  changeRightHanded(rightHanded: boolean) {
+    user.rightHanded = rightHanded
+    actions.patchUser({ right_handed: rightHanded }) // eslint-disable-line
+  },
+  changeTargetLearningTime(minutes: number) {
+    user.targetLearningTime = minutes * 60 * 1000
+    actions.patchUser({ targetLearningTime: minutes })
+  },
 }
 
 const userData = {
