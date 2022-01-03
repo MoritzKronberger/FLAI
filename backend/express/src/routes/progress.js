@@ -6,7 +6,7 @@ progress.get('/', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_progress',
-    ids: req.body,
+    ids: req.query,
     selectCols: [
       'user_id',
       'sign_id',
