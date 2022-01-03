@@ -151,58 +151,66 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async getAllExercises() {
-    const jsonData = await jsonAction({
-      method: 'get',
-      url: 'exercise/all',
-      data: {},
-    })
-    Object.assign(exercises, jsonData?.data.rows)
-    console.log(exercises)
-  },
-
-  async getFullExerciseForUser(exerciseId: string) {
-    const jsonData = await jsonAction({
-      method: 'get',
-      url: 'exercise',
-      // id == exercise_id
-      data: {
-        id: exerciseId,
-        user_id: userData.user.id,
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'exercise/all',
+        data: {},
       },
-    })
-    const exerciseData = jsonData?.data.rows[0]
-
-    // TODO: missing?: exerciseSettings.id
-    //exerciseSettings.id = exerciseData.id
-    exerciseSettings.exerciseId = exerciseId
-    exerciseSettings.level1 = exerciseData.level_1
-    exerciseSettings.level2 = exerciseData.level_2
-    exerciseSettings.level3 = exerciseData.level_3
-    exerciseSettings.sortSignsByOrder = exerciseData.sort_signs_by_order
-
-    exerciseSettingsUser.wordLength = exerciseData.word_length
-    exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
-    console.log(exercises, exerciseSettings)
+      alert('Sorry, you need  to have internet access to get exerciseData!')
+    )
+    if (jsonData?.status === 200) {
+      Object.assign(exercises, jsonData?.data.rows)
+      console.log(exercises)
+    }
   },
+  async getFullExerciseForUser(exerciseId: string) {
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'exercise',
+        data: {
+          id: exerciseId, // id == exercise_id
+          user_id: userData.user.id,
+        },
+      },
+      alert('Sorry, you need  to have internet access to get exerciseData!')
+    )
+    if (jsonData?.status === 200) {
+      const exerciseData = jsonData?.data.rows[0]
 
-  async patchExerciseSettings() {
-    jsonAction({
+      // TODO: missing?: exerciseSettings.id
+      //exerciseSettings.id = exerciseData.id
+      exerciseSettings.exerciseId = exerciseId
+      exerciseSettings.level1 = exerciseData.level_1
+      exerciseSettings.level2 = exerciseData.level_2
+      exerciseSettings.level3 = exerciseData.level_3
+      exerciseSettings.sortSignsByOrder = exerciseData.sort_signs_by_order
+
+      exerciseSettingsUser.wordLength = exerciseData.word_length
+      exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
+      console.log(exercises, exerciseSettings)
+    }
+  },
+  async patchExerciseSettings(exerciseId: string, wordLength: number) {
+    const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-settings',
       data: {
         ids: {
-          exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-          user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
         },
         data: {
-          task_split: 0.7,
-          word_length: 5,
+          //task_split: 0.7,
+          word_length: wordLength,
         },
       },
     })
+    methods.changeExerciseSettingsWordLength(wordLength)
+    console.log(exerciseSettingsUser.wordLength)
   },
-
-  async getTask() {
+  /*async getTask() {
     jsonAction({
       method: 'get',
       url: 'task',
@@ -210,25 +218,25 @@ const actions = {
         exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
       },
     })
-  },
-  async getActiveExerciseSession() {
+  },*/
+  async getActiveExerciseSession(exerciseId: string) {
     jsonAction({
       method: 'get',
       url: 'exercise-session',
       data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
       },
     })
   },
-  async postNewExerciseSession() {
+  async postNewExerciseSession(exerciseId: string) {
     jsonAction({
       method: 'post',
       url: 'exercise-session',
       data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '7600c936-7c07-4e4d-98ec-243612652ca3',
-        start_time: '2021-12-31 13:12:00.595133+00',
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
+        start_time: new Date(),
       },
     })
   },
