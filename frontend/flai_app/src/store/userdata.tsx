@@ -51,17 +51,24 @@ const actions = {
       },
     })
   },
-  async patchValues(patch: object) {
-    const jsonData = await jsonAction({
-      method: 'patch',
-      url: 'user',
-      data: {
-        data: patch,
-        ids: {
-          id: user.id,
+  async patchValues(patch: User) {
+    const jsonData = await jsonAction(
+      {
+        method: 'patch',
+        url: 'user',
+        data: {
+          data: patch,
+          ids: {
+            id: user.id,
+          },
         },
       },
-    })
+      methods.patchOptionsLocally(patch)
+    )
+    if (jsonData?.status === 200) {
+      methods.patchOptionsLocally(patch)
+    }
+
     return jsonData
   },
   async deleteUser() {
