@@ -8,8 +8,8 @@ provide('store', store)
 const exercisedata = store.exercisedata.actions
 const authdata = store.authdata.actions
 const userdata = store.userdata.actions
-//onMounted(store.exercisedata.methods.getExercises) // fake frontend method
-//onMounted(store.exercisedata.actions.getAllExercises) // real backend action
+onMounted(store.exercisedata.methods.getExercises) // fake frontend method
+onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
 
 function handleInput(e: Event) {
@@ -26,7 +26,6 @@ function handleInput(e: Event) {
     <router-link :to="{ name: 'ShowStore' }">ShowStore</router-link>
     <router-link :to="{ name: 'LearningExercise' }">Exercise</router-link>
     <router-link :to="{ name: 'TestComponents' }">TestComponents</router-link>
-    <router-link :to="{ name: 'HandposeTest' }">TestHandpose</router-link>
     <router-link :to="{ name: 'TestFlaiNet' }">TestFlaiNet</router-link>
   </div>
   <main>
