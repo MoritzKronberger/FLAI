@@ -1,14 +1,12 @@
 import { reactive, readonly } from 'vue'
 
 export interface Session {
-  token: string
   startTime: number
   timer: number
   menuItemLink: string
 }
 
 const session: Session = reactive({
-  token: '',
   startTime: 0,
   timer: 0,
   menuItemLink: '#home',

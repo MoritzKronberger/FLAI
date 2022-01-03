@@ -4,6 +4,7 @@ import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
 import LearningExercise from '../views/LearningExercise.vue'
 import HandposeTest from '../views/HandposeTest.vue'
+import FlaiNetTest from '../views/FlaiNetTest.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/handpose',
     name: 'HandposeTest',
     component: HandposeTest,
+  },
+  {
+    path: '/flainet',
+    name: 'TestFlaiNet',
+    component: FlaiNetTest,
   },
 ]
 
