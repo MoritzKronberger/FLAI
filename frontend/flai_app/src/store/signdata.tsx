@@ -2,6 +2,9 @@ import { readonly, reactive } from 'vue'
 import exerciseData from './exercisedata'
 import signrecordings, { SignRecording } from './signrecordings'
 import { jsonAction } from '../common/service/rest'
+import { errorMessage } from '../ressources/ts/methods'
+import { networkMessage } from './index'
+import userData from './userdata'
 
 export interface Sign {
   id: string
@@ -38,54 +41,95 @@ const methods = {
 
 const actions = {
   /* eslint-disable */
-  async getFullSignForExercise() {
-    jsonAction({
-      method: 'get',
-      url: 'sign',
-      data: { exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6' },
-    })
-  },
-  async getSignRecording() {
-    jsonAction({
-      method: 'get',
-      url: 'sign-recording/sign',
-      data: { sign_id: 'deb2570c-0b58-41a1-8819-142cd04dda15' },
-    })
-  },
-  async getSignRecordingForExercise() {
-    jsonAction({
-      method: 'get',
-      url: 'sign-recording/sign/exercise',
-      data: { exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6' },
-    })
-  },
-  async getProgress() {
-    jsonAction({
-      method: 'get',
-      url: 'progress',
-      data: {
-        user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
-        sign_id: '7c4c0b35-be22-4048-bf9a-2dff96772d6f',
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
+  // TODO: call from getExercise!
+  async getFullSignForExercise(exerciseId: string) {
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'sign',
+        data: { exercise_id: exerciseId },
       },
-    })
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      console.log(jsonData.data)
+      //TODO: call getSignRecording for every sign and add these to the object
+      return jsonData.data
+    }
   },
-  async patchProgress() {
-    jsonAction({
-      method: 'patch',
-      url: 'progress',
-      data: {
+  async getSignRecording(signId: string) {
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'sign-recording/sign',
+        data: { sign_id: signId },
+      },
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      return jsonData.data
+    }
+  },
+  async getSignRecordingForExercise(exerciseId: string) {
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'sign-recording/sign/exercise',
+        data: { exercise_id: exerciseId },
+      },
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      return jsonData.data
+    }
+  },
+  async getProgress(exerciseId: string, signId: string) {
+    const jsonData = await jsonAction(
+      {
+        method: 'get',
+        url: 'progress',
         data: {
-          progress: 42,
-          level_3_reached: 1,
-        },
-        ids: {
-          user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
-          sign_id: '7c4c0b35-be22-4048-bf9a-2dff96772d6f',
-          exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
+          user_id: userData.user.id,
+          sign_id: signId,
+          exercise_id: exerciseId,
         },
       },
-    })
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      // TODO: add progress methods in here
+      return jsonData.data
+    }
+  },
+  async patchProgress(
+    exerciseId: string,
+    signId: string,
+    progress: number,
+    level3Reached: boolean
+  ) {
+    const jsonData = await jsonAction(
+      {
+        method: 'patch',
+        url: 'progress',
+        data: {
+          data: {
+            progress: progress,
+            // TODO: check if level3Reached is set manually
+            level_3_reached: level3Reached,
+          },
+          ids: {
+            user_id: userData.user.id,
+            sign_id: signId,
+            exercise_id: exerciseId,
+          },
+        },
+      },
+      errorMessage(networkMessage)
+    )
+    if (jsonData?.status === 200) {
+      // TODO: add progress methods in here
+      return jsonData.data
+    }
   },
   /* eslint-enable */
 }
