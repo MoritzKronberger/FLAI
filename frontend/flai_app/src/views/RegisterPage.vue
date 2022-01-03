@@ -26,12 +26,7 @@ const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await userActions.postNewUser(submitUser)
   if (result.status === 200) {
-    userMethods.changeId(result.data.ids.id)
     userMethods.changeEmail(submitUser.email)
-    userMethods.changeUsername(submitUser.username)
-    /* eslint-disable */
-    userMethods.changeRightHanded(submitUser.right_handed)
-    /* eslint-enable */
     router.push({ name: 'LoginPage' })
   } else {
     errorMessage.value = result.data.message
