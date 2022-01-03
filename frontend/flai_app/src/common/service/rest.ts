@@ -1,4 +1,4 @@
-import axios, { AxiosError, Method } from 'axios'
+import axios, { Axios, AxiosError, Method } from 'axios'
 import authData from '../../store/authdata'
 
 axios.defaults.baseURL = 'http://localhost:5000/api/'
@@ -35,7 +35,7 @@ const authState = () => {
   }
 }
 
-const jsonResult = async (config: object) => {
+const jsonResult = async (config: object, callback?: any) => {
   try {
     const res = await axios(config).then((value) => {
       return { status: value.status, data: value.data }
@@ -43,14 +43,15 @@ const jsonResult = async (config: object) => {
     return res
   } catch (error) {
     const err = error as AxiosError
-    console.log('--- Something went wrong ---')
-    console.log(err.response?.status)
+    if (err.response)
+      return { status: err.response.status, data: err.response.data }
+    callback
   }
 }
 
-const jsonAction = async (options: AxiosOptions) => {
+const jsonAction = async (options: AxiosOptions, callback?: any) => {
   authState()
-  return await jsonResult(config(options))
+  return await jsonResult(config(options), callback)
 }
 
 export { jsonAction }
