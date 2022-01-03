@@ -4,15 +4,15 @@ export interface Auth {
   token: string
   email: string
   password: string
-  userId: string
+  user_id: string
   isAuth: boolean
 }
 
-const auth: Auth = reactive({
+const auth = reactive({
   token: '',
   email: 'miriam.weber@email.com',
   password: 'supersecret',
-  userId: '',
+  user_id: '',
   isAuth: false,
 })
 
@@ -21,7 +21,7 @@ const methods = {
     return auth.token
   },
   fetchUserId() {
-    return auth.userId
+    return auth.user_id
   },
 
   fetchIsAuth() {
@@ -36,14 +36,17 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async loginUser() {
-    const jsonData = await jsonAction({
-      method: 'post',
-      url: 'auth/login',
-      data: { email: auth.email, password: auth.password },
-    }, console.log('login failed'))
+    const jsonData = await jsonAction(
+      {
+        method: 'post',
+        url: 'auth/login',
+        data: { email: auth.email, password: auth.password },
+      },
+      console.log('login failed')
+    )
     if (jsonData?.status === 200) {
       auth.token = jsonData?.data.jwt
-      auth.userId = jsonData?.data.id
+      auth.user_id = jsonData?.data.id
       auth.isAuth = methods.setAuth(true)
     }
   },

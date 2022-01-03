@@ -3,9 +3,9 @@ import { Sign } from './signdata'
 export interface SignRecording {
   id: string
   path: string //for frontend purposes: url, should be BYTEA number?
-  mimetypeId: string
-  signId: string
-  perspectiveId: string //for frontend purposes: 'front' or 'side'
+  mimetype_id: string
+  sign_id: string
+  perspective_id: string //for frontend purposes: 'front' or 'side'
 }
 
 const signRecording: SignRecording[] = []
@@ -18,20 +18,20 @@ const methods = {
       //TODO: id is not unique!
       id: '' + sign.id,
       path: '',
-      mimetypeId: '',
-      signId: '',
-      perspectiveId: 'front',
+      mimetype_id: '',
+      sign_id: '',
+      perspective_id: 'front',
     }
     const name = sign.name.toUpperCase()
-    signFront.path = `src/assets/signs/vid/${signFront.perspectiveId}/${name}_vid_${signFront.perspectiveId}.webm`
+    signFront.path = `src/assets/signs/vid/${signFront.perspective_id}/${name}_vid_${signFront.perspective_id}.webm`
     const signSide: SignRecording = {
       id: '' + sign.id,
       path: 'putUrlHere',
-      mimetypeId: '',
-      signId: '',
-      perspectiveId: 'side',
+      mimetype_id: '',
+      sign_id: '',
+      perspective_id: 'side',
     }
-    signSide.path = `src/assets/signs/vid/${signSide.perspectiveId}/${name}_vid_${signSide.perspectiveId}.webm`
+    signSide.path = `src/assets/signs/vid/${signSide.perspective_id}/${name}_vid_${signSide.perspective_id}.webm`
     signRecordings.push(signFront)
     signRecordings.push(signSide)
     return signRecordings
