@@ -6,12 +6,12 @@ const store: any = inject('store')
 //sesiondata
 const session = computed(() => store.sessiondata.session)
 const sessionMethods = store.sessiondata.methods
-const props = defineProps({
-  link: String,
-  icon: String,
-  description: String,
-  state: Boolean,
-})
+const props = defineProps<{
+  link: string
+  icon: string
+  description: string
+  state: boolean
+}>()
 const show = ref()
 function updateLink() {
   sessionMethods.updateMenuItemLink(props.link)
