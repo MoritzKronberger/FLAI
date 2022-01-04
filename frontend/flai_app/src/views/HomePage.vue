@@ -37,18 +37,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { computed } from 'vue'
 import store from '../store'
 
-export default {
-  setup() {
-    const user = computed(() => store.userdata.user)
-    return {
-      user,
-    }
-  },
-}
+const user = computed(() => store.userdata.user)
 </script>
 
 <style>
