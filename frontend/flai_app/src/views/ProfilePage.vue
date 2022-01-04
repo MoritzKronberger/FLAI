@@ -1,35 +1,34 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { onMounted, ref } from 'vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
+import store from '../store'
+
+const actions = store.userdata.actions
+const user = store.userdata.user
 
 interface Options {
   [key: string]: string | number | undefined | boolean
   email?: string
   username?: string
-  rightHanded?: boolean
-  targetLearningTime?: number
+  right_handed?: boolean
+  target_learning_time?: number
 }
 
-const store: any = inject('store')
-const userData = store.userdata
+const options = ref<Options>({
+  id: '',
+  email: '',
+  username: '',
+  /* eslint-disable */
+  right_handed: true,
+  target_learning_time: 0,
+  /* eslint-enable */
+})
 
-const user = userData.user
-
-const options: Options = {
-  id: user.id,
-  email: user.email,
-  username: user.username,
-  rightHanded: user.rightHanded,
-  targetLearningTime: user.targetLearningTime,
-}
-
-const information = {
-  op1: { label: 'Name', value: userData.user.username },
-  op2: { label: 'E-Mail', value: userData.user.email },
-  op3: { label: 'Haendigkeit', value: userData.user.rightHanded },
-  op4: { label: 'Lernziel', value: userData.user.targetLearningTime },
-}
+onMounted(() => {
+  options.value.email = user.email
+  console.log(options.value.email)
+})
 
 const submitChanges = (): void => {
   const changes: Options = {}
@@ -38,7 +37,7 @@ const submitChanges = (): void => {
       changes[prop] = options[prop]
     }
   }
-  userData.actions.patchValues(changes)
+  console.log(changes)
 }
 </script>
 
@@ -46,8 +45,8 @@ const submitChanges = (): void => {
   <h1>Profile</h1>
   <h2>User information</h2>
   <div>
-    <li v-for="(value, key) in information" :key="key">
-      <p>{{ value.label }} : {{ value.value }}</p>
+    <li v-for="(item, key) in user" :key="key">
+      <p>{{ key }} : {{ item }}</p>
     </li>
   </div>
   <form>
@@ -66,14 +65,14 @@ const submitChanges = (): void => {
       component-class="input"
     />
     <text-input-field
-      v-model="options.targetLearningTime"
+      v-model="options.target_learning_time"
       label-name="Target Learning Time"
       placeholder="15"
       element-class="input-primary"
       component-class="input"
     />
     <custom-checkbox
-      v-model="options.rightHanded"
+      v-model="options.right_handed"
       label-name="Use right hand"
       element-class="checkbox-primary"
     />
