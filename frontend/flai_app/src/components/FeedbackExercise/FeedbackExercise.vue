@@ -21,12 +21,14 @@ const signs: ComputedRef<Sign[]> = computed(
 const newSigns: Sign[] = []
 const stepOneWatch = ref(true)
 const exerciseId: ComputedRef<string> = computed(
+  // exercises.at is undefined
+  // because getExercises() is never called?
   () => store.exercisedata.exercises.at(-1).id
 )
 
 function getNewSigns() {
   for (const sign of signs.value) {
-    if (sign.alreadySeen === false) {
+    if (sign.intro_done === false) {
       newSigns.push(sign)
     }
   }
