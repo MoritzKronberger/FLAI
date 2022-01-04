@@ -136,6 +136,12 @@ const methods = {
       (el) => el.name === letter
     )
     exercises[exerciseIndex].signs[signIndex].progress += progressStep
+    if (
+      exercises[exerciseIndex].signs[signIndex].progress >=
+      exerciseSettings.level3
+    ) {
+      exercises[exerciseIndex].signs[signIndex].level3Reached = true
+    }
     console.log(
       'updatedSign',
       exercises[exerciseIndex].signs[signIndex].name,
@@ -152,6 +158,12 @@ const methods = {
       exercises[exerciseIndex].signs[signIndex].progress > 0
         ? exercises[exerciseIndex].signs[signIndex].progress
         : 0
+    if (
+      exercises[exerciseIndex].signs[signIndex].progress <
+      exerciseSettings.level3
+    ) {
+      exercises[exerciseIndex].signs[signIndex].level3Reached = false
+    }
     console.log(
       'updatedSign',
       exercises[exerciseIndex].signs[signIndex].name,

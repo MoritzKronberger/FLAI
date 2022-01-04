@@ -97,20 +97,13 @@ const actions = {
       errorMessage(networkMessage)
     }
   },
-  async patchProgress(
-    exerciseId: string,
-    signId: string,
-    progress: number
-    // TODO: level3Reached: boolean
-  ) {
+  async patchProgress(exerciseId: string, signId: string, progress: number) {
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'progress',
       data: {
         data: {
           progress: progress,
-          // TODO: check if level3Reached is set manually
-          level_3_reached: level3Reached,
         },
         ids: {
           user_id: userData.user.id,
