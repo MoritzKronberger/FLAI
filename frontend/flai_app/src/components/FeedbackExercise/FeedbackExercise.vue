@@ -13,30 +13,30 @@ import { ref, onBeforeMount, computed, inject, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
+import { ExerciseSession } from '../../store/exercisedata'
 
 const store: any = inject('store')
-const signs: ComputedRef<Sign[]> = computed(
-  () => store.exercisedata.exerciseSessions.at(-1).signs
+const session: ComputedRef<ExerciseSession> = computed(() =>
+  store.exercisedata.exerciseSessions.at(-1)
 )
 const newSigns: Sign[] = []
 const stepOneWatch = ref(true)
 const exerciseId: ComputedRef<string> = computed(
-  // exercises.at is undefined
-  // because getExercises() is never called?
-  () => store.exercisedata.exercises.at(-1).id
+  () => store.exercisedata.exercises[0].id
 )
 
-function getNewSigns() {
-  for (const sign of signs.value) {
+function getNewSigns(signs: Sign[]) {
+  for (const sign of signs) {
     if (sign.intro_done === false) {
       newSigns.push(sign)
     }
   }
+  console.log('new', newSigns)
 }
 
-onBeforeMount(() => {
-  store.exercisedata.methods.startNewExerciseSession()
-  getNewSigns()
+onBeforeMount(async () => {
+  await store.exercisedata.actions.postNewExerciseSession(exerciseId.value)
+  getNewSigns(session.value.signs)
 })
 
 function onNextStep() {

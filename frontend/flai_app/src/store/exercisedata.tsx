@@ -96,7 +96,6 @@ const methods = {
       signs: word,
     }
     exerciseSessions.push(newSession)
-    return exerciseSessions
   },
   generateWord(exerciseId: string) {
     const word: Sign[] = []
