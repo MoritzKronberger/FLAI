@@ -6,7 +6,8 @@ defineProps<{
   viewName: string
   iconPath: string
   iconMimetype: string
-  description: string
+  flyoutText: string
+  iconAltText: string
 }>()
 const show = ref(false)
 const setShow = (newShow: boolean): void => {
@@ -20,10 +21,10 @@ const setShow = (newShow: boolean): void => {
       <icon-loader
         :path="iconPath"
         :mimetype="iconMimetype"
-        :alt="description"
+        :alt="iconAltText"
         element-class="sidebar-icon"
       />
-      <span v-if="show">{{ description }}</span>
+      <span v-if="show" class="sidebar-flyout">{{ flyoutText }}</span>
     </router-link>
   </div>
 </template>

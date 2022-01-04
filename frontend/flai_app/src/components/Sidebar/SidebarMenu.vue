@@ -4,23 +4,27 @@ import MenuItems from './MenuItems.vue'
 declare interface MenuItem {
   viewName: string
   iconPath: string
-  description: string
+  flyoutText: string
+  iconAltText: string
 }
 const menuItems: MenuItem[] = [
   {
     viewName: 'HomePage',
     iconPath: '../assets/icons/home',
-    description: 'Home',
+    flyoutText: 'Home',
+    iconAltText: 'Home icon',
   },
   {
     viewName: 'LearningExercise',
     iconPath: '../assets/icons/lections',
-    description: 'Training',
+    flyoutText: 'Lektionen',
+    iconAltText: 'Lektionen Icon',
   },
   {
     viewName: 'ShowStore',
     iconPath: '../assets/icons/profile',
-    description: 'Profil',
+    flyoutText: 'Konto',
+    iconAltText: 'Konto Icon',
   },
 ]
 </script>
@@ -33,7 +37,8 @@ const menuItems: MenuItem[] = [
       :view-name="menuItem.viewName"
       :icon-path="menuItem.iconPath"
       icon-mimetype="svg"
-      :description="menuItem.description"
+      :flyout-text="menuItem.flyoutText"
+      :icon-alt-text="menuItem.iconAltText"
     />
   </nav>
 </template>
