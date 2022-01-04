@@ -90,7 +90,7 @@ const methods = {
     let word = this.generateWord(exerciseId)
     const newSession: ExerciseSession = {
       startTime: startTime,
-      sessionDuration: 10,
+      sessionDuration: 0,
       order: 0,
       signs: word,
     }
