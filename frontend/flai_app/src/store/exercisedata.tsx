@@ -169,31 +169,27 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async getAllExercises() {
-    const jsonData = await jsonAction(
-      {
-        method: 'get',
-        url: 'exercise/all',
-        data: {},
-      },
-      errorMessage(networkMessage)
-    )
+    const jsonData = await jsonAction({
+      method: 'get',
+      url: 'exercise/all',
+      data: {},
+    })
     if (jsonData?.status === 200) {
       Object.assign(exercises, jsonData?.data.rows)
       console.log(exercises)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
   async getFullExerciseForUser(exerciseId: string) {
-    const jsonData = await jsonAction(
-      {
-        method: 'get',
-        url: 'exercise',
-        data: {
-          id: exerciseId, // id == exercise_id
-          user_id: userData.user.id,
-        },
+    const jsonData = await jsonAction({
+      method: 'get',
+      url: 'exercise',
+      data: {
+        id: exerciseId, // id == exercise_id
+        user_id: userData.user.id,
       },
-      errorMessage(networkMessage)
-    )
+    })
     if (jsonData?.status === 200) {
       const exerciseData = jsonData?.data.rows[0]
 
@@ -208,32 +204,33 @@ const actions = {
       exerciseSettingsUser.wordLength = exerciseData.word_length
       exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
       console.log(exercises, exerciseSettings)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
   async patchExerciseSettings(exerciseId: string, wordLength: number) {
-    const jsonData = await jsonAction(
-      {
-        method: 'patch',
-        url: 'exercise-settings',
+    const jsonData = await jsonAction({
+      method: 'patch',
+      url: 'exercise-settings',
+      data: {
+        ids: {
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
+        },
         data: {
-          ids: {
-            exercise_id: exerciseId,
-            user_id: userData.user.id,
-          },
-          data: {
-            //task_split: 0.7,
-            word_length: wordLength,
-          },
+          //task_split: 0.7,
+          word_length: wordLength,
         },
       },
-      errorMessage(networkMessage)
-    )
+    })
     console.log(jsonData)
     if (jsonData?.status === 200) {
       if (wordLength <= exerciseSettingsUser.unlockedSigns) {
         methods.changeExerciseSettingsWordLength(wordLength)
       }
       console.log(exerciseSettingsUser.wordLength)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
   /*async getTask() {
@@ -246,42 +243,40 @@ const actions = {
     })
   },*/
   async getActiveExerciseSession(exerciseId: string) {
-    const jsonData = await jsonAction(
-      {
-        method: 'get',
-        url: 'exercise-session',
-        data: {
-          exercise_id: exerciseId,
-          user_id: userData.user.id,
-        },
+    const jsonData = await jsonAction({
+      method: 'get',
+      url: 'exercise-session',
+      data: {
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
       },
-      errorMessage(networkMessage)
-    )
+    })
     if (jsonData?.status === 200) {
       //TODO: does overwriting sessions make sense?
       Object.assign(exerciseSessions, jsonData?.data.rows)
       console.log(exerciseSessions)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
 
   // TODO: actions down are not working
   async postNewExerciseSession(exerciseId: string) {
-    const jsonData = await jsonAction(
-      {
-        method: 'post',
-        url: 'exercise-session',
-        data: {
-          exercise_id: exerciseId,
-          user_id: userData.user.id,
-          // TODO: parse date into right format?
-          //start_time: Date.now(),
-          start_time: '2021-12-31 13:12:00.595133+00',
-        },
+    const jsonData = await jsonAction({
+      method: 'post',
+      url: 'exercise-session',
+      data: {
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
+        // TODO: parse date into right format?
+        //start_time: Date.now(),
+        start_time: '2021-12-31 13:12:00.595133+00',
       },
-      errorMessage(networkMessage)
-    )
+    })
     if (jsonData?.status === 200) {
       methods.startNewExerciseSession()
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
   async patchExerciseSession(
@@ -289,49 +284,47 @@ const actions = {
     exerciseSession: ExerciseSession,
     sessionDuration: number
   ) {
-    const jsonData = await jsonAction(
-      {
-        method: 'patch',
-        url: 'exercise-session',
+    const jsonData = await jsonAction({
+      method: 'patch',
+      url: 'exercise-session',
+      data: {
         data: {
-          data: {
-            session_duration: sessionDuration,
-          },
-          ids: {
-            exercise_id: exerciseId,
-            user_id: userData.user.id,
-            start_time: exerciseSession.startTime,
-          },
+          session_duration: sessionDuration,
+        },
+        ids: {
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
+          start_time: exerciseSession.startTime,
         },
       },
-      errorMessage(networkMessage)
-    )
+    })
     if (jsonData?.status === 200) {
       methods.changeExerciseSessionDuration(
         exerciseSession.startTime,
         sessionDuration
       )
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
   async deleteExerciseSession(
     exerciseId: string,
     exerciseSession: ExerciseSession
   ) {
-    const jsonData = await jsonAction(
-      {
-        method: 'delete',
-        url: 'exercise-session',
-        data: {
-          exercise_id: exerciseId,
-          user_id: userData.user.id,
-          start_time: exerciseSession.startTime,
-        },
+    const jsonData = await jsonAction({
+      method: 'delete',
+      url: 'exercise-session',
+      data: {
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
+        start_time: exerciseSession.startTime,
       },
-      errorMessage(networkMessage)
-    )
+    })
     // TODO: check for status code
     if (jsonData?.status === 200 || jsonData?.status === 204) {
       methods.deleteExerciseSession(exerciseSession.startTime)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
     }
   },
   /* eslint-enable */

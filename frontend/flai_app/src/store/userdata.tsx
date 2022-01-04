@@ -41,19 +41,16 @@ const actions = {
     })
   },
   async patchUser(patch: object) {
-    const jsonData = await jsonAction(
-      {
-        method: 'patch',
-        url: 'user',
-        data: {
-          data: patch,
-          ids: {
-            id: user.id,
-          },
+    const jsonData = await jsonAction({
+      method: 'patch',
+      url: 'user',
+      data: {
+        data: patch,
+        ids: {
+          id: user.id,
         },
       },
-      console.log('get error')
-    )
+    })
     return jsonData
   },
   async deleteUser() {
