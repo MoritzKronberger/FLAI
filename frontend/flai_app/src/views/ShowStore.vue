@@ -68,8 +68,14 @@ async function postNewExerciseSession() {
 async function patchExerciseSession() {
   await store.exercisedata.actions.patchExerciseSession(
     exercises.value.at(-1).id,
-    session.value,
+    exerciseSessions.value.at(-1),
     100
+  )
+}
+async function deleteExerciseSession() {
+  await store.exercisedata.actions.deleteExerciseSession(
+    exercises.value.at(-1).id,
+    exerciseSessions.value.at(-1)
   )
 }
 </script>
@@ -111,12 +117,7 @@ async function patchExerciseSession() {
   <button label="action" @click="patchExerciseSession">
     patchExerciseSession
   </button>
-  <button
-    label="action"
-    @click="
-      store.exercisedata.actions.deleteExerciseSession(exercises[0].id, session)
-    "
-  >
+  <button label="action" @click="deleteExerciseSession">
     deleteExerciseSession
   </button>
 
