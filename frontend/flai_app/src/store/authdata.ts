@@ -36,16 +36,19 @@ const methods = {
 const actions = {
   /* eslint-disable */
   async loginUser() {
-    const jsonData = await jsonAction({
-      method: 'post',
-      url: 'auth/login',
-      data: { email: auth.email, password: auth.password },
-    }, console.log('login failed'))
+    const jsonData = await jsonAction(
+      {
+        method: 'post',
+        url: 'auth/login',
+        data: { email: auth.email, password: auth.password },
+      },
+    )
     if (jsonData?.status === 200) {
       auth.token = jsonData?.data.jwt
       auth.userId = jsonData?.data.id
       auth.isAuth = methods.setAuth(true)
     }
+    console.log(jsonData)
   },
 
   logoutUser() {

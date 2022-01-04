@@ -204,6 +204,7 @@ CREATE TABLE "learns_sign"
  "sign_id"         UUID    NOT NULL,
  "exercise_id"     UUID    NOT NULL,
  "progress"        INTEGER NOT NULL DEFAULT 0,
+ "intro_done"      BOOLEAN NOT NULL DEFAULT FALSE,
  "level_3_reached" BOOLEAN NOT NULL DEFAULT FALSE,
 
  CONSTRAINT learns_sign_pk
