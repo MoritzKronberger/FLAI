@@ -74,17 +74,17 @@ const methods = {
   },
   //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
-    if (wordLength <= exerciseSettingsUser.unlockedSigns)
-      exerciseSettingsUser.wordLength = wordLength
+    //if (wordLength <= exerciseSettingsUser.unlockedSigns)
+    exerciseSettingsUser.wordLength = wordLength
   },
   increaseUnlockedSigns() {
     exerciseSettingsUser.unlockedSigns +=
       exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    if (exerciseSettingsUser.wordLength < exerciseSettingsUser.unlockedSigns)
-      exerciseSettingsUser.unlockedSigns -=
-        exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
+    //if (exerciseSettingsUser.wordLength < exerciseSettingsUser.unlockedSigns)
+    exerciseSettingsUser.unlockedSigns -=
+      exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
   startNewExerciseSession(exerciseId: string) {
     let word = this.generateWord(exerciseId)
@@ -100,16 +100,20 @@ const methods = {
   generateWord(exerciseId: string) {
     const word: Sign[] = []
     if (exercises.length > 0) {
-      let signCopy = [...exercises[exerciseId].signs]
-      for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
-        //get sum of progress
-        let weightArray = []
-        for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) {
-          weightArray.push(signCopy[k].progress + 1)
+      let exercise = exercises.find((el) => el.id === exerciseId)
+      if (exercise) {
+        let signCopy = [...exercise.signs]
+        for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+          let weightArray = []
+          /* TODO: reactive to generate words, where letters are only included once 
+          for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
+          for (let k = 0; k < exerciseSettingsUser.unlockedSigns; k++) {
+            weightArray.push(signCopy[k].progress + 1)
+          }
+          let index = weightedRandomIndex(weightArray)
+          word.push(signCopy[index])
+          // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
         }
-        let index = weightedRandomIndex(weightArray)
-        word.push(signCopy[index])
-        signCopy.splice(index, 1)
       }
     }
     console.log('word', word)
@@ -236,9 +240,8 @@ const actions = {
     })
     console.log(jsonData)
     if (jsonData?.status === 200) {
-      if (wordLength <= exerciseSettingsUser.unlockedSigns) {
-        methods.changeExerciseSettingsWordLength(wordLength)
-      }
+      //if (wordLength <= exerciseSettingsUser.unlockedSigns)
+      methods.changeExerciseSettingsWordLength(wordLength)
       console.log(exerciseSettingsUser.wordLength)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
