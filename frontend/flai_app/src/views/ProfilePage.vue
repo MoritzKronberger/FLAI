@@ -9,79 +9,105 @@ const user = store.userdata.user
 
 interface Options {
   [key: string]: string | number | undefined | boolean
-  email?: string
-  username?: string
-  right_handed?: boolean
-  target_learning_time?: number
+  email?: { label: string; value: string }
+  username?: { label: string; value: string }
+  passwort?: { label: string; value: string }
+  right_handed?: { label: string; value: boolean }
+  target_learning_time?: { label: string; value: number }
 }
 
 const options = ref<Options>({
-  id: '',
-  email: '',
-  username: '',
+  id: { label: 'id', value: '' },
+  email: { label: 'E-Mail', value: '' },
+  username: { label: 'Name', value: '' },
+  passwort: { label: 'Passwort', value: '*****' },
   /* eslint-disable */
-  right_handed: true,
-  target_learning_time: 0,
+  right_handed: { label: 'Haendigkeit', value: true },
+  target_learning_time: { label: 'Lernzeit', value: 0 },
   /* eslint-enable */
 })
 
+const displayForm = ref('nodisplay')
+
 onMounted(() => {
-  options.value.email = user.email
-  console.log(options.value.email)
+  for (const prop in user) {
+    options.value[prop].value = user[prop]
+  }
 })
 
+const onChange = (): void => {
+  displayForm.value = 'display'
+}
 const submitChanges = (): void => {
   const changes: Options = {}
   for (const prop in user) {
-    if (user[prop] !== options[prop]) {
-      changes[prop] = options[prop]
+    if (user[prop] !== options.value[prop].value) {
+      changes[prop] = options.value[prop].value
     }
   }
-  console.log(changes)
+  actions.patchValues(changes)
 }
 </script>
 
 <template>
   <h1>Profile</h1>
   <h2>User information</h2>
-  <div>
-    <li v-for="(item, key) in user" :key="key">
-      <p>{{ key }} : {{ item }}</p>
-    </li>
+  <div class="profile">
+    <div class="information">
+      <ul v-for="(item, key) in options" :key="key">
+        <li v-if="key !== 'id'">{{ item.label }} : {{ item.value }}</li>
+      </ul>
+    </div>
+    <form :class="displayForm">
+      <text-input-field
+        v-model="options.email.value"
+        placeholder="x.y@email.com"
+        element-class="email"
+        component-class="input"
+      />
+      <text-input-field
+        v-model="options.username.value"
+        placeholder="username"
+        element-class="input-primary"
+        component-class="input"
+      />
+      <text-input-field
+        v-model="options.passwort.value"
+        placeholder="passwort"
+        element-class="input-primary"
+        component-class="input"
+      />
+      <custom-checkbox
+        v-model="options.right_handed.value"
+        element-class="checkbox-primary"
+        component-class="input"
+      />
+      <text-input-field
+        v-model="options.target_learning_time.value"
+        placeholder="15"
+        element-class="input-primary"
+        component-class="input"
+      />
+      <input type="button" value="Submit Changes" @click="submitChanges" />
+    </form>
   </div>
-  <form>
-    <text-input-field
-      v-model="options.email"
-      label-name="Email"
-      placeholder="x.y@email.com"
-      element-class="input-primary"
-      component-class="input"
-    />
-    <text-input-field
-      v-model="options.username"
-      label-name="Username"
-      placeholder="username"
-      element-class="input-primary"
-      component-class="input"
-    />
-    <text-input-field
-      v-model="options.target_learning_time"
-      label-name="Target Learning Time"
-      placeholder="15"
-      element-class="input-primary"
-      component-class="input"
-    />
-    <custom-checkbox
-      v-model="options.right_handed"
-      label-name="Use right hand"
-      element-class="checkbox-primary"
-    />
-    <input type="button" value="Submit Changes" @click="submitChanges" />
-  </form>
+  <input type="button" value="Change Profile" @click="onChange" />
 </template>
 
-<style>
-.input {
-  margin: 5px;
+<style scoped lang="scss">
+.profile {
+  display: flex;
+  .information {
+    margin-right: 100px;
+  }
+  ul li {
+    margin-bottom: 10px;
+  }
+}
+.nodisplay {
+  display: none;
+}
+.display {
+  display: block;
 }
 </style>
