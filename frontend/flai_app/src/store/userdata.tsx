@@ -1,12 +1,22 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
-import authData from './authdata'
+import authdata from './authdata'
+
 export interface User {
   id: string //uuid
   email: string
   username: string
   right_handed: boolean
   target_learning_time: number
+}
+
+export interface RegisterUser {
+  username: string
+  email: string
+  password: string
+  /* eslint-disable */
+  right_handed: boolean
+  /* eslint-enable */
 }
 
 const user: User = reactive({
@@ -20,7 +30,7 @@ const user: User = reactive({
 const actions = {
   /* eslint-disable */
   async getUser() {
-    user.id = authData.methods.fetchUserId()
+    user.id = authdata.methods.fetchUserId()
     const jsonData = await jsonAction({
       method: 'get',
       url: 'user',
@@ -29,15 +39,11 @@ const actions = {
     console.log(jsonData)
   },
 
-  async postNewUser() {
-    jsonAction({
+  async postNewUser(registerUser: RegisterUser) {
+    return await jsonAction({
       method: 'post',
       url: 'user',
-      data: {
-        username: 'martin',
-        password: 'testmk1',
-        email: 'martin.kohnle@flai-team.de',
-      },
+      data: registerUser,
     })
   },
   async patchUser(patch: object) {
@@ -51,8 +57,7 @@ const actions = {
             id: user.id,
           },
         },
-      },
-      console.log('get error')
+      }
     )
     return jsonData
   },
@@ -86,10 +91,10 @@ const methods = {
   },
 }
 
-const userData = {
+const userdata = {
   user: readonly(user) as User,
   methods,
   actions,
 }
 
-export default userData
+export default userdata

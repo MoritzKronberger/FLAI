@@ -5,7 +5,6 @@
 BEGIN;
 
 /* Cleanup */
-DROP FUNCTION IF EXISTS json_status       CASCADE;
 DROP FUNCTION IF EXISTS pg_axios          CASCADE;
 DROP FUNCTION IF EXISTS json_keys_to_text CASCADE;
 DROP FUNCTION IF EXISTS arr_to_text       CASCADE;
@@ -140,30 +139,6 @@ $$
                                _message_);
 
     END
-$$
-;
-
-/* JSON status */
--- build result json from pg_axios results
--- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
-CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
-                                       _ids        JSONB,
-                                       _rows       JSONB   DEFAULT NULL,
-                                       _pgstate    TEXT    DEFAULT '00000',
-                                       _constraint TEXT    DEFAULT NULL,
-                                       _message    TEXT    DEFAULT NULL)
-    RETURNS JSONB
-    IMMUTABLE PARALLEL SAFE
-LANGUAGE SQL
-AS
-$$
-    SELECT JSONB_BUILD_OBJECT
-           ('status', _status,
-            'ids', _ids,
-            'rows', _rows,
-            'pgstate', _pgstate,
-            'constraint', _constraint,
-            'message', _message);
 $$
 ;
 
