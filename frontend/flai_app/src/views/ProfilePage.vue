@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject } from 'vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
 
@@ -24,6 +24,13 @@ const options: Options = {
   targetLearningTime: user.targetLearningTime,
 }
 
+const information = {
+  op1: { label: 'Name', value: userData.user.username },
+  op2: { label: 'E-Mail', value: userData.user.email },
+  op3: { label: 'Haendigkeit', value: userData.user.rightHanded },
+  op4: { label: 'Lernziel', value: userData.user.targetLearningTime },
+}
+
 const submitChanges = (): void => {
   const changes: Options = {}
   for (const prop in user) {
@@ -39,8 +46,8 @@ const submitChanges = (): void => {
   <h1>Profile</h1>
   <h2>User information</h2>
   <div>
-    <li v-for="(value, key) in user" :key="value">
-      <p>{{ key }} : {{ value }}</p>
+    <li v-for="(value, key) in information" :key="key">
+      <p>{{ value.label }} : {{ value.value }}</p>
     </li>
   </div>
   <form>
