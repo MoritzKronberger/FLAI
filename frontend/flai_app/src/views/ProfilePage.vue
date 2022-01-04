@@ -11,7 +11,7 @@ interface Options {
   [key: string]: string | number | undefined | boolean
   email?: { label: string; value: string }
   username?: { label: string; value: string }
-  passwort?: { label: string; value: string }
+  password?: { label: string; value: string }
   right_handed?: { label: string; value: boolean }
   target_learning_time?: { label: string; value: number }
 }
@@ -20,11 +20,9 @@ const options = ref<Options>({
   id: { label: 'id', value: '' },
   email: { label: 'E-Mail', value: '' },
   username: { label: 'Name', value: '' },
-  passwort: { label: 'Passwort', value: '*****' },
-  /* eslint-disable */
+  password: { label: 'Passwort', value: '***' },
   right_handed: { label: 'Haendigkeit', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
-  /* eslint-enable */
 })
 
 const displayForm = ref('nodisplay')
@@ -40,11 +38,13 @@ const onChange = (): void => {
 }
 const submitChanges = (): void => {
   const changes: Options = {}
-  for (const prop in user) {
+  for (const prop in options.value) {
     if (user[prop] !== options.value[prop].value) {
-      changes[prop] = options.value[prop].value
+      if (prop !== 'password' || options.value[prop].value !== '***')
+        changes[prop] = options.value[prop].value
     }
   }
+  console.log(changes)
   actions.patchValues(changes)
 }
 </script>
@@ -72,7 +72,7 @@ const submitChanges = (): void => {
         component-class="input"
       />
       <text-input-field
-        v-model="options.passwort.value"
+        v-model="options.password.value"
         placeholder="passwort"
         element-class="input-primary"
         component-class="input"
