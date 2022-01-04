@@ -1,9 +1,10 @@
 <script setup lang="ts">
 defineProps<{
-  labelName: string
+  labelName?: string
   placeholder: string
   elementClass: string
   componentClass: string
+  customType?: { type: string; default: 'text' }
   modelValue: string | number | undefined
 }>()
 const emit = defineEmits(['update:modelValue'])
@@ -20,7 +21,7 @@ const onInput = (e: Event): void => {
       {{ labelName }}
       <input
         :value="modelValue"
-        type="text"
+        :type="customType"
         :name="labelName"
         :placeholder="placeholder"
         :class="elementClass"
@@ -29,3 +30,11 @@ const onInput = (e: Event): void => {
     </label>
   </div>
 </template>
+<style scoped lang="scss">
+.email {
+  width: 300px;
+}
+.input {
+  margin-bottom: 10px;
+}
+</style>
