@@ -5,6 +5,7 @@ import { errorMessage } from '../ressources/ts/methods'
 import signData, { Sign } from './signdata'
 import userData from './userdata'
 import { networkMessage } from './index'
+
 export interface Exercise {
   id: string
   name: string
@@ -14,7 +15,6 @@ export interface Exercise {
 
 const exercises: Exercise[] = reactive([])
 
-const progressStep: number = 10
 export interface ExerciseSettings {
   id: string
   level1: number
@@ -135,12 +135,18 @@ const methods = {
   stopExerciseSession(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
   },
-  increaseProgress(exerciseId: string, letter: string) {
+  signAlreadySeen(letter: string) {
+    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+    if (sign) {
+      sign.alreadySeen = true
+    }
+  },
+  changeProgress(exerciseId: string, signId: string, progress: number) {
     const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
     const signIndex = exercises[exerciseIndex].signs.findIndex(
-      (el) => el.name === letter
+      (el) => el.id === signId
     )
-    exercises[exerciseIndex].signs[signIndex].progress += progressStep
+    exercises[exerciseIndex].signs[signIndex].progress = progress
     if (
       exercises[exerciseIndex].signs[signIndex].progress >=
       exerciseSettings.level3
@@ -150,36 +156,9 @@ const methods = {
     console.log(
       'updatedSign',
       exercises[exerciseIndex].signs[signIndex].name,
-      exercises[exerciseIndex].signs[signIndex].progress
+      exercises[exerciseIndex].signs[signIndex].progress,
+      exercises[exerciseIndex].signs[signIndex].level3Reached
     )
-  },
-  decreaseProgress(exerciseId: string, letter: string) {
-    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
-    const signIndex = exercises[exerciseIndex].signs.findIndex(
-      (el) => el.name === letter
-    )
-    exercises[exerciseIndex].signs[signIndex].progress -= progressStep
-    exercises[exerciseIndex].signs[signIndex].progress =
-      exercises[exerciseIndex].signs[signIndex].progress > 0
-        ? exercises[exerciseIndex].signs[signIndex].progress
-        : 0
-    if (
-      exercises[exerciseIndex].signs[signIndex].progress <
-      exerciseSettings.level3
-    ) {
-      exercises[exerciseIndex].signs[signIndex].level3Reached = false
-    }
-    console.log(
-      'updatedSign',
-      exercises[exerciseIndex].signs[signIndex].name,
-      exercises[exerciseIndex].signs[signIndex].progress
-    )
-  },
-  signAlreadySeen(letter: string) {
-    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
-    if (sign) {
-      sign.alreadySeen = true
-    }
   },
 }
 
