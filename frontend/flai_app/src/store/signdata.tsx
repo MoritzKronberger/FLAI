@@ -112,11 +112,12 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
+      console.log(jsonData.data)
       return jsonData.data
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log('data', jsonData.data)
+    console.log(jsonData.data)
   },
   async patchProgress(exerciseId: string, signId: string, progress: number) {
     const jsonData = await jsonAction({
@@ -134,12 +135,12 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      // TODO: add progress methods in here
-      return jsonData.data
+      exerciseData.methods.changeProgress(exerciseId, signId, progress)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
+    let sign = exerciseData.exercises[0].signs.find((el) => el.id === signId)
+    console.log(sign?.progress)
   },
   /* eslint-enable */
 }
