@@ -63,7 +63,7 @@ const actions = {
           progress: jsonProgress.progress,
           level_3_reached: jsonProgress.level_3_reached,
           recordings: await actions.getSignRecording(row.id),
-          intro_done: row.intro_done,
+          intro_done: row.intro_done === undefined ? false : row.intro_done,
         }
         signs.push(sign)
       }
