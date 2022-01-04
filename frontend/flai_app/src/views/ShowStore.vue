@@ -56,6 +56,7 @@ const signMethods = store.signdata.methods
 
 const letter = ref()
 
+//exercise actions
 async function getAllExercises() {
   await store.exercisedata.actions.getAllExercises()
   console.log('exercises in showstore', JSON.stringify(exercises.value))
@@ -78,17 +79,14 @@ async function deleteExerciseSession() {
     exerciseSessions.value.at(-1)
   )
 }
+
+//signactions
 </script>
 
 <template>
   <h2>Test Actions</h2>
+  <h3>Exercise Actions</h3>
   <button label="action" @click="getAllExercises">all exercises</button>
-  <button
-    label="action"
-    @click="store.exercisedata.methods.createSignsForExercises"
-  >
-    create signs for exercises
-  </button>
   <button
     label="action"
     @click="store.exercisedata.actions.getFullExerciseForUser(exercises[0].id)"
@@ -119,6 +117,46 @@ async function deleteExerciseSession() {
   </button>
   <button label="action" @click="deleteExerciseSession">
     deleteExerciseSession
+  </button>
+
+  <h3>Sign Actions</h3>
+  <button
+    label="action"
+    @click="store.signdata.actions.getFullSignForExercise(exercises[0].id)"
+  >
+    getFullSignForExercise
+  </button>
+  <button
+    label="action"
+    @click="store.signdata.actions.getSignRecording(exercises[0].signs[0].id)"
+  >
+    getSignRecording
+  </button>
+  <button
+    label="action"
+    @click="store.signdata.actions.getSignRecordingForExercise(exercises[0].id)"
+  >
+    getSignRecordingForExercise
+  </button>
+  <button
+    label="action"
+    @click="
+      store.signdata.actions.getProgress(exercises[0].id, exercises[0].signs[0])
+    "
+  >
+    getProgress
+  </button>
+  <button
+    label="action"
+    @click="
+      store.signdata.actions.patchProgress(
+        exercises[0].id,
+        exercises[0].signs[0],
+        400
+      )
+    "
+  >
+    patchProgress
   </button>
 
   <h2>Userdata</h2>
