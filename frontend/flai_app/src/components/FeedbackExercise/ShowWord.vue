@@ -30,13 +30,14 @@ const showSign = ref(true)
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 function correct() {
-  if (
-    progressSmallerLevelTwo.value ||
-    (progressSmallerLevelThree.value && !showSign.value)
-  ) {
-    store.exercisedata.methods.increaseProgress(
+  console.log('cor', showSign.value)
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('correct, update progress')
+    const progress = props.signs[index.value].progress + 10
+    store.signdata.actions.patchProgress(
       props.exerciseId,
-      props.signs[index.value].name
+      props.signs[index.value].id,
+      progress
     )
   }
   feedbackClass.value = 'right'
@@ -47,13 +48,13 @@ function correct() {
   }
 }
 function wrong() {
-  if (
-    progressSmallerLevelTwo.value ||
-    (progressSmallerLevelThree.value && !showSign.value)
-  ) {
-    store.exercisedata.methods.decreaseProgress(
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('correct, update progress')
+    const progress = props.signs[index.value].progress - 10
+    store.signdata.actions.patchProgress(
       props.exerciseId,
-      props.signs[index.value].name
+      props.signs[index.value].id,
+      progress
     )
   }
   feedbackClass.value = 'wrong'
@@ -73,7 +74,10 @@ function checkProgress(sign: Sign) {
     showSign.value = false
     if (sign.progress >= store.exercisedata.exerciseSettings.level_2) {
       progressSmallerLevelTwo.value = false
-      if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
+      if (
+        sign.progress >= store.exercisedata.exerciseSettings.level_3 &&
+        !sign.level_3_reached
+      ) {
         progressSmallerLevelThree.value = false
         console.log('increaseUnlockedSigns')
         store.exercisedata.methods.increaseUnlockedSigns()
@@ -85,8 +89,11 @@ function checkProgress(sign: Sign) {
   console.log(
     'progress',
     sign.progress,
+    'smaller2',
     progressSmallerLevelTwo.value,
-    progressSmallerLevelThree.value
+    'smaller3',
+    progressSmallerLevelThree.value,
+    sign.level_3_reached
   )
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
