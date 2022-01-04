@@ -4,3 +4,23 @@ button {
   border-width: 3px;
   @include fonts('GothamSSm-Bold.otf');
 }
+
+//Primary Button Blue
+.prmBlue {
+  border-color: $main-blue;
+}
+
+//Primary Button Orange
+.prmOrange {
+  border-color: $main-orange;
+}
+
+//Secondary Button Blue
+.secBlue {
+  border-color: $main-blue;
+}
+
+//Second Button Orange
+.secOrange {
+  border-color: $main-orange;
+}
