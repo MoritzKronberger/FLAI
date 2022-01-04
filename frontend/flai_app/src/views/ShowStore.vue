@@ -73,13 +73,6 @@ async function patchExerciseSession() {
     100
   )
 }
-async function deleteExerciseSession() {
-  await store.exercisedata.actions.deleteExerciseSession(
-    exercises.value.at(-1).id,
-    exerciseSessions.value.at(-1)
-  )
-}
-
 //signactions
 </script>
 
@@ -114,9 +107,6 @@ async function deleteExerciseSession() {
   </button>
   <button label="action" @click="patchExerciseSession">
     patchExerciseSession
-  </button>
-  <button label="action" @click="deleteExerciseSession">
-    deleteExerciseSession
   </button>
 
   <h3>Sign Actions</h3>
