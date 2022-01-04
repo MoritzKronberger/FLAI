@@ -41,7 +41,6 @@ const methods = {
 
 const actions = {
   /* eslint-disable */
-  // TODO: call from getExercise!
   async getFullSignForExercise(exerciseId: string) {
     console.log('id', exerciseId)
     const jsonData = await jsonAction({

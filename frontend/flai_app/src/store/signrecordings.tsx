@@ -15,7 +15,6 @@ const methods = {
   createSignRecording(sign: Sign) {
     const signRecordings = []
     const signFront: SignRecording = {
-      //TODO: id is not unique!
       id: '' + sign.id,
       path: '',
       mimetypeId: '',

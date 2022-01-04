@@ -72,7 +72,6 @@ const methods = {
       exercises[i].signs = signData.methods.createNewSigns()
     }
   },
-  //TODO: change methods to suit database
   changeExerciseSettingsWordLength(wordLength: number) {
     //if (wordLength <= exerciseSettingsUser.unlockedSigns)
     exerciseSettingsUser.wordLength = wordLength
@@ -131,9 +130,6 @@ const methods = {
     let index = exerciseSessions.findIndex((el) => el.startTime === startTime)
     exerciseSessions.splice(index, 0)
     console.log(exerciseSessions)
-  },
-  stopExerciseSession(searchId: string) {
-    //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
   },
   signAlreadySeen(letter: string) {
     let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
@@ -256,7 +252,6 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      //TODO: does overwriting sessions make sense?
       Object.assign(exerciseSessions, jsonData?.data.rows)
       console.log(exerciseSessions)
     } else if (jsonData?.status === 503) {
@@ -264,8 +259,6 @@ const actions = {
     }
     console.log(jsonData.data)
   },
-
-  // TODO: actions down are not working
   async postNewExerciseSession(exerciseId: string) {
     const startTime = new Date(Date.now()).toISOString()
     const jsonData = await jsonAction({
@@ -313,7 +306,7 @@ const actions = {
     }
     console.log(jsonData.data)
   },
-  async deleteExerciseSession(
+  /*async deleteExerciseSession(
     exerciseId: string,
     exerciseSession: ExerciseSession
   ) {
@@ -326,14 +319,13 @@ const actions = {
         start_time: exerciseSession.startTime,
       },
     })
-    // TODO: check for status code
     if (jsonData?.status === 200 || jsonData?.status === 204) {
       methods.deleteExerciseSession(exerciseSession.startTime)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
     console.log(jsonData.data)
-  },
+  },*/
   /* eslint-enable */
 }
 
