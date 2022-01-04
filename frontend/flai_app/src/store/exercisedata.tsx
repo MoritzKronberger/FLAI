@@ -192,7 +192,15 @@ const actions = {
       data: {},
     })
     if (jsonData?.status === 200) {
-      Object.assign(exercises, jsonData?.data.rows)
+      for (let row of jsonData?.data.rows) {
+        let exerciseCache: Exercise = {
+          id: row.id,
+          name: row.name,
+          description: row.description,
+          signs: await signData.actions.getFullSignForExercise(row.id),
+        }
+        exercises.push(exerciseCache)
+      }
       console.log(exercises)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
@@ -220,6 +228,7 @@ const actions = {
 
       exerciseSettingsUser.wordLength = exerciseData.word_length
       exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
+
       console.log(exercises, exerciseSettings)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)

@@ -43,18 +43,19 @@ const actions = {
   /* eslint-disable */
   // TODO: call from getExercise!
   async getFullSignForExercise(exerciseId: string) {
+    console.log('id', exerciseId)
     const jsonData = await jsonAction({
       method: 'get',
       url: 'sign',
       data: { exercise_id: exerciseId },
     })
     if (jsonData?.status === 200) {
-      console.log(jsonData.data)
       //TODO: call getSignRecording for every sign and add these to the object
-      return jsonData.data
+      return jsonData.data.rows
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log('data', jsonData.data)
   },
   async getSignRecording(signId: string) {
     const jsonData = await jsonAction({
@@ -67,6 +68,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   async getSignRecordingForExercise(exerciseId: string) {
     const jsonData = await jsonAction({
@@ -79,6 +81,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   async getProgress(exerciseId: string, signId: string) {
     const jsonData = await jsonAction({
@@ -96,6 +99,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   async patchProgress(exerciseId: string, signId: string, progress: number) {
     const jsonData = await jsonAction({
@@ -118,6 +122,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   /* eslint-enable */
 }
