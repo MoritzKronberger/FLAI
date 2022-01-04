@@ -57,8 +57,7 @@ const actions = {
             id: user.id,
           },
         },
-      },
-      console.log('get error')
+      }
     )
     return jsonData
   },
