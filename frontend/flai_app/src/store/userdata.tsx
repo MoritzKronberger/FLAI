@@ -14,9 +14,7 @@ export interface RegisterUser {
   username: string
   email: string
   password: string
-  /* eslint-disable */
   right_handed: boolean
-  /* eslint-enable */
 }
 const user: User = reactive({
   id: '',
@@ -31,6 +29,18 @@ const methods = {
     for (const prop in changes) {
       user[prop] = changes[prop]
     }
+  },
+  changeEmail(email: string) {
+    user.email = email
+  },
+  changeUsername(username: string) {
+    user.username = username
+  },
+  changeRightHanded(rightHanded: boolean) {
+    user.right_handed = rightHanded
+  },
+  changeTargetLearningTime(minutes: number) {
+    user.target_learning_time = minutes * 60 * 1000
   },
 }
 
@@ -82,25 +92,6 @@ const actions = {
         id: user.id,
       },
     })
-  },
-}
-
-const methods = {
-  changeEmail(email: string) {
-    actions.patchUser({ email: email })
-    user.email = email
-  },
-  changeUsername(username: string) {
-    user.username = username
-    actions.patchUser({ username: username })
-  },
-  changeRightHanded(rightHanded: boolean) {
-    user.right_handed = rightHanded
-    actions.patchUser({ right_handed: rightHanded }) // eslint-disable-line
-  },
-  changeTargetLearningTime(minutes: number) {
-    user.target_learning_time = minutes * 60 * 1000
-    actions.patchUser({ targetLearningTime: minutes })
   },
 }
 
