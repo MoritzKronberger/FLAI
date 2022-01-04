@@ -15,13 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, inject } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
 import SignControls from './SignControls.vue'
-
-const store: any = inject('store')
+import store from '../../store'
 
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')

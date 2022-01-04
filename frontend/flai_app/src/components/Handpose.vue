@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, Ref, ref } from 'vue'
+import { computed, onMounted, Ref, ref } from 'vue'
+import store from '../store'
 import webcam from '../components/Webcam.vue'
 import { Hands, Results } from '@mediapipe/hands'
 import { Camera } from '@mediapipe/camera_utils'
-
-const store: any = inject('store')
 
 const handposeReady = ref(false)
 let hands: Hands

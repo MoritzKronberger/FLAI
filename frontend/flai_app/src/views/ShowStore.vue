@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, inject, computed } from 'vue'
-const store: any = inject('store')
+import { ref, computed } from 'vue'
+import store from '../store'
 
 //sesiondata
 const session = store.sessiondata.session
