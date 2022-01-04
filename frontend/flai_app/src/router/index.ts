@@ -6,6 +6,7 @@ import LearningExercise from '../views/LearningExercise.vue'
 import FlaiNetTest from '../views/FlaiNetTest.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
+import ComingSoon from '../views/ComingSoon.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/login',
     name: 'LoginPage',
     component: LoginPage,
+  },
+  {
+    path: '/comingsoon',
+    name: 'ComingSoon',
+    component: ComingSoon,
   },
 ]
 
