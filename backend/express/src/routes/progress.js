@@ -12,6 +12,7 @@ progress.get('/', async (req, res) => {
       'sign_id',
       'exercise_id',
       'progress',
+      'intro_done',
       'level_3_reached',
     ],
     res: res,
