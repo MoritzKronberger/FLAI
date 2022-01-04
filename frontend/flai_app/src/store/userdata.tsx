@@ -6,8 +6,8 @@ export interface User {
   id: string //uuid
   email: string
   username: string
-  rightHanded: boolean
-  targetLearningTime: number
+  right_handed: boolean
+  target_learning_time: number
 }
 
 export interface RegisterUser {
@@ -23,8 +23,8 @@ const user: User = reactive({
   id: '',
   email: '',
   username: '',
-  rightHanded: true,
-  targetLearningTime: 10 * 60 * 1000, //millisec
+  right_handed: true,
+  target_learning_time: 10 * 60 * 1000, //millisec
 })
 
 const actions = {
@@ -82,11 +82,11 @@ const methods = {
     actions.patchUser({ username: username })
   },
   changeRightHanded(rightHanded: boolean) {
-    user.rightHanded = rightHanded
+    user.right_handed = rightHanded
     actions.patchUser({ right_handed: rightHanded }) // eslint-disable-line
   },
   changeTargetLearningTime(minutes: number) {
-    user.targetLearningTime = minutes * 60 * 1000
+    user.target_learning_time = minutes * 60 * 1000
     actions.patchUser({ targetLearningTime: minutes })
   },
 }

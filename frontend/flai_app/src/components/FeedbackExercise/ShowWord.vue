@@ -67,13 +67,13 @@ function wrong() {
 
 function checkProgress(sign: Sign) {
   console.log('sign', sign.name, 'progress', sign.progress)
-  if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
+  if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     progressSmallerLevelTwo.value = true
     progressSmallerLevelThree.value = true
     showSign.value = false
-    if (sign.progress >= store.exercisedata.exerciseSettings.level2) {
+    if (sign.progress >= store.exercisedata.exerciseSettings.level_2) {
       progressSmallerLevelTwo.value = false
-      if (sign.progress >= store.exercisedata.exerciseSettings.level3) {
+      if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
         progressSmallerLevelThree.value = false
         console.log('increaseUnlockedSigns')
         store.exercisedata.methods.increaseUnlockedSigns()

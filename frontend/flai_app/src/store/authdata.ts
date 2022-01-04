@@ -5,7 +5,7 @@ export interface Auth {
   token: string
   email: string
   password: string
-  userId: string
+  user_id: string
   isAuth: boolean
 }
 
@@ -18,7 +18,7 @@ const auth: Auth = reactive({
   token: '',
   email: 'miriam.weber@email.com',
   password: 'supersecret',
-  userId: '',
+  user_id: '',
   isAuth: false,
 })
 
@@ -27,7 +27,7 @@ const methods = {
     return auth.token
   },
   fetchUserId() {
-    return auth.userId
+    return auth.user_id
   },
 
   fetchIsAuth() {
@@ -49,7 +49,7 @@ const actions = {
     })
     if(jsonData?.status === 200){
       auth.token = jsonData?.data.jwt
-      auth.userId = jsonData?.data.ids.id
+      auth.user_id = jsonData?.data.ids.id
       auth.isAuth = methods.setAuth(true)
     }
     return jsonData
