@@ -1,5 +1,7 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
+import exerciseData from './exercisedata'
+import userData from './userdata'
 
 export interface Auth {
   token: string
@@ -52,6 +54,11 @@ const actions = {
       auth.token = jsonData?.data.jwt
       auth.user_id = jsonData?.data.id
       auth.isAuth = methods.setAuth(true)
+      await userData.actions.getUser()
+      await exerciseData.actions.getAllExercises()
+      await exerciseData.actions.getFullExerciseForUser(
+        exerciseData.exercises[0].id
+      )
     }
     return jsonData
   },
