@@ -10,11 +10,11 @@ auth.post('/login', async (req, res) => {
   const { result } = await loginUser(req.body)
   if (result.status === 200) {
     const accessToken = generateAccessToken(result.ids.id)
+    res.status(result.status).json({ ...result, jwt: accessToken })
+  } else {
     res
       .status(result.status)
-      .json({ ...result, message: 'logged in', jwt: accessToken })
-  } else {
-    res.status(result.status).json({ ...result, message: 'not logged in' })
+      .json({ ...result, message: 'Ungültige E-Mail-Adresse oder Passwort' })
   }
 })
 
