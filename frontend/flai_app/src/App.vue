@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { provide, onMounted, ref } from 'vue'
 import store from './store'
-import DropDownMenu from './components/DropDownMenu.vue'
+import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
 
 provide('store', store)
 
@@ -30,6 +30,9 @@ function handleInput(e: Event) {
   <main>
     <router-view />
   </main>
+  <aside>
+    <SidebarMenu />
+  </aside>
 </template>
 
 <style>
