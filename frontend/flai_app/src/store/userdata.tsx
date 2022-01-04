@@ -5,15 +5,15 @@ export interface User {
   [id: string]: string | number | undefined | boolean
   email: string
   username: string
-  rightHanded: boolean
-  targetLearningTime: number
+  right_handed: boolean
+  target_learning_time: number
 }
 const user: User = reactive({
   id: '',
   email: '',
   username: '',
-  rightHanded: true,
-  targetLearningTime: 10 * 60 * 1000, //millisec
+  right_handed: true,
+  target_learning_time: 10 * 60 * 1000, //millisec
 })
 
 const methods = {
@@ -33,10 +33,10 @@ const actions = {
       data: { id: user.id },
     })
     const data = jsonData?.data.rows[0]
-    user.email = data.email
-    user.username = data.username
-    user.rightHanded = data.right_handed
-    user.targetLearningTime = data.target_learning_time
+    for (const prop in data) {
+      user[prop] = data[prop]
+    }
+    console.log(user)
     return jsonData
   },
 
@@ -63,7 +63,6 @@ const actions = {
           },
         },
       },
-      methods.patchOptionsLocally(patch)
     )
     if (jsonData?.status === 200) {
       methods.patchOptionsLocally(patch)
