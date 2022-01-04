@@ -141,22 +141,35 @@ async function deleteExerciseSession() {
   <button
     label="action"
     @click="
-      store.signdata.actions.getProgress(exercises[0].id, exercises[0].signs[0])
+      store.signdata.actions.getProgress(
+        exercises[0].id,
+        exercises[0].signs[0].id
+      )
     "
   >
     getProgress
   </button>
   <button
-    label="action"
     @click="
       store.signdata.actions.patchProgress(
         exercises[0].id,
-        exercises[0].signs[0],
-        400
+        exercises[0].signs[0].id,
+        10
       )
     "
   >
-    patchProgress
+    Update first Sign progress to 10
+  </button>
+  <button
+    @click="
+      store.signdata.actions.patchProgress(
+        exercises[0].id,
+        exercises[0].signs[0].id,
+        100
+      )
+    "
+  >
+    Update firstSign progress to 100
   </button>
 
   <h2>Userdata</h2>
@@ -211,14 +224,6 @@ async function deleteExerciseSession() {
   <p v-for="(value, name) in session" :key="value">{{ name }}: {{ value }}</p>
   <Button @click="sessionMethods.startTimer">Start Timer</Button>
   <Button @click="sessionMethods.updateTimer">Update Timer</Button>
-  <h2>Signdata</h2>
-  <h3>Update progress + 10:</h3>
-  <label>letter:</label>
-  <input
-    v-model="letter"
-    type="text"
-    @keyup.enter="exerciseMethods.increaseProgress('0', letter)"
-  />
 </template>
 
 <style scoped>
