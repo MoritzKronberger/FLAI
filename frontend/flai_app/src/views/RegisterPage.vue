@@ -2,11 +2,12 @@
 import textInputField from '../components/TextInputField.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import customButton from '../components/CustomButton.vue'
-import router from '../router'
-import { inject, ref } from 'vue'
+import store from '../store'
+import { ref } from 'vue'
 import { RegisterUser } from '../store/userdata'
+import { useRouter } from 'vue-router'
 
-const store: any = inject('store')
+const router = useRouter()
 
 const user = ref<RegisterUser>({
   username: '',
@@ -25,11 +26,11 @@ const userMethods = store.userdata.methods
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await userActions.postNewUser(submitUser)
-  if (result.status === 200) {
+  if (result?.status === 200) {
     userMethods.changeEmail(submitUser.email)
     router.push({ name: 'LoginPage' })
   } else {
-    errorMessage.value = result.data.message
+    errorMessage.value = result?.data.message
   }
 }
 </script>

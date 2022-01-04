@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
-import router from '../router'
-import { computed, ComputedRef, inject, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { LoginUser } from '../store/authdata'
-import { User } from '../store/userdata'
+import store from '../store'
+import { useRouter } from 'vue-router'
 
-const store: any = inject('store')
+const router = useRouter()
 
 const userActions = store.userdata.actions
 const authActions = store.authdata.actions
-const userData = computed(() => store.userdata.user) as ComputedRef<User>
+const userData = computed(() => store.userdata.user)
 
 const user = ref<LoginUser>({
   email: '',
@@ -26,11 +26,11 @@ onMounted(() => {
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await authActions.loginUser(submitUser)
-  if (result.status === 200) {
+  if (result?.status === 200) {
     await userActions.getUser()
     router.push({ name: 'HomePage' })
   } else {
-    errorMessage.value = result.data.message
+    errorMessage.value = result?.data.message
   }
 }
 </script>
