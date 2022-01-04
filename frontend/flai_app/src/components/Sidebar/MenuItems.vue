@@ -15,19 +15,17 @@ const setShow = (newShow: boolean): void => {
 </script>
 
 <template>
-  <ul>
-    <li @mouseover="setShow(true)" @mouseleave="setShow(false)">
-      <router-link :to="{ name: viewName }">
-        <span v-if="show">{{ description }}</span>
-        <icon-loader
-          :path="iconPath"
-          :mimetype="iconMimetype"
-          :alt="description"
-          element-class="sidebar-icon"
-        />
-      </router-link>
-    </li>
-  </ul>
+  <div @mouseover="setShow(true)" @mouseleave="setShow(false)">
+    <router-link :to="{ name: viewName }">
+      <icon-loader
+        :path="iconPath"
+        :mimetype="iconMimetype"
+        :alt="description"
+        element-class="sidebar-icon"
+      />
+      <span v-if="show">{{ description }}</span>
+    </router-link>
+  </div>
 </template>
 
 <style scoped>

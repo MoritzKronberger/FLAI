@@ -27,14 +27,14 @@ const menuItems: MenuItem[] = [
 
 <template>
   <nav>
-    <span v-for="(menuItem, index) in menuItems" :key="index">
-      <MenuItems
-        :view-name="menuItem.viewName"
-        :icon-path="menuItem.iconPath"
-        icon-mimetype="svg"
-        :description="menuItem.description"
-      />
-    </span>
+    <MenuItems
+      v-for="(menuItem, index) in menuItems"
+      :key="index"
+      :view-name="menuItem.viewName"
+      :icon-path="menuItem.iconPath"
+      icon-mimetype="svg"
+      :description="menuItem.description"
+    />
   </nav>
 </template>
 
