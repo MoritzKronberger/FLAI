@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue'
+import IconLoader from '../IconLoader.vue'
 
 const store: any = inject('store')
 
@@ -7,24 +8,33 @@ const store: any = inject('store')
 const session = computed(() => store.sessiondata.session)
 const sessionMethods = store.sessiondata.methods
 const props = defineProps<{
-  link: string
-  icon: string
+  viewName: string
+  iconPath: string
+  iconMimetype: string
   description: string
   state: boolean
 }>()
-const show = ref()
+const show = ref(false)
+const setShow = (newShow: boolean): void => {
+  show.value = newShow
+}
 function updateLink() {
-  sessionMethods.updateMenuItemLink(props.link)
+  sessionMethods.updateMenuItemLink(props.viewName)
 }
 </script>
 
 <template>
   <ul>
-    <li @mouseover="show = true" @mouseleave="show = false">
-      <span v-if="session.menuItemLink == link" class="active"></span>
-      <a :href="link" @click="updateLink()">
-        <span class="icon">{{ icon }}</span>
+    <li @mouseover="setShow(true)" @mouseleave="setShow(false)">
+      <span v-if="session.menuItemLink == viewName" class="active"></span>
+      <a :href="viewName" @click="updateLink()">
         <span v-if="show">{{ description }}</span>
+        <icon-loader
+          :path="iconPath"
+          :mimetype="iconMimetype"
+          :alt="description"
+          element-class="sidebar-icon"
+        />
       </a>
     </li>
   </ul>

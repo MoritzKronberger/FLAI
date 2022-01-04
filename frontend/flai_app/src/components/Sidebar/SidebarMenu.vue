@@ -1,35 +1,29 @@
 <script setup lang="ts">
 import MenuItems from './MenuItems.vue'
 
-const menuItems = [
+declare interface MenuItem {
+  viewName: string
+  iconPath: string
+  description: string
+  state: boolean
+}
+const menuItems: MenuItem[] = [
   {
-    link: '#home',
-    icon: 'H',
+    viewName: '#home',
+    iconPath: '../assets/icons/home',
     description: 'Home',
     state: true,
   },
   {
-    link: '#training',
-    icon: 'T',
+    viewName: '#training',
+    iconPath: '../assets/icons/lections',
     description: 'Training',
     state: false,
   },
   {
-    link: '#profile',
-    icon: 'P',
+    viewName: '#profile',
+    iconPath: '../assets/icons/profile',
     description: 'Profil',
-    state: false,
-  },
-  {
-    link: '#stats',
-    icon: 'S',
-    description: 'Lernstatistik',
-    state: false,
-  },
-  {
-    link: '#tutorial',
-    icon: 'T',
-    description: 'Tutorial',
     state: false,
   },
 ]
@@ -39,8 +33,9 @@ const menuItems = [
   <nav>
     <span v-for="(menuItem, index) in menuItems" :key="index">
       <MenuItems
-        :link="menuItem.link"
-        :icon="menuItem.icon"
+        :view-name="menuItem.viewName"
+        :icon-path="menuItem.iconPath"
+        icon-mimetype="svg"
         :description="menuItem.description"
         :state="menuItem.state"
       />
