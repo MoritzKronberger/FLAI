@@ -7,14 +7,16 @@ defineProps<{
 </script>
 
 <template>
-  <IconLoader
-    path="../assets/statisticPlaceholders/streak"
-    mimetype="svg"
-    alt="Streak Icon"
-    element-class="streak-icon"
-  />
-  <span class="day-counter">{{ days }}</span>
-  <span> Tage in Folge</span>
+  <div>
+    <IconLoader
+      path="../assets/statisticPlaceholders/streak"
+      mimetype="svg"
+      alt="Streak Icon"
+      element-class="streak-icon"
+    />
+    <span class="day-counter">{{ days }}</span>
+    <span> Tage in Folge</span>
+  </div>
 </template>
 
 <style scoped>
