@@ -90,7 +90,7 @@ const methods = {
   startNewExerciseSession(exerciseId: string, startTime: string) {
     let word = this.generateWord(exerciseId)
     const newSession: ExerciseSession = {
-      start_time: Date.now(),
+      start_time: startTime,
       session_duration: 0,
       order: 0,
       signs: word,
@@ -144,6 +144,8 @@ const methods = {
       exerciseSettings.level_3
     ) {
       exercises[exerciseIndex].signs[signIndex].level_3_reached = true
+    } else {
+      exercises[exerciseIndex].signs[signIndex].level_3_reached = false
     }
     console.log(
       'updatedSign',

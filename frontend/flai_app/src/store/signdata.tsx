@@ -59,11 +59,11 @@ const actions = {
         let sign: Sign = {
           id: row.id,
           name: row.name,
-          motionCategoryId: row.motion_category,
+          motion_category_id: row.motion_category,
           progress: jsonProgress.progress,
-          level3Reached: jsonProgress.level_3_reached,
+          level_3_reached: jsonProgress.level_3_reached,
           recordings: await actions.getSignRecording(row.id),
-          alreadySeen: row.alreadySeen,
+          intro_done: row.intro_done,
         }
         signs.push(sign)
       }
