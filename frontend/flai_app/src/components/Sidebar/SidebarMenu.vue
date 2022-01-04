@@ -5,26 +5,22 @@ declare interface MenuItem {
   viewName: string
   iconPath: string
   description: string
-  state: boolean
 }
 const menuItems: MenuItem[] = [
   {
     viewName: 'HomePage',
     iconPath: '../assets/icons/home',
     description: 'Home',
-    state: true,
   },
   {
     viewName: 'LearningExercise',
     iconPath: '../assets/icons/lections',
     description: 'Training',
-    state: false,
   },
   {
     viewName: 'ShowStore',
     iconPath: '../assets/icons/profile',
     description: 'Profil',
-    state: false,
   },
 ]
 </script>
@@ -37,7 +33,6 @@ const menuItems: MenuItem[] = [
         :icon-path="menuItem.iconPath"
         icon-mimetype="svg"
         :description="menuItem.description"
-        :state="menuItem.state"
       />
     </span>
   </nav>

@@ -1,32 +1,22 @@
 <script setup lang="ts">
-import { ref, inject, computed } from 'vue'
+import { ref } from 'vue'
 import IconLoader from '../IconLoader.vue'
 
-const store: any = inject('store')
-
-//sesiondata
-const session = computed(() => store.sessiondata.session)
-const sessionMethods = store.sessiondata.methods
-const props = defineProps<{
+defineProps<{
   viewName: string
   iconPath: string
   iconMimetype: string
   description: string
-  state: boolean
 }>()
 const show = ref(false)
 const setShow = (newShow: boolean): void => {
   show.value = newShow
-}
-function updateLink() {
-  sessionMethods.updateMenuItemLink(props.viewName)
 }
 </script>
 
 <template>
   <ul>
     <li @mouseover="setShow(true)" @mouseleave="setShow(false)">
-      <span v-if="session.menuItemLink == viewName" class="active"></span>
       <router-link :to="{ name: viewName }">
         <span v-if="show">{{ description }}</span>
         <icon-loader

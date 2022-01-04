@@ -3,13 +3,11 @@ import { reactive, readonly } from 'vue'
 export interface Session {
   start_time: number
   timer: number
-  menuItemLink: string
 }
 
 const session: Session = reactive({
   start_time: 0,
   timer: 0,
-  menuItemLink: '#home',
 })
 
 const methods = {
@@ -18,9 +16,6 @@ const methods = {
   },
   updateTimer() {
     session.timer = Date.now() - session.start_time
-  },
-  updateMenuItemLink(link: string) {
-    return (session.menuItemLink = link)
   },
 }
 
