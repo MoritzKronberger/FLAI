@@ -23,7 +23,7 @@ const buttonClick = (): void => {
     <h1>Buttons</h1>
     <custom-button
       label="Test Button"
-      btnclass="button-primary"
+      btnclass="testBtn"
       @button-click="buttonClick"
     />
     <div>Test Button click count is: {{ clickCount }}</div>

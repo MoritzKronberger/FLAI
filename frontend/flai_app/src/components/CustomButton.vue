@@ -14,6 +14,6 @@ function onclick() {
   </button>
 </template>
 
-<style scoped>
-/** here place for import scss */
+<style scoped lang="scss">
+@import '../assets/scss/components/_button.scss';
 </style>
