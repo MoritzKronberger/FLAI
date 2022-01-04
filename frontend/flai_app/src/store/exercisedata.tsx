@@ -46,7 +46,7 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
 })
 
 export interface ExerciseSession {
-  startTime: number
+  startTime: string
   sessionDuration: number
   order: number
   signs: Sign[]
@@ -86,11 +86,10 @@ const methods = {
       exerciseSettingsUser.unlockedSigns -=
         exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
-  startNewExerciseSession() {
-    let word = this.generateWord()
+  startNewExerciseSession(exerciseId: string) {
+    let word = this.generateWord(exerciseId)
     const newSession: ExerciseSession = {
-      // TODO: parse date into right format?
-      startTime: Date.now(),
+      startTime: new Date(Date.now()).toISOString(),
       sessionDuration: 0,
       order: 0,
       signs: word,
@@ -98,10 +97,10 @@ const methods = {
     exerciseSessions.push(newSession)
     return exerciseSessions
   },
-  generateWord() {
+  generateWord(exerciseId: string) {
     const word: Sign[] = []
     if (exercises.length > 0) {
-      let signCopy = [...exercises[0].signs]
+      let signCopy = [...exercises[exerciseId].signs]
       for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
         //get sum of progress
         let weightArray = []
@@ -116,14 +115,14 @@ const methods = {
     console.log('word', word)
     return word
   },
-  changeExerciseSessionDuration(startTime: number, duration: number) {
+  changeExerciseSessionDuration(startTime: string, duration: number) {
     let session = exerciseSessions.find((el) => el.startTime === startTime)
     if (session) {
       session.sessionDuration = duration
       console.log('new duration', session)
     }
   },
-  deleteExerciseSession(startTime: number) {
+  deleteExerciseSession(startTime: string) {
     let index = exerciseSessions.findIndex((el) => el.startTime === startTime)
     exerciseSessions.splice(index, 0)
   },
@@ -280,13 +279,12 @@ const actions = {
       data: {
         exercise_id: exerciseId,
         user_id: userData.user.id,
-        // TODO: parse date into right format?
-        //start_time: Date.now(),
-        start_time: '2021-12-31 13:12:00.595133+00',
+        start_time: new Date(Date.now()).toISOString(),
       },
     })
     if (jsonData?.status === 200) {
-      methods.startNewExerciseSession()
+      console.log(jsonData.data)
+      methods.startNewExerciseSession(exerciseId)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
