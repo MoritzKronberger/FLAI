@@ -22,7 +22,7 @@ module.exports = {
     'prefer-const': [
       'error',
       {
-        destructuring: 'all', //Checks for destructured variables, where all should be const. Can be changed to "any"
+        destructuring: 'all', // Checks for destructured variables, where all should be const. Can be changed to "any"
         ignoreReadBeforeAssign: false,
       },
     ],
