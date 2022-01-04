@@ -7,24 +7,28 @@ button {
 
 //Primary Button Blue
 .prmBlue {
+  color: $main-white;
   border-color: $main-blue;
   background-color: $main-blue;
 }
 
 //Primary Button Orange
 .prmOrange {
+  color: $main-white;
   border-color: $main-orange;
   background-color: $main-orange;
 }
 
 //Secondary Button Blue
 .secBlue {
+  color: $main-blue;
   border-color: $main-blue;
   background-color: $main-white;
 }
 
 //Second Button Orange
 .secOrange {
+  color: $main-blue;
   border-color: $main-orange;
   background-color: $main-white;
 }
