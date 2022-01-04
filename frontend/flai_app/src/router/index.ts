@@ -5,6 +5,9 @@ import ShowStore from '../views/ShowStore.vue'
 import LearningExercise from '../views/LearningExercise.vue'
 import FlaiNetTest from '../views/FlaiNetTest.vue'
 import ProfilePage from '../views/ProfilePage.vue'
+import RegisterPage from '../views/RegisterPage.vue'
+import LoginPage from '../views/LoginPage.vue'
+import ComingSoon from '../views/ComingSoon.vue'
 
 const routes = [
   {
@@ -36,6 +39,21 @@ const routes = [
     path: '/profile',
     name: 'ProfilePage',
     component: ProfilePage,
+  },
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: RegisterPage,
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
+  },
+  {
+    path: '/comingsoon',
+    name: 'ComingSoon',
+    component: ComingSoon,
   },
 ]
 

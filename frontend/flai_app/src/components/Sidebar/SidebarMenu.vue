@@ -1,50 +1,45 @@
 <script setup lang="ts">
 import MenuItems from './MenuItems.vue'
 
-const menuItems = [
+declare interface MenuItem {
+  viewName: string
+  iconPath: string
+  flyoutText: string
+  iconAltText: string
+}
+const menuItems: MenuItem[] = [
   {
-    link: '#home',
-    icon: 'H',
-    description: 'Home',
-    state: true,
+    viewName: 'HomePage',
+    iconPath: '../assets/icons/home',
+    flyoutText: 'Home',
+    iconAltText: 'Home icon',
   },
   {
-    link: '#training',
-    icon: 'T',
-    description: 'Training',
-    state: false,
+    viewName: 'LearningExercise',
+    iconPath: '../assets/icons/lections',
+    flyoutText: 'Lektionen',
+    iconAltText: 'Lektionen Icon',
   },
   {
-    link: '#profile',
-    icon: 'P',
-    description: 'Profil',
-    state: false,
-  },
-  {
-    link: '#stats',
-    icon: 'S',
-    description: 'Lernstatistik',
-    state: false,
-  },
-  {
-    link: '#tutorial',
-    icon: 'T',
-    description: 'Tutorial',
-    state: false,
+    viewName: 'ShowStore',
+    iconPath: '../assets/icons/profile',
+    flyoutText: 'Konto',
+    iconAltText: 'Konto Icon',
   },
 ]
 </script>
 
 <template>
   <nav>
-    <span v-for="(menuItem, index) in menuItems" :key="index">
-      <MenuItems
-        :link="menuItem.link"
-        :icon="menuItem.icon"
-        :description="menuItem.description"
-        :state="menuItem.state"
-      />
-    </span>
+    <MenuItems
+      v-for="(menuItem, index) in menuItems"
+      :key="index"
+      :view-name="menuItem.viewName"
+      :icon-path="menuItem.iconPath"
+      icon-mimetype="svg"
+      :flyout-text="menuItem.flyoutText"
+      :icon-alt-text="menuItem.iconAltText"
+    />
   </nav>
 </template>
 

@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { provide, onMounted, ref } from 'vue'
 import store from './store'
-import DropDownMenu from './components/DropDownMenu.vue'
+import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
 
 provide('store', store)
 
-const exercisedata = store.exercisedata.actions
-const authdata = store.authdata.actions
-const userdata = store.userdata.actions
 //onMounted(store.exercisedata.methods.getExercises) // fake frontend method
 //onMounted(store.exercisedata.actions.getAllExercises) // real backend action
 onMounted(store.sessiondata.methods.startTimer)
@@ -28,13 +25,15 @@ function handleInput(e: Event) {
     <router-link :to="{ name: 'TestComponents' }">TestComponents</router-link>
     <router-link :to="{ name: 'TestFlaiNet' }">TestFlaiNet</router-link>
     <router-link :to="{ name: 'ProfilePage' }">Profile</router-link>
+    <router-link :to="{ name: 'RegisterPage' }">Register</router-link>
+    <router-link :to="{ name: 'LoginPage' }">Login</router-link>
   </div>
   <main>
     <router-view />
-    <Button @click="userdata.getUser">Userdata</Button>
-    <Button @click="authdata.loginUser">Login</Button>
-    <Button @click="authdata.logoutUser">Logout</Button>
   </main>
+  <aside>
+    <SidebarMenu />
+  </aside>
 </template>
 
 <style>

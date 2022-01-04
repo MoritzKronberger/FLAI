@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { inject, computed } from 'vue'
+import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
+import StatisticDashboardLarge from '../components/Statistic/StatisticDashboardLarge.vue'
+
+const store: any = inject('store')
+const user = computed(() => store.userdata.user)
+</script>
+
 <template>
   <h2>
     Hallo, <b>{{ user.username }}!</b>
@@ -20,36 +29,9 @@
       />
     </div>
   </div>
-  <h2>Statistik</h2>
-  <div class="row">
-    <div class="statistic">
-      <div class="circle">
-        <p class="number">5</p>
-      </div>
-      <p class="underline">Statistik Platzhalter</p>
-    </div>
-    <div class="statistic">
-      <div class="circle">
-        <p class="number">3</p>
-      </div>
-      <p class="underline">Statistik Platzhalter2</p>
-    </div>
-  </div>
+  <StatisticDashboardSmall />
+  <StatisticDashboardLarge />
 </template>
-
-<script lang="ts">
-import { inject, computed } from 'vue'
-
-export default {
-  setup() {
-    const store: any = inject('store')
-    const user = computed(() => store.userdata.user)
-    return {
-      user,
-    }
-  },
-}
-</script>
 
 <style>
 h2 {
