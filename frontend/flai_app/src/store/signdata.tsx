@@ -50,12 +50,25 @@ const actions = {
       data: { exercise_id: exerciseId },
     })
     if (jsonData?.status === 200) {
-      //TODO: call getSignRecording for every sign and add these to the object
-      return jsonData.data.rows
+      let signs: Sign[] = []
+      for (let row of jsonData?.data.rows) {
+        let sign: Sign = {
+          id: row.id,
+          name: row.name,
+          motionCategoryId: row.motionCategoryId,
+          progress: row.progress,
+          level3Reached: row.level3Reached,
+          recordings: await actions.getSignRecording(row.id),
+          alreadySeen: row.alreadySeen,
+        }
+        signs.push(sign)
+      }
+      return signs
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
     console.log('data', jsonData.data)
+    return []
   },
   async getSignRecording(signId: string) {
     const jsonData = await jsonAction({
