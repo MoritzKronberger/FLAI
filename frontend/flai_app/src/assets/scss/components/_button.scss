@@ -1,5 +1,8 @@
 //same styling for all button
 button {
+  padding: 20px;
+  width: 150px;
+
   text-align: center;
   @include fonts('GothamSSm-Bold.otf');
 
