@@ -52,12 +52,17 @@ const actions = {
     if (jsonData?.status === 200) {
       let signs: Sign[] = []
       for (let row of jsonData?.data.rows) {
+        let jsonProgress = await this.getProgress(exerciseId, row.id)
+        jsonProgress =
+          jsonProgress === undefined
+            ? { progress: 0, level_3_reached: false }
+            : jsonProgress.rows[0]
         let sign: Sign = {
           id: row.id,
           name: row.name,
-          motionCategoryId: row.motionCategoryId,
-          progress: row.progress,
-          level3Reached: row.level3Reached,
+          motionCategoryId: row.motion_category,
+          progress: jsonProgress.progress,
+          level3Reached: jsonProgress.level_3_reached,
           recordings: await actions.getSignRecording(row.id),
           alreadySeen: row.alreadySeen,
         }
@@ -77,13 +82,13 @@ const actions = {
       data: { sign_id: signId },
     })
     if (jsonData?.status === 200) {
-      return jsonData.data
+      return jsonData.data.rows
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
+    console.log(jsonData.data.rows)
   },
-  async getSignRecordingForExercise(exerciseId: string) {
+  /*async getSignRecordingForExercise(exerciseId: string) {
     const jsonData = await jsonAction({
       method: 'get',
       url: 'sign-recording/sign/exercise',
@@ -95,7 +100,7 @@ const actions = {
       errorMessage(networkMessage)
     }
     console.log(jsonData.data)
-  },
+  },*/
   async getProgress(exerciseId: string, signId: string) {
     const jsonData = await jsonAction({
       method: 'get',
@@ -107,12 +112,11 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      // TODO: add progress methods in here
       return jsonData.data
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
+    console.log('data', jsonData.data)
   },
   async patchProgress(exerciseId: string, signId: string, progress: number) {
     const jsonData = await jsonAction({
