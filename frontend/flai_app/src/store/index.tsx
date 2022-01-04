@@ -4,9 +4,9 @@ import exercisedata from './exercisedata'
 import signdata from './signdata'
 import handposedata from './handposedata'
 import flainetdata from './flainetdata'
-
 import authdata from './authdata'
-export default {
+
+const store = {
   userdata,
   sessiondata,
   exercisedata,
@@ -15,3 +15,5 @@ export default {
   flainetdata,
   authdata,
 }
+
+export default store

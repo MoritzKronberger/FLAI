@@ -43,7 +43,9 @@ const jsonResult = async (config: object) => {
     return res
   } catch (error) {
     const err = error as AxiosError
-    return err.response
+    if (err.response)
+      return { status: err.response.status, data: err.response.data }
+    return { status: 503, data: { message: 'Network Error' } }
   }
 }
 
