@@ -3,9 +3,9 @@ import { Sign } from './signdata'
 export interface SignRecording {
   id: string
   path: string //for frontend purposes: url, should be BYTEA number?
-  mimetype_id: string
+  mimetype: string
   sign_id: string
-  perspective_id: string //for frontend purposes: 'front' or 'side'
+  perspective: string //for frontend purposes: 'front' or 'side'
 }
 
 const signRecording: SignRecording[] = []
@@ -17,20 +17,20 @@ const methods = {
     const signFront: SignRecording = {
       id: '' + sign.id,
       path: '',
-      mimetype_id: '',
+      mimetype: '',
       sign_id: '',
-      perspective_id: 'front',
+      perspective: 'front',
     }
     const name = sign.name.toUpperCase()
-    signFront.path = `src/assets/signs/vid/${signFront.perspective_id}/${name}_vid_${signFront.perspective_id}.webm`
+    signFront.path = `src/assets/signs/vid/${signFront.perspective}/${name}_vid_${signFront.perspective}.webm`
     const signSide: SignRecording = {
       id: '' + sign.id,
       path: 'putUrlHere',
-      mimetype_id: '',
+      mimetype: '',
       sign_id: '',
-      perspective_id: 'side',
+      perspective: 'side',
     }
-    signSide.path = `src/assets/signs/vid/${signSide.perspective_id}/${name}_vid_${signSide.perspective_id}.webm`
+    signSide.path = `src/assets/signs/vid/${signSide.perspective}/${name}_vid_${signSide.perspective}.webm`
     signRecordings.push(signFront)
     signRecordings.push(signSide)
     return signRecordings
