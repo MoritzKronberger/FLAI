@@ -16,8 +16,8 @@ import ShowWord from './ShowWord.vue'
 import { ExerciseSession } from '../../store/exercisedata'
 
 const store: any = inject('store')
-const session: ComputedRef<ExerciseSession> = computed(() =>
-  store.exercisedata.exerciseSessions.at(-1)
+const signs: ComputedRef<Sign[]> = computed(
+  () => store.exercisedata.exerciseSessions.at(-1).signs
 )
 const newSigns: Sign[] = []
 const stepOneWatch = ref(true)
@@ -36,7 +36,7 @@ function getNewSigns(signs: Sign[]) {
 
 onBeforeMount(async () => {
   await store.exercisedata.actions.postNewExerciseSession(exerciseId.value)
-  getNewSigns(session.value.signs)
+  getNewSigns(signs.value)
 })
 
 function onNextStep() {
