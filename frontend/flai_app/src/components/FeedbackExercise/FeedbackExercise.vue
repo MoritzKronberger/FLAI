@@ -26,12 +26,12 @@ const exerciseId: ComputedRef<string> = computed(
 )
 
 function getNewSigns(signs: Sign[]) {
+  newSigns.length = 0
   for (const sign of signs) {
     if (sign.intro_done === false) {
       newSigns.push(sign)
     }
   }
-  console.log('new', newSigns)
 }
 
 onBeforeMount(async () => {
