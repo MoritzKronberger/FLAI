@@ -9,11 +9,11 @@ import userData from './userdata'
 export interface Sign {
   id: string
   name: string
-  motionCategoryId: string
+  motion_category_id: string
   progress: number
-  level3Reached: boolean
+  level_3_reached: boolean
   recordings: SignRecording[]
-  alreadySeen: boolean
+  intro_done: boolean
 }
 
 const signs: Sign[] = reactive([])
@@ -25,11 +25,11 @@ const methods = {
       const sign: Sign = {
         id: '' + i,
         name: String.fromCharCode(97 + i),
-        motionCategoryId: '',
+        motion_category_id: '',
         progress: 0,
-        level3Reached: false,
+        level_3_reached: false,
         recordings: [],
-        alreadySeen: false,
+        intro_done: false,
       }
       sign.recordings = signrecordings.methods.createSignRecording(sign)
       signs.push(sign)

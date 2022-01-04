@@ -4,6 +4,8 @@ import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
 import LearningExercise from '../views/LearningExercise.vue'
 import FlaiNetTest from '../views/FlaiNetTest.vue'
+import RegisterPage from '../views/RegisterPage.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
     path: '/flainet',
     name: 'TestFlaiNet',
     component: FlaiNetTest,
+  },
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: RegisterPage,
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
   },
 ]
 

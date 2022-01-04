@@ -41,7 +41,7 @@ const videoPlayer = ref()
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
-    (el) => el.perspectiveId === perspective.value
+    (el) => el.perspective_id === perspective.value
   )
   console.log('el', JSON.stringify(rec))
   if (rec === undefined) {

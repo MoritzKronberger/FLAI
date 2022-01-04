@@ -1,26 +1,36 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
-import authData from './authdata'
+import authdata from './authdata'
+
 export interface User {
   id: string //uuid
   email: string
   username: string
-  rightHanded: boolean
-  targetLearningTime: number
+  right_handed: boolean
+  target_learning_time: number
+}
+
+export interface RegisterUser {
+  username: string
+  email: string
+  password: string
+  /* eslint-disable */
+  right_handed: boolean
+  /* eslint-enable */
 }
 
 const user: User = reactive({
   id: '',
   email: '',
   username: '',
-  rightHanded: true,
-  targetLearningTime: 10 * 60 * 1000, //millisec
+  right_handed: true,
+  target_learning_time: 10 * 60 * 1000, //millisec
 })
 
 const actions = {
   /* eslint-disable */
   async getUser() {
-    user.id = authData.methods.fetchUserId()
+    user.id = authdata.methods.fetchUserId()
     const jsonData = await jsonAction({
       method: 'get',
       url: 'user',
@@ -29,15 +39,11 @@ const actions = {
     console.log(jsonData)
   },
 
-  async postNewUser() {
-    jsonAction({
+  async postNewUser(registerUser: RegisterUser) {
+    return await jsonAction({
       method: 'post',
       url: 'user',
-      data: {
-        username: 'martin',
-        password: 'testmk1',
-        email: 'martin.kohnle@flai-team.de',
-      },
+      data: registerUser,
     })
   },
   async patchUser(patch: object) {
@@ -74,19 +80,19 @@ const methods = {
     actions.patchUser({ username: username })
   },
   changeRightHanded(rightHanded: boolean) {
-    user.rightHanded = rightHanded
+    user.right_handed = rightHanded
     actions.patchUser({ right_handed: rightHanded }) // eslint-disable-line
   },
   changeTargetLearningTime(minutes: number) {
-    user.targetLearningTime = minutes * 60 * 1000
+    user.target_learning_time = minutes * 60 * 1000
     actions.patchUser({ targetLearningTime: minutes })
   },
 }
 
-const userData = {
+const userdata = {
   user: readonly(user) as User,
   methods,
   actions,
 }
 
-export default userData
+export default userdata

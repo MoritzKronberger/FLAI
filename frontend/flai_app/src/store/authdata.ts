@@ -1,20 +1,24 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
-import { errorMessage } from '../ressources/ts/methods'
 
 export interface Auth {
   token: string
   email: string
   password: string
-  userId: string
+  user_id: string
   isAuth: boolean
+}
+
+export interface LoginUser {
+  email: string
+  password: string
 }
 
 const auth: Auth = reactive({
   token: '',
   email: 'miriam.weber@email.com',
   password: 'supersecret',
-  userId: '',
+  user_id: '',
   isAuth: false,
 })
 
@@ -23,7 +27,7 @@ const methods = {
     return auth.token
   },
   fetchUserId() {
-    return auth.userId
+    return auth.user_id
   },
 
   fetchIsAuth() {
@@ -44,11 +48,12 @@ const actions = {
       data: { email: auth.email, password: auth.password },
     })
     if (jsonData?.status === 200) {
+      console.log(jsonData.data)
       auth.token = jsonData?.data.jwt
-      auth.userId = jsonData?.data.id
+      auth.user_id = jsonData?.data.id
       auth.isAuth = methods.setAuth(true)
     }
-    console.log(jsonData)
+    return jsonData
   },
 
   logoutUser() {
@@ -59,10 +64,10 @@ const actions = {
   /* eslint-enable */
 }
 
-const authData = {
+const authdata = {
   auth: readonly(auth) as Auth,
   methods,
   actions,
 }
 
-export default authData
+export default authdata

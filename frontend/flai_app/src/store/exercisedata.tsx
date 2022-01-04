@@ -17,37 +17,39 @@ const exercises: Exercise[] = reactive([])
 
 export interface ExerciseSettings {
   id: string
-  level1: number
-  level2: number
-  level3: number
-  exerciseId: string
-  sortSignsByOrder: boolean
+  level_1: number
+  level_2: number
+  level_3: number
+  exercise_id: string
+  sort_signs_by_order: boolean
 }
 
-const exerciseSettings: ExerciseSettings = reactive({
+const exerciseSettings = reactive({
   id: '',
-  level1: 10,
-  level2: 20,
-  level3: 30,
-  exerciseId: '',
-  sortSignsByOrder: true,
+  level_1: 10,
+  level_2: 20,
+  level_3: 30,
+  exercise_id: '',
+  sort_signs_by_order: true,
 })
 
 export interface ExerciseSettingsUser {
-  exerciseId: string
-  wordLength: number
-  unlockedSigns: number
+  exercise_id: string
+  word_length: number
+  unlocked_signs: number
 }
 
 const exerciseSettingsUser: ExerciseSettingsUser = reactive({
-  exerciseId: '',
-  wordLength: 4,
-  unlockedSigns: 4,
+  exercise_id: '',
+  word_length: 4,
+  unlocked_signs: 4,
 })
 
+exerciseSettingsUser.unlocked_signs
+
 export interface ExerciseSession {
-  startTime: string
-  sessionDuration: number
+  start_time: string
+  session_duration: number
   order: number
   signs: Sign[]
 }
@@ -63,8 +65,8 @@ const methods = {
       signs: signData.methods.createNewSigns(),
     }
     exercises.push(exercise)
-    exerciseSettings.exerciseId = exercise.id
-    exerciseSettingsUser.exerciseId = exercise.id
+    exerciseSettings.exercise_id = exercise.id
+    exerciseSettingsUser.exercise_id = exercise.id
     console.log('exercises:', JSON.stringify(exercises))
   },
   createSignsForExercises() {
@@ -73,23 +75,23 @@ const methods = {
     }
   },
   changeExerciseSettingsWordLength(wordLength: number) {
-    //if (wordLength <= exerciseSettingsUser.unlockedSigns)
-    exerciseSettingsUser.wordLength = wordLength
+    if (wordLength <= exerciseSettingsUser.unlocked_signs)
+      exerciseSettingsUser.word_length = wordLength
   },
   increaseUnlockedSigns() {
-    exerciseSettingsUser.unlockedSigns +=
-      exerciseSettingsUser.unlockedSigns < 26 ? 1 : 0
+    exerciseSettingsUser.unlocked_signs +=
+      exerciseSettingsUser.unlocked_signs < 26 ? 1 : 0
   },
   decreaseUnlockedSigns() {
-    //if (exerciseSettingsUser.wordLength < exerciseSettingsUser.unlockedSigns)
-    exerciseSettingsUser.unlockedSigns -=
-      exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
+    if (exerciseSettingsUser.word_length < exerciseSettingsUser.unlocked_signs)
+      exerciseSettingsUser.unlocked_signs -=
+        exerciseSettingsUser.unlocked_signs > 0 ? 1 : 0
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
     let word = this.generateWord(exerciseId)
     const newSession: ExerciseSession = {
-      startTime: startTime,
-      sessionDuration: 0,
+      start_time: Date.now(),
+      session_duration: 0,
       order: 0,
       signs: word,
     }
@@ -102,11 +104,11 @@ const methods = {
       let exercise = exercises.find((el) => el.id === exerciseId)
       if (exercise) {
         let signCopy = [...exercise.signs]
-        for (let i = 0; i < exerciseSettingsUser.wordLength; i++) {
+        for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
           let weightArray = []
           /* TODO: reactive to generate words, where letters are only included once 
           for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
-          for (let k = 0; k < exerciseSettingsUser.unlockedSigns; k++) {
+          for (let k = 0; k < exerciseSettingsUser.unlocked_signs; k++) {
             weightArray.push(signCopy[k].progress + 1)
           }
           let index = weightedRandomIndex(weightArray)
@@ -119,23 +121,17 @@ const methods = {
     return word
   },
   changeExerciseSessionDuration(startTime: string, duration: number) {
-    let session = exerciseSessions.find((el) => el.startTime === startTime)
+    let session = exerciseSessions.find((el) => el.start_time === startTime)
     if (session) {
-      session.sessionDuration = duration
+      session.session_duration = duration
       console.log('new duration', session)
     }
   },
   deleteExerciseSession(startTime: string) {
     console.log(exerciseSessions)
-    let index = exerciseSessions.findIndex((el) => el.startTime === startTime)
+    let index = exerciseSessions.findIndex((el) => el.start_time === startTime)
     exerciseSessions.splice(index, 0)
     console.log(exerciseSessions)
-  },
-  signAlreadySeen(letter: string) {
-    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
-    if (sign) {
-      sign.alreadySeen = true
-    }
   },
   changeProgress(exerciseId: string, signId: string, progress: number) {
     const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
@@ -145,21 +141,26 @@ const methods = {
     exercises[exerciseIndex].signs[signIndex].progress = progress
     if (
       exercises[exerciseIndex].signs[signIndex].progress >=
-      exerciseSettings.level3
+      exerciseSettings.level_3
     ) {
-      exercises[exerciseIndex].signs[signIndex].level3Reached = true
+      exercises[exerciseIndex].signs[signIndex].level_3_reached = true
     }
     console.log(
       'updatedSign',
       exercises[exerciseIndex].signs[signIndex].name,
       exercises[exerciseIndex].signs[signIndex].progress,
-      exercises[exerciseIndex].signs[signIndex].level3Reached
+      exercises[exerciseIndex].signs[signIndex].level_3_reached
     )
+  },
+  signAlreadySeen(letter: string) {
+    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+    if (sign) {
+      sign.intro_done = true
+    }
   },
 }
 
 const actions = {
-  /* eslint-disable */
   async getAllExercises() {
     const jsonData = await jsonAction({
       method: 'get',
@@ -195,14 +196,15 @@ const actions = {
 
       // TODO: missing?: exerciseSettings.id
       //exerciseSettings.id = exerciseData.id
-      exerciseSettings.exerciseId = exerciseId
-      exerciseSettings.level1 = exerciseData.level_1
-      exerciseSettings.level2 = exerciseData.level_2
-      exerciseSettings.level3 = exerciseData.level_3
-      exerciseSettings.sortSignsByOrder = exerciseData.sort_signs_by_order
+      // TODO: for props of... loop
+      exerciseSettings.exercise_id = exerciseId
+      exerciseSettings.level_1 = exerciseData.level_1
+      exerciseSettings.level_2 = exerciseData.level_2
+      exerciseSettings.level_3 = exerciseData.level_3
+      exerciseSettings.sort_signs_by_order = exerciseData.sort_signs_by_order
 
-      exerciseSettingsUser.wordLength = exerciseData.word_length
-      exerciseSettingsUser.unlockedSigns = exerciseData.unlocked_signs
+      exerciseSettingsUser.word_length = exerciseData.word_length
+      exerciseSettingsUser.unlocked_signs = exerciseData.unlocked_signs
 
       console.log(exercises, exerciseSettings)
     } else if (jsonData?.status === 503) {
@@ -228,7 +230,7 @@ const actions = {
     if (jsonData?.status === 200) {
       //if (wordLength <= exerciseSettingsUser.unlockedSigns)
       methods.changeExerciseSettingsWordLength(wordLength)
-      console.log(exerciseSettingsUser.wordLength)
+      console.log(exerciseSettingsUser.word_length)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
@@ -292,13 +294,13 @@ const actions = {
         ids: {
           exercise_id: exerciseId,
           user_id: userData.user.id,
-          start_time: exerciseSession.startTime,
+          start_time: exerciseSession.start_time,
         },
       },
     })
     if (jsonData?.status === 200) {
       methods.changeExerciseSessionDuration(
-        exerciseSession.startTime,
+        exerciseSession.start_time,
         sessionDuration
       )
     } else if (jsonData?.status === 503) {
