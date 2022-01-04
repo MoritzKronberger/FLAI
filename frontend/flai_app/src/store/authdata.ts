@@ -54,13 +54,19 @@ const actions = {
       auth.token = jsonData?.data.jwt
       auth.user_id = jsonData?.data.id
       auth.isAuth = methods.setAuth(true)
+      await this.getApplicationData()
+    }
+    return jsonData
+  },
+
+  async getApplicationData() {
+    if (auth.isAuth) {
       await userData.actions.getUser()
       await exerciseData.actions.getAllExercises()
       await exerciseData.actions.getFullExerciseForUser(
         exerciseData.exercises[0].id
       )
     }
-    return jsonData
   },
 
   logoutUser() {
