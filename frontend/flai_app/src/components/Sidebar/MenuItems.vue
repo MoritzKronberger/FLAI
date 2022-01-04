@@ -27,7 +27,7 @@ function updateLink() {
   <ul>
     <li @mouseover="setShow(true)" @mouseleave="setShow(false)">
       <span v-if="session.menuItemLink == viewName" class="active"></span>
-      <a :href="viewName" @click="updateLink()">
+      <router-link :to="{ name: viewName }">
         <span v-if="show">{{ description }}</span>
         <icon-loader
           :path="iconPath"
@@ -35,7 +35,7 @@ function updateLink() {
           :alt="description"
           element-class="sidebar-icon"
         />
-      </a>
+      </router-link>
     </li>
   </ul>
 </template>
@@ -56,8 +56,8 @@ a {
   margin-right: 25px;
 }
 
-span.active {
-  border: 2px solid #4a7bf6;
+.router-link-exact-active {
+  border-left: 3px solid #4a7bf6;
   margin-right: 5px;
 }
 </style>

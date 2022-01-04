@@ -9,19 +9,19 @@ declare interface MenuItem {
 }
 const menuItems: MenuItem[] = [
   {
-    viewName: '#home',
+    viewName: 'HomePage',
     iconPath: '../assets/icons/home',
     description: 'Home',
     state: true,
   },
   {
-    viewName: '#training',
+    viewName: 'LearningExercise',
     iconPath: '../assets/icons/lections',
     description: 'Training',
     state: false,
   },
   {
-    viewName: '#profile',
+    viewName: 'ShowStore',
     iconPath: '../assets/icons/profile',
     description: 'Profil',
     state: false,
