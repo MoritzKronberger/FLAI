@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosError, Method } from 'axios'
+import axios, { AxiosError, Method } from 'axios'
 import authData from '../../store/authdata'
 
 axios.defaults.baseURL = 'http://localhost:5000/api/'
@@ -35,7 +35,7 @@ const authState = () => {
   }
 }
 
-const jsonResult = async (config: object, callback?: any) => {
+const jsonResult = async (config: object) => {
   try {
     const res = await axios(config).then((value) => {
       return { status: value.status, data: value.data }
@@ -45,13 +45,13 @@ const jsonResult = async (config: object, callback?: any) => {
     const err = error as AxiosError
     if (err.response)
       return { status: err.response.status, data: err.response.data }
-    callback
+    return { status: 503, data: { message: 'Network Error' } }
   }
 }
 
-const jsonAction = async (options: AxiosOptions, callback?: any) => {
+const jsonAction = async (options: AxiosOptions) => {
   authState()
-  return await jsonResult(config(options), callback)
+  return await jsonResult(config(options))
 }
 
 export { jsonAction }
