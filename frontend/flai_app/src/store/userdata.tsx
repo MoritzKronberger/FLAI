@@ -5,6 +5,7 @@ export interface User {
   [id: string]: string | number | undefined | boolean
   email: string
   username: string
+  passwort: string
   right_handed: boolean
   target_learning_time: number
 }
@@ -12,6 +13,7 @@ const user: User = reactive({
   id: '',
   email: '',
   username: '',
+  passwort: '',
   right_handed: true,
   target_learning_time: 10 * 60 * 1000, //millisec
 })
@@ -52,23 +54,21 @@ const actions = {
     })
   },
   async patchValues(patch: User) {
-    const jsonData = await jsonAction(
-      {
-        method: 'patch',
-        url: 'user',
-        data: {
-          data: patch,
-          ids: {
-            id: user.id,
-          },
+    const jsonData = await jsonAction({
+      method: 'patch',
+      url: 'user',
+      data: {
+        data: patch,
+        ids: {
+          id: user.id,
         },
       },
-    )
+    })
     if (jsonData?.status === 200) {
+      console.log('Patch', patch)
       methods.patchOptionsLocally(patch)
     }
-
-    return jsonData
+    return jsonData?.status
   },
   async deleteUser() {
     jsonAction({
