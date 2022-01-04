@@ -30,9 +30,7 @@ const showSign = ref(true)
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 function correct() {
-  console.log('cor', showSign.value)
   if (progressSmallerLevelTwo.value || !showSign.value) {
-    console.log('correct, update progress')
     const progress = props.signs[index.value].progress + 10
     store.signdata.actions.patchProgress(
       props.exerciseId,
@@ -49,7 +47,6 @@ function correct() {
 }
 function wrong() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
-    console.log('correct, update progress')
     const progress = props.signs[index.value].progress - 10
     store.signdata.actions.patchProgress(
       props.exerciseId,
@@ -67,7 +64,6 @@ function wrong() {
 }
 
 function checkProgress(sign: Sign) {
-  console.log('sign', sign.name, 'progress', sign.progress)
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     progressSmallerLevelTwo.value = true
     progressSmallerLevelThree.value = true

@@ -40,7 +40,6 @@ const perspective = ref('front')
 const videoPlayer = ref()
 
 function getSource() {
-  console.log('recording', props.signs[props.index].recordings)
   const rec = props.signs[props.index].recordings.find(
     (el) => el.perspective === perspective.value
   )
@@ -51,7 +50,6 @@ function getSource() {
   return `${rec.path}.${rec.mimetype}`
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
-watchEffect(() => console.log('newIndex', props.index))
 
 function switchPerspective() {
   if (perspective.value === 'front') {
