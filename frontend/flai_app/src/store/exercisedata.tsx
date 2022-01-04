@@ -86,11 +86,11 @@ const methods = {
     exerciseSettingsUser.unlockedSigns -=
       exerciseSettingsUser.unlockedSigns > 0 ? 1 : 0
   },
-  startNewExerciseSession(exerciseId: string) {
+  startNewExerciseSession(exerciseId: string, startTime: string) {
     let word = this.generateWord(exerciseId)
     const newSession: ExerciseSession = {
-      startTime: new Date(Date.now()).toISOString(),
-      sessionDuration: 0,
+      startTime: startTime,
+      sessionDuration: 10,
       order: 0,
       signs: word,
     }
@@ -127,8 +127,10 @@ const methods = {
     }
   },
   deleteExerciseSession(startTime: string) {
+    console.log(exerciseSessions)
     let index = exerciseSessions.findIndex((el) => el.startTime === startTime)
     exerciseSessions.splice(index, 0)
+    console.log(exerciseSessions)
   },
   stopExerciseSession(searchId: string) {
     //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
@@ -272,25 +274,27 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
 
   // TODO: actions down are not working
   async postNewExerciseSession(exerciseId: string) {
+    const startTime = new Date(Date.now()).toISOString()
     const jsonData = await jsonAction({
       method: 'post',
       url: 'exercise-session',
       data: {
         exercise_id: exerciseId,
         user_id: userData.user.id,
-        start_time: new Date(Date.now()).toISOString(),
+        start_time: startTime,
       },
     })
     if (jsonData?.status === 200) {
-      console.log(jsonData.data)
-      methods.startNewExerciseSession(exerciseId)
+      methods.startNewExerciseSession(exerciseId, startTime)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   async patchExerciseSession(
     exerciseId: string,
@@ -319,6 +323,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   async deleteExerciseSession(
     exerciseId: string,
@@ -339,6 +344,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
+    console.log(jsonData.data)
   },
   /* eslint-enable */
 }
