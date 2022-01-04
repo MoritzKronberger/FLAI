@@ -49,7 +49,7 @@ const actions = {
     })
     if(jsonData?.status === 200){
       auth.token = jsonData?.data.jwt
-      auth.userId = jsonData?.data.ids.id
+      auth.user_id = jsonData?.data.ids.id
       auth.isAuth = methods.setAuth(true)
     }
     return jsonData
