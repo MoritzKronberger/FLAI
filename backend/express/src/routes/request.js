@@ -12,7 +12,8 @@ const request = async (options) => {
   try {
     if (validation) {
       const validResult = validation.validate(data)
-      if (validResult.error) return res.send(validResult)
+      if (validResult.error)
+        return res.status(422).send(validResult.error.details[0])
     }
     const { result } = await dbQuery({
       method: method,
