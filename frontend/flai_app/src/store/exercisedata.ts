@@ -10,12 +10,10 @@ export interface Exercise {
   id: string
   name: string
   description: string
-  signs: Sign[]
 }
 
 const exercises: Exercise[] = reactive([])
 
-const progressStep = 10
 export interface ExerciseSettings {
   id: string
   level_1: number
@@ -53,18 +51,17 @@ export interface ExerciseSession {
   start_time: string
   session_duration: number
   order: number
-  signs: Sign[]
+  signs: string[]
 }
 
 const exerciseSessions: ExerciseSession[] = reactive([])
 
 const methods = {
-  getExercises() {
+  /*getExercises() {
     const exercise: Exercise = {
       id: '0',
       name: 'test',
       description: 'this is testdata',
-      signs: signData.methods.createNewSigns(),
     }
     exercises.push(exercise)
     exerciseSettings.exercise_id = exercise.id
@@ -75,7 +72,7 @@ const methods = {
     for (let i = 0; i < exercises.length; i++) {
       exercises[i].signs = signData.methods.createNewSigns()
     }
-  },
+  },*/
   changeExerciseSettingsWordLength(wordLength: number) {
     if (wordLength <= exerciseSettingsUser.unlocked_signs)
       exerciseSettingsUser.word_length = wordLength
@@ -100,24 +97,19 @@ const methods = {
     exerciseSessions.push(newSession)
   },
   generateWord(exerciseId: string) {
-    const word: Sign[] = []
-    if (exercises.length > 0) {
-      const exercise = exercises.find((el) => el.id === exerciseId)
-      if (exercise) {
-        const signCopy = [...exercise.signs]
-        for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
-          const weightArray = []
-          /* TODO: reactive to generate words, where letters are only included once 
+    const word: string[] = []
+    const signCopy = [...signData.signs]
+    for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
+      const weightArray = []
+      /* TODO: reactive to generate words, where letters are only included once 
           for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
-          for (let k = 0; k < exerciseSettingsUser.unlocked_signs; k++) {
-            weightArray.push(signCopy[k].progress + 1)
-          }
-          const index = weightedRandomIndex(weightArray)
-          word.push(signCopy[index])
-          // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
-        }
+      for (let k = 0; k < exerciseSettingsUser.unlocked_signs; k++) {
+        weightArray.push(signCopy[k].progress + 1)
       }
+      const index = weightedRandomIndex(weightArray)
+      word.push(signCopy[index].id)
     }
+    // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
     console.log('word', word)
     return word
   },
@@ -137,29 +129,23 @@ const methods = {
     console.log(exerciseSessions)
   },
   changeProgress(exerciseId: string, signId: string, progress: number) {
-    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
-    const signIndex = exercises[exerciseIndex].signs.findIndex(
-      (el) => el.id === signId
-    )
-    exercises[exerciseIndex].signs[signIndex].progress = progress
-    if (
-      exercises[exerciseIndex].signs[signIndex].progress >=
-      exerciseSettings.level_3
-    ) {
-      exercises[exerciseIndex].signs[signIndex].level_3_reached = true
+    const signIndex = signData.signs.findIndex((el) => el.id === signId)
+    signData.signs[signIndex].progress = progress
+    if (signData.signs[signIndex].progress >= exerciseSettings.level_3) {
+      signData.signs[signIndex].level_3_reached = true
     } else {
-      exercises[exerciseIndex].signs[signIndex].level_3_reached = false
+      signData.signs[signIndex].level_3_reached = false
     }
     console.log(
       'updatedSign',
-      exercises[exerciseIndex].signs[signIndex].name,
-      exercises[exerciseIndex].signs[signIndex].progress,
+      signData.signs[signIndex].name,
+      signData.signs[signIndex].progress,
       'level3:',
-      exercises[exerciseIndex].signs[signIndex].level_3_reached
+      signData.signs[signIndex].level_3_reached
     )
   },
   changeIntroDone(signId: string) {
-    const sign = exercises[0].signs.find((el: Sign) => el.id === signId)
+    const sign = signData.signs.find((el: Sign) => el.id === signId)
     if (sign) {
       sign.intro_done = true
     }
@@ -179,13 +165,13 @@ const actions = {
           id: row.id,
           name: row.name,
           description: row.description,
-          signs: await signData.actions.getFullSignForExercise(
-            row.id,
-            exerciseSettingsUser.unlocked_signs
-          ),
         }
         exercises.push(exerciseCache)
       }
+      await signData.actions.getFullSignForExercise(
+        exercises[0].id,
+        exerciseSettingsUser.unlocked_signs
+      )
       console.log(exercises)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
@@ -217,7 +203,7 @@ const actions = {
 
       for (const exercise of exercises) {
         Object.assign(
-          exercise.signs,
+          signData.signs,
           await signData.actions.getFullSignForExercise(
             exercise.id,
             exerciseSettingsUser.unlocked_signs

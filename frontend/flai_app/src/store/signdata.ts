@@ -19,7 +19,7 @@ export interface Sign {
 const signs: Sign[] = reactive([])
 
 const methods = {
-  createNewSigns() {
+  /*createNewSigns() {
     signs.length = 0
     for (let i = 0; i < 26; i++) {
       const sign: Sign = {
@@ -36,7 +36,7 @@ const methods = {
     }
     console.log('signs', signs)
     return signs
-  },
+  },*/
 }
 
 const actions = {
@@ -49,7 +49,7 @@ const actions = {
       data: { exercise_id: exerciseId },
     })
     if (jsonData?.status === 200) {
-      let signs: Sign[] = []
+      let signArray: Sign[] = []
       let count = 0
       for (let row of jsonData?.data.rows) {
         if (count < unlockedSigns) {
@@ -68,16 +68,15 @@ const actions = {
             intro_done: jsonProgress.intro_done,
           }
           console.log('sign:', sign)
-          signs.push(sign)
+          signArray.push(sign)
           count++
         }
       }
-      return signs
+      Object.assign(signs, signArray)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
     console.log('data', jsonData.data)
-    return []
   },
   async getSignRecording(signId: string) {
     const jsonData = await jsonAction({
@@ -150,7 +149,6 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    let sign = exerciseData.exercises[0].signs.find((el) => el.id === signId)
     console.log(jsonData.data)
   },
   /* eslint-enable */
