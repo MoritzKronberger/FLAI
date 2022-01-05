@@ -3,12 +3,12 @@ import store from './store'
 import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
 import IconLoader from './components/IconLoader.vue'
 import customButton from './components/CustomButton.vue'
-import { provide } from 'vue'
+import { computed, provide } from 'vue'
 
 provide('store', store)
 
 const logoutUser = store.authdata.actions.logoutUser
-const isAuth = store.authdata.auth.isAuth
+const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
 <template>
