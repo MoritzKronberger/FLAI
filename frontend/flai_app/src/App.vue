@@ -7,9 +7,7 @@ import { provide } from 'vue'
 
 provide('store', store)
 
-const logoutUser = (): void => {
-  console.log('Logout')
-}
+const logoutUser = store.authdata.actions.logoutUser
 </script>
 
 <template>
@@ -48,15 +46,5 @@ main {
 a {
   margin: 1%;
   text-decoration: none;
-}
-#nav {
-  text-align: center;
-}
-#logo {
-  margin: 1%;
-  max-width: 15%;
-  left: 0;
-  top: 0;
-  position: absolute;
 }
 </style>
