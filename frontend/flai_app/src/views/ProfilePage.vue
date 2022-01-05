@@ -26,7 +26,8 @@ const options = ref<Options>({
 })
 
 const displayForm = ref('nodisplay')
-
+const errorMessage = ref('')
+const successMessage = ref('')
 onMounted(() => {
   for (const prop in user) {
     options.value[prop].value = user[prop]
@@ -35,8 +36,10 @@ onMounted(() => {
 
 const onChange = (): void => {
   displayForm.value = 'display'
+  successMessage.value = ''
+  errorMessage.value = ''
 }
-const submitChanges = (): void => {
+const submitChanges = async (): void => {
   const changes: Options = {}
   for (const prop in options.value) {
     if (user[prop] !== options.value[prop].value) {
@@ -45,7 +48,13 @@ const submitChanges = (): void => {
     }
   }
   console.log(changes)
-  actions.patchValues(changes)
+  const result = await actions.patchValues(changes)
+  if (result?.status === 200) {
+    successMessage.value = 'Profile changed successfully'
+  } else {
+    errorMessage.value = result?.data.message
+    console.log(errorMessage.value)
+  }
 }
 </script>
 
@@ -88,6 +97,8 @@ const submitChanges = (): void => {
         element-class="input-primary"
         component-class="input"
       />
+      <p v-if="successMessage">{{ successMessage }}</p>
+      <p v-if="errorMessage">{{ errorMessage }}</p>
       <input type="button" value="Submit Changes" @click="submitChanges" />
     </form>
   </div>
