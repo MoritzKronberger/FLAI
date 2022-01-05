@@ -87,7 +87,7 @@ const methods = {
         exerciseSettingsUser.unlocked_signs > 0 ? 1 : 0
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
-    const word = this.generateWord(exerciseId)
+    const word = signData.methods.generateWord(exerciseId)
     const newSession: ExerciseSession = {
       start_time: startTime,
       session_duration: 0,
@@ -95,23 +95,6 @@ const methods = {
       signs: word,
     }
     exerciseSessions.push(newSession)
-  },
-  generateWord(exerciseId: string) {
-    const word: string[] = []
-    const signCopy = [...signData.signs]
-    for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
-      const weightArray = []
-      /* TODO: reactive to generate words, where letters are only included once 
-          for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
-      for (let k = 0; k < exerciseSettingsUser.unlocked_signs; k++) {
-        weightArray.push(signCopy[k].progress + 1)
-      }
-      const index = weightedRandomIndex(weightArray)
-      word.push(signCopy[index].id)
-    }
-    // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
-    console.log('word', word)
-    return word
   },
   changeExerciseSessionDuration(startTime: string, duration: number) {
     const session = exerciseSessions.find((el) => el.start_time === startTime)
@@ -127,28 +110,6 @@ const methods = {
     )
     exerciseSessions.splice(index, 0)
     console.log(exerciseSessions)
-  },
-  changeProgress(exerciseId: string, signId: string, progress: number) {
-    const signIndex = signData.signs.findIndex((el) => el.id === signId)
-    signData.signs[signIndex].progress = progress
-    if (signData.signs[signIndex].progress >= exerciseSettings.level_3) {
-      signData.signs[signIndex].level_3_reached = true
-    } else {
-      signData.signs[signIndex].level_3_reached = false
-    }
-    console.log(
-      'updatedSign',
-      signData.signs[signIndex].name,
-      signData.signs[signIndex].progress,
-      'level3:',
-      signData.signs[signIndex].level_3_reached
-    )
-  },
-  changeIntroDone(signId: string) {
-    const sign = signData.signs.find((el: Sign) => el.id === signId)
-    if (sign) {
-      sign.intro_done = true
-    }
   },
 }
 
@@ -211,7 +172,7 @@ const actions = {
         )
       }
 
-      console.log(exercises, exerciseSettings)
+      console.log('exercises', exercises, 'exerciseSettings', exerciseSettings)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
@@ -273,6 +234,7 @@ const actions = {
     console.log(jsonData.data)
   },
   async postNewExerciseSession(exerciseId: string) {
+    console.log('Start new session')
     const startTime = new Date(Date.now()).toISOString()
     const jsonData = await jsonAction({
       method: 'post',
@@ -285,15 +247,10 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       methods.startNewExerciseSession(exerciseId, startTime)
-      const exercise = exercises.find((el) => el.id === exerciseId)
-      Object.assign(
-        exercise,
-        signData.actions.getFullSignForExercise(
-          exerciseId,
-          exerciseSettingsUser.unlocked_signs
-        )
+      await signData.actions.getFullSignForExercise(
+        exerciseId,
+        exerciseSettingsUser.unlocked_signs
       )
-      console.log('exercise', exercise)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }

@@ -5,6 +5,7 @@ import { jsonAction } from '../common/service/rest'
 import { errorMessage } from '../ressources/ts/methods'
 import { networkMessage } from './index'
 import userData from './userdata'
+import { weightedRandomIndex } from '../ressources/ts/random'
 
 export interface Sign {
   id: string
@@ -37,6 +38,52 @@ const methods = {
     console.log('signs', signs)
     return signs
   },*/
+  generateWord(exerciseId: string) {
+    const word: string[] = []
+    const signCopy = [...signs]
+    for (let i = 0; i < exerciseData.exerciseSettingsUser.word_length; i++) {
+      const weightArray = []
+      /* TODO: reactive to generate words, where letters are only included once 
+          for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
+      for (
+        let k = 0;
+        k < exerciseData.exerciseSettingsUser.unlocked_signs;
+        k++
+      ) {
+        weightArray.push(signCopy[k].progress + 1)
+      }
+      const index = weightedRandomIndex(weightArray)
+      console.log('letter', signCopy[index].name)
+      word.push(signCopy[index].id)
+      // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
+    }
+    return word
+  },
+  changeProgress(exerciseId: string, signId: string, progress: number) {
+    const signIndex = signs.findIndex((el) => el.id === signId)
+    signs[signIndex].progress = progress
+    if (signs[signIndex].progress >= exerciseData.exerciseSettings.level_3) {
+      signs[signIndex].level_3_reached = true
+    } else {
+      signs[signIndex].level_3_reached = false
+    }
+    console.log(
+      'updatedSign',
+      signs[signIndex].name,
+      signs[signIndex].progress,
+      'level3:',
+      signs[signIndex].level_3_reached,
+      'intro_done',
+      signs[signIndex].intro_done
+    )
+  },
+  changeIntroDone(signId: string) {
+    const sign = signs.find((el: Sign) => el.id === signId)
+    if (sign) {
+      sign.intro_done = true
+    }
+    console.log('introdone', sign?.name, sign?.intro_done)
+  },
 }
 
 const actions = {
@@ -115,18 +162,17 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      console.log(jsonData.data)
       return jsonData.data
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
+    console.log('getProgress', jsonData.data)
   },
   async patchProgress(
     exerciseId: string,
     signId: string,
     progress: number,
-    intro_done?: boolean
+    introDone?: boolean
   ) {
     const jsonData = await jsonAction({
       method: 'patch',
@@ -134,7 +180,7 @@ const actions = {
       data: {
         data: {
           progress: progress,
-          intro_done: intro_done,
+          intro_done: introDone,
         },
         ids: {
           user_id: userData.user.id,
@@ -144,8 +190,8 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      exerciseData.methods.changeProgress(exerciseId, signId, progress)
-      if (intro_done) exerciseData.methods.changeIntroDone(signId)
+      methods.changeProgress(exerciseId, signId, progress)
+      if (introDone) methods.changeIntroDone(signId)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
