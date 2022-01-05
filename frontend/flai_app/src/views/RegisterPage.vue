@@ -69,7 +69,7 @@ const submit = async (): Promise<void> => {
       :placeholder="defaultTargetTime"
       element-class="input-primary"
       custom-type="time"
-      :time-step="5"
+      :time-step="1"
     />
     <custom-button
       label="Registrieren"
