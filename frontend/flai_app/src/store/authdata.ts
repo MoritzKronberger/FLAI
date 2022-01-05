@@ -18,8 +18,8 @@ export interface LoginUser {
 
 const auth: Auth = reactive({
   token: '',
-  email: 'miriam.weber@email.com',
-  password: 'supersecret',
+  email: '',
+  password: '',
   user_id: '',
   isAuth: false,
 })

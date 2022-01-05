@@ -157,8 +157,8 @@ const methods = {
       exercises[exerciseIndex].signs[signIndex].level_3_reached
     )
   },
-  signAlreadySeen(letter: string) {
-    const sign = exercises[0].signs.find((el: Sign) => el.name === letter)
+  changeIntroDone(signId: string) {
+    const sign = exercises[0].signs.find((el: Sign) => el.id === signId)
     if (sign) {
       sign.intro_done = true
     }
@@ -252,7 +252,8 @@ const actions = {
     console.log(jsonData)
     if (jsonData?.status === 200) {
       //if (wordLength <= exerciseSettingsUser.unlockedSigns)
-      methods.changeExerciseSettingsWordLength(wordLength)
+      if (wordLength) methods.changeExerciseSettingsWordLength(wordLength)
+      // TODO: method to change unlocked signs
       console.log(exerciseSettingsUser.word_length)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)

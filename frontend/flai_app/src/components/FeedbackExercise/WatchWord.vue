@@ -28,7 +28,7 @@ const feedbackClass = ref('waiting')
 const index = ref(0)
 const showSign = ref(true)
 
-const props = defineProps<{ signs: Sign[] }>()
+const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 const vFocus = {
   inserted: (el: any) => {
@@ -49,7 +49,12 @@ function wrong() {
 
 function onNewIndex(newIndex: number) {
   index.value = newIndex
-  store.exercisedata.methods.signAlreadySeen(props.signs[index.value].name)
+  store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    props.signs[index.value].progress,
+    true
+  )
   console.log(index.value)
 }
 
