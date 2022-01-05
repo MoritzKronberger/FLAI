@@ -32,7 +32,7 @@ const level = ref(1)
     </div>
   </div>
   <div v-if="auth.isAuth" class="home-page">
-    <div>
+    <div class="start-panel">
       <h2>
         Hallo, <b>{{ user.username }}!</b>
       </h2>
@@ -44,7 +44,7 @@ const level = ref(1)
         @button-click="redirect('ComingSoon')"
       />
     </div>
-    <div>
+    <div class="level-panel">
       <IconLoader
         :path="`../assets/icons/levels/level_${level}`"
         mimetype="svg"
@@ -53,51 +53,15 @@ const level = ref(1)
       />
       <div>Level {{ level }}</div>
     </div>
-    <StatisticDashboardSmall />
-    <StatisticDashboardLarge />
+    <div class="stats-small-panel">
+      <StatisticDashboardSmall />
+    </div>
+    <div class="stats-large-panel">
+      <StatisticDashboardLarge />
+    </div>
   </div>
 </template>
 
-<style>
-h2 {
-  font-weight: 200;
-}
-p {
-  margin: 0;
-}
-.row {
-  display: flex;
-}
-.row img {
-  margin: 0 1vw;
-  height: 30vh;
-  border-radius: 3vw;
-}
-.statistic {
-  margin: 1vw;
-  padding: 3vh 1vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  background-color: lightblue;
-  border-radius: 2vw;
-  text-align: center;
-}
-.circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: yellow;
-  margin: auto;
-  margin-bottom: 2vh;
-  height: 10vh;
-  width: 10vh;
-  border-radius: 50%;
-}
-.number {
-  margin: auto;
-  width: 100%;
-  font-size: 5vh;
-}
+<style scoped lang="scss">
+@import '../assets/scss/pages/_HomePage.scss';
 </style>
