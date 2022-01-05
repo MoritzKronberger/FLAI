@@ -1,7 +1,7 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p v-for="letter in props.signs" :key="letter.name">{{ letter.name }}</p>
+      <p v-for="letter in signs" :key="letter.name">{{ letter.name }}</p>
       <Video
         :show-sign="showSign"
         :signs="signs"
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, watchEffect } from 'vue'
+import { inject, ref, watchEffect, computed, ComputedRef } from 'vue'
 import router from '../../router'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
@@ -27,41 +27,10 @@ const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
 
-const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
-
-function correct() {
-  if (progressSmallerLevelTwo.value || !showSign.value) {
-    const progress = props.signs[index.value].progress + 10
-    store.signdata.actions.patchProgress(
-      props.exerciseId,
-      props.signs[index.value].id,
-      progress
-    )
-  }
-  feedbackClass.value = 'right'
-  if (index.value < props.signs.length - 1) {
-    index.value++
-  } else {
-    router.push({ name: 'HomePage' })
-  }
-}
-function wrong() {
-  if (progressSmallerLevelTwo.value || !showSign.value) {
-    const progress = props.signs[index.value].progress - 10
-    store.signdata.actions.patchProgress(
-      props.exerciseId,
-      props.signs[index.value].id,
-      progress
-    )
-  }
-  feedbackClass.value = 'wrong'
-  if (index.value < props.signs.length - 1) {
-    index.value++
-  } else {
-    //TODO: view is not reloading
-    router.push({ name: 'HomePage' })
-  }
-}
+const signs: ComputedRef<Sign[]> = computed(
+  () => store.exercisedata.exerciseSessions.at(-1).signs
+)
+const props = defineProps<{ exerciseId: string }>()
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -70,13 +39,13 @@ function checkProgress(sign: Sign) {
     showSign.value = false
     if (sign.progress >= store.exercisedata.exerciseSettings.level_2) {
       progressSmallerLevelTwo.value = false
-      if (
-        sign.progress >= store.exercisedata.exerciseSettings.level_3 &&
-        !sign.level_3_reached
-      ) {
+      if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
         progressSmallerLevelThree.value = false
-        console.log('increaseUnlockedSigns')
-        store.exercisedata.methods.increaseUnlockedSigns()
+        if (!sign.level_3_reached) {
+          console.log('increaseUnlockedSigns')
+          // TODO action
+          store.exercisedata.methods.increaseUnlockedSigns()
+        }
       }
     }
   } else {
@@ -92,7 +61,48 @@ function checkProgress(sign: Sign) {
     sign.level_3_reached
   )
 }
-watchEffect(() => checkProgress(props.signs[index.value]))
+
+async function correct() {
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('update correct')
+    const progress = signs.value[index.value].progress + 10
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      signs.value[index.value].id,
+      progress
+    )
+  }
+  feedbackClass.value = 'right'
+  if (index.value < signs.value.length - 1) {
+    console.log('index', index.value)
+    index.value++
+    checkProgress(signs.value[index.value])
+  } else {
+    router.push({ name: 'HomePage' })
+  }
+}
+async function wrong() {
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('update wrong')
+    const progress = signs.value[index.value].progress - 10
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      signs.value[index.value].id,
+      progress
+    )
+  }
+  feedbackClass.value = 'wrong'
+  if (index.value < signs.value.length - 1) {
+    console.log('index', index.value)
+    index.value++
+    checkProgress(signs.value[index.value])
+  } else {
+    //TODO: view is not reloading
+    router.push({ name: 'HomePage' })
+  }
+}
+
+//watchEffect(() => checkProgress(signs.value[index.value]))
 </script>
 
 <style>
