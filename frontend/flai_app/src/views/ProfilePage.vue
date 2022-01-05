@@ -26,18 +26,24 @@ const options = ref<Options>({
   email: { label: 'E-Mail', value: '' },
   username: { label: 'Name', value: '' },
   password: { label: 'Passwort', value: '*****' },
-  right_handed: { label: 'Haendigkeit', value: true },
+  right_handed: { label: 'Rechtshänder', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
 })
 
 const displayForm = ref('nodisplay')
 const errorMessage = ref('')
 const successMessage = ref('')
-onMounted(() => {
+
+const loadCurrentUser = (): void => {
   for (const prop in user) {
     options.value[prop].value = user[prop]
   }
-})
+}
+
+const discardChanges = (): void => {
+  loadCurrentUser()
+  displayForm.value = 'nodisplay'
+}
 
 const onChange = (): void => {
   displayForm.value = 'display'
@@ -55,14 +61,17 @@ const submitChanges = async (): Promise<void> => {
   const result = await actions.patchValues(changes)
   if (result?.status === 200) {
     successMessage.value = 'Profil wurde erfolgreich geändert'
+    displayForm.value = 'nodisplay'
   } else {
     errorMessage.value = result?.data.message
-    for (const prop in user) {
-      options.value[prop].value = user[prop]
-    }
+    loadCurrentUser()
     options.value['password'].value = '*****'
   }
 }
+
+onMounted(() => {
+  loadCurrentUser()
+})
 </script>
 
 <template>
@@ -71,7 +80,7 @@ const submitChanges = async (): Promise<void> => {
   <div class="profile">
     <div class="information">
       <ul v-for="(item, key) in options" :key="key">
-        <li v-if="key !== 'id'">{{ item.label }} : {{ item.value }}</li>
+        <li v-if="key !== 'id'">{{ item.label }}: {{ item.value }}</li>
       </ul>
     </div>
     <form :class="displayForm">
@@ -106,10 +115,11 @@ const submitChanges = async (): Promise<void> => {
       />
       <p v-if="successMessage">{{ successMessage }}</p>
       <p v-if="errorMessage">{{ errorMessage }}</p>
-      <input type="button" value="Submit Changes" @click="submitChanges" />
+      <input type="button" value="Bestätigen" @click="submitChanges" />
+      <input type="button" value="Verwerfen" @click="discardChanges" />
     </form>
   </div>
-  <input type="button" value="Change Profile" @click="onChange" />
+  <input type="button" value="Profil ändern" @click="onChange" />
 </template>
 
 <style scoped lang="scss">
