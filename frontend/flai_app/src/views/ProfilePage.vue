@@ -14,8 +14,8 @@ interface Options {
     | { label: string; value: boolean }
     | { label: string; value: number }
     | { label: string; value: undefined }
-  email: { label: string; value: string }
   username: { label: string; value: string }
+  email: { label: string; value: string }
   password: { label: string; value: string }
   right_handed: { label: string; value: boolean }
   target_learning_time: { label: string; value: number }
@@ -23,8 +23,8 @@ interface Options {
 
 const options = ref<Options>({
   id: { label: 'id', value: '' },
-  email: { label: 'E-Mail', value: '' },
   username: { label: 'Name', value: '' },
+  email: { label: 'E-Mail', value: '' },
   password: { label: 'Passwort', value: '*****' },
   right_handed: { label: 'Rechtshänder', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
@@ -45,7 +45,7 @@ const discardChanges = (): void => {
   displayForm.value = 'nodisplay'
 }
 
-const onChange = (): void => {
+const openChangeForm = (): void => {
   displayForm.value = 'display'
   successMessage.value = ''
   errorMessage.value = ''
@@ -68,15 +68,13 @@ const submitChanges = async (): Promise<void> => {
     options.value['password'].value = '*****'
   }
 }
-
 onMounted(() => {
   loadCurrentUser()
 })
 </script>
 
 <template>
-  <h1>Profile</h1>
-  <h2>User information</h2>
+  <h1>Profil</h1>
   <div class="profile">
     <div class="information">
       <ul v-for="(item, key) in options" :key="key">
@@ -85,15 +83,15 @@ onMounted(() => {
     </div>
     <form :class="displayForm">
       <text-input-field
-        v-model="options.email.value"
-        placeholder="x.y@email.com"
-        element-class="email"
-        component-class="input"
-      />
-      <text-input-field
         v-model="options.username.value"
         placeholder="username"
         element-class="input-primary"
+        component-class="input"
+      />
+      <text-input-field
+        v-model="options.email.value"
+        placeholder="x.y@email.com"
+        element-class="email"
         component-class="input"
       />
       <text-input-field
@@ -119,7 +117,7 @@ onMounted(() => {
       <input type="button" value="Verwerfen" @click="discardChanges" />
     </form>
   </div>
-  <input type="button" value="Profil ändern" @click="onChange" />
+  <input type="button" value="Profil ändern" @click="openChangeForm" />
 </template>
 
 <style scoped lang="scss">
