@@ -9,7 +9,9 @@ export interface User {
   right_handed: boolean
   target_learning_time: number
 }
-
+export interface Changes {
+  [key: string]: string | boolean | number | undefined
+}
 export interface RegisterUser {
   username: string
   email: string
@@ -26,9 +28,9 @@ const user: User = reactive({
 })
 
 const methods = {
-  patchOptionsLocally(changes: User) {
+  patchOptionsAll(changes: Changes) {
     for (const prop in changes) {
-      user[prop] = changes[prop]
+      if (prop !== 'password') user[prop] = changes[prop]
     }
   },
   changeEmail(email: string) {
@@ -68,7 +70,7 @@ const actions = {
       data: registerUser,
     })
   },
-  async patchValues(patch: User) {
+  async patchValues(patch: Changes) {
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'user',
@@ -81,9 +83,9 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       console.log('Patch', patch)
-      methods.patchOptionsLocally(patch)
+      methods.patchOptionsAll(patch)
     }
-    return jsonData?.status
+    return jsonData
   },
   async deleteUser() {
     jsonAction({
