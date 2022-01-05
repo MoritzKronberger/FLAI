@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
+import store from '../store'
 import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
@@ -9,6 +10,7 @@ import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
 import DebugPage from '../views/DebugPage.vue'
+import { computed } from 'vue'
 
 const routes = [
   {
@@ -30,6 +32,7 @@ const routes = [
     path: '/exercise',
     name: 'LearningExercise',
     component: LearningExercise,
+    meta: { authRequired: true },
   },
   {
     path: '/flainet',
@@ -40,6 +43,7 @@ const routes = [
     path: '/profile',
     name: 'ProfilePage',
     component: ProfilePage,
+    meta: { authRequired: true },
   },
   {
     path: '/register',
@@ -55,6 +59,7 @@ const routes = [
     path: '/comingsoon',
     name: 'ComingSoon',
     component: ComingSoon,
+    meta: { authRequired: true },
   },
   {
     path: '/debug',
@@ -66,6 +71,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+const isAuth = computed(() => store.authdata.auth.isAuth)
+
+// from https://next.router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
+router.beforeEach((to) => {
+  if (to.matched.some((record) => record.meta.authRequired)) {
+    if (!isAuth.value) return '/login'
+  }
 })
 
 export default router
