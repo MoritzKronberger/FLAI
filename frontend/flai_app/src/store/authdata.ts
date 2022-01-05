@@ -18,8 +18,8 @@ export interface LoginUser {
 
 const auth: Auth = reactive({
   token: '',
-  email: 'miriam.weber@email.com',
-  password: 'supersecret',
+  email: '',
+  password: '',
   user_id: '',
   isAuth: false,
 })
@@ -52,7 +52,7 @@ const actions = {
     if (jsonData?.status === 200) {
       console.log(jsonData.data)
       auth.token = jsonData?.data.jwt
-      auth.user_id = jsonData?.data.id
+      auth.user_id = jsonData?.data.ids.id
       auth.isAuth = methods.setAuth(true)
       await this.getApplicationData()
     }
