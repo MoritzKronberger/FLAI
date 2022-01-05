@@ -8,21 +8,24 @@ import { provide } from 'vue'
 provide('store', store)
 
 const logoutUser = store.authdata.actions.logoutUser
+const isAuth = store.authdata.auth.isAuth
 </script>
 
 <template>
   <header>
-    <IconLoader
-      path="../assets/flai_logo"
-      mimetype="jpg"
-      alt="FLAI Icon"
-      element-class="flai-header-icon"
-    />
+    <router-link :to="{ name: 'HomePage' }">
+      <IconLoader
+        path="../assets/flai_logo"
+        mimetype="jpg"
+        alt="FLAI Icon"
+        element-class="flai-header-icon"
+      />
+    </router-link>
   </header>
   <main>
     <router-view />
   </main>
-  <aside>
+  <aside v-if="isAuth">
     <SidebarMenu />
     <custom-button
       label="Logout"
