@@ -99,6 +99,7 @@ onMounted(() => {
         placeholder="passwort"
         element-class="input-primary"
         component-class="input"
+        custom-type="password"
       />
       <custom-checkbox
         v-model="options.right_handed.value"

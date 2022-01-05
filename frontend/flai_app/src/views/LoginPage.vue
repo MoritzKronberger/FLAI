@@ -50,6 +50,7 @@ const submit = async (): Promise<void> => {
       label-name="Passwort"
       placeholder="Passwort"
       element-class="input-primary"
+      custom-type="password"
     />
     <custom-button
       label="Login"

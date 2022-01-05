@@ -57,6 +57,7 @@ const submit = async (): Promise<void> => {
       label-name="Passwort"
       placeholder="Passwort"
       element-class="input-primary"
+      custom-type="password"
     />
     <custom-checkbox
       v-model="user.right_handed"
