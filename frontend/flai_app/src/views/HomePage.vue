@@ -10,35 +10,52 @@ const router = useRouter()
 
 const store: any = inject('store')
 const user = computed(() => store.userdata.user)
+const auth = computed(() => store.authdata.auth)
 
-const toComingSoon = () => router.push({ name: 'ComingSoon' })
+const redirect = (viewName: string) => router.push({ name: viewName })
 const level = ref(1)
 </script>
 
 <template>
-  <div>
-    <h2>
-      Hallo, <b>{{ user.username }}!</b>
-    </h2>
-    <div>Willkommen zurück!</div>
-    <div>Bereit für die heutige Aufgabe?</div>
+  <div v-if="!auth.isAuth" class="landing-page">
+    <div>Wilkommen bei FLAI!</div>
+    <div>
+      Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
+    </div>
     <custom-button
-      label="Start"
+      label="Konto erstellen"
       btnclass="button-primary"
-      @button-click="toComingSoon"
+      @button-click="redirect('RegisterPage')"
     />
+    <div>
+      Du hast bereits ein Konto?<router-link to="/login">Login</router-link>
+    </div>
   </div>
-  <div>
-    <IconLoader
-      :path="`../assets/icons/levels/level_${level}`"
-      mimetype="svg"
-      alt="Level Icon"
-      element-class="level-icon"
-    />
-    <div>Level {{ level }}</div>
+  <div v-if="auth.isAuth" class="home-page">
+    <div>
+      <h2>
+        Hallo, <b>{{ user.username }}!</b>
+      </h2>
+      <div>Willkommen zurück!</div>
+      <div>Bereit für die heutige Aufgabe?</div>
+      <custom-button
+        label="Start"
+        btnclass="button-primary"
+        @button-click="redirect('ComingSoon')"
+      />
+    </div>
+    <div>
+      <IconLoader
+        :path="`../assets/icons/levels/level_${level}`"
+        mimetype="svg"
+        alt="Level Icon"
+        element-class="level-icon"
+      />
+      <div>Level {{ level }}</div>
+    </div>
+    <StatisticDashboardSmall />
+    <StatisticDashboardLarge />
   </div>
-  <StatisticDashboardSmall />
-  <StatisticDashboardLarge />
 </template>
 
 <style>
