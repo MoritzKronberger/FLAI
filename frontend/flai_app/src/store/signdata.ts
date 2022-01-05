@@ -41,7 +41,7 @@ const methods = {
 
 const actions = {
   /* eslint-disable */
-  async getFullSignForExercise(exerciseId: string) {
+  async getFullSignForExercise(exerciseId: string, unlockedSigns: number) {
     console.log('id', exerciseId)
     const jsonData = await jsonAction({
       method: 'get',
@@ -50,22 +50,26 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       let signs: Sign[] = []
+      let count = 0
       for (let row of jsonData?.data.rows) {
-        let jsonProgress = await this.getProgress(exerciseId, row.id)
-        jsonProgress =
-          jsonProgress === undefined
-            ? { progress: 0, level_3_reached: false }
-            : jsonProgress.rows[0]
-        let sign: Sign = {
-          id: row.id,
-          name: row.name,
-          motion_category_id: row.motion_category,
-          progress: jsonProgress.progress,
-          level_3_reached: jsonProgress.level_3_reached,
-          recordings: await actions.getSignRecording(row.id),
-          intro_done: row.intro_done === undefined ? false : row.intro_done,
+        if (count < unlockedSigns) {
+          let jsonProgress = await this.getProgress(exerciseId, row.id)
+          jsonProgress =
+            jsonProgress === undefined
+              ? { progress: 0, level_3_reached: false }
+              : jsonProgress.rows[0]
+          let sign: Sign = {
+            id: row.id,
+            name: row.name,
+            motion_category_id: row.motion_category,
+            progress: jsonProgress.progress,
+            level_3_reached: jsonProgress.level_3_reached,
+            recordings: await actions.getSignRecording(row.id),
+            intro_done: row.intro_done === undefined ? false : row.intro_done,
+          }
+          signs.push(sign)
+          count++
         }
-        signs.push(sign)
       }
       return signs
     } else if (jsonData?.status === 503) {
