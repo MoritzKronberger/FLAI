@@ -8,6 +8,7 @@ import ProfilePage from '../views/ProfilePage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
+import DebugPage from '../views/DebugPage.vue'
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: '/comingsoon',
     name: 'ComingSoon',
     component: ComingSoon,
+  },
+  {
+    path: '/debug',
+    name: 'DebugPage',
+    component: DebugPage,
   },
 ]
 
