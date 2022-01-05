@@ -43,16 +43,16 @@ const methods = {
 
 const actions = {
   /* eslint-disable */
-  async loginUser() {
+  async loginUser(loginUser: LoginUser) {
     const jsonData = await jsonAction({
       method: 'post',
       url: 'auth/login',
-      data: { email: auth.email, password: auth.password },
+      data: loginUser,
     })
     if (jsonData?.status === 200) {
       console.log(jsonData.data)
       auth.token = jsonData?.data.jwt
-      auth.user_id = jsonData?.data.id
+      auth.user_id = jsonData?.data.ids.id
       auth.isAuth = methods.setAuth(true)
       await this.getApplicationData()
     }
@@ -61,8 +61,11 @@ const actions = {
 
   async getApplicationData() {
     if (auth.isAuth) {
+      console.log('-----GET USER')
       await userData.actions.getUser()
+      console.log('-----GET EXERCISE')
       await exerciseData.actions.getAllExercises()
+      console.log('-----GET EXERCISE SETTINGS')
       await exerciseData.actions.getFullExerciseForUser(
         exerciseData.exercises[0].id
       )
