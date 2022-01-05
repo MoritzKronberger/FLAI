@@ -42,10 +42,11 @@ export interface ExerciseSettingsUser {
 
 const exerciseSettingsUser: ExerciseSettingsUser = reactive({
   exercise_id: '',
-  word_length: 4,
-  unlocked_signs: 4,
+  word_length: 0,
+  unlocked_signs: 0,
 })
 
+//TODO: what does this line do??
 exerciseSettingsUser.unlocked_signs
 
 export interface ExerciseSession {
@@ -177,7 +178,10 @@ const actions = {
           id: row.id,
           name: row.name,
           description: row.description,
-          signs: await signData.actions.getFullSignForExercise(row.id),
+          signs: await signData.actions.getFullSignForExercise(
+            row.id,
+            exerciseSettingsUser.unlocked_signs
+          ),
         }
         exercises.push(exerciseCache)
       }
@@ -210,12 +214,26 @@ const actions = {
       exerciseSettingsUser.word_length = exerciseData.word_length
       exerciseSettingsUser.unlocked_signs = exerciseData.unlocked_signs
 
+      for (const exercise of exercises) {
+        Object.assign(
+          exercise.signs,
+          await signData.actions.getFullSignForExercise(
+            exercise.id,
+            exerciseSettingsUser.unlocked_signs
+          )
+        )
+      }
+
       console.log(exercises, exerciseSettings)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
   },
-  async patchExerciseSettings(exerciseId: string, wordLength: number) {
+  async patchExerciseSettings(
+    exerciseId: string,
+    wordLength?: number,
+    unlockedSigns?: number
+  ) {
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-settings',
@@ -227,6 +245,7 @@ const actions = {
         data: {
           //task_split: 0.7,
           word_length: wordLength,
+          unlocked_signs: unlockedSigns,
         },
       },
     })

@@ -89,7 +89,7 @@ async function patchExerciseSession() {
   <button
     label="action"
     @click="
-      store.exercisedata.actions.patchExerciseSettings(exercises[0].id, 4)
+      store.exercisedata.actions.patchExerciseSettings(exercises[0].id, 4, 20)
     "
   >
     patchExerciseSettings
