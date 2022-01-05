@@ -82,7 +82,7 @@ const actions = {
       console.log('Patch', patch)
       methods.patchOptionsLocally(patch)
     }
-    return jsonData?.status
+    return jsonData
   },
   async deleteUser() {
     jsonAction({
