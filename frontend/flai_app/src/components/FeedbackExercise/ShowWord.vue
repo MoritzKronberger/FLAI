@@ -14,7 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, watchEffect, computed, ComputedRef } from 'vue'
+import {
+  inject,
+  ref,
+  watchEffect,
+  computed,
+  ComputedRef,
+  onBeforeMount,
+} from 'vue'
 import router from '../../router'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
@@ -58,6 +65,7 @@ function checkProgress(sign: Sign) {
     sign.level_3_reached
   )
 }
+onBeforeMount(() => checkProgress(props.signs[index.value]))
 
 async function correct() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
@@ -71,8 +79,8 @@ async function correct() {
   }
   feedbackClass.value = 'right'
   if (index.value < props.signs.length - 1) {
-    console.log('index', index.value)
     index.value++
+    console.log('index', index.value)
     checkProgress(props.signs[index.value])
   } else {
     router.push({ name: 'HomePage' })
@@ -90,8 +98,8 @@ async function wrong() {
   }
   feedbackClass.value = 'wrong'
   if (index.value < props.signs.length - 1) {
-    console.log('index', index.value)
     index.value++
+    console.log('index', index.value)
     checkProgress(props.signs[index.value])
   } else {
     //TODO: view is not reloading
