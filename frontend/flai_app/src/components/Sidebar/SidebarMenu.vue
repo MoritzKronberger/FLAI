@@ -21,7 +21,7 @@ const menuItems: MenuItem[] = [
     iconAltText: 'Lektionen Icon',
   },
   {
-    viewName: 'ShowStore',
+    viewName: 'ProfilePage',
     iconPath: '../assets/icons/profile',
     flyoutText: 'Konto',
     iconAltText: 'Konto Icon',
