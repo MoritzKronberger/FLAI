@@ -1,0 +1,201 @@
+@import '../main.scss';
+
+//variables primary
+$button-Prim-width-Large: 193px;
+$button-Prim-height-Large: 70px;
+
+$button-Prim-width-Medium: 154px;
+$button-Prim-height-Medium: 64px;
+
+$button-Prim-width-Small: 115px;
+$button-Prim-height-Small: 52px;
+
+//variables secondary
+$button-Sec-width-Large: 231px;
+$button-Sec-height-Large: 70px;
+
+$button-Sec-width-Medium: 184px;
+$button-Sec-height-Medium: 64px;
+
+$button-Sec-width-Small: 142px;
+$button-Sec-height-Small: 52px;
+
+//font size
+$font-size-Large: 25px;
+$font-size-Medium: 20px;
+$font-size-Small: 18px;
+
+$button-padding-Large: 10px;
+$button-padding-Medium: 8px;
+$button-padding-Small: 5px;
+
+$trans-duration: 0.5s;
+$border-radius: 5px;
+
+@mixin import-button(
+  $width,
+  $height,
+  $font-size,
+  $color-text,
+  $color-background,
+  $border-color
+) {
+  width: $width;
+  height: $height;
+  margin: 5px 5px 5px 0px;
+
+  //text
+  @include font(GothamSSm, bold);
+  text-align: center;
+  font-size: $font-size;
+  color: $color-text;
+
+  //border
+  border-radius: $border-radius;
+  border-style: solid;
+  border-width: 3px;
+  border-color: $border-color;
+
+  //mouse cursor changes to a pointy finger
+  cursor: pointer;
+
+  background-color: $color-background;
+  box-shadow: inset 0 0 0 0 $color-text;
+  transition: ease-in-out;
+  transition-duration: $trans-duration;
+  outline: none;
+
+  &:hover {
+    box-shadow: inset 0 0 -$width 0 $color-text;
+    color: $color-background;
+  }
+}
+
+.prim_large_button_blue {
+  @include import-button(
+    $button-Prim-width-Large,
+    $button-Prim-height-Large,
+    $font-size-Large,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
+}
+
+.prim_large_button_orange {
+  @include import-button(
+    $button-Prim-width-Large,
+    $button-Prim-height-Large,
+    $font-size-Large,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+.prim_medium_button_blue {
+  @include import-button(
+    $button-Prim-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
+}
+
+.prim_medium_button_orange {
+  @include import-button(
+    $button-Prim-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+.prim_small_button_blue {
+  @include import-button(
+    $button-Prim-width-Small,
+    $button-Prim-height-Small,
+    $font-size-Small,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
+}
+
+.prim_small_button_orange {
+  @include import-button(
+    $button-Prim-width-Small,
+    $button-Prim-height-Small,
+    $font-size-Small,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+.sec_large_button_blue {
+    @include import-button(
+      $button-Sec-width-Large,
+      $button-Sec-height-Large,
+      $font-size-Large,
+      $main-blue,
+      $main-white,
+      $main-blue
+    );
+  }
+  .sec_large_button_orange {
+    @include import-button(
+      $button-Sec-width-Large,
+      $button-Sec-height-Large,
+      $font-size-Large,
+      $main-orange,
+      $main-white,
+      $main-orange
+    );
+  }
+
+  .sec_medium_button_blue {
+    @include import-button(
+      $button-Sec-width-Medium,
+      $button-Sec-height-Medium,
+      $font-size-Medium,
+      $main-blue,
+      $main-white,
+      $main-blue
+    );
+  }
+  .sec_medium_button_orange {
+    @include import-button(
+      $button-Sec-width-Medium,
+      $button-Sec-height-Medium,
+      $font-size-Medium,
+      $main-orange,
+      $main-white,
+      $main-orange
+    );
+  }
+
+  .sec_small_button_blue {
+    @include import-button(
+      $button-Sec-width-Small,
+      $button-Sec-height-Small,
+      $font-size-Small,
+      $main-blue,
+      $main-white,
+      $main-blue
+    );
+  }
+  .sec_small_button_orange {
+    @include import-button(
+      $button-Sec-width-Small,
+      $button-Sec-height-Small,
+      $font-size-Small,
+      $main-orange,
+      $main-white,
+      $main-orange
+    );
+  }
