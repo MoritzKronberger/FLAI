@@ -3,24 +3,29 @@ import { onMounted, ref } from 'vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
 import store from '../store'
+import { Changes } from '../store/userdata'
 
 const actions = store.userdata.actions
 const user = store.userdata.user
 
 interface Options {
-  [key: string]: string | number | undefined | boolean
-  email?: { label: string; value: string }
-  username?: { label: string; value: string }
-  password?: { label: string; value: string }
-  right_handed?: { label: string; value: boolean }
-  target_learning_time?: { label: string; value: number }
+  [key: string]:
+    | { label: string; value: string }
+    | { label: string; value: boolean }
+    | { label: string; value: number }
+    | { label: string; value: undefined }
+  email: { label: string; value: string }
+  username: { label: string; value: string }
+  password: { label: string; value: string }
+  right_handed: { label: string; value: boolean }
+  target_learning_time: { label: string; value: number }
 }
 
 const options = ref<Options>({
   id: { label: 'id', value: '' },
   email: { label: 'E-Mail', value: '' },
   username: { label: 'Name', value: '' },
-  password: { label: 'Passwort', value: '***' },
+  password: { label: 'Passwort', value: '*****' },
   right_handed: { label: 'Haendigkeit', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
 })
@@ -39,22 +44,23 @@ const onChange = (): void => {
   successMessage.value = ''
   errorMessage.value = ''
 }
-const submitChanges = async (): void => {
-  const changes: Options = {}
+const submitChanges = async (): Promise<void> => {
+  const changes: Changes = {}
   for (const prop in options.value) {
     if (user[prop] !== options.value[prop].value) {
-      if (prop !== 'password' || options.value[prop].value !== '***')
+      if (prop !== 'password' || options.value[prop].value !== '*****')
         changes[prop] = options.value[prop].value
     }
   }
   const result = await actions.patchValues(changes)
   if (result?.status === 200) {
-    successMessage.value = 'Profile changed successfully'
+    successMessage.value = 'Profil wurde erfolgreich geändert'
   } else {
     errorMessage.value = result?.data.message
     for (const prop in user) {
       options.value[prop].value = user[prop]
     }
+    options.value['password'].value = '*****'
   }
 }
 </script>
