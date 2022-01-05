@@ -47,7 +47,7 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
 })
 
 //TODO: what does this line do??
-exerciseSettingsUser.unlocked_signs
+//exerciseSettingsUser.unlocked_signs
 
 export interface ExerciseSession {
   start_time: string
@@ -154,6 +154,7 @@ const methods = {
       'updatedSign',
       exercises[exerciseIndex].signs[signIndex].name,
       exercises[exerciseIndex].signs[signIndex].progress,
+      'level3:',
       exercises[exerciseIndex].signs[signIndex].level_3_reached
     )
   },
@@ -298,6 +299,15 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       methods.startNewExerciseSession(exerciseId, startTime)
+      const exercise = exercises.find((el) => el.id === exerciseId)
+      Object.assign(
+        exercise,
+        signData.actions.getFullSignForExercise(
+          exerciseId,
+          exerciseSettingsUser.unlocked_signs
+        )
+      )
+      console.log('exercise', exercise)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }

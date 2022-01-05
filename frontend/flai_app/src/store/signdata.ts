@@ -56,7 +56,7 @@ const actions = {
           let jsonProgress = await this.getProgress(exerciseId, row.id)
           jsonProgress =
             jsonProgress === undefined
-              ? { progress: 0, level_3_reached: false }
+              ? { progress: 0, level_3_reached: false, intro_done: false }
               : jsonProgress.rows[0]
           let sign: Sign = {
             id: row.id,
@@ -65,8 +65,9 @@ const actions = {
             progress: jsonProgress.progress,
             level_3_reached: jsonProgress.level_3_reached,
             recordings: await actions.getSignRecording(row.id),
-            intro_done: row.intro_done === undefined ? false : row.intro_done,
+            intro_done: jsonProgress.intro_done,
           }
+          console.log('sign:', sign)
           signs.push(sign)
           count++
         }
