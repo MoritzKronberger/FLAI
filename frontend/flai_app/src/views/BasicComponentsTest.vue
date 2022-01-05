@@ -22,33 +22,66 @@ const buttonClick = (): void => {
   <div>
     <h1>Buttons</h1>
     <custom-button
-      label="Primary"
-      btnclass="prmBlue"
+      label="Prim S"
+      btnclass="prim_small_button_blue"
       @button-click="buttonClick"
     />
     <custom-button
-      label="Primary"
-      btnclass="prmOrange"
+      label="Prim S"
+      btnclass="prim_small_button_orange"
       @button-click="buttonClick"
     />
     <custom-button
-      label="Secondary"
-      btnclass="secBlue"
+      label="Prim M"
+      btnclass="prim_medium_button_blue"
       @button-click="buttonClick"
     />
     <custom-button
-      label="Secondary"
-      btnclass="secOrange"
+      label="Prim M"
+      btnclass="prim_medium_button_orange"
       @button-click="buttonClick"
     />
-
     <custom-button
-      label="Primary"
-      btnclass="prmSmallBlue"
+      label="Prim L"
+      btnclass="prim_large_button_blue"
       @button-click="buttonClick"
     />
-
+    <custom-button
+      label="Prim L"
+      btnclass="prim_large_button_orange"
+      @button-click="buttonClick"
+    />
     <div>Test Button click count is: {{ clickCount }}</div>
+    <custom-button
+      label="Sec S"
+      btnclass="sec_small_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec S"
+      btnclass="sec_small_button_orange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec M"
+      btnclass="sec_medium_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec M"
+      btnclass="sec_medium_button_orange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec L"
+      btnclass="sec_large_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec L"
+      btnclass="sec_large_button_orange"
+      @button-click="buttonClick"
+    />
   </div>
   <br />
   <div>

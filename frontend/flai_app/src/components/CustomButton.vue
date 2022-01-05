@@ -15,5 +15,5 @@ function onclick() {
 </template>
 
 <style scoped lang="scss">
-@import '../assets/scss/components/_button.scss';
+@import '../assets/scss/components/_buttonMixins.scss';
 </style>
