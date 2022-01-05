@@ -27,7 +27,7 @@ const user: User = reactive({
 })
 
 const methods = {
-  patchOptionsLocally(changes: Changes) {
+  patchOptionsAll(changes: Changes) {
     for (const prop in changes) {
       if (prop !== 'password') user[prop] = changes[prop]
     }
@@ -82,7 +82,7 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       console.log('Patch', patch)
-      methods.patchOptionsLocally(patch)
+      methods.patchOptionsAll(patch)
     }
     return jsonData
   },
