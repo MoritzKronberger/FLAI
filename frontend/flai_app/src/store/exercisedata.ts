@@ -15,6 +15,7 @@ export interface Exercise {
 
 const exercises: Exercise[] = reactive([])
 
+const progressStep = 10
 export interface ExerciseSettings {
   id: string
   level_1: number
@@ -88,7 +89,7 @@ const methods = {
         exerciseSettingsUser.unlocked_signs > 0 ? 1 : 0
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
-    let word = this.generateWord(exerciseId)
+    const word = this.generateWord(exerciseId)
     const newSession: ExerciseSession = {
       start_time: startTime,
       session_duration: 0,
@@ -100,17 +101,17 @@ const methods = {
   generateWord(exerciseId: string) {
     const word: Sign[] = []
     if (exercises.length > 0) {
-      let exercise = exercises.find((el) => el.id === exerciseId)
+      const exercise = exercises.find((el) => el.id === exerciseId)
       if (exercise) {
-        let signCopy = [...exercise.signs]
+        const signCopy = [...exercise.signs]
         for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
-          let weightArray = []
+          const weightArray = []
           /* TODO: reactive to generate words, where letters are only included once 
           for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
           for (let k = 0; k < exerciseSettingsUser.unlocked_signs; k++) {
             weightArray.push(signCopy[k].progress + 1)
           }
-          let index = weightedRandomIndex(weightArray)
+          const index = weightedRandomIndex(weightArray)
           word.push(signCopy[index])
           // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
         }
@@ -120,7 +121,7 @@ const methods = {
     return word
   },
   changeExerciseSessionDuration(startTime: string, duration: number) {
-    let session = exerciseSessions.find((el) => el.start_time === startTime)
+    const session = exerciseSessions.find((el) => el.start_time === startTime)
     if (session) {
       session.session_duration = duration
       console.log('new duration', session)
@@ -128,7 +129,9 @@ const methods = {
   },
   deleteExerciseSession(startTime: string) {
     console.log(exerciseSessions)
-    let index = exerciseSessions.findIndex((el) => el.start_time === startTime)
+    const index = exerciseSessions.findIndex(
+      (el) => el.start_time === startTime
+    )
     exerciseSessions.splice(index, 0)
     console.log(exerciseSessions)
   },
@@ -154,7 +157,7 @@ const methods = {
     )
   },
   signAlreadySeen(letter: string) {
-    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+    const sign = exercises[0].signs.find((el: Sign) => el.name === letter)
     if (sign) {
       sign.intro_done = true
     }
@@ -169,8 +172,8 @@ const actions = {
       data: {},
     })
     if (jsonData?.status === 200) {
-      for (let row of jsonData?.data.rows) {
-        let exerciseCache: Exercise = {
+      for (const row of jsonData.data.rows) {
+        const exerciseCache: Exercise = {
           id: row.id,
           name: row.name,
           description: row.description,

@@ -3,7 +3,7 @@ import { jsonAction } from '../common/service/rest'
 import authdata from './authdata'
 
 export interface User {
-  id: string //uuid
+  [id: string]: string | number | undefined | boolean
   email: string
   username: string
   right_handed: boolean
@@ -14,11 +14,8 @@ export interface RegisterUser {
   username: string
   email: string
   password: string
-  /* eslint-disable */
   right_handed: boolean
-  /* eslint-enable */
 }
-
 const user: User = reactive({
   id: '',
   email: '',
@@ -27,8 +24,27 @@ const user: User = reactive({
   target_learning_time: 10 * 60 * 1000, //millisec
 })
 
+const methods = {
+  patchOptionsLocally(changes: User) {
+    for (const prop in changes) {
+      user[prop] = changes[prop]
+    }
+  },
+  changeEmail(email: string) {
+    user.email = email
+  },
+  changeUsername(username: string) {
+    user.username = username
+  },
+  changeRightHanded(rightHanded: boolean) {
+    user.right_handed = rightHanded
+  },
+  changeTargetLearningTime(minutes: number) {
+    user.target_learning_time = minutes * 60 * 1000
+  },
+}
+
 const actions = {
-  /* eslint-disable */
   async getUser() {
     user.id = authdata.methods.fetchUserId()
     const jsonData = await jsonAction({
@@ -36,7 +52,12 @@ const actions = {
       url: 'user',
       data: { id: user.id },
     })
-    console.log(jsonData)
+    const data = jsonData?.data.rows[0]
+    for (const prop in data) {
+      user[prop] = data[prop]
+    }
+    console.log(user)
+    return jsonData
   },
 
   async postNewUser(registerUser: RegisterUser) {
@@ -46,7 +67,7 @@ const actions = {
       data: registerUser,
     })
   },
-  async patchUser(patch: object) {
+  async patchValues(patch: User) {
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'user',
@@ -57,35 +78,20 @@ const actions = {
         },
       },
     })
-    return jsonData
+    if (jsonData?.status === 200) {
+      console.log('Patch', patch)
+      methods.patchOptionsLocally(patch)
+    }
+    return jsonData?.status
   },
   async deleteUser() {
     jsonAction({
       method: 'delete',
       url: 'user',
       data: {
-        id: '25cb10b9-baee-455b-9c22-fca251b324f5',
+        id: user.id,
       },
     })
-  },
-}
-
-const methods = {
-  changeEmail(email: string) {
-    actions.patchUser({ email: email })
-    user.email = email
-  },
-  changeUsername(username: string) {
-    user.username = username
-    actions.patchUser({ username: username })
-  },
-  changeRightHanded(rightHanded: boolean) {
-    user.right_handed = rightHanded
-    actions.patchUser({ right_handed: rightHanded }) // eslint-disable-line
-  },
-  changeTargetLearningTime(minutes: number) {
-    user.target_learning_time = minutes * 60 * 1000
-    actions.patchUser({ targetLearningTime: minutes })
   },
 }
 
