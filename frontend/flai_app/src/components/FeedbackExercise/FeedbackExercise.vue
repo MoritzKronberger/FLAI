@@ -53,6 +53,7 @@ onBeforeMount(async () => {
     signs.value?.length
   )
   await store.exercisedata.actions.postNewExerciseSession(exerciseId.value)
+  await store.exercisedata.actions.getFullExerciseForUser(exerciseId.value)
   startSession.value = 'true'
   console.log('signs', JSON.stringify(signs))
   if (signs.value?.length ?? 0 > 0) if (signs.value) getNewSigns(signs.value)
