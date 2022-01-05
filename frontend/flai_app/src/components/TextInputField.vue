@@ -3,7 +3,7 @@ defineProps<{
   labelName?: string
   placeholder: string
   elementClass: string
-  componentClass: string
+  componentClass?: string
   customType?: { type: string; default: 'text' }
   modelValue: string | number | undefined
 }>()
