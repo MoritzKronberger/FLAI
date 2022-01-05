@@ -21,7 +21,7 @@ const menuItems: MenuItem[] = [
     iconAltText: 'Lektionen Icon',
   },
   {
-    viewName: 'ShowStore',
+    viewName: 'ProfilePage',
     iconPath: '../assets/icons/profile',
     flyoutText: 'Konto',
     iconAltText: 'Konto Icon',
@@ -51,6 +51,6 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: 50vh;
 }
 </style>

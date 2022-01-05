@@ -3,7 +3,7 @@ defineProps<{
   labelName?: string
   elementClass: string
   modelValue: boolean | undefined
-  componentClass: string
+  componentClass?: string
 }>()
 const emit = defineEmits(['update:modelValue'])
 
