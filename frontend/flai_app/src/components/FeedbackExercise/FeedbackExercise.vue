@@ -7,7 +7,7 @@
       :exercise-id="exerciseId"
       @next="onNextStep"
     />
-    <ShowWord v-else :exercise-id="exerciseId" />
+    <ShowWord v-else :signs="signs" :exercise-id="exerciseId" />
   </div>
   <div v-else>
     //TODO: Add loading animation
@@ -20,10 +20,12 @@ import { ref, onBeforeMount, computed, inject, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
-import { ExerciseSession } from '../../store/exercisedata'
 
 const store: any = inject('store')
 const signs: ComputedRef<Sign[] | undefined> = computed(
+  () => store.signdata.signs
+)
+const word: ComputedRef<string[]> = computed(
   () => store.exercisedata.exerciseSessions.at(-1).signs
 )
 const startSession = ref('false') // forces the div to rerender via the key: must be string/number
@@ -33,10 +35,11 @@ const exerciseId: ComputedRef<string> = computed(
   () => store.exercisedata.exercises[0].id
 )
 
-function getNewSigns(signs: Sign[]) {
+function getNewSigns() {
   newSigns.length = 0
-  for (const sign of signs) {
-    if (sign.intro_done === false) {
+  for (const signId of word.value) {
+    const sign = signs.value?.find((el) => el.id === signId)
+    if (sign?.intro_done === false) {
       newSigns.push(sign)
     }
   }
@@ -44,19 +47,11 @@ function getNewSigns(signs: Sign[]) {
 }
 
 onBeforeMount(async () => {
-  console.log(
-    'conditions',
-    stepOneWatch.value,
-    newSigns.length,
-    stepOneWatch.value && newSigns.length > 0,
-    'key',
-    signs.value?.length
-  )
   await store.exercisedata.actions.postNewExerciseSession(exerciseId.value)
   await store.exercisedata.actions.getFullExerciseForUser(exerciseId.value)
   startSession.value = 'true'
-  console.log('signs', JSON.stringify(signs))
-  if (signs.value?.length ?? 0 > 0) if (signs.value) getNewSigns(signs.value)
+  console.log('signs', JSON.stringify(signs.value))
+  getNewSigns()
   console.log(
     'conditions',
     stepOneWatch.value,
