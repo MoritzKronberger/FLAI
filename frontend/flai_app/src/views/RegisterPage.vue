@@ -9,13 +9,14 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
+const defaultTargetTime = '00:20:00'
+
 const user = ref<RegisterUser>({
   username: '',
   email: '',
   password: '',
-  /* eslint-disable */
   right_handed: true,
-  /* eslint-enable */
+  target_learning_time: defaultTargetTime,
 })
 
 const errorMessage = ref('')
@@ -61,6 +62,14 @@ const submit = async (): Promise<void> => {
       v-model="user.right_handed"
       label-name="Rechtshänder:in"
       element-class="checkbox-primary"
+    />
+    <text-input-field
+      v-model="user.target_learning_time"
+      label-name="Tägliches Lernziel"
+      :placeholder="defaultTargetTime"
+      element-class="input-primary"
+      custom-type="time"
+      :time-step="5"
     />
     <custom-button
       label="Registrieren"
