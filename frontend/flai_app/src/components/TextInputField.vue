@@ -3,8 +3,8 @@ defineProps<{
   labelName?: string
   placeholder: string
   elementClass: string
-  componentClass: string
-  customType?: { type: string; default: 'text' }
+  componentClass?: string
+  customType?: string
   modelValue: string | number | undefined
 }>()
 const emit = defineEmits(['update:modelValue'])
@@ -21,7 +21,7 @@ const onInput = (e: Event): void => {
       {{ labelName }}
       <input
         :value="modelValue"
-        :type="customType"
+        :type="customType ? customType : 'text'"
         :name="labelName"
         :placeholder="placeholder"
         :class="elementClass"
