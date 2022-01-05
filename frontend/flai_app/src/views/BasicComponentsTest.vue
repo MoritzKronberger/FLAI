@@ -22,10 +22,32 @@ const buttonClick = (): void => {
   <div>
     <h1>Buttons</h1>
     <custom-button
-      label="Test Button"
+      label="Primary"
       btnclass="prmBlue"
       @button-click="buttonClick"
     />
+    <custom-button
+      label="Primary"
+      btnclass="prmOrange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Secondary"
+      btnclass="secBlue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Secondary"
+      btnclass="secOrange"
+      @button-click="buttonClick"
+    />
+
+    <custom-button
+      label="Primary"
+      btnclass="prmSmallBlue"
+      @button-click="buttonClick"
+    />
+
     <div>Test Button click count is: {{ clickCount }}</div>
   </div>
   <br />

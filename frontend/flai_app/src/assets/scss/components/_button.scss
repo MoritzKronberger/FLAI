@@ -1,13 +1,15 @@
 @import '../main.scss';
 
-$button-width-big: 120px;
+$button-width-big: 110px;
 $button-width-small: 80px;
+$button-padding: 10px;
+$button-padding-small: 8px;
 $trans-duration: 0.5s;
 $border-radius: 7px;
 
 [class^='test'] {
   //surrounding
-  padding: 10px;
+  padding: $button-padding;
   margin: 5px 5px 5px 0px;
   width: $button-width-big;
 
@@ -49,7 +51,7 @@ $border-radius: 7px;
 //all Blue button
 [class$='Blue'] {
   //surrounding
-  padding: 10px;
+  padding: $button-padding;
   margin: 5px 5px 5px 0px;
   width: $button-width-big;
 
@@ -89,7 +91,7 @@ $border-radius: 7px;
 
 //Primary Button Blue Small
 .prmSmallBlue {
-  padding: 6px;
+  padding: $button-padding-small;
   width: $button-width-small;
   font-size: 10px;
   color: $main-white;
@@ -133,7 +135,7 @@ $border-radius: 7px;
 //all orange button
 [class$='Orange'] {
   //surrounding
-  padding: 10px;
+  padding: $button-padding;
   margin: 5px 5px 5px 0px;
   width: $button-width-big;
 
@@ -163,11 +165,11 @@ $border-radius: 7px;
 
 .prmOrange:hover {
   box-shadow: inset 0 0 -$button-width-big 0 $main-white;
-  color: $main-blue;
+  color: $main-orange;
 }
 
 .prmOrange:active {
-  color: $dark-blue;
+  color: $dark-orange;
   background-color: $main-white;
 }
 
@@ -183,7 +185,7 @@ $border-radius: 7px;
 
 .secOrange:hover {
   box-shadow: inset 0 0 -$button-width-big 0 $main-orange;
-  color: $main-blue;
+  color: $main-white;
 }
 
 .secOrange:active {
