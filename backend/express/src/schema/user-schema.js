@@ -10,8 +10,16 @@ const createUser = Joi.object({
 })
 
 const updateUser = Joi.object({
-  username: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')),
-  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')),
+  username: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).message({
+    'string.empty': '"username" darf nicht leer sein',
+    'string.min': '"username" benötigt mindestens 5 Charaktere',
+    'string.pattern.base': '"username" enthält unerlaubte Zeichen',
+  }),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).message({
+    'string.empty': '"passwort" darf nicht leer sein',
+    'string.min': '"passwort" benötigt mindestens 5 Charaktere',
+    'string.pattern.base': '"passwort" enthält unerlaubte Zeichen',
+  }),
   email: Joi.string().email(),
   /* eslint-disable */
   right_handed: Joi.boolean(),
