@@ -1,5 +1,5 @@
 <template>
-  <div v-if="signs !== undefined && signs.length > 0" :key="signs">
+  <div v-if="signs !== undefined && signs.length > 0" :key="startSession">
     <h1>Feedback Learning Exercise</h1>
     <WatchWord
       v-if="stepOneWatch && newSigns.length > 0"
@@ -26,6 +26,7 @@ const store: any = inject('store')
 const signs: ComputedRef<Sign[] | undefined> = computed(
   () => store.exercisedata.exerciseSessions.at(-1).signs
 )
+const startSession = ref('false') // forces the div to rerender via the key: must be string/number
 const newSigns: Sign[] = []
 const stepOneWatch = ref(true)
 const exerciseId: ComputedRef<string> = computed(
@@ -39,18 +40,29 @@ function getNewSigns(signs: Sign[]) {
       newSigns.push(sign)
     }
   }
-  console.log('newSigns', newSigns)
+  console.log('newSigns', JSON.stringify(newSigns))
 }
 
 onBeforeMount(async () => {
+  console.log(
+    'conditions',
+    stepOneWatch.value,
+    newSigns.length,
+    stepOneWatch.value && newSigns.length > 0,
+    'key',
+    signs.value?.length
+  )
   await store.exercisedata.actions.postNewExerciseSession(exerciseId.value)
-  console.log('signs', signs)
+  startSession.value = 'true'
+  console.log('signs', JSON.stringify(signs))
   if (signs.value?.length ?? 0 > 0) if (signs.value) getNewSigns(signs.value)
   console.log(
     'conditions',
     stepOneWatch.value,
     newSigns.length,
-    stepOneWatch.value && newSigns.length > 0
+    stepOneWatch.value && newSigns.length > 0,
+    'key',
+    signs.value?.length
   )
 })
 
