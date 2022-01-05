@@ -1,52 +1,19 @@
 @import '../main.scss';
 
-$button-width-big: 110px;
-$button-width-small: 80px;
+//variables
+$button-width-big: 154px;
+$button-height-big: 64px;
+$font-size-big: 20px;
+
+$button-width-small: 115px;
+$button-height-small: 52px;
+$font-size-small: 18px;
+
 $button-padding: 10px;
 $button-padding-small: 8px;
+
 $trans-duration: 0.5s;
 $border-radius: 7px;
-
-[class^='test'] {
-  //surrounding
-  padding: $button-padding;
-  margin: 5px 5px 5px 0px;
-  width: $button-width-big;
-
-  //text
-  @include font(GothamSSm, bold);
-  text-align: center;
-
-  //border
-  border-radius: $border-radius;
-  border-style: solid;
-  border-width: 3px;
-  border-color: $main-blue;
-
-  //mouse cursor changes to a pointy finger
-  cursor: pointer;
-}
-
-//test Button
-.testBtn {
-  color: $main-white;
-  background-color: $main-blue;
-  box-shadow: inset 0 0 0 0 $main-white;
-  transition: ease-in-out;
-  transition-duration: $trans-duration;
-  outline: none;
-}
-
-.testBtn:hover {
-  box-shadow: inset 0 0 -$button-width-big 0 $main-white;
-  color: $main-blue;
-}
-
-.testBtn:active {
-  color: $dark-orange;
-  background-color: $main-white;
-  border-color: $dark-orange;
-}
 
 //all Blue button
 [class$='Blue'] {
@@ -54,6 +21,8 @@ $border-radius: 7px;
   padding: $button-padding;
   margin: 5px 5px 5px 0px;
   width: $button-width-big;
+  height: $button-height-big;
+  font-size: $font-size-big;
 
   //text
   @include font(GothamSSm, bold);
@@ -77,39 +46,38 @@ $border-radius: 7px;
   transition: ease-in-out;
   transition-duration: $trans-duration;
   outline: none;
-}
 
-.prmBlue:hover {
-  box-shadow: inset 0 0 -$button-width-big 0 $main-white;
-  color: $main-blue;
-}
-
-.prmBlue:active {
-  color: $dark-blue;
-  background-color: $main-white;
+  &:hover {
+    box-shadow: inset 0 0 -$button-width-big 0 $main-white;
+    color: $main-blue;
+  }
+  &:active {
+    color: $dark-blue;
+    background-color: $main-white;
+  }
 }
 
 //Primary Button Blue Small
 .prmSmallBlue {
   padding: $button-padding-small;
   width: $button-width-small;
-  font-size: 10px;
+  height: $button-height-small;
+  font-size: $font-size-small;
   color: $main-white;
   background-color: $main-blue;
   box-shadow: inset 0 0 0 0 $main-white;
   transition: ease-in-out;
   transition-duration: $trans-duration;
   outline: none;
-}
 
-.prmSmallBlue:hover {
-  box-shadow: inset 0 0 -$button-width-small 0 $main-white;
-  color: $main-blue;
-}
-
-.prmSmallBlue:active {
-  color: $dark-blue;
-  background-color: $main-white;
+  &:hover {
+    box-shadow: inset 0 0 -$button-width-small 0 $main-white;
+    color: $main-blue;
+  }
+  &:active {
+    color: $dark-blue;
+    background-color: $main-white;
+  }
 }
 
 //Secondary Button Blue
@@ -120,16 +88,16 @@ $border-radius: 7px;
   transition: ease-in-out;
   transition-duration: $trans-duration;
   outline: none;
-}
 
-.secBlue:hover {
-  box-shadow: inset 0 0 -$button-width-big 0 $main-blue;
-  color: $main-white;
-}
+  &:hover {
+    box-shadow: inset 0 0 -$button-width-big 0 $main-blue;
+    color: $main-white;
+  }
 
-.secBlue:active {
-  color: $main-white;
-  background-color: $dark-blue;
+  &:active {
+    color: $main-white;
+    background-color: $dark-blue;
+  }
 }
 
 //all orange button
@@ -138,6 +106,8 @@ $border-radius: 7px;
   padding: $button-padding;
   margin: 5px 5px 5px 0px;
   width: $button-width-big;
+  height: $button-height-big;
+  font-size: $font-size-big;
 
   //text
   @include font(GothamSSm, bold);
@@ -161,16 +131,15 @@ $border-radius: 7px;
   transition: ease-in-out;
   transition-duration: $trans-duration;
   outline: none;
-}
 
-.prmOrange:hover {
-  box-shadow: inset 0 0 -$button-width-big 0 $main-white;
-  color: $main-orange;
-}
-
-.prmOrange:active {
-  color: $dark-orange;
-  background-color: $main-white;
+  &:hover {
+    box-shadow: inset 0 0 -$button-width-big 0 $main-white;
+    color: $main-orange;
+  }
+  &:active {
+    color: $dark-orange;
+    background-color: $main-white;
+  }
 }
 
 //Second Button Orange
@@ -181,14 +150,13 @@ $border-radius: 7px;
   transition: ease-in-out;
   transition-duration: $trans-duration;
   outline: none;
-}
 
-.secOrange:hover {
-  box-shadow: inset 0 0 -$button-width-big 0 $main-orange;
-  color: $main-white;
-}
-
-.secOrange:active {
-  color: $main-white;
-  background-color: $main-orange;
+  &:hover {
+    box-shadow: inset 0 0 -$button-width-big 0 $main-orange;
+    color: $main-white;
+  }
+  &:active {
+    color: $main-white;
+    background-color: $main-orange;
+  }
 }
