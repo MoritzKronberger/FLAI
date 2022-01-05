@@ -47,13 +47,14 @@ const submitChanges = async (): void => {
         changes[prop] = options.value[prop].value
     }
   }
-  console.log(changes)
   const result = await actions.patchValues(changes)
   if (result?.status === 200) {
     successMessage.value = 'Profile changed successfully'
   } else {
     errorMessage.value = result?.data.message
-    console.log(errorMessage.value)
+    for (const prop in user) {
+      options.value[prop].value = user[prop]
+    }
   }
 }
 </script>
