@@ -1,33 +1,41 @@
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed, ref } from 'vue'
 import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
 import StatisticDashboardLarge from '../components/Statistic/StatisticDashboardLarge.vue'
+import customButton from '../components/CustomButton.vue'
+import IconLoader from '../components/IconLoader.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const store: any = inject('store')
 const user = computed(() => store.userdata.user)
+
+const toComingSoon = () => router.push({ name: 'ComingSoon' })
+const level = ref(1)
 </script>
 
 <template>
-  <h2>
-    Hallo, <b>{{ user.username }}!</b>
-  </h2>
-  <div class="row">
-    <div>
-      <h2>Tagesaufgabe</h2>
-      <img
-        id="exercisePicture"
-        alt="Tagesaufgabe"
-        src="../assets/exercise.png"
-      />
-    </div>
-    <div>
-      <h2>Abzeichen</h2>
-      <img
-        id="badge"
-        alt="Abzeichen des aktuellen Levels"
-        src="../assets/badgeLevel3.png"
-      />
-    </div>
+  <div>
+    <h2>
+      Hallo, <b>{{ user.username }}!</b>
+    </h2>
+    <div>Willkommen zurück!</div>
+    <div>Bereit für die heutige Aufgabe?</div>
+    <custom-button
+      label="Start"
+      btnclass="button-primary"
+      @button-click="toComingSoon"
+    />
+  </div>
+  <div>
+    <IconLoader
+      :path="`../assets/icons/levels/level_${level}`"
+      mimetype="svg"
+      alt="Level Icon"
+      element-class="level-icon"
+    />
+    <div>Level {{ level }}</div>
   </div>
   <StatisticDashboardSmall />
   <StatisticDashboardLarge />
