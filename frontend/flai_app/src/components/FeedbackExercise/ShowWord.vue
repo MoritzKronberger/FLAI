@@ -27,10 +27,7 @@ const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
 
-const signs: ComputedRef<Sign[]> = computed(
-  () => store.exercisedata.exerciseSessions.at(-1).signs
-)
-const props = defineProps<{ exerciseId: string }>()
+const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -65,18 +62,18 @@ function checkProgress(sign: Sign) {
 async function correct() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
-    const progress = signs.value[index.value].progress + 10
+    const progress = props.signs[index.value].progress + 10
     await store.signdata.actions.patchProgress(
       props.exerciseId,
-      signs.value[index.value].id,
+      props.signs[index.value].id,
       progress
     )
   }
   feedbackClass.value = 'right'
-  if (index.value < signs.value.length - 1) {
+  if (index.value < props.signs.length - 1) {
     console.log('index', index.value)
     index.value++
-    checkProgress(signs.value[index.value])
+    checkProgress(props.signs[index.value])
   } else {
     router.push({ name: 'HomePage' })
   }
@@ -84,18 +81,18 @@ async function correct() {
 async function wrong() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
-    const progress = signs.value[index.value].progress - 10
+    const progress = props.signs[index.value].progress - 10
     await store.signdata.actions.patchProgress(
       props.exerciseId,
-      signs.value[index.value].id,
+      props.signs[index.value].id,
       progress
     )
   }
   feedbackClass.value = 'wrong'
-  if (index.value < signs.value.length - 1) {
+  if (index.value < props.signs.length - 1) {
     console.log('index', index.value)
     index.value++
-    checkProgress(signs.value[index.value])
+    checkProgress(props.signs[index.value])
   } else {
     //TODO: view is not reloading
     router.push({ name: 'HomePage' })
