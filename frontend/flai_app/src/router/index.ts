@@ -32,6 +32,7 @@ const routes = [
     path: '/exercise',
     name: 'LearningExercise',
     component: LearningExercise,
+    meta: { authRequired: true },
   },
   {
     path: '/flainet',
@@ -58,6 +59,7 @@ const routes = [
     path: '/comingsoon',
     name: 'ComingSoon',
     component: ComingSoon,
+    meta: { authRequired: true },
   },
   {
     path: '/debug',
@@ -75,7 +77,6 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
 
 // from https://next.router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 router.beforeEach((to) => {
-  console.log(to)
   if (to.matched.some((record) => record.meta.authRequired)) {
     if (!isAuth.value) return '/login'
   }
