@@ -3,6 +3,7 @@
   <WatchWord
     v-if="stepOneWatch && newSigns.length > 0"
     :signs="newSigns"
+    :exercise-id="exerciseId"
     @next="onNextStep"
   />
   <ShowWord v-else :signs="signs" :exercise-id="exerciseId" />

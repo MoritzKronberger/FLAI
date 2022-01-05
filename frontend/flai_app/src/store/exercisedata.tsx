@@ -153,8 +153,8 @@ const methods = {
       exercises[exerciseIndex].signs[signIndex].level_3_reached
     )
   },
-  signAlreadySeen(letter: string) {
-    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+  changeIntroDone(signId: string) {
+    let sign = exercises[0].signs.find((el: Sign) => el.id == signId)
     if (sign) {
       sign.intro_done = true
     }

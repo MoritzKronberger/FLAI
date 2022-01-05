@@ -118,13 +118,19 @@ const actions = {
     }
     console.log(jsonData.data)
   },
-  async patchProgress(exerciseId: string, signId: string, progress: number) {
+  async patchProgress(
+    exerciseId: string,
+    signId: string,
+    progress: number,
+    intro_done?: boolean
+  ) {
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'progress',
       data: {
         data: {
           progress: progress,
+          intro_done: intro_done,
         },
         ids: {
           user_id: userData.user.id,
@@ -135,11 +141,12 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       exerciseData.methods.changeProgress(exerciseId, signId, progress)
+      if (intro_done) exerciseData.methods.changeIntroDone(signId)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
     let sign = exerciseData.exercises[0].signs.find((el) => el.id === signId)
-    console.log(sign?.progress)
+    console.log(jsonData.data)
   },
   /* eslint-enable */
 }
