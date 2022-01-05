@@ -22,8 +22,8 @@ const updateUser = Joi.object({
     'string.empty': '"Email" darf nicht leer sein',
     'string.email': '"Email" enthält ungültige Zeichen',
   }),
-  /* eslint-disable */
   right_handed: Joi.boolean(),
+  target_learning_time: Joi.string(),
 })
 
 export { createUser, updateUser }

@@ -107,9 +107,11 @@ onMounted(() => {
       />
       <text-input-field
         v-model="options.target_learning_time.value"
-        placeholder="15"
+        placeholder="00:20:00"
         element-class="input-primary"
         component-class="input"
+        custom-type="time"
+        :time-step="1"
       />
       <p v-if="successMessage">{{ successMessage }}</p>
       <p v-if="errorMessage">{{ errorMessage }}</p>
