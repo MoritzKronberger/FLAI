@@ -1,5 +1,5 @@
 import { readonly, reactive } from 'vue'
-import { random, weightedRandomIndex } from '../ressources/ts/random'
+import { weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
 import signData, { Sign } from './signdata'
 
@@ -12,7 +12,7 @@ export interface Exercise {
 
 const exercises: Exercise[] = reactive([])
 
-const progressStep: number = 10
+const progressStep = 10
 export interface ExerciseSettings {
   id: string
   level_1: number
@@ -82,7 +82,7 @@ const methods = {
         exerciseSettingsUser.unlocked_signs > 0 ? 1 : 0
   },
   startNewExerciseSession() {
-    let word = this.generateWord()
+    const word = this.generateWord()
     const newSession: ExerciseSession = {
       start_time: Date.now(),
       session_duration: 0,
@@ -95,14 +95,14 @@ const methods = {
   generateWord() {
     const word: Sign[] = []
     if (exercises.length > 0) {
-      let signCopy = [...exercises[0].signs]
+      const signCopy = [...exercises[0].signs]
       for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
         //get sum of progress
-        let weightArray = []
+        const weightArray = []
         for (let k = 0; k < exerciseSettingsUser.unlocked_signs - i; k++) {
           weightArray.push(signCopy[k].progress + 1)
         }
-        let index = weightedRandomIndex(weightArray)
+        const index = weightedRandomIndex(weightArray)
         word.push(signCopy[index])
         signCopy.splice(index, 1)
       }
@@ -142,7 +142,7 @@ const methods = {
     )
   },
   signAlreadySeen(letter: string) {
-    let sign = exercises[0].signs.find((el: Sign) => el.name == letter)
+    const sign = exercises[0].signs.find((el: Sign) => el.name === letter)
     if (sign) {
       sign.intro_done = true
     }
