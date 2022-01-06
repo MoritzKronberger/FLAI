@@ -6,7 +6,7 @@
     <ul v-if="isOpen">
       <li
         v-for="item in items"
-        :key="item"
+        :key="item.label"
         class="dropDownMenu"
         @click="emit('clickElement', item.value)"
       >
@@ -18,9 +18,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DropDown } from '.console./ressources/ts/interfaces'
+import { DropDown } from '../ressources/ts/interfaces'
 
-const props = defineProps<{ title: string; items: DropDown[] }>()
+defineProps<{ title: string; items: DropDown[] }>()
 
 const isOpen = ref(false)
 
