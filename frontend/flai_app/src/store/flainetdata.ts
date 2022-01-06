@@ -52,8 +52,8 @@ const methods = {
   clearResultBuffer() {
     resultBuffer.results = []
   },
-  evaluateResultBuffer() {
-    const returnBuffer = [...resultBuffer.results]
+  evaluateResultBuffer(newBufferResults: FlaiNetResults) {
+    const returnBuffer = [...newBufferResults]
     return resultBuffer.results.every(
       (val) => val?.label === resultBuffer.results[0]?.label
     ) && returnBuffer.length === resultBuffer.size

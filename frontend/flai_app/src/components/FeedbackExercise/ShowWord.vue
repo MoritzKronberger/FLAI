@@ -14,12 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, onBeforeMount } from 'vue'
+import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
 import router from '../../router'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
+import { FlaiNetResults } from '../../store/flainetdata'
 
 const index = ref(0)
 const feedbackClass = ref('waiting')
@@ -30,6 +31,8 @@ const showSign = ref(true)
 const progressStep: ComputedRef<Progress> = computed(
   () => store.exercisedata.progressStep
 )
+
+const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
@@ -104,7 +107,11 @@ async function wrong() {
   }
 }
 
-//watchEffect(() => checkProgress(signs.value[index.value]))
+function getFlaiNetResults(bufferResults: FlaiNetResults) {
+  console.log(store.flainetdata.methods.evaluateResultBuffer(bufferResults))
+}
+
+watchEffect(() => getFlaiNetResults(resultBuffer.value))
 </script>
 
 <style>
