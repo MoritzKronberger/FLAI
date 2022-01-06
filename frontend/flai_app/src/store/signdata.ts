@@ -5,7 +5,7 @@ import { jsonAction } from '../common/service/rest'
 import { errorMessage } from '../ressources/ts/methods'
 import { networkMessage } from './index'
 import userData from './userdata'
-import { weightedRandomIndex } from '../ressources/ts/random'
+import { getWeightedDistance } from '../ressources/ts/random'
 
 export interface Sign {
   id: string
@@ -38,26 +38,41 @@ const methods = {
     console.log('signs', signs)
     return signs
   },*/
-  generateWord(exerciseId: string) {
-    const word: string[] = []
+
+  generateWord(): string[] {
+    interface Word {
+      signIds: string[]
+      letters: string
+    }
+    const word: Word = { signIds: [], letters: '' }
     const signCopy = [...signs]
+    const randomNumber = Math.random()
+
+    console.log('The word is:')
     for (let i = 0; i < exerciseData.exerciseSettingsUser.word_length; i++) {
+      // compute weightedDistances for all sign candidates
       const weightArray = []
-      /* TODO: reactive to generate words, where letters are only included once 
-          for (let k = 0; k < exerciseSettingsUser.unlockedSigns - i; k++) { */
       for (
         let k = 0;
         k < exerciseData.exerciseSettingsUser.unlocked_signs;
         k++
       ) {
-        weightArray.push(signCopy[k].progress + 1)
+        const weightedDistance = getWeightedDistance(
+          randomNumber,
+          signCopy[k],
+          word.letters
+        )
+        weightArray.push(weightedDistance)
       }
-      const index = weightedRandomIndex(weightArray)
-      console.log('letter', signCopy[index].name)
-      word.push(signCopy[index].id)
-      // TODO: reactivate to generate words, where letters are only included once : signCopy.splice(index, 1)
+      // select sign with smallest weighted distance value
+      const index = weightArray.indexOf(Math.min(...weightArray))
+      word.signIds.push(signCopy[index].id)
+      word.letters = word.letters + signCopy[index].name
+      console.log(
+        `letter ${i}: ${signCopy[index].name} (progress: ${signCopy[index].progress})`
+      )
     }
-    return word
+    return word.signIds
   },
   changeProgress(exerciseId: string, signId: string, progress: number) {
     const signIndex = signs.findIndex((el) => el.id === signId)
