@@ -1,0 +1,44 @@
+@import '../main.scss';
+
+//variables
+$field-width: 220px;
+$field-height: 25px;
+$input-test-size: 13px;
+
+@mixin import_inputField($status, $color) {
+  width: $field-width;
+  height: $field-height;
+  border-color: $color;
+  border-style: solid;
+  border-radius: 5px;
+  padding-left: 5px;
+  font-size: $input-test-size;
+  outline: none;
+  color: $light-grey;
+
+  &:hover {
+    border-color: $main-blue;
+  }
+
+  &:active {
+    border-color: $main-blue;
+    color: $main-black;
+  }
+
+  &:active::after {
+    border-color: $main-blue;
+    color: $main-black;
+  }
+}
+
+.default_input_field {
+  @include import_inputField(default, $light-grey);
+}
+
+.success_input_field {
+  @include import_inputField(success, $main-green);
+}
+
+.error_input_field {
+  @include import_inputField(error, $main-red);
+}
