@@ -44,9 +44,6 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
   unlocked_signs: 0,
 })
 
-//TODO: what does this line do??
-//exerciseSettingsUser.unlocked_signs
-
 export interface ExerciseSession {
   start_time: string
   session_duration: number
@@ -55,6 +52,16 @@ export interface ExerciseSession {
 }
 
 const exerciseSessions: ExerciseSession[] = reactive([])
+
+export interface Progress {
+  progressAdd: number
+  progressSubtract: number
+}
+
+const progressStep: Progress = {
+  progressAdd: 10,
+  progressSubtract: -10,
+}
 
 const methods = {
   /*getExercises() {
@@ -80,11 +87,7 @@ const methods = {
   increaseUnlockedSigns() {
     exerciseSettingsUser.unlocked_signs +=
       exerciseSettingsUser.unlocked_signs < 26 ? 1 : 0
-  },
-  decreaseUnlockedSigns() {
-    if (exerciseSettingsUser.word_length < exerciseSettingsUser.unlocked_signs)
-      exerciseSettingsUser.unlocked_signs -=
-        exerciseSettingsUser.unlocked_signs > 0 ? 1 : 0
+    console.log('unlockedSigns', exerciseSettingsUser.unlocked_signs)
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
     const word = signData.methods.generateWord(exerciseId)
@@ -172,7 +175,14 @@ const actions = {
         )
       }
 
-      console.log('exercises', exercises, 'exerciseSettings', exerciseSettings)
+      console.log(
+        'exercises',
+        exercises,
+        'exerciseSettings',
+        exerciseSettings,
+        'userSettings',
+        exerciseSettingsUser
+      )
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
@@ -313,6 +323,7 @@ const exerciseData = {
   exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
   exerciseSettingsUser: readonly(exerciseSettingsUser) as ExerciseSettingsUser,
   exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
+  progressStep: readonly(progressStep),
   methods,
   actions,
 }

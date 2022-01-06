@@ -23,6 +23,7 @@ import {
   onBeforeMount,
 } from 'vue'
 import router from '../../router'
+import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 
@@ -33,6 +34,10 @@ const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
+
+const progressStep: ComputedRef<Progress> = computed(
+  () => store.exercisedata.progressStep
+)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
@@ -46,8 +51,6 @@ function checkProgress(sign: Sign) {
       if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
         progressSmallerLevelThree.value = false
         if (!sign.level_3_reached) {
-          console.log('increaseUnlockedSigns')
-          // TODO action
           store.exercisedata.methods.increaseUnlockedSigns()
         }
       }
@@ -70,7 +73,8 @@ onBeforeMount(() => checkProgress(props.signs[index.value]))
 async function correct() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
-    const progress = props.signs[index.value].progress + 10
+    const progress =
+      props.signs[index.value].progress + progressStep.value.progressAdd
     await store.signdata.actions.patchProgress(
       props.exerciseId,
       props.signs[index.value].id,
@@ -89,7 +93,8 @@ async function correct() {
 async function wrong() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
-    const progress = props.signs[index.value].progress - 10
+    const progress =
+      props.signs[index.value].progress + progressStep.value.progressSubtract
     await store.signdata.actions.patchProgress(
       props.exerciseId,
       props.signs[index.value].id,
