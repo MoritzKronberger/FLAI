@@ -58,7 +58,7 @@ function onNewIndex(newIndex: number) {
 }
 
 function checkProgress(sign: Sign) {
-  if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
+  if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     showSign.value = false
   } else {
     showSign.value = true
