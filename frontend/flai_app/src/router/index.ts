@@ -76,7 +76,6 @@ const router = createRouter({
 // from https://next.router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 router.beforeResolve(async (to) => {
   if (to.matched.some((record) => record.meta.authRequired)) {
-    console.log('nav guard!')
     const authenticated = await authenticateFromSessionStorage()
     if (!authenticated) return '/login'
   }
