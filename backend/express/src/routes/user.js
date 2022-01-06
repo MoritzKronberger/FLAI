@@ -36,25 +36,37 @@ user.get(
   }
 )
 
-user.patch('/', authToken, async (req, res) => {
-  await request({
-    method: 'PATCH',
-    table: 'user',
-    data: req.body.data,
-    ids: req.body.ids,
-    validation: updateUser,
-    res: res,
-  })
-})
+user.patch(
+  '/',
+  (req, res, next) => {
+    authToken(req, res, next, req.body.ids.id)
+  },
+  async (req, res) => {
+    await request({
+      method: 'PATCH',
+      table: 'user',
+      data: req.body.data,
+      ids: req.body.ids,
+      validation: updateUser,
+      res: res,
+    })
+  }
+)
 
-user.delete('/', authToken, async (req, res) => {
-  await request({
-    method: 'DELETE',
-    table: 'user',
-    ids: req.body,
-    res: res,
-  })
-})
+user.delete(
+  '/',
+  (req, res, next) => {
+    authToken(req, res, next, req.body.id)
+  },
+  async (req, res) => {
+    await request({
+      method: 'DELETE',
+      table: 'user',
+      ids: req.body,
+      res: res,
+    })
+  }
+)
 
 export { user }
 export default { user }
