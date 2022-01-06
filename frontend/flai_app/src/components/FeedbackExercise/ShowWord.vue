@@ -9,6 +9,7 @@
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
+      <p>{{ status }}</p>
     </div>
   </div>
 </template>
@@ -33,6 +34,9 @@ const progressStep: ComputedRef<Progress> = computed(
 )
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
+const results = ref()
+const handSign = ref()
+const status = ref('Loading')
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
@@ -108,7 +112,23 @@ async function wrong() {
 }
 
 function getFlaiNetResults(bufferResults: FlaiNetResults) {
-  console.log(store.flainetdata.methods.evaluateResultBuffer(bufferResults))
+  results.value = store.flainetdata.methods.evaluateResultBuffer(bufferResults)
+  console.log(results.value)
+
+  if (results.value.length > 0) {
+    if (results.value[0].uniformLabels) {
+      handSign.value = results.value[0].label
+      if (handSign.value === props.signs[index.value].name) {
+        correct()
+      } else {
+        wrong()
+      }
+    } else {
+      status.value = 'Detecting, please hold...'
+    }
+  } else {
+    status.value = 'No hand found'
+  }
 }
 
 watchEffect(() => getFlaiNetResults(resultBuffer.value))
