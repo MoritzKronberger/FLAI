@@ -17,19 +17,15 @@
 
 <script setup lang="ts">
 import { ref, onBeforeMount, computed, ComputedRef } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
 import { Sign } from '../../store/signdata'
-import { ExerciseSession } from '../../store/exercisedata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 import store from '../../store'
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
-const session: ComputedRef<ExerciseSession> = computed(
-  () => store.exercisedata.activeExerciseSession
-)
+
 const word: ComputedRef<string[]> = computed(
-  () => store.exercisedata.activeExerciseSession.signs
+  () => store.exercisedata.word.signs
 )
 const signsFromWord: ComputedRef<Sign[]> = computed(() => {
   const wordArray: Sign[] = []
@@ -66,13 +62,5 @@ onBeforeMount(() => {
   store.sessiondata.methods.startTimer()
   startSession.value = 'true'
   getNewSigns()
-})
-
-onBeforeRouteLeave(async () => {
-  await store.exercisedata.actions.patchExerciseSession(
-    exerciseId.value,
-    session.value,
-    store.sessiondata.methods.updateTimer()
-  )
 })
 </script>
