@@ -14,20 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import {
-  inject,
-  ref,
-  watchEffect,
-  computed,
-  ComputedRef,
-  onBeforeMount,
-} from 'vue'
+import { ref, computed, ComputedRef, onBeforeMount } from 'vue'
 import router from '../../router'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
-
-const store: any = inject('store')
+import store from '../../store'
 
 const index = ref(0)
 const feedbackClass = ref('waiting')

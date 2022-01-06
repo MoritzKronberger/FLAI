@@ -18,11 +18,11 @@
 <script setup lang="ts">
 import { ref, onBeforeMount, computed, ComputedRef } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
-import store from '../../store/index'
 import { Sign } from '../../store/signdata'
 import { ExerciseSession } from '../../store/exercisedata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
+import store from '../../store'
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 const session: ComputedRef<ExerciseSession> = computed(
