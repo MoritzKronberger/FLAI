@@ -62,11 +62,6 @@ const methods = {
   changeProgress(exerciseId: string, signId: string, progress: number) {
     const signIndex = signs.findIndex((el) => el.id === signId)
     signs[signIndex].progress = progress
-    if (signs[signIndex].progress >= exerciseData.exerciseSettings.level_3) {
-      signs[signIndex].level_3_reached = true
-    } else {
-      signs[signIndex].level_3_reached = false
-    }
     console.log(
       'updatedSign',
       signs[signIndex].name,
