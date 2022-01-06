@@ -8,6 +8,9 @@
       @next="onNextStep"
     />
     <ShowWord v-else :signs="signsFromWord" :exercise-id="exerciseId" />
+    <div>
+      <flai-net @status-change="setflaiNetReady" />
+    </div>
   </div>
   <div v-else>
     //TODO: Add loading animation
@@ -20,6 +23,7 @@ import { ref, onBeforeMount, computed, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
+import flaiNet from '../../components/FlaiNet.vue'
 import store from '../../store'
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
@@ -63,4 +67,11 @@ onBeforeMount(() => {
   startSession.value = 'true'
   getNewSigns()
 })
+
+//FLAI-NET
+const flaiNetReady = ref(false)
+
+const setflaiNetReady = (result: boolean): void => {
+  flaiNetReady.value = result
+}
 </script>
