@@ -15,7 +15,7 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
   <header>
     <router-link :to="{ name: 'HomePage' }">
       <IconLoader
-        path="../assets/flai_logo"
+        path="/assets/flai_logo"
         mimetype="jpg"
         alt="FLAI Icon"
         element-class="flai-header-icon"
