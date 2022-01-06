@@ -1,5 +1,4 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import store from '../store'
 import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
@@ -11,6 +10,19 @@ import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
 import DebugPage from '../views/DebugPage.vue'
 import { computed } from 'vue'
+import store from '../store'
+
+async function startSession() {
+  const signData = computed(() => store.signdata)
+
+  await store.exercisedata.actions.postNewExerciseSession(
+    store.exercisedata.exercises[0].id
+  )
+  await store.exercisedata.actions.getFullExerciseForUser(
+    store.exercisedata.exercises[0].id
+  )
+  store.exercisedata.methods.changeWord(signData.value.methods.generateWord())
+}
 
 const routes = [
   {
@@ -33,6 +45,7 @@ const routes = [
     name: 'LearningExercise',
     component: LearningExercise,
     meta: { authRequired: true },
+    beforeEnter: [startSession],
   },
   {
     path: '/flainet',
