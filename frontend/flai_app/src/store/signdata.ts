@@ -184,6 +184,7 @@ const actions = {
     progress: number,
     introDone?: boolean
   ) {
+    progress = progress > 0 ? progress : 0
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'progress',
