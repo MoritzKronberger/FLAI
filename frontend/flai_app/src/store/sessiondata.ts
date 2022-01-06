@@ -16,6 +16,7 @@ const methods = {
   },
   updateTimer() {
     session.timer = Date.now() - session.start_time
+    return session.timer
   },
 }
 
