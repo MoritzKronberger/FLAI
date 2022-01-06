@@ -14,21 +14,27 @@ user.post('/', async (req, res) => {
   })
 })
 
-user.get('/', authToken, async (req, res) => {
-  await request({
-    method: 'GET',
-    table: 'user',
-    ids: req.query,
-    selectCols: [
-      'id',
-      'email',
-      'username',
-      'right_handed',
-      'target_learning_time',
-    ],
-    res: res,
-  })
-})
+user.get(
+  '/',
+  (req, res, next) => {
+    authToken(req, res, next, req.query.id)
+  },
+  async (req, res) => {
+    await request({
+      method: 'GET',
+      table: 'user',
+      ids: req.query,
+      selectCols: [
+        'id',
+        'email',
+        'username',
+        'right_handed',
+        'target_learning_time',
+      ],
+      res: res,
+    })
+  }
+)
 
 user.patch('/', authToken, async (req, res) => {
   await request({
