@@ -16,6 +16,12 @@ export interface LoginUser {
   password: string
 }
 
+export interface AuthData {
+  token: string
+  user_id: string
+  isAuth: boolean
+}
+
 const auth: Auth = reactive({
   token: '',
   email: '',
@@ -36,13 +42,19 @@ const methods = {
     return auth.isAuth
   },
 
+  // TODO: set function returns value???
   setAuth(state: boolean) {
     return (auth.isAuth = state)
+  },
+
+  saveAuthData(authData: AuthData) {
+    auth.token = authData.token
+    auth.user_id = authData.user_id
+    auth.isAuth = authData.isAuth
   },
 }
 
 const actions = {
-  /* eslint-disable */
   async loginUser(loginUser: LoginUser) {
     const jsonData = await jsonAction({
       method: 'post',
@@ -51,9 +63,13 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       console.log(jsonData.data)
-      auth.token = jsonData?.data.jwt
-      auth.user_id = jsonData?.data.ids.id
-      auth.isAuth = methods.setAuth(true)
+      sessionStorage.setItem('jsonWebToken', jsonData?.data.jwt)
+      sessionStorage.setItem('userId', jsonData?.data.ids.id)
+      methods.saveAuthData({
+        token: jsonData?.data.jwt,
+        user_id: jsonData?.data.ids.id,
+        isAuth: true,
+      })
       await this.getApplicationData()
     }
     return jsonData
@@ -81,7 +97,6 @@ const actions = {
     auth.isAuth = false
     console.log('User logged out')
   },
-  /* eslint-enable */
 }
 
 const authdata = {
