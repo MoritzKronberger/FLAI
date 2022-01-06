@@ -1,22 +1,26 @@
 // media queries
 
 @mixin media-query($canvas) {
-    @if $canvas == S {
-     @media only screen and (min-width: $S) { @content; } 
+  @if $canvas == S {
+    @media only screen and (min-width: $S) {
+      @content;
     }
-    @else if $canvas == M {
-     @media only screen and (min-width: $M) { @content; } 
+  } @else if $canvas == M {
+    @media only screen and (min-width: $M) {
+      @content;
     }
-    @else if $canvas == L {
-     @media only screen and (min-width: $L) { @content; } 
+  } @else if $canvas == L {
+    @media only screen and (min-width: $L) {
+      @content;
+    }
   }
 }
 
 // font mixins
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
-@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack){
+@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack) {
   $font-properties: map-deep-get($font-stack, $group, $variant);
-  
+
   @if $font-properties {
     @include track-fonts($group, $variant);
     @each $property, $values in $font-properties {
@@ -31,16 +35,25 @@
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 @mixin track-fonts($group, $variant) {
   @if map-has-key($used-fonts, $group) == false {
-    $used-fonts: map-merge($used-fonts, ($group: ())) !global;
+    $used-fonts: map-merge(
+      $used-fonts,
+      (
+        $group: (),
+      )
+    ) !global;
   }
-  
+
   $font-map: map-get($used-fonts, $group);
   @if index($font-map, $variant) == null {
     $variations: append($font-map, $variant);
-    $used-fonts: map-merge($used-fonts, ($group: $variations)) !global;
+    $used-fonts: map-merge(
+      $used-fonts,
+      (
+        $group: $variations,
+      )
+    ) !global;
   }
 }
-
 
 // font import mixin
 
@@ -58,7 +71,7 @@
           $file-formats: map-get($font-face, formats);
           $font-weight: map-get($font-properties, weight);
           $font-style: map-get($font-properties, style);
-          
+
           @if $file-formats {
             @include font-face($font-family, $file-path, $font-weight, $font-style, $file-formats);
           } @else {
@@ -72,7 +85,13 @@
 
 // creating font face rule
 
-@mixin font-face($font-family, $file-path, $font-weight: 400, $font-style: normal, $file-formats: eot woff2 woff ttf svg) {
+@mixin font-face(
+  $font-family,
+  $file-path,
+  $font-weight: 400,
+  $font-style: normal,
+  $file-formats: eot woff2 woff ttf svg
+) {
   @font-face {
     font-family: $font-family;
     font-style: $font-style;
@@ -80,4 +99,14 @@
 
     src: font-source-declaration($font-family, $file-path, $file-formats);
   }
+}
+
+// creating flex-box mixin
+
+@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 10px 10px) {
+  display: flex;
+  flex-flow: $flow;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  gap: $gap;
 }
