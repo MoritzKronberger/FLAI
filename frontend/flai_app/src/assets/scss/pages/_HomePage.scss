@@ -1,70 +1,77 @@
 h2 {
-    font-weight: 200;
-  }
-  p {
-    margin: 0;
-  }
-  .row {
-    display: flex;
-  }
-  .row img {
-    margin: 0 1vw;
-    height: 30vh;
-    border-radius: 3vw;
-  }
-  .statistic {
-    margin: 1vw;
-    padding: 3vh 1vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background-color: lightblue;
-    border-radius: 2vw;
-    text-align: center;
-  }
-  .circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: yellow;
-    margin: auto;
-    margin-bottom: 2vh;
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-  }
-  .number {
-    margin: auto;
-    width: 100%;
-    font-size: 5vh;
-  }
+  font-weight: 200;
+}
+p {
+  margin: 0;
+}
+.row {
+  display: flex;
+}
+.row img {
+  margin: 0 1vw;
+  height: 30vh;
+  border-radius: 3vw;
+}
+.statistic {
+  margin: 1vw;
+  padding: 3vh 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: lightblue;
+  border-radius: 2vw;
+  text-align: center;
+}
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: yellow;
+  margin: auto;
+  margin-bottom: 2vh;
+  height: 10vh;
+  width: 10vh;
+  border-radius: 50%;
+}
+.number {
+  margin: auto;
+  width: 100%;
+  font-size: 5vh;
+}
 
-  .home-page {
-      padding: 20px;
+.home-page {
+  background-color: #ebf1fb;
+  .dashboard {
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+    justify-content: center;
+
+    .column-left {
       display: flex;
       flex-flow: row wrap;
-      row-gap: 20px;
-      column-gap: 20px;
-      align-items: start;
+      justify-content: space-around;
+      width: 750px;
       .start-panel {
-          background-color: yellow;
-          padding: 15px;
-          width: 300px;
-          border-radius: 5px;
+        background-color: #FFFDB9;
+        width: 400px;
+        height: 225px;
       }
       .level-panel {
-          background-color: blue;
-          width: 100px;
-          padding: 15px;
-          border-radius: 5px;
-      }
-      .stats-large-panel {
-          background-color: green;
-          width: 400px;
+        background-color: #4A7BF6;
+        width: 250px;
+        height: 225px;
       }
       .stats-small-panel {
-          background-color: indianred;
-          width: 500px;
+        width: 750px;
       }
+    }
+    .stats-large-panel {
+      width: 400px;
+      background-color: white;
+    }
   }
+}
