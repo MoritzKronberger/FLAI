@@ -12,7 +12,10 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
 <template>
-  <header>
+  <main>
+    <router-view />
+  </main>
+  <aside v-if="isAuth">
     <router-link :to="{ name: 'HomePage' }">
       <IconLoader
         path="../assets/flai_logo"
@@ -21,11 +24,6 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
         element-class="flai-header-icon"
       />
     </router-link>
-  </header>
-  <main>
-    <router-view />
-  </main>
-  <aside v-if="isAuth">
     <SidebarMenu />
     <custom-button
       label="Logout"
@@ -37,7 +35,7 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
 
 <style>
 main {
-  margin-left: 20%;
+  margin-left: 15%;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
