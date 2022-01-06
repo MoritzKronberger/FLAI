@@ -4,7 +4,7 @@ h2 {
 }
 
 .home-page {
-  background-color: #ebf1fb;
+  background-color: $backgrond-blue;
   padding: 2vw;
   .dashboard {
     margin-top: 3vh;
@@ -20,13 +20,13 @@ h2 {
       height: 80vh;
       margin-right: 4%;
       .start-panel {
-        background-color: #fffdb9;
+        background-color: $subtle-yellow;
         width: 460px;
         height: 225px;
         border-radius: 5px;
       }
       .level-panel {
-        background-color: #4a7bf6;
+        background-color: $light-blue;
         width: 211px;
         height: 225px;
         border-radius: 5px;
