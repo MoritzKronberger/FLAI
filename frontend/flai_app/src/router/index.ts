@@ -1,5 +1,4 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import store from '../store'
 import HomePage from '../views/HomePage.vue'
 import TestComponents from '../views/BasicComponentsTest.vue'
 import ShowStore from '../views/ShowStore.vue'
@@ -10,13 +9,14 @@ import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
 import DebugPage from '../views/DebugPage.vue'
-import { computed } from 'vue'
+import { authenticateFromSessionStorage } from '../ressources/ts/methods'
 
 const routes = [
   {
     path: '/',
     name: 'HomePage',
     component: HomePage,
+    beforeEnter: async () => await authenticateFromSessionStorage(),
   },
   {
     path: '/components',
@@ -73,12 +73,12 @@ const router = createRouter({
   routes,
 })
 
-const isAuth = computed(() => store.authdata.auth.isAuth)
-
 // from https://next.router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
-router.beforeEach((to) => {
+router.beforeResolve(async (to) => {
   if (to.matched.some((record) => record.meta.authRequired)) {
-    if (!isAuth.value) return '/login'
+    console.log('nav guard!')
+    const authenticated = await authenticateFromSessionStorage()
+    if (!authenticated) return '/login'
   }
 })
 
