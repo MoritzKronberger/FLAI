@@ -22,6 +22,7 @@ import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
 import { FlaiNetResults } from '../../store/flainetdata'
+import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 
 const index = ref(0)
 const feedbackClass = ref('waiting')
@@ -111,27 +112,15 @@ async function wrong() {
   }
 }
 
-function getFlaiNetResults(bufferResults: FlaiNetResults) {
-  results.value = store.flainetdata.methods.evaluateResultBuffer(bufferResults)
-  console.log(results.value)
-
-  if (results.value.length > 0) {
-    if (results.value[0].uniformLabels) {
-      handSign.value = results.value[0].label
-      if (handSign.value === props.signs[index.value].name) {
-        correct()
-      } else {
-        wrong()
-      }
-    } else {
-      status.value = 'Detecting, please hold...'
-    }
-  } else {
-    status.value = 'No hand found'
-  }
-}
-
-watchEffect(() => getFlaiNetResults(resultBuffer.value))
+watchEffect(
+  () =>
+    (status.value = getFlaiNetResults(
+      resultBuffer.value,
+      props.signs[index.value].name,
+      correct,
+      wrong
+    ))
+)
 </script>
 
 <style>
