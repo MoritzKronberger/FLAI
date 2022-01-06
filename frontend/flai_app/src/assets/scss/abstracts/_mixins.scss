@@ -103,9 +103,9 @@
 
 // creating flex-box mixin
 
-@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 10px 10px) {
+@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 0px) {
   display: flex;
-  flex-flow: $flow;
+  flex-flow: $flex-flow;
   justify-content: $justify-content;
   align-items: $align-items;
   gap: $gap;
