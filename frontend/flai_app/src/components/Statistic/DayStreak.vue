@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <div>
     <IconLoader
-      path="../assets/statisticPlaceholders/streak"
+      path="/assets/statisticPlaceholders/streak"
       mimetype="svg"
       alt="Streak Icon"
       element-class="streak-icon"

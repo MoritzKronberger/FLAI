@@ -10,19 +10,19 @@ declare interface MenuItem {
 const menuItems: MenuItem[] = [
   {
     viewName: 'HomePage',
-    iconPath: '../assets/icons/home',
+    iconPath: '/assets/icons/home',
     flyoutText: 'Home',
     iconAltText: 'Home icon',
   },
   {
     viewName: 'LearningExercise',
-    iconPath: '../assets/icons/lections',
+    iconPath: '/assets/icons/lections',
     flyoutText: 'Lektionen',
     iconAltText: 'Lektionen Icon',
   },
   {
     viewName: 'ProfilePage',
-    iconPath: '../assets/icons/profile',
+    iconPath: '/assets/icons/profile',
     flyoutText: 'Konto',
     iconAltText: 'Konto Icon',
   },
