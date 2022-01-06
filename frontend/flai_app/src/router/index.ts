@@ -13,12 +13,15 @@ import { computed } from 'vue'
 import store from '../store'
 
 async function startSession() {
+  const signData = computed(() => store.signdata)
+
   await store.exercisedata.actions.postNewExerciseSession(
     store.exercisedata.exercises[0].id
   )
   await store.exercisedata.actions.getFullExerciseForUser(
     store.exercisedata.exercises[0].id
   )
+  store.exercisedata.methods.changeWord(signData.value.methods.generateWord())
 }
 
 const routes = [

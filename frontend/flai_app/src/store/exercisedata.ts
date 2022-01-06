@@ -47,7 +47,6 @@ export interface ExerciseSession {
   start_time: string
   session_duration: number
   order: number
-  signs: string[]
 }
 
 const exerciseSessions: ExerciseSession[] = reactive([])
@@ -56,7 +55,6 @@ const activeExerciseSession: ExerciseSession = reactive({
   start_time: '',
   session_duration: 0,
   order: 1,
-  signs: [],
 })
 
 export interface Progress {
@@ -67,6 +65,14 @@ export interface Progress {
 const progressStep: Progress = {
   progressAdd: 10,
   progressSubtract: -10,
+}
+
+export interface Word {
+  signs: string[]
+}
+
+const word: Word = {
+  signs: [],
 }
 
 const methods = {
@@ -96,12 +102,10 @@ const methods = {
     console.log('unlockedSigns', exerciseSettingsUser.unlocked_signs)
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
-    const word = signData.methods.generateWord(exerciseId)
     const newSession: ExerciseSession = {
       start_time: startTime,
       session_duration: 0,
       order: 0,
-      signs: word,
     }
     exerciseSessions.push(newSession)
     Object.assign(activeExerciseSession, newSession)
@@ -120,6 +124,9 @@ const methods = {
     )
     exerciseSessions.splice(index, 0)
     console.log(exerciseSessions)
+  },
+  changeWord(newWord: string[]) {
+    word.signs = newWord
   },
 }
 
@@ -332,6 +339,7 @@ const exerciseData = {
   exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
   activeExerciseSession: readonly(activeExerciseSession) as ExerciseSession,
   progressStep: readonly(progressStep),
+  word: readonly(word) as Word,
   methods,
   actions,
 }

@@ -1,6 +1,6 @@
 import { readonly, reactive } from 'vue'
 import exerciseData from './exercisedata'
-import signrecordings, { SignRecording } from './signrecordings'
+import { SignRecording } from './signrecordings'
 import { jsonAction } from '../common/service/rest'
 import { errorMessage } from '../ressources/ts/methods'
 import { networkMessage } from './index'
