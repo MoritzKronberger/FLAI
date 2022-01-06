@@ -25,11 +25,11 @@ import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
-const session: ComputedRef<ExerciseSession> = computed(() =>
-  store.exercisedata.exerciseSessions.at(-1)
+const session: ComputedRef<ExerciseSession> = computed(
+  () => store.exercisedata.activeExerciseSession
 )
 const word: ComputedRef<string[]> = computed(
-  () => store.exercisedata.exerciseSessions.at(-1).signs
+  () => store.exercisedata.activeExerciseSession.signs
 )
 const signsFromWord: ComputedRef<Sign[]> = computed(() => {
   const wordArray: Sign[] = []
