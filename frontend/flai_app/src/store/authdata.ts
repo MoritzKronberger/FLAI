@@ -65,14 +65,6 @@ const actions = {
       await userData.actions.getUser()
       console.log('-----GET EXERCISE')
       await exerciseData.actions.getAllExercises()
-      console.log('--------START A SESSION')
-      await exerciseData.actions.postNewExerciseSession(
-        exerciseData.exercises[0].id
-      )
-      console.log('-----GET EXERCISE SETTINGS')
-      await exerciseData.actions.getFullExerciseForUser(
-        exerciseData.exercises[0].id
-      )
     }
   },
 
