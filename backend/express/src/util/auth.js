@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-function authToken(userId, req, res, next) {
+function authToken(req, res, next, userId) {
   const token = req.headers['authorization']
   if (token == null) return res.sendStatus(401)
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, id) => {
