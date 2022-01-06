@@ -16,13 +16,14 @@
 
 <script setup lang="ts">
 import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
-import router from '../../router'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
-import { FlaiNetResults } from '../../store/flainetdata'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const index = ref(0)
 const feedbackClass = ref('waiting')
@@ -35,8 +36,6 @@ const progressStep: ComputedRef<Progress> = computed(
 )
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
-const results = ref()
-const handSign = ref()
 const status = ref('Loading')
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
@@ -107,7 +106,6 @@ async function wrong() {
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
   } else {
-    //TODO: view is not reloading
     router.push({ name: 'HomePage' })
   }
 }
