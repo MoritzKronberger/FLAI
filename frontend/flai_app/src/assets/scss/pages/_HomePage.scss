@@ -7,7 +7,7 @@ h2 {
   background-color: #ebf1fb;
   padding: 2vw;
   .dashboard {
-    margin-top: 2vw;
+    margin-top: 3vh;
     display: flex;
     flex-flow: row wrap;
     justify-content: left;
@@ -17,6 +17,7 @@ h2 {
       flex-flow: row wrap;
       justify-content: space-between;
       width: 55%;
+      height: 100%;
       margin-right: 4%;
       .start-panel {
         background-color: #fffdb9;
@@ -31,11 +32,11 @@ h2 {
         border-radius: 5px;
       }
       .stats-small-panel {
+        margin-top: 10%;
         width: 100%;
       }
     }
     .stats-large-panel {
-      background-color: white;
       width: 40%;
     }
   }
