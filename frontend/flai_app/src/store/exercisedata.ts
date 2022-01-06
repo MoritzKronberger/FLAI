@@ -1,18 +1,19 @@
 import { readonly, reactive } from 'vue'
 import { weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
+import { errorMessage } from '../ressources/ts/methods'
 import signData, { Sign } from './signdata'
+import userData from './userdata'
+import { networkMessage } from './index'
 
 export interface Exercise {
   id: string
   name: string
   description: string
-  signs: Sign[]
 }
 
 const exercises: Exercise[] = reactive([])
 
-const progressStep = 10
 export interface ExerciseSettings {
   id: string
   level_1: number
@@ -39,35 +40,39 @@ export interface ExerciseSettingsUser {
 
 const exerciseSettingsUser: ExerciseSettingsUser = reactive({
   exercise_id: '',
-  word_length: 4,
-  unlocked_signs: 4,
+  word_length: 0,
+  unlocked_signs: 0,
 })
 
-exerciseSettingsUser.unlocked_signs
+//TODO: what does this line do??
+//exerciseSettingsUser.unlocked_signs
 
 export interface ExerciseSession {
-  start_time: number
+  start_time: string
   session_duration: number
   order: number
-  signs: Sign[]
+  signs: string[]
 }
 
 const exerciseSessions: ExerciseSession[] = reactive([])
 
 const methods = {
-  getExercises() {
+  /*getExercises() {
     const exercise: Exercise = {
       id: '0',
       name: 'test',
       description: 'this is testdata',
-      signs: signData.methods.createNewSigns(),
     }
     exercises.push(exercise)
     exerciseSettings.exercise_id = exercise.id
     exerciseSettingsUser.exercise_id = exercise.id
     console.log('exercises:', JSON.stringify(exercises))
   },
-  //TODO: change methods to suit database
+  createSignsForExercises() {
+    for (let i = 0; i < exercises.length; i++) {
+      exercises[i].signs = signData.methods.createNewSigns()
+    }
+  },*/
   changeExerciseSettingsWordLength(wordLength: number) {
     if (wordLength <= exerciseSettingsUser.unlocked_signs)
       exerciseSettingsUser.word_length = wordLength
@@ -81,71 +86,30 @@ const methods = {
       exerciseSettingsUser.unlocked_signs -=
         exerciseSettingsUser.unlocked_signs > 0 ? 1 : 0
   },
-  startNewExerciseSession() {
-    const word = this.generateWord()
+  startNewExerciseSession(exerciseId: string, startTime: string) {
+    const word = signData.methods.generateWord(exerciseId)
     const newSession: ExerciseSession = {
-      start_time: Date.now(),
+      start_time: startTime,
       session_duration: 0,
       order: 0,
       signs: word,
     }
     exerciseSessions.push(newSession)
-    return exerciseSessions
   },
-  generateWord() {
-    const word: Sign[] = []
-    if (exercises.length > 0) {
-      const signCopy = [...exercises[0].signs]
-      for (let i = 0; i < exerciseSettingsUser.word_length; i++) {
-        //get sum of progress
-        const weightArray = []
-        for (let k = 0; k < exerciseSettingsUser.unlocked_signs - i; k++) {
-          weightArray.push(signCopy[k].progress + 1)
-        }
-        const index = weightedRandomIndex(weightArray)
-        word.push(signCopy[index])
-        signCopy.splice(index, 1)
-      }
+  changeExerciseSessionDuration(startTime: string, duration: number) {
+    const session = exerciseSessions.find((el) => el.start_time === startTime)
+    if (session) {
+      session.session_duration = duration
+      console.log('new duration', session)
     }
-    console.log('word', word)
-    return word
   },
-  stopExercise(searchId: string) {
-    //TODO: not necessary to stop a exercise right now, maybe in the future to track the times
-  },
-  increaseProgress(exerciseId: string, letter: string) {
-    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
-    const signIndex = exercises[exerciseIndex].signs.findIndex(
-      (el) => el.name === letter
+  deleteExerciseSession(startTime: string) {
+    console.log(exerciseSessions)
+    const index = exerciseSessions.findIndex(
+      (el) => el.start_time === startTime
     )
-    exercises[exerciseIndex].signs[signIndex].progress += progressStep
-    console.log(
-      'updatedSign',
-      exercises[exerciseIndex].signs[signIndex].name,
-      exercises[exerciseIndex].signs[signIndex].progress
-    )
-  },
-  decreaseProgress(exerciseId: string, letter: string) {
-    const exerciseIndex = exercises.findIndex((el) => el.id === exerciseId)
-    const signIndex = exercises[exerciseIndex].signs.findIndex(
-      (el) => el.name === letter
-    )
-    exercises[exerciseIndex].signs[signIndex].progress -= progressStep
-    exercises[exerciseIndex].signs[signIndex].progress =
-      exercises[exerciseIndex].signs[signIndex].progress > 0
-        ? exercises[exerciseIndex].signs[signIndex].progress
-        : 0
-    console.log(
-      'updatedSign',
-      exercises[exerciseIndex].signs[signIndex].name,
-      exercises[exerciseIndex].signs[signIndex].progress
-    )
-  },
-  signAlreadySeen(letter: string) {
-    const sign = exercises[0].signs.find((el: Sign) => el.name === letter)
-    if (sign) {
-      sign.intro_done = true
-    }
+    exerciseSessions.splice(index, 0)
+    console.log(exerciseSessions)
   },
 }
 
@@ -156,39 +120,94 @@ const actions = {
       url: 'exercise/all',
       data: {},
     })
-    console.log(jsonData)
+    if (jsonData?.status === 200) {
+      for (const row of jsonData.data.rows) {
+        const exerciseCache: Exercise = {
+          id: row.id,
+          name: row.name,
+          description: row.description,
+        }
+        exercises.push(exerciseCache)
+      }
+      await signData.actions.getFullSignForExercise(
+        exercises[0].id,
+        exerciseSettingsUser.unlocked_signs
+      )
+      console.log(exercises)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
   },
-
-  async getFullExerciseForUser() {
-    jsonAction({
+  async getFullExerciseForUser(exerciseId: string) {
+    const jsonData = await jsonAction({
       method: 'get',
       url: 'exercise',
-      // id == exercise_id
       data: {
-        id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
+        id: exerciseId, // id == exercise_id
+        user_id: userData.user.id,
       },
     })
-  },
+    if (jsonData?.status === 200) {
+      const exerciseData = jsonData?.data.rows[0]
 
-  async patchExerciseSettings() {
-    jsonAction({
+      // TODO: missing?: exerciseSettings.id
+      //exerciseSettings.id = exerciseData.id
+      // TODO: for props of... loop
+      exerciseSettings.exercise_id = exerciseId
+      exerciseSettings.level_1 = exerciseData.level_1
+      exerciseSettings.level_2 = exerciseData.level_2
+      exerciseSettings.level_3 = exerciseData.level_3
+      exerciseSettings.sort_signs_by_order = exerciseData.sort_signs_by_order
+
+      exerciseSettingsUser.word_length = exerciseData.word_length
+      exerciseSettingsUser.unlocked_signs = exerciseData.unlocked_signs
+
+      for (const exercise of exercises) {
+        Object.assign(
+          signData.signs,
+          await signData.actions.getFullSignForExercise(
+            exercise.id,
+            exerciseSettingsUser.unlocked_signs
+          )
+        )
+      }
+
+      console.log('exercises', exercises, 'exerciseSettings', exerciseSettings)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
+  },
+  async patchExerciseSettings(
+    exerciseId: string,
+    wordLength?: number,
+    unlockedSigns?: number
+  ) {
+    const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-settings',
       data: {
         ids: {
-          exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-          user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
         },
         data: {
-          task_split: 0.7,
-          word_length: 5,
+          //task_split: 0.7,
+          word_length: wordLength,
+          unlocked_signs: unlockedSigns,
         },
       },
     })
+    console.log(jsonData)
+    if (jsonData?.status === 200) {
+      //if (wordLength <= exerciseSettingsUser.unlockedSigns)
+      if (wordLength) methods.changeExerciseSettingsWordLength(wordLength)
+      // TODO: method to change unlocked signs
+      console.log(exerciseSettingsUser.word_length)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
   },
-
-  async getTask() {
+  /*async getTask() {
     jsonAction({
       method: 'get',
       url: 'task',
@@ -196,55 +215,97 @@ const actions = {
         exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
       },
     })
-  },
-  async getActiveExerciseSession() {
-    jsonAction({
+  },*/
+  async getActiveExerciseSession(exerciseId: string) {
+    const jsonData = await jsonAction({
       method: 'get',
       url: 'exercise-session',
       data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '079c8725-3b47-434c-ba1a-afe3a8162dac',
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
       },
     })
+    if (jsonData?.status === 200) {
+      Object.assign(exerciseSessions, jsonData?.data.rows)
+      console.log(exerciseSessions)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
+    console.log(jsonData.data)
   },
-  async postNewExerciseSession() {
-    jsonAction({
+  async postNewExerciseSession(exerciseId: string) {
+    console.log('Start new session')
+    const startTime = new Date(Date.now()).toISOString()
+    const jsonData = await jsonAction({
       method: 'post',
       url: 'exercise-session',
       data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '7600c936-7c07-4e4d-98ec-243612652ca3',
-        start_time: '2021-12-31 13:12:00.595133+00',
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
+        start_time: startTime,
       },
     })
+    if (jsonData?.status === 200) {
+      methods.startNewExerciseSession(exerciseId, startTime)
+      await signData.actions.getFullSignForExercise(
+        exerciseId,
+        exerciseSettingsUser.unlocked_signs
+      )
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
+    console.log(jsonData.data)
   },
-  async patchExerciseSession() {
-    jsonAction({
+  async patchExerciseSession(
+    exerciseId: string,
+    exerciseSession: ExerciseSession,
+    sessionDuration: number
+  ) {
+    const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-session',
       data: {
         data: {
-          session_duration: '00:50:00',
+          session_duration: sessionDuration,
         },
         ids: {
-          exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-          user_id: '7600c936-7c07-4e4d-98ec-243612652ca3',
-          start_time: '2021-12-31 13:12:00.595133+00',
+          exercise_id: exerciseId,
+          user_id: userData.user.id,
+          start_time: exerciseSession.start_time,
         },
       },
     })
+    if (jsonData?.status === 200) {
+      methods.changeExerciseSessionDuration(
+        exerciseSession.start_time,
+        sessionDuration
+      )
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
+    console.log(jsonData.data)
   },
-  async deleteExerciseSession() {
-    jsonAction({
+  /*async deleteExerciseSession(
+    exerciseId: string,
+    exerciseSession: ExerciseSession
+  ) {
+    const jsonData = await jsonAction({
       method: 'delete',
       url: 'exercise-session',
       data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-        user_id: '7600c936-7c07-4e4d-98ec-243612652ca3',
-        start_time: '2021-12-31 13:12:00.595133+00',
+        exercise_id: exerciseId,
+        user_id: userData.user.id,
+        start_time: exerciseSession.startTime,
       },
     })
-  },
+    if (jsonData?.status === 200 || jsonData?.status === 204) {
+      methods.deleteExerciseSession(exerciseSession.startTime)
+    } else if (jsonData?.status === 503) {
+      errorMessage(networkMessage)
+    }
+    console.log(jsonData.data)
+  },*/
+  /* eslint-enable */
 }
 
 const exerciseData = {

@@ -1,5 +1,7 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
+import exerciseData from './exercisedata'
+import userData from './userdata'
 
 export interface Auth {
   token: string
@@ -16,8 +18,8 @@ export interface LoginUser {
 
 const auth: Auth = reactive({
   token: '',
-  email: 'miriam.weber@email.com',
-  password: 'supersecret',
+  email: '',
+  password: '',
   user_id: '',
   isAuth: false,
 })
@@ -47,12 +49,31 @@ const actions = {
       url: 'auth/login',
       data: loginUser,
     })
-    if(jsonData?.status === 200){
+    if (jsonData?.status === 200) {
+      console.log(jsonData.data)
       auth.token = jsonData?.data.jwt
       auth.user_id = jsonData?.data.ids.id
       auth.isAuth = methods.setAuth(true)
+      await this.getApplicationData()
     }
     return jsonData
+  },
+
+  async getApplicationData() {
+    if (auth.isAuth) {
+      console.log('-----GET USER')
+      await userData.actions.getUser()
+      console.log('-----GET EXERCISE')
+      await exerciseData.actions.getAllExercises()
+      console.log('--------START A SESSION')
+      await exerciseData.actions.postNewExerciseSession(
+        exerciseData.exercises[0].id
+      )
+      console.log('-----GET EXERCISE SETTINGS')
+      await exerciseData.actions.getFullExerciseForUser(
+        exerciseData.exercises[0].id
+      )
+    }
   },
 
   logoutUser() {

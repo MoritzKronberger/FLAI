@@ -1,7 +1,7 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p v-for="letter in props.signs" :key="letter.name">{{ letter.name }}</p>
+      <p v-for="letter in signs" :key="letter.name">{{ letter.name }}</p>
       <Video
         :show-sign="showSign"
         :signs="signs"
@@ -14,7 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, watchEffect } from 'vue'
+import {
+  inject,
+  ref,
+  watchEffect,
+  computed,
+  ComputedRef,
+  onBeforeMount,
+} from 'vue'
 import router from '../../router'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
@@ -29,44 +36,7 @@ const showSign = ref(true)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
-function correct() {
-  if (
-    progressSmallerLevelTwo.value ||
-    (progressSmallerLevelThree.value && !showSign.value)
-  ) {
-    store.exercisedata.methods.increaseProgress(
-      props.exerciseId,
-      props.signs[index.value].name
-    )
-  }
-  feedbackClass.value = 'right'
-  if (index.value < props.signs.length - 1) {
-    index.value++
-  } else {
-    router.push({ name: 'HomePage' })
-  }
-}
-function wrong() {
-  if (
-    progressSmallerLevelTwo.value ||
-    (progressSmallerLevelThree.value && !showSign.value)
-  ) {
-    store.exercisedata.methods.decreaseProgress(
-      props.exerciseId,
-      props.signs[index.value].name
-    )
-  }
-  feedbackClass.value = 'wrong'
-  if (index.value < props.signs.length - 1) {
-    index.value++
-  } else {
-    //TODO: view is not reloading
-    router.push({ name: 'HomePage' })
-  }
-}
-
 function checkProgress(sign: Sign) {
-  console.log('sign', sign.name, 'progress', sign.progress)
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     progressSmallerLevelTwo.value = true
     progressSmallerLevelThree.value = true
@@ -75,8 +45,11 @@ function checkProgress(sign: Sign) {
       progressSmallerLevelTwo.value = false
       if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
         progressSmallerLevelThree.value = false
-        console.log('increaseUnlockedSigns')
-        store.exercisedata.methods.increaseUnlockedSigns()
+        if (!sign.level_3_reached) {
+          console.log('increaseUnlockedSigns')
+          // TODO action
+          store.exercisedata.methods.increaseUnlockedSigns()
+        }
       }
     }
   } else {
@@ -85,11 +58,56 @@ function checkProgress(sign: Sign) {
   console.log(
     'progress',
     sign.progress,
+    'smaller2',
     progressSmallerLevelTwo.value,
-    progressSmallerLevelThree.value
+    'smaller3',
+    progressSmallerLevelThree.value,
+    sign.level_3_reached
   )
 }
-watchEffect(() => checkProgress(props.signs[index.value]))
+onBeforeMount(() => checkProgress(props.signs[index.value]))
+
+async function correct() {
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('update correct')
+    const progress = props.signs[index.value].progress + 10
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      props.signs[index.value].id,
+      progress
+    )
+  }
+  feedbackClass.value = 'right'
+  if (index.value < props.signs.length - 1) {
+    index.value++
+    console.log('index', index.value)
+    checkProgress(props.signs[index.value])
+  } else {
+    router.push({ name: 'HomePage' })
+  }
+}
+async function wrong() {
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('update wrong')
+    const progress = props.signs[index.value].progress - 10
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      props.signs[index.value].id,
+      progress
+    )
+  }
+  feedbackClass.value = 'wrong'
+  if (index.value < props.signs.length - 1) {
+    index.value++
+    console.log('index', index.value)
+    checkProgress(props.signs[index.value])
+  } else {
+    //TODO: view is not reloading
+    router.push({ name: 'HomePage' })
+  }
+}
+
+//watchEffect(() => checkProgress(signs.value[index.value]))
 </script>
 
 <style>
