@@ -22,7 +22,6 @@ import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 import store from '../../store'
 
-const store: any = inject('store')
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 const word: ComputedRef<string[]> = computed(
   () => store.exercisedata.exerciseSessions.at(-1).signs
