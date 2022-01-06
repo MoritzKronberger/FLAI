@@ -134,7 +134,7 @@ async function patchExerciseSession() {
   </button>
 
   <h2>Userdata</h2>
-  <p v-for="(value, name) in user" :key="value">{{ name }}: {{ value }}</p>
+  <p v-for="(value, name) in user" :key="name">{{ name }}: {{ value }}</p>
   <label>Change Email:</label
   ><input v-model="email" type="text" @keyup.enter="changeEmail()" />
   <label>Change Username:</label
@@ -152,34 +152,23 @@ async function patchExerciseSession() {
   />
   <h2>Exercisedata</h2>
   <h3>Settings per Exercise:</h3>
-  <p v-for="(value, name) in exerciseSettings" :key="value">
+  <p v-for="(value, name) in exerciseSettings" :key="name">
     {{ name }}: {{ value }}
   </p>
   <h3>Settings per User:</h3>
-  <p v-for="(value, name) in exerciseSettingsUser" :key="value">
+  <p v-for="(value, name) in exerciseSettingsUser" :key="name">
     {{ name }}: {{ value }}
   </p>
-  <label>Change wordLength:</label
-  ><input
-    v-model="wordLength"
-    type="text"
-    @keyup.enter="changeExerciseSettingsWordLength"
-  />
   <Button @click="exerciseMethods.increaseUnlockedSigns"
     >Increase unlockedSigns</Button
   >
-  <Button @click="exerciseMethods.decreaseUnlockedSigns"
-    >Decrease unlockedSigns</Button
-  >
   <p>Exercises:</p>
-  <p v-for="(value, name) in exercises" :key="value">{{ name }}: {{ value }}</p>
+  <p v-for="(value, name) in exercises" :key="name">{{ name }}: {{ value }}</p>
   <br />
   <p>ExerciseSessions:</p>
-  <p v-for="(value, name) in exerciseSessions" :key="value">
+  <p v-for="(value, name) in exerciseSessions" :key="name">
     {{ name }}: {{ value }}
   </p>
-  <Button @click="startNewExerciseSession">Start new exerciseSession</Button>
-  <Button @click="generateWord">Generate new word</Button> {{ word }}
 
   <h2>Session</h2>
   <p v-for="(value, name) in session" :key="value">{{ name }}: {{ value }}</p>
