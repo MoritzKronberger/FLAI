@@ -41,16 +41,15 @@ const videoPlayer = ref()
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
-    (el) => el.perspectiveId === perspective.value
+    (el) => el.perspective === perspective.value
   )
   console.log('el', JSON.stringify(rec))
   if (rec === undefined) {
     return 'src/assets/error.webm'
   }
-  return rec.path
+  return `${rec.path}.${rec.mimetype}`
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
-watchEffect(() => console.log('newIndex', props.index))
 
 function switchPerspective() {
   if (perspective.value === 'front') {

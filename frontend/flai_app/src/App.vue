@@ -1,40 +1,38 @@
 <script setup lang="ts">
-import { provide, onMounted, ref } from 'vue'
 import store from './store'
-import DropDownMenu from './components/DropDownMenu.vue'
+import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
+import IconLoader from './components/IconLoader.vue'
+import customButton from './components/CustomButton.vue'
+import { computed, provide } from 'vue'
 
 provide('store', store)
 
-const exercisedata = store.exercisedata.actions
-const authdata = store.authdata.actions
-const userdata = store.userdata.actions
-//onMounted(store.exercisedata.methods.getExercises) // fake frontend method
-//onMounted(store.exercisedata.actions.getAllExercises) // real backend action
-onMounted(store.sessiondata.methods.startTimer)
-
-function handleInput(e: Event) {
-  const target = <HTMLInputElement>e.target
-
-  console.log('Das ist der Input:', target.value)
-}
+const logoutUser = store.authdata.actions.logoutUser
+const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
 <template>
-  <img id="logo" alt="flai logo" src="./assets/flai_logo.jpg" />
-  <div id="nav">
-    <router-link :to="{ name: 'HomePage' }">Home</router-link>
-    <router-link :to="{ name: 'ShowStore' }">ShowStore</router-link>
-    <router-link :to="{ name: 'LearningExercise' }">Exercise</router-link>
-    <router-link :to="{ name: 'TestComponents' }">TestComponents</router-link>
-    <router-link :to="{ name: 'HandposeTest' }">TestHandpose</router-link>
-    <router-link :to="{ name: 'TestFlaiNet' }">TestFlaiNet</router-link>
-  </div>
+  <header>
+    <router-link :to="{ name: 'HomePage' }">
+      <IconLoader
+        path="../assets/flai_logo"
+        mimetype="jpg"
+        alt="FLAI Icon"
+        element-class="flai-header-icon"
+      />
+    </router-link>
+  </header>
   <main>
     <router-view />
-    <Button @click="userdata.getUser">Userdata</Button>
-    <Button @click="authdata.loginUser">Login</Button>
-    <Button @click="authdata.logoutUser">Logout</Button>
   </main>
+  <aside v-if="isAuth">
+    <SidebarMenu />
+    <custom-button
+      label="Logout"
+      btnclass="button-primary"
+      @button-click="logoutUser"
+    />
+  </aside>
 </template>
 
 <style>
@@ -51,15 +49,5 @@ main {
 a {
   margin: 1%;
   text-decoration: none;
-}
-#nav {
-  text-align: center;
-}
-#logo {
-  margin: 1%;
-  max-width: 15%;
-  left: 0;
-  top: 0;
-  position: absolute;
 }
 </style>

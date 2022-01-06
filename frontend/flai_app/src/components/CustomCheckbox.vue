@@ -1,8 +1,9 @@
 <script setup lang="ts">
 defineProps<{
-  labelName: string
+  labelName?: string
   elementClass: string
-  modelValue: boolean
+  modelValue: boolean | undefined
+  componentClass?: string
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -13,14 +14,21 @@ const onInput = (e: Event): void => {
 </script>
 
 <template>
-  <label :for="labelName">
-    {{ labelName }}
-    <input
-      :checked="modelValue"
-      type="checkbox"
-      :name="labelName"
-      :class="elementClass"
-      @input="onInput"
-    />
-  </label>
+  <div :class="componentClass">
+    <label :for="labelName">
+      {{ labelName }}
+      <input
+        :checked="modelValue"
+        type="checkbox"
+        :name="labelName"
+        :class="elementClass"
+        @input="onInput"
+      />
+    </label>
+  </div>
 </template>
+<style scoped lang="scss">
+.input {
+  margin-bottom: 10px;
+}
+</style>

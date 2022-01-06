@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import store from '../../store'
+import { ref } from 'vue'
+import IconLoader from '../IconLoader.vue'
 
-//sesiondata
-const session = computed(() => store.sessiondata.session)
-const sessionMethods = store.sessiondata.methods
-const props = defineProps<{
-  link: string
-  icon: string
-  description: string
-  state: boolean
+defineProps<{
+  viewName: string
+  iconPath: string
+  iconMimetype: string
+  flyoutText: string
+  iconAltText: string
 }>()
-const show = ref()
-function updateLink() {
-  sessionMethods.updateMenuItemLink(props.link)
+const show = ref(false)
+const setShow = (newShow: boolean): void => {
+  show.value = newShow
 }
 </script>
 
 <template>
-  <ul>
-    <li @mouseover="show = true" @mouseleave="show = false">
-      <span v-if="session.menuItemLink == link" class="active"></span>
-      <a :href="link" @click="updateLink()">
-        <span class="icon">{{ icon }}</span>
-        <span v-if="show">{{ description }}</span>
-      </a>
-    </li>
-  </ul>
+  <div @mouseover="setShow(true)" @mouseleave="setShow(false)">
+    <router-link :to="{ name: viewName }">
+      <icon-loader
+        :path="iconPath"
+        :mimetype="iconMimetype"
+        :alt="iconAltText"
+        element-class="sidebar-icon"
+      />
+      <span v-if="show" class="sidebar-flyout">{{ flyoutText }}</span>
+    </router-link>
+  </div>
 </template>
 
 <style scoped>
@@ -45,8 +45,8 @@ a {
   margin-right: 25px;
 }
 
-span.active {
-  border: 2px solid #4a7bf6;
+.router-link-exact-active {
+  border-left: 3px solid #4a7bf6;
   margin-right: 5px;
 }
 </style>
