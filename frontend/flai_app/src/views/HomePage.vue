@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { inject, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
 import StatisticDashboardLarge from '../components/Statistic/StatisticDashboardLarge.vue'
 import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import { useRouter } from 'vue-router'
+import store from '../store'
 
 const router = useRouter()
 
-const store: any = inject('store')
 const user = computed(() => store.userdata.user)
 const auth = computed(() => store.authdata.auth)
 

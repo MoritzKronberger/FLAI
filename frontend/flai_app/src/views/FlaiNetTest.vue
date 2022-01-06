@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
+import store from '../store'
 import { FlaiNetResults } from '../store/flainetdata'
 import flaiNet from '../components/FlaiNet.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
 
-const store: any = inject('store')
 const flaiNetMethods = store.flainetdata.methods
 const bufferedResult = ref(true)
 const bufferSize = ref('15')

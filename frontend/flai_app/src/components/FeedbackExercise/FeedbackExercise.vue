@@ -16,14 +16,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, computed, inject, ComputedRef } from 'vue'
+import { ref, onBeforeMount, computed, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
+import store from '../../store'
 
-const store: any = inject('store')
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 const word: ComputedRef<string[]> = computed(
+  // TODO: remove disables and fix exercise session
+  // eslint-disable-next-line
+  // @ts-ignore:next-line
   () => store.exercisedata.exerciseSessions.at(-1).signs
 )
 const signsFromWord: ComputedRef<Sign[]> = computed(() => {

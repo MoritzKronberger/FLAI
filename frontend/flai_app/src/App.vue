@@ -3,9 +3,7 @@ import store from './store'
 import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
 import IconLoader from './components/IconLoader.vue'
 import customButton from './components/CustomButton.vue'
-import { computed, provide } from 'vue'
-
-provide('store', store)
+import { computed } from 'vue'
 
 const logoutUser = store.authdata.actions.logoutUser
 const isAuth = computed(() => store.authdata.auth.isAuth)
