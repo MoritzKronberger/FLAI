@@ -1,8 +1,7 @@
 import { readonly, reactive } from 'vue'
-import { weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
 import { errorMessage } from '../ressources/ts/methods'
-import signData, { Sign } from './signdata'
+import signData from './signdata'
 import userData from './userdata'
 import { networkMessage } from './index'
 

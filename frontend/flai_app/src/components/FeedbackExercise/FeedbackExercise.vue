@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, computed, inject, ComputedRef } from 'vue'
+import { ref, onBeforeMount, computed, ComputedRef } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import store from '../../store/index'
 import { Sign } from '../../store/signdata'

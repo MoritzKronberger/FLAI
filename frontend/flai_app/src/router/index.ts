@@ -13,7 +13,6 @@ import { computed } from 'vue'
 import store from '../store'
 
 async function startSession() {
-  console.log('start session')
   await store.exercisedata.actions.postNewExerciseSession(
     store.exercisedata.exercises[0].id
   )
