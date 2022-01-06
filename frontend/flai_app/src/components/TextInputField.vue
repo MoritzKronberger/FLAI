@@ -37,4 +37,6 @@ const onInput = (e: Event): void => {
 .input {
   margin-bottom: 10px;
 }
+
+@import '../assets/scss/components/_inputField.scss';
 </style>
