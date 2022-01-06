@@ -17,12 +17,17 @@
 
 <script setup lang="ts">
 import { ref, onBeforeMount, computed, inject, ComputedRef } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
+import store from '../../store/index'
 import { Sign } from '../../store/signdata'
+import { ExerciseSession } from '../../store/exercisedata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 
-const store: any = inject('store')
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
+const session: ComputedRef<ExerciseSession> = computed(() =>
+  store.exercisedata.exerciseSessions.at(-1)
+)
 const word: ComputedRef<string[]> = computed(
   () => store.exercisedata.exerciseSessions.at(-1).signs
 )
@@ -52,15 +57,22 @@ function getNewSigns() {
   console.log('newSigns', JSON.stringify(newSigns))
 }
 
-onBeforeMount(async () => {
-  await store.exercisedata.actions.postNewExerciseSession(exerciseId.value)
-  await store.exercisedata.actions.getFullExerciseForUser(exerciseId.value)
-  startSession.value = 'true'
-  getNewSigns()
-})
-
 function onNextStep() {
   stepOneWatch.value = false
   console.log('nextStep')
 }
+
+onBeforeMount(() => {
+  store.sessiondata.methods.startTimer()
+  startSession.value = 'true'
+  getNewSigns()
+})
+
+onBeforeRouteLeave(async () => {
+  await store.exercisedata.actions.patchExerciseSession(
+    exerciseId.value,
+    session.value,
+    store.sessiondata.methods.updateTimer()
+  )
+})
 </script>
