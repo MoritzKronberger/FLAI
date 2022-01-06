@@ -53,6 +53,13 @@ export interface ExerciseSession {
 
 const exerciseSessions: ExerciseSession[] = reactive([])
 
+const activeExerciseSession: ExerciseSession = reactive({
+  start_time: '',
+  session_duration: 0,
+  order: 1,
+  signs: [],
+})
+
 export interface Progress {
   progressAdd: number
   progressSubtract: number
@@ -98,6 +105,7 @@ const methods = {
       signs: word,
     }
     exerciseSessions.push(newSession)
+    Object.assign(activeExerciseSession, newSession)
   },
   changeExerciseSessionDuration(startTime: string, duration: number) {
     const session = exerciseSessions.find((el) => el.start_time === startTime)
@@ -323,6 +331,7 @@ const exerciseData = {
   exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
   exerciseSettingsUser: readonly(exerciseSettingsUser) as ExerciseSettingsUser,
   exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
+  activeExerciseSession: readonly(activeExerciseSession) as ExerciseSession,
   progressStep: readonly(progressStep),
   methods,
   actions,
