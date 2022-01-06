@@ -3,11 +3,7 @@
   background-color: white;
     .flex-cards {
       padding: 5%;
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      justify-content: space-between;
-      column-gap: 10px;
+      @include flex-box(column, space-between, center, 100px);
       gap: 100px;
     }
   }
