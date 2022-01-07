@@ -9,8 +9,9 @@ import {
 } from '../store/flainetdata'
 import handpose from '../components/Handpose.vue'
 import * as tf from '@tensorflow/tfjs'
+import { Camera } from '@mediapipe/camera_utils'
 
-const emit = defineEmits(['newResult', 'statusChange'])
+const emit = defineEmits(['newResult', 'statusChange', 'handposeStarted'])
 
 let flaiNet: tf.LayersModel
 const flaiNetOptions = computed(
@@ -45,6 +46,10 @@ const loadFlaiNet = async (): Promise<void> => {
   flaiNet = await tf.loadLayersModel(flaiNetPath.toString())
   flaiNetReady.value = true
   emit('statusChange', flaiNetReady.value as boolean)
+}
+
+const handposeStarted = (handposeCamera: Camera) => {
+  emit('handposeStarted', handposeCamera)
 }
 
 const handposeResultsToFlaiNetInput = (handposeResults: Results): tf.Tensor => {
@@ -106,6 +111,10 @@ const emitResults = (handposeResults: Results): void => {
 </script>
 
 <template>
-  <handpose @new-result="emitResults" @status-change="setHandposeReady" />
+  <handpose
+    @new-result="emitResults"
+    @status-change="setHandposeReady"
+    @handpose-started="handposeStarted"
+  />
   <div>Handpose Status: {{ handposeReady ? 'ready' : 'loading' }}</div>
 </template>

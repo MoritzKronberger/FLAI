@@ -9,7 +9,10 @@
     />
     <ShowWord v-else :signs="signsFromWord" :exercise-id="exerciseId" />
     <div>
-      <flai-net @status-change="setflaiNetReady" />
+      <flai-net
+        @status-change="setflaiNetReady"
+        @handpose-started="handposeStarted"
+      />
     </div>
   </div>
   <div v-else>
@@ -25,6 +28,9 @@ import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 import flaiNet from '../../components/FlaiNet.vue'
 import store from '../../store'
+import { Camera } from '@mediapipe/camera_utils'
+
+const emit = defineEmits(['handposeStarted'])
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 
@@ -60,6 +66,10 @@ function getNewSigns() {
 function onNextStep() {
   stepOneWatch.value = false
   console.log('nextStep')
+}
+
+const handposeStarted = (handposeCamera: Camera) => {
+  emit('handposeStarted', handposeCamera)
 }
 
 onBeforeMount(() => {

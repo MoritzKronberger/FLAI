@@ -9,7 +9,7 @@ const handposeReady = ref(false)
 let hands: Hands
 const handposeOptions = computed(() => store.handposedata.handposeOptions)
 
-const emit = defineEmits(['newResult', 'statusChange'])
+const emit = defineEmits(['newResult', 'statusChange', 'handposeStarted'])
 const onResults = (results: Results) => {
   handposeReady.value = true
   emit('statusChange', handposeReady.value as boolean)
@@ -33,14 +33,18 @@ onMounted(() => {
 })
 
 // setup from https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
-const startMediapipeCamera = (webcamFeed: Ref<HTMLVideoElement>): void => {
+const startMediapipeCamera = async (
+  webcamFeed: Ref<HTMLVideoElement>
+): Promise<void> => {
   const camera = new Camera(webcamFeed.value as HTMLVideoElement, {
     onFrame: async () => {
       await hands.send({ image: webcamFeed.value as HTMLVideoElement })
     },
   })
 
-  camera.start()
+  await camera.start()
+
+  emit('handposeStarted', camera)
 }
 </script>
 
