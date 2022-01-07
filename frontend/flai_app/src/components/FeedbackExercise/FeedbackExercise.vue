@@ -1,19 +1,29 @@
 <template>
   <div v-if="word !== undefined && word.length > 0" :key="startSession">
     <h1>Feedback Learning Exercise</h1>
-    <WatchWord
-      v-if="stepOneWatch && newSigns.length > 0"
-      :signs="newSigns"
-      :exercise-id="exerciseId"
-      @next="onNextStep"
-    />
-    <ShowWord v-else :signs="signsFromWord" :exercise-id="exerciseId" />
-    <div>
-      <flai-net @status-change="setflaiNetReady" />
+    <!-- hiding must be done via css and not v-if so that components still render -->
+    <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
+      <WatchWord
+        v-if="stepOneWatch && newSigns.length > 0"
+        :signs="newSigns"
+        :exercise-id="exerciseId"
+        @next="onNextStep"
+      />
+      <ShowWord v-else :signs="signsFromWord" :exercise-id="exerciseId" />
+      <div>
+        <flai-net
+          @status-change="setflaiNetReady"
+          @handpose-ready="setHandposeReady"
+        />
+      </div>
+    </div>
+    <!-- TODO: replace text with or add loading icon/ animation -->
+    <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
+      {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
     </div>
   </div>
   <div v-else>
-    //TODO: Add loading animation
+    <!-- TODO: second loading needed? -->
     <p>Loading</p>
   </div>
 </template>
@@ -70,8 +80,18 @@ onBeforeMount(() => {
 
 //FLAI-NET
 const flaiNetReady = ref(false)
+const handposeReady = ref(false)
 
 const setflaiNetReady = (result: boolean): void => {
   flaiNetReady.value = result
 }
+const setHandposeReady = (result: boolean): void => {
+  handposeReady.value = result
+}
 </script>
+
+<style scoped>
+.hidden {
+  display: none;
+}
+</style>
