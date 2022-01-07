@@ -75,6 +75,16 @@ const actions = {
     return jsonData
   },
 
+  async checkTokenValid() {
+    const userId = methods.fetchUserId()
+    const jsonData = await jsonAction({
+      method: 'post',
+      url: 'auth/checktoken',
+      data: { id: userId },
+    })
+    return jsonData
+  },
+
   async getApplicationData() {
     if (auth.isAuth) {
       console.log('-----GET USER')
@@ -92,6 +102,7 @@ const actions = {
     }
   },
 
+  //TODO: should be method??
   logoutUser() {
     auth.token = ''
     auth.isAuth = false
