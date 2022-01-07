@@ -13,14 +13,19 @@ export async function authenticateFromSessionStorage() {
   if (!isAuth.value) {
     const jwt = sessionStorage.getItem('jsonWebToken')
     const userId = sessionStorage.getItem('userId')
-    // TODO: test if jwt is valid for user id
     if (jwt && userId) {
       store.authdata.methods.saveAuthData({
         token: jwt,
         user_id: userId,
         isAuth: true,
       })
-      await store.authdata.actions.getApplicationData()
+      const checkResult = await store.authdata.actions.checkTokenValid()
+      if (checkResult.status === 200) {
+        await store.authdata.actions.getApplicationData()
+      } else {
+        store.authdata.actions.logoutUser()
+        return false
+      }
     } else {
       return false
     }
