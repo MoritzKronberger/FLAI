@@ -19,5 +19,5 @@ const dynamicPath: URL = new URL(placeholderPath.value, import.meta.url)
 </template>
 
 <style scoped lang="scss">
-@import '../assets/scss/main.scss';
+@import '../../assets/scss/main.scss';
 </style>
