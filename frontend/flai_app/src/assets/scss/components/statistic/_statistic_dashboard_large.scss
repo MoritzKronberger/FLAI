@@ -3,6 +3,6 @@
   border-radius: 5px;
   .flex-cards {
     padding: 2%;
-    @include flex-box(column, space-between, center, 100px);
+    @include flex-box(column, space-between, center, 10px);
   }
 }
