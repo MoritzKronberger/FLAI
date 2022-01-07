@@ -1,4 +1,5 @@
 import { reactive, readonly } from 'vue'
+import store from '.'
 import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
 import userData from './userdata'
@@ -14,6 +15,12 @@ export interface Auth {
 export interface LoginUser {
   email: string
   password: string
+}
+
+export interface AuthData {
+  token: string
+  user_id: string
+  isAuth: boolean
 }
 
 const auth: Auth = reactive({
@@ -39,10 +46,26 @@ const methods = {
   setAuth(state: boolean) {
     return (auth.isAuth = state)
   },
+
+  saveAuthData(authData: AuthData) {
+    auth.token = authData.token
+    auth.user_id = authData.user_id
+    auth.isAuth = authData.isAuth
+  },
+  logoutUser() {
+    // reset autdata
+    auth.token = ''
+    auth.isAuth = false
+    // reset userdata
+    store.userdata.methods.changeEmail('')
+    store.userdata.methods.changeUsername('')
+    // reset session storage
+    sessionStorage.removeItem('jsonWebToken')
+    sessionStorage.removeItem('userId')
+  },
 }
 
 const actions = {
-  /* eslint-disable */
   async loginUser(loginUser: LoginUser) {
     const jsonData = await jsonAction({
       method: 'post',
@@ -51,11 +74,25 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       console.log(jsonData.data)
-      auth.token = jsonData?.data.jwt
-      auth.user_id = jsonData?.data.ids.id
-      auth.isAuth = methods.setAuth(true)
+      sessionStorage.setItem('jsonWebToken', jsonData?.data.jwt)
+      sessionStorage.setItem('userId', jsonData?.data.ids.id)
+      methods.saveAuthData({
+        token: jsonData?.data.jwt,
+        user_id: jsonData?.data.ids.id,
+        isAuth: true,
+      })
       await this.getApplicationData()
     }
+    return jsonData
+  },
+
+  async checkTokenValid() {
+    const userId = methods.fetchUserId()
+    const jsonData = await jsonAction({
+      method: 'post',
+      url: 'auth/checktoken',
+      data: { id: userId },
+    })
     return jsonData
   },
 
@@ -67,13 +104,6 @@ const actions = {
       await exerciseData.actions.getAllExercises()
     }
   },
-
-  logoutUser() {
-    auth.token = ''
-    auth.isAuth = false
-    console.log('User logged out')
-  },
-  /* eslint-enable */
 }
 
 const authdata = {
