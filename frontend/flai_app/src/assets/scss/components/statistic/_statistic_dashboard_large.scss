@@ -1,9 +1,8 @@
-
 .statistic-dashboard-large {
   background-color: white;
-    .flex-cards {
-      padding: 5%;
-      @include flex-box(column, space-between, center, 100px);
-      gap: 100px;
-    }
+  border-radius: 5px;
+  .flex-cards {
+    padding: 2%;
+    @include flex-box(column, space-between, center, 100px);
   }
+}
