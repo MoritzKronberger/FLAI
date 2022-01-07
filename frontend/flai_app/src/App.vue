@@ -13,7 +13,7 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
   <main>
     <router-view />
   </main>
-  <aside v-if="isAuth">
+  <aside>
     <router-link :to="{ name: 'HomePage' }">
       <IconLoader
         path="/assets/flai_logo"
@@ -22,12 +22,14 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
         element-class="flai-header-icon"
       />
     </router-link>
-    <SidebarMenu />
-    <custom-button
-      label="Logout"
-      btnclass="button-primary"
-      @button-click="logoutUser"
-    />
+    <div v-if="isAuth">
+      <SidebarMenu />
+      <custom-button
+        label="Logout"
+        btnclass="button-primary"
+        @button-click="logoutUser"
+      />
+    </div>
   </aside>
 </template>
 
