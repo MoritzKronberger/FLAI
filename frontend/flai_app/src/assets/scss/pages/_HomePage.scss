@@ -8,32 +8,33 @@ h2 {
   padding: 2vh 2vw;
   .dashboard {
     margin-top: 3vh;
-    @include flex-box(row wrap, flex-start, $gap: 4vh 0);
+    margin-bottom: 3vh;
+    @include flex-box(row wrap, flex-start, $gap: 10vh 0);
     .column-left {
-      @include flex-box(wrap, space-between);
-      width: 46vw;
-      height: 80vh;
+      @include flex-box(row wrap, space-between, stretch, $gap: 2vh 1vw);
+      width: 50vw;
       margin-right: 2vw;
       .start-panel {
         background-color: $subtle-yellow;
-        flex-basis: 30.2vw;
-        min-width: max-content;
-        aspect-ratio: 2.08 / 1;
+        flex-basis: 32.5vw;
+        min-width: 300px;
+        aspect-ratio: 2.5 / 1;
         border-radius: 5px;
       }
       .level-panel {
         background-color: $light-blue;
-        flex-basis: 14.5vw;
-        min-width: max-content;
+        flex-basis: 14vw;
+        min-width: 200px;
         aspect-ratio: 1 / 1;
         border-radius: 5px;
       }
       .stats-small-panel {
-        flex-basis: 100vw;;
+        flex-basis: 100vw;
       }
     }
     .stats-large-panel {
-      height: 110vh;
+      width: 26vw;
+      min-width: 200px;
       aspect-ratio: 9 / 16;
     }
   }
