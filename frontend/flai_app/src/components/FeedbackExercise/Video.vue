@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, watchEffect, unref } from 'vue'
+import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
 import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'

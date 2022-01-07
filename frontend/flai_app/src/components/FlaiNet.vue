@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { inject, onMounted, ref, computed, ComputedRef } from 'vue'
+import { onMounted, ref, computed, ComputedRef } from 'vue'
+import store from '../store'
 import { Results } from '@mediapipe/hands'
 import {
   FlaiNetOptions,
@@ -8,8 +9,6 @@ import {
 } from '../store/flainetdata'
 import handpose from '../components/Handpose.vue'
 import * as tf from '@tensorflow/tfjs'
-
-const store: any = inject('store')
 
 const emit = defineEmits(['newResult', 'statusChange'])
 

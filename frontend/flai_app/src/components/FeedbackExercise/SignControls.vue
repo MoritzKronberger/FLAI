@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef } from 'vue'
+import { ref } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 

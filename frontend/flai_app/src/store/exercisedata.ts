@@ -1,8 +1,7 @@
 import { readonly, reactive } from 'vue'
-import { weightedRandomIndex } from '../ressources/ts/random'
 import { jsonAction } from '../common/service/rest'
 import { errorMessage } from '../ressources/ts/methods'
-import signData, { Sign } from './signdata'
+import signData from './signdata'
 import userData from './userdata'
 import { networkMessage } from './index'
 
@@ -48,10 +47,15 @@ export interface ExerciseSession {
   start_time: string
   session_duration: number
   order: number
-  signs: string[]
 }
 
 const exerciseSessions: ExerciseSession[] = reactive([])
+
+const activeExerciseSession: ExerciseSession = reactive({
+  start_time: '',
+  session_duration: 0,
+  order: 1,
+})
 
 export interface Progress {
   progressAdd: number
@@ -61,6 +65,14 @@ export interface Progress {
 const progressStep: Progress = {
   progressAdd: 10,
   progressSubtract: -10,
+}
+
+export interface Word {
+  signs: string[]
+}
+
+const word: Word = {
+  signs: [],
 }
 
 const methods = {
@@ -90,14 +102,13 @@ const methods = {
     console.log('unlockedSigns', exerciseSettingsUser.unlocked_signs)
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
-    const word = signData.methods.generateWord(exerciseId)
     const newSession: ExerciseSession = {
       start_time: startTime,
       session_duration: 0,
       order: 0,
-      signs: word,
     }
     exerciseSessions.push(newSession)
+    Object.assign(activeExerciseSession, newSession)
   },
   changeExerciseSessionDuration(startTime: string, duration: number) {
     const session = exerciseSessions.find((el) => el.start_time === startTime)
@@ -113,6 +124,9 @@ const methods = {
     )
     exerciseSessions.splice(index, 0)
     console.log(exerciseSessions)
+  },
+  changeWord(newWord: string[]) {
+    word.signs = newWord
   },
 }
 
@@ -323,7 +337,9 @@ const exerciseData = {
   exerciseSettings: readonly(exerciseSettings) as ExerciseSettings,
   exerciseSettingsUser: readonly(exerciseSettingsUser) as ExerciseSettingsUser,
   exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
+  activeExerciseSession: readonly(activeExerciseSession) as ExerciseSession,
   progressStep: readonly(progressStep),
+  word: readonly(word) as Word,
   methods,
   actions,
 }

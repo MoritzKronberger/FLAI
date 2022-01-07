@@ -11,7 +11,7 @@ const props = defineProps<{
 const { path, mimetype } = toRefs(props)
 
 const dynamicPath: URL = new URL(
-  `${path.value}.${mimetype.value}`,
+  `/src${path.value}.${mimetype.value}`,
   import.meta.url
 )
 </script>
