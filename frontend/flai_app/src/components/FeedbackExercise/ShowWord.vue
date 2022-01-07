@@ -84,8 +84,6 @@ async function correct() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-  } else {
-    router.push({ name: 'HomePage' })
   }
 }
 async function wrong() {
@@ -104,9 +102,6 @@ async function wrong() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-  } else {
-    //TODO: view is not reloading
-    router.push({ name: 'HomePage' })
   }
 }
 
