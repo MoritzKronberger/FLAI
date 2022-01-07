@@ -68,6 +68,8 @@ function checkProgress(sign: Sign) {
 }
 onBeforeMount(() => checkProgress(props.signs[index.value]))
 
+const emit = defineEmits(['new-word'])
+
 async function correct() {
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
@@ -84,6 +86,8 @@ async function correct() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
+  } else {
+    emit('new-word')
   }
 }
 async function wrong() {
@@ -102,11 +106,12 @@ async function wrong() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
+  } else {
+    emit('new-word')
   }
 }
 
 //watchEffect(() => checkProgress(signs.value[index.value]))
-const emit = defineEmits(['new-word'])
 </script>
 
 <style>
