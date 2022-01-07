@@ -15,16 +15,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
+import {
+  ref,
+  computed,
+  ComputedRef,
+  onBeforeMount,
+  watchEffect,
+  watch,
+} from 'vue'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 import { useRouter } from 'vue-router'
+import { FlaiNetResults } from '../../store/flainetdata'
 
 const router = useRouter()
 
+const inputAccepted = ref(true)
 const index = ref(0)
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
@@ -70,6 +79,7 @@ function checkProgress(sign: Sign) {
 onBeforeMount(() => checkProgress(props.signs[index.value]))
 
 async function correct() {
+  inputAccepted.value = false
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -85,11 +95,16 @@ async function correct() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
+
+    console.log('--- ShowWord correct is clearing the Buffer ---')
+    store.flainetdata.methods.clearResultBuffer()
+    inputAccepted.value = true
   } else {
     router.push({ name: 'HomePage' })
   }
 }
 async function wrong() {
+  inputAccepted.value = false
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
@@ -105,20 +120,29 @@ async function wrong() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
+
+    console.log('--- ShowWord wrong is clearing the Buffer ---')
+    store.flainetdata.methods.clearResultBuffer()
+    inputAccepted.value = true
   } else {
     router.push({ name: 'HomePage' })
   }
 }
 
-watchEffect(
-  () =>
-    (status.value = getFlaiNetResults(
-      resultBuffer.value,
+// TODO: Add adjustable timeout to inputAccepted reenable?
+const onBufferUpdate = (buffer: FlaiNetResults) => {
+  console.log(inputAccepted.value)
+  if (inputAccepted.value) {
+    status.value = getFlaiNetResults(
+      buffer,
       props.signs[index.value].name,
       correct,
       wrong
-    ))
-)
+    )
+  }
+}
+
+watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>

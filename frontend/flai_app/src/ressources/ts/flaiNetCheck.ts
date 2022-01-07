@@ -13,7 +13,6 @@ export function getFlaiNetResults(
   if (results.length > 0) {
     if (results[0].uniformLabels) {
       const handSign = results[0].label
-      store.flainetdata.methods.clearResultBuffer()
       if (handSign === currentSign) {
         correct()
         return 'Correct'

@@ -50,6 +50,7 @@ const methods = {
     resultBuffer.results.push(prediction)
   },
   clearResultBuffer() {
+    console.log('--- CLEARING BUFFER ---')
     resultBuffer.results = []
   },
   evaluateResultBuffer(newBufferResults: FlaiNetResults) {
