@@ -72,7 +72,7 @@ export interface Word {
 }
 
 const word: Word = {
-  signs: [],
+  signs: reactive([]),
 }
 
 const methods = {
@@ -126,7 +126,7 @@ const methods = {
     console.log(exerciseSessions)
   },
   changeWord(newWord: string[]) {
-    word.signs = newWord
+    Object.assign(word.signs, newWord)
   },
 }
 
