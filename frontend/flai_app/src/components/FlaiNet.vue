@@ -34,7 +34,7 @@ const addToResultBuffer = (prediction: FlaiNetPrediction): void => {
   flaiNetMethods.addToResultBuffer(prediction)
 }
 const evaluateResultBuffer = (): FlaiNetResults => {
-  return flaiNetMethods.evaluateResultBuffer()
+  return flaiNetMethods.evaluateResultBuffer([])
 }
 
 /* The python tenforflowjs coverter falsely names the 'LeCunNormal' initializer 'LecunNormal'.
@@ -98,7 +98,7 @@ const emitResults = (handposeResults: Results): void => {
   if (bufferedResult) {
     resultBufferUpdate(flaiNetResults)
     // this emit is only used for demo purposes, since evaluateResultBuffer() is always available through the store
-    emit('newResult', evaluateResultBuffer())
+    //emit('newResult', evaluateResultBuffer())
   } else {
     emit('newResult', flaiNetResults)
   }
