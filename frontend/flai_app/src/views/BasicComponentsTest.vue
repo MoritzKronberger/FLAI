@@ -36,6 +36,7 @@ const buttonClick = (): void => {
       label-name="Test Input"
       placeholder="your test input"
       element-class="default_input_field"
+      component-class="component_input"
     />
     <div>Test Input is: {{ testInput }}</div>
   </div>
