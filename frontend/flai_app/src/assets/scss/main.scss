@@ -10,7 +10,7 @@
 @import "layout/header", "layout/sidebar", "layout/footer";
 
 // 5. Components
-@import "components/statistic_dashboard_small", "components/statistic_dashboard_large";
+@import "components/statistic/statistic_dashboard_small", "components/statistic/statistic_dashboard_large", "components/statistic/card_small";
 //  'components/button';
 
 // import fonts
