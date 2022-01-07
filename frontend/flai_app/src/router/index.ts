@@ -9,8 +9,13 @@ import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
 import DebugPage from '../views/DebugPage.vue'
+import { authenticateFromSessionStorage } from '../ressources/ts/methods'
 import { computed } from 'vue'
 import store from '../store'
+
+const tryReAuthentication = async () => {
+  await authenticateFromSessionStorage()
+}
 
 async function startSession() {
   const signData = computed(() => store.signdata)
@@ -29,6 +34,7 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage,
+    beforeEnter: [tryReAuthentication],
   },
   {
     path: '/components',
@@ -86,12 +92,11 @@ const router = createRouter({
   routes,
 })
 
-const isAuth = computed(() => store.authdata.auth.isAuth)
-
 // from https://next.router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
-router.beforeEach((to) => {
+router.beforeResolve(async (to) => {
   if (to.matched.some((record) => record.meta.authRequired)) {
-    if (!isAuth.value) return '/login'
+    const authenticated = await authenticateFromSessionStorage()
+    if (!authenticated) return '/login'
   }
 })
 

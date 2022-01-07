@@ -1,6 +1,6 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import { generateAccessToken } from '../util/auth.js'
+import { generateAccessToken, authToken } from '../util/auth.js'
 import { loginUser } from '../db/auth.js'
 const auth = express.Router()
 
@@ -18,6 +18,17 @@ auth.post('/login', async (req, res) => {
   }
 })
 
+auth.post(
+  '/checktoken',
+  (req, res, next) => {
+    authToken(req, res, next, req.body.id)
+  },
+  async (req, res) => {
+    res.status(200).json({ message: 'Token valid' })
+  }
+)
+
+// currently not in use
 auth.post('/token', (req, res) => {
   const refreshToken = req.body.token
   if (refreshToken == null) return res.sendStatus(401)
