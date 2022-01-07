@@ -108,6 +108,9 @@ const actions = {
     auth.token = ''
     auth.isAuth = false
     console.log('User logged out')
+
+    sessionStorage.removeItem('jsonWebToken')
+    sessionStorage.removeItem('userId')
   },
 }
 

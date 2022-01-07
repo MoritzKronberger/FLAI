@@ -16,7 +16,7 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage,
-    beforeEnter: async () => await authenticateFromSessionStorage(),
+    // beforeEnter: async () => await authenticateFromSessionStorage(),
   },
   {
     path: '/components',
