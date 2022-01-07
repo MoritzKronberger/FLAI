@@ -8,9 +8,6 @@ h2 {
   padding: 2vh 2vw;
   .dashboard {
     margin-top: 3vh;
-    #dash-title {
-      width: 100%;
-    }
     @include flex-box(row wrap, flex-start);
     .column-left {
       @include flex-box(row wrap, space-between);
