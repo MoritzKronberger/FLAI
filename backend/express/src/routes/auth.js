@@ -18,9 +18,15 @@ auth.post('/login', async (req, res) => {
   }
 })
 
-auth.post('/checktoken', authToken, async (req, res) => {
-  res.status(200).json({ message: 'Token gültig' })
-})
+auth.post(
+  '/checktoken',
+  (req, res, next) => {
+    authToken(req, res, next, req.body.id)
+  },
+  async (req, res) => {
+    res.status(200).json({ message: 'Token valid' })
+  }
+)
 
 // currently not in use
 auth.post('/token', (req, res) => {
