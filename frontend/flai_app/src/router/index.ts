@@ -11,12 +11,16 @@ import ComingSoon from '../views/ComingSoon.vue'
 import DebugPage from '../views/DebugPage.vue'
 import { authenticateFromSessionStorage } from '../ressources/ts/methods'
 
+const tryReAuthentication = async () => {
+  await authenticateFromSessionStorage()
+}
+
 const routes = [
   {
     path: '/',
     name: 'HomePage',
     component: HomePage,
-    // beforeEnter: async () => await authenticateFromSessionStorage(),
+    beforeEnter: [tryReAuthentication],
   },
   {
     path: '/components',
