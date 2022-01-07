@@ -18,6 +18,6 @@ const dynamicPath: URL = new URL(placeholderPath.value, import.meta.url)
   </router-link>
 </template>
 
-<style scoped>
-/** here place for import scss */
+<style scoped lang="scss">
+@import '../assets/scss/main.scss';
 </style>
