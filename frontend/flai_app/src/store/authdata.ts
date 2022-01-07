@@ -102,7 +102,8 @@ const actions = {
     }
   },
 
-  //TODO: should be method??
+  // TODO: should be method?
+  // TODO: also remove all other userdata?
   logoutUser() {
     auth.token = ''
     auth.isAuth = false

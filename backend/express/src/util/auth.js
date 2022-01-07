@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 function authToken(req, res, next, userId) {
   const token = req.headers['authorization']
+  // TODO: remove debug logs
   console.log('--- NEW REQUEST ---')
   console.log(`Token: ${token}`)
   if (token == null) return res.sendStatus(401)
