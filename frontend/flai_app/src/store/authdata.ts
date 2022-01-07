@@ -1,4 +1,5 @@
 import { reactive, readonly } from 'vue'
+import store from '.'
 import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
 import userData from './userdata'
@@ -42,7 +43,6 @@ const methods = {
     return auth.isAuth
   },
 
-  // TODO: set function returns value???
   setAuth(state: boolean) {
     return (auth.isAuth = state)
   },
@@ -51,6 +51,17 @@ const methods = {
     auth.token = authData.token
     auth.user_id = authData.user_id
     auth.isAuth = authData.isAuth
+  },
+  logoutUser() {
+    // reset autdata
+    auth.token = ''
+    auth.isAuth = false
+    // reset userdata
+    store.userdata.methods.changeEmail('')
+    store.userdata.methods.changeUsername('')
+    // reset session storage
+    sessionStorage.removeItem('jsonWebToken')
+    sessionStorage.removeItem('userId')
   },
 }
 
@@ -100,17 +111,6 @@ const actions = {
         exerciseData.exercises[0].id
       )
     }
-  },
-
-  // TODO: should be method?
-  // TODO: also remove all other userdata?
-  logoutUser() {
-    auth.token = ''
-    auth.isAuth = false
-    console.log('User logged out')
-
-    sessionStorage.removeItem('jsonWebToken')
-    sessionStorage.removeItem('userId')
   },
 }
 

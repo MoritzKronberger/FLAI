@@ -23,7 +23,7 @@ export async function authenticateFromSessionStorage() {
       if (checkResult.status === 200) {
         await store.authdata.actions.getApplicationData()
       } else {
-        store.authdata.actions.logoutUser()
+        store.authdata.methods.logoutUser()
         return false
       }
     } else {

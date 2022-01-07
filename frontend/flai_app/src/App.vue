@@ -7,7 +7,7 @@ import { computed, provide } from 'vue'
 
 provide('store', store)
 
-const logoutUser = store.authdata.actions.logoutUser
+const logoutUser = store.authdata.methods.logoutUser
 const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
