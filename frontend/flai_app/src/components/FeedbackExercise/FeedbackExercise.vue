@@ -7,7 +7,12 @@
       :exercise-id="exerciseId"
       @next="onNextStep"
     />
-    <ShowWord v-else :signs="signsFromWord" :exercise-id="exerciseId" />
+    <ShowWord
+      v-else
+      :signs="signsFromWord"
+      :exercise-id="exerciseId"
+      @new-word="$emit('new-word')"
+    />
   </div>
   <div v-else>
     //TODO: Add loading animation

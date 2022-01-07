@@ -9,6 +9,11 @@
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
+      <Button
+        label="weiter"
+        btnclass="controls"
+        @button-click="emit('new-word')"
+      />
     </div>
   </div>
 </template>
@@ -20,6 +25,7 @@ import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
+import Button from '../CustomButton.vue'
 
 const index = ref(0)
 const feedbackClass = ref('waiting')
@@ -105,11 +111,15 @@ async function wrong() {
 }
 
 //watchEffect(() => checkProgress(signs.value[index.value]))
+const emit = defineEmits(['new-word'])
 </script>
 
 <style>
 div:focus {
   outline: none;
+}
+.controls {
+  color: blue;
 }
 .waiting {
   color: grey;
