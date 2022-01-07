@@ -1,6 +1,8 @@
 
 .statistic-dashboard-small {
     .flex-cards {
-      @include flex-box(row wrap, space-between);
+      @include flex-box(wrap, space-between);
+    } .child-card {
+      flex-basis: 14vw;
     }
   }
