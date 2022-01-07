@@ -4,10 +4,15 @@ import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
 import IconLoader from './components/IconLoader.vue'
 import customButton from './components/CustomButton.vue'
 import { computed, provide } from 'vue'
+import { useRouter } from 'vue-router'
 
 provide('store', store)
+const router = useRouter()
 
-const logoutUser = store.authdata.methods.logoutUser
+const logoutUser = () => {
+  store.authdata.methods.logoutUser()
+  router.push({ name: 'HomePage' })
+}
 const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
