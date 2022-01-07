@@ -1,6 +1,6 @@
 
 .statistic-dashboard-small {
     .flex-cards {
-      @include flex-box(row, space-between);
+      @include flex-box(row wrap, space-between);
     }
   }
