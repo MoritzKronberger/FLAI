@@ -1,9 +1,9 @@
 <template>
-  <FeedbackExercise @new-word="reload" />
+  <FeedbackExercise :key="signIds" @new-word="reload" />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
 import store from '../store'
@@ -11,6 +11,9 @@ import store from '../store'
 const router = useRouter()
 
 const session = computed(() => store.exercisedata.activeExerciseSession)
+const signIds = computed(() => {
+  return store.exercisedata.word.signs.join()
+})
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 
