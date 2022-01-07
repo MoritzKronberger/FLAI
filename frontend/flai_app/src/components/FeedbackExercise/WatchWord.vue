@@ -52,12 +52,11 @@ function wrong() {
 }
 
 // TODO: progress property not really needed?
-// TODO await action?
-function onNewIndex(newIndex: number) {
+async function onNewIndex(newIndex: number) {
   index.value = newIndex
   console.log('--- WatchWord onNewIndex is clearing the Buffer ---')
   store.flainetdata.methods.clearResultBuffer()
-  store.signdata.actions.patchProgress(
+  await store.signdata.actions.patchProgress(
     props.exerciseId,
     props.signs[index.value].id,
     props.signs[index.value].progress,
