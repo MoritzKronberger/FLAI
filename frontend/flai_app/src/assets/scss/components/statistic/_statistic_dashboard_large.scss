@@ -1,8 +1,8 @@
 .statistic-dashboard-large {
+  padding: 5%;
   background-color: white;
   border-radius: 5px;
   .flex-cards {
-    padding: 2%;
     @include flex-box(column, space-between, center, 10px);
   }
 }
