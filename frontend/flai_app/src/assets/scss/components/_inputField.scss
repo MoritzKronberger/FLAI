@@ -14,7 +14,6 @@ $input-test-size: 13px;
   padding-left: 5px;
   font-size: $input-test-size;
   outline: none;
-  color: $light-grey;
 
   &:hover {
     border-color: $main-blue;
@@ -24,21 +23,20 @@ $input-test-size: 13px;
     border-color: $main-blue;
     color: $main-black;
   }
+}
 
-  &:active::after {
-    border-color: $main-blue;
-    color: $main-black;
+.component_input {
+  width: 200px;
+
+  .default_input_field {
+    @include import_inputField(default, $light-grey);
   }
-}
 
-.default_input_field {
-  @include import_inputField(default, $light-grey);
-}
+  .success_input_field {
+    @include import_inputField(success, $main-green);
+  }
 
-.success_input_field {
-  @include import_inputField(success, $main-green);
-}
-
-.error_input_field {
-  @include import_inputField(error, $main-red);
+  .error_input_field {
+    @include import_inputField(error, $main-red);
+  }
 }
