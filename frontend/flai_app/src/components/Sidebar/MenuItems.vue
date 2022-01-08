@@ -11,37 +11,23 @@ defineProps<{
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <router-link :to="{ name: viewName }">
-      <icon-loader
-        :path="iconPath"
-        :mimetype="iconMimetype"
-        :alt="iconAltText"
-        element-class="sidebar-icon"
-      />
-      <span class="sidebar-flyout">{{ flyoutText }}</span>
+      <div class="item">
+        <div class="icon">
+          <icon-loader
+            :path="iconPath"
+            :mimetype="iconMimetype"
+            :alt="iconAltText"
+            element-class="sidebar-icon"
+          />
+        </div>
+        <span class="sidebar-flyout">{{ flyoutText }}</span>
+      </div>
     </router-link>
   </div>
 </template>
 
-<style scoped>
-li {
-  padding-left: 15px;
-  text-align: left;
-  list-style-type: none;
-}
-
-a {
-  color: black;
-  text-decoration: none;
-}
-
-.icon {
-  margin-right: 25px;
-}
-
-.router-link-exact-active {
-  border-left: 3px solid #4a7bf6;
-  margin-right: 5px;
-}
+<style scoped lang="scss">
+@import '../../assets/scss/main.scss';
 </style>
