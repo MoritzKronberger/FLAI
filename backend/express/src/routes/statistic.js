@@ -13,5 +13,15 @@ statistic.get('/active_streak', async (req, res) => {
   })
 })
 
+statistic.get('/longest_streak', async (req, res) => {
+  await request({
+    method: 'GET',
+    table: 'get_longest_streak',
+    selectCols: ['user_id', 'start_day', 'end_day', 'streak'],
+    ids: req.query,
+    res: res,
+  })
+})
+
 export { statistic }
 export default { statistic }
