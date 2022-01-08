@@ -52,12 +52,11 @@ function wrong() {
 }
 
 // TODO: progress property not really needed?
-// TODO await action?
-function onNewIndex(newIndex: number) {
+async function onNewIndex(newIndex: number) {
   index.value = newIndex
   console.log('--- WatchWord onNewIndex is clearing the Buffer ---')
   store.flainetdata.methods.clearResultBuffer()
-  store.signdata.actions.patchProgress(
+  await store.signdata.actions.patchProgress(
     props.exerciseId,
     props.signs[index.value].id,
     props.signs[index.value].progress,
@@ -66,12 +65,18 @@ function onNewIndex(newIndex: number) {
   console.log(index.value)
 }
 
-function checkProgress(sign: Sign) {
+async function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     showSign.value = false
   } else {
     showSign.value = true
   }
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    props.signs[index.value].progress,
+    true
+  )
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
 const emit = defineEmits(['next'])
