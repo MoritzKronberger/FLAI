@@ -15,7 +15,7 @@
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <Button
-        v-if="index === signs.length - 1 && !inputAccepted"
+        v-if="wordComplete"
         label="weiter"
         btnclass="controls"
         @button-click="emit('new-word')"
@@ -42,6 +42,7 @@ const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
+const wordComplete = ref(false)
 
 const progressStep: ComputedRef<Progress> = computed(
   () => store.exercisedata.progressStep
@@ -88,10 +89,8 @@ onBeforeMount(() => checkProgress(props.signs[index.value]))
 const emit = defineEmits(['new-word'])
 
 function reEnableInput() {
-  if (index.value !== props.signs.length - 1) {
-    store.flainetdata.methods.clearResultBuffer()
-    inputAccepted.value = true
-  }
+  store.flainetdata.methods.clearResultBuffer()
+  inputAccepted.value = true
 }
 
 async function correct() {
@@ -115,6 +114,8 @@ async function correct() {
     // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
     status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
+  } else {
+    wordComplete.value = true
   }
 }
 async function wrong() {
@@ -138,6 +139,8 @@ async function wrong() {
     // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?
     status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
+  } else {
+    wordComplete.value = true
   }
 }
 
