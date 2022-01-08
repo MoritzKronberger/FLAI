@@ -1,7 +1,12 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p v-for="letter in signs" :key="letter.name">{{ letter.name }}</p>
+      <span v-for="(letter, count) of signs" :key="letter.name">
+        <span v-if="count === index" class="currentLetter">
+          {{ letter.name }}
+        </span>
+        <span v-else>{{ letter.name }}</span>
+      </span>
       <Video
         :show-sign="showSign"
         :signs="signs"
@@ -157,5 +162,9 @@ div:focus {
 }
 .wrong {
   color: red;
+}
+.currentLetter {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
