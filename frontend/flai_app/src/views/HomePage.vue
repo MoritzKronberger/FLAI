@@ -35,26 +35,28 @@ const level = ref(1)
     <h1>Dashboard</h1>
     <div class="dashboard">
       <div class="column-left">
-        <div class="start-panel">
-          <h2>
-            Hallo, <b>{{ user.username }}!</b>
-          </h2>
-          <div>Willkommen zurück!</div>
-          <div>Bereit für die heutige Aufgabe?</div>
-          <custom-button
-            label="Start"
-            btnclass="button-primary"
-            @button-click="redirect('ComingSoon')"
-          />
-        </div>
-        <div class="level-panel">
-          <IconLoader
-            :path="`../assets/icons/levels/level_${level}`"
-            mimetype="svg"
-            alt="Level Icon"
-            element-class="level-icon"
-          />
-          <div>Level {{ level }}</div>
+        <div class="row-up">
+          <div class="start-panel">
+            <h2>
+              Hallo, <b>{{ user.username }}!</b>
+            </h2>
+            <div>Willkommen zurück!</div>
+            <div>Bereit für die heutige Aufgabe?</div>
+            <custom-button
+              label="Start"
+              btnclass="button-primary"
+              @button-click="redirect('ComingSoon')"
+            />
+          </div>
+          <div class="level-panel">
+            <IconLoader
+              :path="`../assets/icons/levels/level_${level}`"
+              mimetype="svg"
+              alt="Level Icon"
+              element-class="level-icon"
+            />
+            <div>Level {{ level }}</div>
+          </div>
         </div>
         <div class="stats-small-panel">
           <StatisticDashboardSmall />
@@ -67,6 +69,6 @@ const level = ref(1)
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '../assets/scss/main.scss';
 </style>
