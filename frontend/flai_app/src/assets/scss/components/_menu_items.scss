@@ -1,0 +1,24 @@
+.container {
+  .item {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 1vw;
+    justify-content: flex-start;
+
+    .icon {
+      width: 3.5vw;
+    }
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .router-link-exact-active {
+    border-left: 0.3vw solid #4a7bf6;
+    margin-right: 5px;
+    height: 60px;
+    display: block;
+  }
+}
