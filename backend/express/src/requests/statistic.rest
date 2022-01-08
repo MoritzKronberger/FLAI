@@ -1,0 +1,3 @@
+GET http://localhost:5000/api/statistic/active_streak/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48
+
+###
