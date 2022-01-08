@@ -5,7 +5,7 @@ import CardSmall from './CardSmall.vue'
 <template>
   <div class="statistic-dashboard-small">
     <h2>Statistiken</h2>
-    <div class="flex-cards">
+    <div class="grid-cards">
       <div class="child-card">
         <card-small
           placeholder-path="../../assets/statisticPlaceholders/cardSmallTimeWeek.svg"
