@@ -1,19 +1,24 @@
 GET http://localhost:5000/api/statistic/active_streak/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48
+Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
 
 ###
 
 GET http://localhost:5000/api/statistic/longest_streak/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48
+Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
 
 ###
 
 GET http://localhost:5000/api/statistic/exercise_completion/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&exercise_id=a2dfcce1-65ac-4107-b6d1-46c31da6f330
+Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
 
 ###
 
 GET http://localhost:5000/api/statistic/best_exercise_sign/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&exercise_id=a2dfcce1-65ac-4107-b6d1-46c31da6f330
+Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
 
 ###
 
 GET http://localhost:5000/api/statistic/time_learnt_by_day/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&day=2022-01-08
+Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
 
 ###
