@@ -10,6 +10,7 @@
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <Button
+        v-if="index === signs.length - 1"
         label="weiter"
         btnclass="controls"
         @button-click="emit('new-word')"
