@@ -23,5 +23,15 @@ statistic.get('/longest_streak', async (req, res) => {
   })
 })
 
+statistic.get('/exercise_completion', async (req, res) => {
+  await request({
+    method: 'GET',
+    table: 'get_exercise_completion_progress',
+    selectCols: ['user_id', 'exercise_id', 'progress_completion'],
+    ids: req.query,
+    res: res,
+  })
+})
+
 export { statistic }
 export default { statistic }
