@@ -1,14 +1,25 @@
 <template>
-  <FeedbackExercise :key="signIds" @new-word="reload" />
+  <h1>Feedback Learning Exercise</h1>
+  <!-- hiding must be done via css and not v-if so that components still render -->
+  <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
+    <FeedbackExercise :key="signIds" />
+    <flai-net
+      @status-change="setflaiNetReady"
+      @handpose-ready="setHandposeReady"
+    />
+  </div>
+  <!-- TODO: replace text with or add loading icon/ animation -->
+  <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
+    {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
+  </div>
 </template>
 
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
+import { computed, ref } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
+import FlaiNet from '../components/FlaiNet.vue'
 import store from '../store'
-
-const router = useRouter()
 
 const session = computed(() => store.exercisedata.activeExerciseSession)
 const signIds = computed(() => {
@@ -17,13 +28,6 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 
-function reload() {
-  store.exercisedata.methods.changeWord(store.signdata.methods.generateWord())
-  router.push({
-    name: 'LearningExercise',
-  })
-}
-
 onBeforeRouteLeave(async () => {
   await store.exercisedata.actions.patchExerciseSession(
     exerciseId.value,
@@ -31,4 +35,21 @@ onBeforeRouteLeave(async () => {
     store.sessiondata.methods.updateTimer()
   )
 })
+
+//FLAI-NET
+const flaiNetReady = ref(false)
+const handposeReady = ref(false)
+
+const setflaiNetReady = (result: boolean): void => {
+  flaiNetReady.value = result
+}
+const setHandposeReady = (result: boolean): void => {
+  handposeReady.value = result
+}
 </script>
+
+<style scoped>
+.hidden {
+  display: none;
+}
+</style>

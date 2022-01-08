@@ -1,5 +1,6 @@
 import { FlaiNetResults } from '../../store/flainetdata'
 import store from '../../store'
+import { FeedbackStatus } from './interfaces'
 
 export function getFlaiNetResults(
   bufferResults: FlaiNetResults,
@@ -8,22 +9,21 @@ export function getFlaiNetResults(
   wrong: () => void
 ) {
   const results = store.flainetdata.methods.evaluateResultBuffer(bufferResults)
-  console.log(results)
 
   if (results.length > 0) {
     if (results[0].uniformLabels) {
       const handSign = results[0].label
       if (handSign === currentSign) {
         correct()
-        return 'Correct'
+        return FeedbackStatus.Correct
       } else {
         wrong()
-        return 'Wrong'
+        return FeedbackStatus.Wrong
       }
     } else {
-      return 'Detecting, please hold...'
+      return FeedbackStatus.Detecting
     }
   } else {
-    return 'No hand found'
+    return FeedbackStatus.NoHandDetected
   }
 }
