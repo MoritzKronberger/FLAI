@@ -17,9 +17,6 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
 <template>
-  <main>
-    <router-view />
-  </main>
   <aside>
     <router-link :to="{ name: 'HomePage' }">
       <IconLoader
@@ -38,11 +35,19 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
       />
     </div>
   </aside>
+  <main>
+    <router-view />
+  </main>
 </template>
 
-<style>
+<style scoped lang="scss">
+aside {
+  float: left;
+  width: 15%;
+}
 main {
-  margin-left: 15%;
+  width: 85%;
+  float: right;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
