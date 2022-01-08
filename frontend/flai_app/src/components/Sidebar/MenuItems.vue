@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import IconLoader from '../IconLoader.vue'
 
 defineProps<{
@@ -9,14 +8,10 @@ defineProps<{
   flyoutText: string
   iconAltText: string
 }>()
-const show = ref(false)
-const setShow = (newShow: boolean): void => {
-  show.value = newShow
-}
 </script>
 
 <template>
-  <div @mouseover="setShow(true)" @mouseleave="setShow(false)">
+  <div>
     <router-link :to="{ name: viewName }">
       <icon-loader
         :path="iconPath"
@@ -24,7 +19,7 @@ const setShow = (newShow: boolean): void => {
         :alt="iconAltText"
         element-class="sidebar-icon"
       />
-      <span v-if="show" class="sidebar-flyout">{{ flyoutText }}</span>
+      <span class="sidebar-flyout">{{ flyoutText }}</span>
     </router-link>
   </div>
 </template>

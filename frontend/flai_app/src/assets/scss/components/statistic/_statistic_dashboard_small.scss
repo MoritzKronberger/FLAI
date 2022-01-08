@@ -1,0 +1,14 @@
+.statistic-dashboard-small {
+  .grid-cards {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1rem;
+    .child-card {
+      width: 100%;
+    }
+    @media (max-width: 500px)
+    {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
