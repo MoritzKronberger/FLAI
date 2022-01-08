@@ -32,7 +32,6 @@ const level = ref(1)
     </div>
   </div>
   <div v-if="auth.isAuth" class="home-page">
-    <h1>Dashboard</h1>
     <div class="dashboard">
       <div class="start-panel">
         <h2>
