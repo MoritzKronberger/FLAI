@@ -9,7 +9,10 @@
           alt="Icon, das die Korrektheit anzeigt"
           element-class="img"
         />
-        <span>{{ letter.name }}</span>
+        <span v-if="count === index" class="currentLetter">
+          {{ letter.name }}
+        </span>
+        <span v-else>{{ letter.name }}</span>
       </div>
       <Video
         :show-sign="showSign"
@@ -24,14 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  ComputedRef,
-  onBeforeMount,
-  watchEffect,
-  watch,
-} from 'vue'
+import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
@@ -57,6 +53,9 @@ const progressStep: ComputedRef<Progress> = computed(
 )
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
+const newInputTimeout = computed(
+  () => store.flainetdata.flaiNetOptions.newInputTimeout
+)
 const status = ref('Loading')
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
@@ -88,7 +87,13 @@ function checkProgress(sign: Sign) {
     sign.level_3_reached
   )
 }
+
 onBeforeMount(() => checkProgress(props.signs[index.value]))
+
+function reEnableInput() {
+  store.flainetdata.methods.clearResultBuffer()
+  inputAccepted.value = true
+}
 
 async function correct() {
   inputAccepted.value = false
@@ -108,10 +113,10 @@ async function correct() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-
-    console.log('--- ShowWord correct is clearing the Buffer ---')
-    store.flainetdata.methods.clearResultBuffer()
-    inputAccepted.value = true
+    // TODO: remove debug status timeout
+    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = 'timeout'
+    setTimeout(reEnableInput, newInputTimeout.value)
   } else {
     router.push({ name: 'HomePage' })
   }
@@ -134,10 +139,10 @@ async function wrong() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-
-    console.log('--- ShowWord wrong is clearing the Buffer ---')
-    store.flainetdata.methods.clearResultBuffer()
-    inputAccepted.value = true
+    // TODO: remove debug status timeout
+    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = 'timeout'
+    setTimeout(reEnableInput, newInputTimeout.value)
   } else {
     router.push({ name: 'HomePage' })
   }
@@ -171,5 +176,9 @@ div:focus {
 }
 .wrong {
   color: red;
+}
+.currentLetter {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
