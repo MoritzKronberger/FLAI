@@ -40,21 +40,23 @@ const signsFromWord: ComputedRef<Sign[]> = computed(() => {
   return wordArray
 })
 const startSession = ref('false') // forces the div to rerender via the key: must be string/number
-const newSigns: Sign[] = []
+const newSigns = ref<Sign[]>([])
 const stepOneWatch = ref(true)
 const exerciseId: ComputedRef<string> = computed(
   () => store.exercisedata.exercises[0].id
 )
 
 function getNewSigns() {
-  newSigns.length = 0
+  newSigns.value.length = 0
   for (const signId of word.value) {
     const sign = allSigns.value?.find((el) => el.id === signId)
     if (sign?.intro_done === false) {
-      newSigns.push(sign)
+      if (!newSigns.value.includes(sign)) {
+        newSigns.value.push(sign)
+      }
     }
   }
-  console.log('newSigns', JSON.stringify(newSigns))
+  console.log('newSigns', JSON.stringify(newSigns.value))
 }
 
 function onNextStep() {
