@@ -40,6 +40,12 @@ const level = ref(1)
         <p>Willkommen zurück!</p>
         <p>Bereit für die heutige Aufgabe?</p>
       </div>
+      <IconLoader
+        path="/assets/logos/icon_symbol"
+        mimetype="svg"
+        alt="FLAI Icon Symbol"
+        element-class="flai-startpanel-icon"
+      />
       <custom-button
         class="button"
         label="Start"
