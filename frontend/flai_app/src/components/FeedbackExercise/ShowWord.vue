@@ -1,7 +1,7 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <div v-for="(letter, count) of signs" :key="letter.name">
+      <div v-for="(letter, count) of signs" :key="letter.name" class="item">
         <IconLoader
           v-if="pathToIcon[count] !== undefined"
           :path="pathToIcon[count]"
