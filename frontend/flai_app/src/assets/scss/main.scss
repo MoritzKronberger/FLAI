@@ -10,7 +10,8 @@
 @import "layout/header", "layout/sidebar", "layout/footer";
 
 // 5. Components
-@import "components/statistic/statistic_dashboard_small", "components/statistic/statistic_dashboard_large", "components/statistic/card_small";
+@import "components/statistic/statistic_dashboard_small", "components/statistic/statistic_dashboard_large",
+    "components/statistic/card_small", "components/sidebar_menu", "components/menu_items";
 //  'components/button';
 
 // import fonts
