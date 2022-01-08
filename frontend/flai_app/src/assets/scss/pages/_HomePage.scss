@@ -5,6 +5,7 @@ h2 {
 
 .home-page {
   background-color: $background-blue;
+
   .dashboard {
     padding: 2rem;
     margin: 0 auto;
@@ -28,7 +29,7 @@ h2 {
       grid-row: 1 / 4;
       grid-column: 4 / 6;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 1200px) {
       grid-template-columns: repeat(2, 100px);
       grid-template-rows: repeat(4, 200px);
       .start-panel {
@@ -47,7 +48,8 @@ h2 {
         grid-row: 5 / 6;
       }
     }
-    @media (min-width: 1600px) {
+    @media (min-width: 2450px) {
+      background-color: blue;
       grid-template-columns: repeat(5, 400px);
       grid-template-rows: repeat(3, 400px);
     }
