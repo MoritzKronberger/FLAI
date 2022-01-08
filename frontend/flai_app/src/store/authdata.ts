@@ -2,6 +2,7 @@ import { reactive, readonly } from 'vue'
 import store from '.'
 import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
+import statisticdata from './statisticdata'
 import userData from './userdata'
 
 export interface Auth {
@@ -102,6 +103,8 @@ const actions = {
       await userData.actions.getUser()
       console.log('-----GET EXERCISE')
       await exerciseData.actions.getAllExercises()
+      console.log('-----GET STATISTIC')
+      await statisticdata.actions.getUserStatistic()
     }
   },
 }
