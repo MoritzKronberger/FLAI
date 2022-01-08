@@ -43,5 +43,15 @@ statistic.get('/best_exercise_sign', async (req, res) => {
   })
 })
 
+statistic.get('/time_learnt_by_day', async (req, res) => {
+  await request({
+    method: 'GET',
+    table: 'get_time_learnt_by_day',
+    selectCols: ['user_id', 'day', 'time_learnt'],
+    ids: req.query,
+    res: res,
+  })
+})
+
 export { statistic }
 export default { statistic }
