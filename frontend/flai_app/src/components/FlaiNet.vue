@@ -9,12 +9,11 @@ import {
 } from '../store/flainetdata'
 import handpose from '../components/Handpose.vue'
 import * as tf from '@tensorflow/tfjs'
-import { Camera } from '@mediapipe/camera_utils'
 
 const emit = defineEmits([
   'newResult',
   'statusChange',
-  'handposeStarted',
+  'webcamReady',
   'handposeReady',
 ])
 let flaiNet: tf.LayersModel
@@ -30,6 +29,9 @@ const flaiNetReady = ref(false)
 
 const setHandposeReady = (result: boolean): void => {
   emit('handposeReady', result)
+}
+const webcamReady = (webcamObject: HTMLVideoElement): void => {
+  emit('webcamReady', webcamObject)
 }
 const clearResultBuffer = (): void => {
   flaiNetMethods.clearResultBuffer()
@@ -49,10 +51,6 @@ const loadFlaiNet = async (): Promise<void> => {
   flaiNet = await tf.loadLayersModel(flaiNetPath.toString())
   flaiNetReady.value = true
   emit('statusChange', flaiNetReady.value as boolean)
-}
-
-const handposeStarted = (handposeCamera: Camera) => {
-  emit('handposeStarted', handposeCamera)
 }
 
 const handposeResultsToFlaiNetInput = (handposeResults: Results): tf.Tensor => {
@@ -117,6 +115,6 @@ const emitResults = (handposeResults: Results): void => {
   <handpose
     @new-result="emitResults"
     @status-change="setHandposeReady"
-    @handpose-started="handposeStarted"
+    @webcam-ready="webcamReady"
   />
 </template>

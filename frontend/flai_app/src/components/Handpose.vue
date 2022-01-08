@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, Ref, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import store from '../store'
 import webcam from '../components/Webcam.vue'
 import { Hands, Results } from '@mediapipe/hands'
@@ -9,7 +9,7 @@ const handposeReady = ref(false)
 let hands: Hands
 const handposeOptions = computed(() => store.handposedata.handposeOptions)
 
-const emit = defineEmits(['newResult', 'statusChange', 'handposeStarted'])
+const emit = defineEmits(['newResult', 'statusChange', 'webcamReady'])
 const onResults = (results: Results) => {
   handposeReady.value = true
   emit('statusChange', handposeReady.value as boolean)
@@ -34,17 +34,18 @@ onMounted(() => {
 
 // setup from https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
 const startMediapipeCamera = async (
-  webcamFeed: Ref<HTMLVideoElement>
+  webcamObject: HTMLVideoElement
 ): Promise<void> => {
-  const camera = new Camera(webcamFeed.value as HTMLVideoElement, {
+  emit('webcamReady', webcamObject)
+  const camera = new Camera(webcamObject, {
     onFrame: async () => {
-      await hands.send({ image: webcamFeed.value as HTMLVideoElement })
+      await hands.send({
+        image: webcamObject,
+      })
     },
   })
 
   await camera.start()
-
-  emit('handposeStarted', camera)
 }
 </script>
 

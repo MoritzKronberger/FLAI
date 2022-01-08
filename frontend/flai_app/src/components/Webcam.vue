@@ -2,8 +2,8 @@
 import { ref, onMounted } from 'vue'
 
 const emit = defineEmits(['webcamReady'])
-const emitFeed = (webcamFeed: object): void => {
-  emit('webcamReady', webcamFeed)
+const emitFeed = (webcamObject: HTMLVideoElement): void => {
+  emit('webcamReady', webcamObject)
 }
 
 const webcamLoading = ref(true)
@@ -22,12 +22,12 @@ const start = async (): Promise<void> => {
   // but it's basically not reproducable and might be an issue with the vite hot reload, that won't exist in production
   if (!webcamFeed.value) throw new Error('Video reference is null')
   webcamFeed.value.srcObject = stream.value
+  emitFeed(webcamFeed.value)
+  webcamLoading.value = false
 }
 onMounted(async () => {
   try {
     await start()
-    emitFeed(webcamFeed)
-    webcamLoading.value = false
   } catch (error) {
     console.log(error)
     window.alert(
