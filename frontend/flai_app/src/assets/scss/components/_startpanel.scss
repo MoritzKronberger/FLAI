@@ -1,0 +1,35 @@
+@import '../abstracts/variables';
+
+.start-panel {
+    position: relative;
+    width: 447px;
+    height: 225px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $subtle-yellow;
+    padding: 25px;
+
+    h2 {
+        position: absolute; 
+        top: 25px; 
+        left:25px;
+        margin: 0px;
+        color: $dark-blue;
+    }
+
+    button {
+        position: absolute; 
+        bottom: 25px; 
+        right:25px;
+        width: 115px;
+    }
+}
+
+#start-panel-text {
+    p {
+        padding-bottom: 10px;
+        color: $dark-grey;
+    }
+}

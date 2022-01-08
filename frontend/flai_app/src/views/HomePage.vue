@@ -32,13 +32,16 @@ const level = ref(1)
     </div>
   </div>
   <div v-if="auth.isAuth" class="home-page">
-    <div>
+    <div class="start-panel">
       <h2>
         Hallo, <b>{{ user.username }}!</b>
       </h2>
-      <div>Willkommen zurück!</div>
-      <div>Bereit für die heutige Aufgabe?</div>
+      <div id="start-panel-text">
+        <p>Willkommen zurück!</p>
+        <p>Bereit für die heutige Aufgabe?</p>
+      </div>
       <custom-button
+        class="button"
         label="Start"
         btnclass="button-primary"
         @button-click="redirect('ComingSoon')"
@@ -58,7 +61,9 @@ const level = ref(1)
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+@import '../assets/scss/components/_startpanel.scss';
+
 h2 {
   font-weight: 200;
 }
