@@ -45,7 +45,7 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
 
 export interface ExerciseSession {
   start_time: string
-  session_duration: number
+  session_duration: string
   order: number
 }
 
@@ -53,7 +53,7 @@ const exerciseSessions: ExerciseSession[] = reactive([])
 
 const activeExerciseSession: ExerciseSession = reactive({
   start_time: '',
-  session_duration: 0,
+  session_duration: '',
   order: 1,
 })
 
@@ -104,18 +104,18 @@ const methods = {
   startNewExerciseSession(exerciseId: string, startTime: string) {
     const newSession: ExerciseSession = {
       start_time: startTime,
-      session_duration: 0,
+      session_duration: '',
       order: 0,
     }
     exerciseSessions.push(newSession)
     Object.assign(activeExerciseSession, newSession)
   },
-  changeExerciseSessionDuration(startTime: string, duration: number) {
+  changeExerciseSessionDuration(startTime: string, sessionDuration: string) {
     const session = exerciseSessions.find((el) => el.start_time === startTime)
     if (session) {
-      session.session_duration = duration
-      console.log('new duration', session)
+      session.session_duration = sessionDuration
     }
+    activeExerciseSession.session_duration = sessionDuration
   },
   deleteExerciseSession(startTime: string) {
     console.log(exerciseSessions)
@@ -282,9 +282,12 @@ const actions = {
   },
   async patchExerciseSession(
     exerciseId: string,
-    exerciseSession: ExerciseSession,
-    sessionDuration: number
+    exerciseSession: ExerciseSession
   ) {
+    const timeNow = new Date(Date.now()).getTime()
+    const startTime = new Date(exerciseSession.start_time).getTime()
+    const difference = new Date(Math.abs(timeNow - startTime))
+    const sessionDuration = '00:00:00'
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-session',
