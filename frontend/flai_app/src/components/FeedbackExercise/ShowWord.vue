@@ -10,6 +10,7 @@
         </div>
         <IconLoader
           v-if="pathToIcon !== undefined"
+          :key="pathToIcon"
           :path="pathToIcon"
           mimetype="svg"
           alt="Icon, das die Korrektheit anzeigt"
