@@ -1,19 +1,19 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <div v-for="(letter, count) of signs" :key="letter.name" class="item">
-        <IconLoader
-          v-if="pathToIcon[count] !== undefined"
-          :path="pathToIcon[count]"
-          mimetype="svg"
-          alt="Icon, das die Korrektheit anzeigt"
-          element-class="img"
-        />
+      <div v-for="(letter, count) of signs" :key="letter.name">
         <span v-if="count === index" class="currentLetter">
           {{ letter.name }}
         </span>
         <span v-else>{{ letter.name }}</span>
       </div>
+      <IconLoader
+        v-if="pathToIcon !== undefined"
+        :path="pathToIcon"
+        mimetype="svg"
+        alt="Icon, das die Korrektheit anzeigt"
+        element-class="img"
+      />
       <Video
         :show-sign="showSign"
         :signs="signs"
@@ -41,7 +41,7 @@ const router = useRouter()
 
 const inputAccepted = ref(true)
 const index = ref(0)
-const pathToIcon = ref<string[]>([])
+const pathToIcon = ref<string>()
 
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
@@ -97,7 +97,7 @@ function reEnableInput() {
 
 async function correct() {
   inputAccepted.value = false
-  pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig'
+  pathToIcon.value = '/assets/icons/FLAI_Richtig'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -123,7 +123,7 @@ async function correct() {
 }
 async function wrong() {
   inputAccepted.value = false
-  pathToIcon.value[index.value] = '/assets/icons/FLAI_Fehler'
+  pathToIcon.value = '/assets/icons/FLAI_Fehler'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
