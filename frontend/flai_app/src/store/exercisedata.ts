@@ -4,6 +4,7 @@ import { errorMessage } from '../ressources/ts/methods'
 import signData from './signdata'
 import userData from './userdata'
 import { networkMessage } from './index'
+import moment from 'moment'
 
 export interface Exercise {
   id: string
@@ -286,8 +287,8 @@ const actions = {
   ) {
     const timeNow = new Date(Date.now()).getTime()
     const startTime = new Date(exerciseSession.start_time).getTime()
-    const difference = new Date(Math.abs(timeNow - startTime))
-    const sessionDuration = '00:00:00'
+    const difference = timeNow - startTime
+    const sessionDuration = moment(difference).utc().format('HH:mm:ss')
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-session',
