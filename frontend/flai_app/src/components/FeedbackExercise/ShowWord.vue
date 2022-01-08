@@ -25,6 +25,12 @@
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
+      <Button
+        v-if="wordComplete"
+        label="weiter"
+        btnclass="controls"
+        @button-click="emit('new-word')"
+      />
       <p>{{ status }}</p>
     </div>
   </div>
@@ -36,12 +42,11 @@ import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
+import Button from '../CustomButton.vue'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
-import { useRouter } from 'vue-router'
 import { FlaiNetResults } from '../../store/flainetdata'
 import IconLoader from '../IconLoader.vue'
-
-const router = useRouter()
+import { FeedbackStatus } from '../../ressources/ts/interfaces'
 
 const inputAccepted = ref(true)
 const index = ref(0)
@@ -51,6 +56,7 @@ const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
+const wordComplete = ref(false)
 
 const progressStep: ComputedRef<Progress> = computed(
   () => store.exercisedata.progressStep
@@ -60,7 +66,7 @@ const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const newInputTimeout = computed(
   () => store.flainetdata.flaiNetOptions.newInputTimeout
 )
-const status = ref('Loading')
+const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
@@ -94,6 +100,8 @@ function checkProgress(sign: Sign) {
 
 onBeforeMount(() => checkProgress(props.signs[index.value]))
 
+const emit = defineEmits(['new-word'])
+
 function reEnableInput() {
   store.flainetdata.methods.clearResultBuffer()
   inputAccepted.value = true
@@ -117,12 +125,12 @@ async function correct() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-    // TODO: remove debug status timeout
-    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
-    status.value = 'timeout'
+
+    // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
-    router.push({ name: 'HomePage' })
+    wordComplete.value = true
   }
 }
 async function wrong() {
@@ -143,18 +151,17 @@ async function wrong() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-    // TODO: remove debug status timeout
-    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
-    status.value = 'timeout'
+
+    // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
-    router.push({ name: 'HomePage' })
+    wordComplete.value = true
   }
 }
 
 // TODO: Add adjustable timeout to inputAccepted reenable?
 const onBufferUpdate = (buffer: FlaiNetResults) => {
-  console.log(inputAccepted.value)
   if (inputAccepted.value) {
     status.value = getFlaiNetResults(
       buffer,
@@ -183,6 +190,9 @@ div:focus {
 }
 #video {
   width: 100%;
+}
+.controls {
+  color: blue;
 }
 .waiting {
   color: grey;
