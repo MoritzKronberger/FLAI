@@ -181,4 +181,20 @@ div:focus {
   font-size: 20px;
   font-weight: bold;
 }
+div.item {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  width: 120px;
+  min-height: 4em;
+  padding: 0;
+  position: relative;
+  margin: 0;
+}
+span {
+  display: block;
+  bottom: 0;
+  position: absolute;
+  left: 50%;
+}
 </style>
