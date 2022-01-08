@@ -1,19 +1,10 @@
 .statistic-dashboard-small {
-  .flex-cards {
-    display: flex;
-    flex-flow: wrap;
-    column-gap: 10px;
+  .grid-cards {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1rem;
     .child-card {
-      width: 200px;
-      min-width: 200px;
+      width: 100%;
     }
   }
 }
-
-@media only screen and (max-width: 768px) {
-  .statistic-dashboard-small {
-    .flex-cards {
-      flex-flow: column wrap;
-      }
-    }
-  }
