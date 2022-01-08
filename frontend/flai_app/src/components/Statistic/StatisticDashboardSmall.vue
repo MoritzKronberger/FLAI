@@ -4,6 +4,7 @@ import CardSmall from './CardSmall.vue'
 
 <template>
   <h2>Statistiken</h2>
+  
   <card-small
     placeholder-path="../../assets/statisticPlaceholders/cardSmallTimeWeek.svg"
     link-target="ComingSoon"
@@ -21,6 +22,7 @@ import CardSmall from './CardSmall.vue'
   />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 /** here place for import scss */
+@import '../../assets/scss/components/_statisticDashboardSmall.scss';;
 </style>
