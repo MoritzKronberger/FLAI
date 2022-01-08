@@ -6,6 +6,7 @@
     <flai-net
       @status-change="setflaiNetReady"
       @handpose-ready="setHandposeReady"
+      @webcam-ready="setWebcamFeed"
     />
   </div>
   <!-- TODO: replace text with or add loading icon/ animation -->
@@ -28,14 +29,27 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 
-const camera = ref<Camera>()
+const camera = ref<HTMLVideoElement>()
 
-const setHandposeObjects = (handposeCamera: Camera) => {
-  camera.value = handposeCamera
+const setWebcamFeed = (webcamObject: HTMLVideoElement) => {
+  camera.value = webcamObject
 }
 
 onBeforeRouteLeave(async () => {
-  if (camera.value) await camera.value.stop()
+  // TODO: Remove stopping the MediaStream?
+  // This properly stops the webcam MediaStream and removes it from the video object,
+  // however the 'webcam-active'-status does not seem to get re-evaluated without a page refresh
+  const webcam = camera.value
+  if (webcam) {
+    const stream = webcam.srcObject as MediaStream
+    stream.getTracks().forEach((track) => {
+      track.stop()
+    })
+    console.log(stream)
+    webcam.srcObject = null
+  }
+  console.log(camera.value)
+
   await store.exercisedata.actions.patchExerciseSession(
     exerciseId.value,
     session.value,
