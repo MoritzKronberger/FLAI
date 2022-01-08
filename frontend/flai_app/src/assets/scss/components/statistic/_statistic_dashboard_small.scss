@@ -1,9 +1,19 @@
-
 .statistic-dashboard-small {
-    .flex-cards {
-      @include flex-box(row wrap, space-between);
-    } .child-card {
-      flex-basis: 15vw;
+  .flex-cards {
+    display: flex;
+    flex-flow: wrap;
+    column-gap: 10px;
+    .child-card {
+      width: 200px;
       min-width: 200px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .statistic-dashboard-small {
+    .flex-cards {
+      flex-flow: column wrap;
+      }
     }
   }
