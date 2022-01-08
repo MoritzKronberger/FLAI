@@ -1,20 +1,23 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
+  <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <div v-for="(letter, count) of signs" :key="letter.name">
-        <span v-if="count === index" class="currentLetter">
-          {{ letter.name }}
-        </span>
-        <span v-else>{{ letter.name }}</span>
+      <div class="signRow">
+        <div v-for="(letter, count) of signs" :key="letter.name" class="item">
+          <span v-if="count === index" class="currentLetter">
+            {{ letter.name }}
+          </span>
+          <span v-else>{{ letter.name }}</span>
+        </div>
+        <IconLoader
+          v-if="pathToIcon !== undefined"
+          :path="pathToIcon"
+          mimetype="svg"
+          alt="Icon, das die Korrektheit anzeigt"
+          element-class="img"
+        />
       </div>
-      <IconLoader
-        v-if="pathToIcon !== undefined"
-        :path="pathToIcon"
-        mimetype="svg"
-        alt="Icon, das die Korrektheit anzeigt"
-        element-class="img"
-      />
       <Video
+        id="video"
         :show-sign="showSign"
         :signs="signs"
         :index="index"
@@ -165,8 +168,20 @@ watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>
+div.content {
+  width: 50%;
+}
 div:focus {
   outline: none;
+}
+.signRow {
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+#video {
+  width: 100%;
 }
 .waiting {
   color: grey;
@@ -182,19 +197,9 @@ div:focus {
   font-weight: bold;
 }
 div.item {
-  vertical-align: top;
-  display: inline-block;
-  text-align: center;
-  width: 120px;
-  min-height: 4em;
-  padding: 0;
-  position: relative;
-  margin: 0;
+  display: inline;
 }
 span {
-  display: block;
-  bottom: 0;
-  position: absolute;
-  left: 50%;
+  display: inline;
 }
 </style>
