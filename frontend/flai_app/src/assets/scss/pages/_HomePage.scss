@@ -4,39 +4,28 @@ h2 {
 }
 
 .home-page {
-  padding: 1%;
+  padding: 1rem;
   background-color: $background-blue;
   .dashboard {
-    width: 1000px;
-    display: flex;
-    flex-flow: wrap;
-    .column-left {
-      width: 700px;
-      .row-up {
-        margin-top: 40px;
-        margin-bottom: 20px;
-        display: flex;
-        flex-flow: wrap;
-        height: 200px;
-        column-gap: 10px;
-        .start-panel {
-          background-color: $subtle-yellow;
-          width: 410px;
-        }
-        .level-panel {
-          background-color: $light-blue;
-          min-width: 200px;
-          width: 200px;
-        }
-      }
-      .stats-small-panel {
-        width: 100%;
-      }
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    .start-panel {
+      background-color: $subtle-yellow;
+      grid-column: span 2;
+      grid-row: 1 / 2
+    }
+    .level-panel {
+      background-color: $light-blue;
+    }
+    .stats-small-panel {
+      grid-column: span 3;
     }
     .stats-large-panel {
-      width: 300px;
-      max-width: 500px;
+      grid-row: 1 / 3;
+      grid-column: 4 / 6
     }
   }
 }
-
