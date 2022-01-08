@@ -18,6 +18,11 @@ const tryReAuthentication = async () => {
 }
 
 async function startSession() {
+  // try re-autheticating
+  const authenticated = await authenticateFromSessionStorage()
+  if (!authenticated) return '/login'
+
+  // get initial data and start new session if authenticated
   const signData = computed(() => store.signdata)
 
   await store.exercisedata.actions.postNewExerciseSession(
@@ -50,7 +55,7 @@ const routes = [
     path: '/exercise',
     name: 'LearningExercise',
     component: LearningExercise,
-    meta: { authRequired: true },
+    // authRequired is true, but implemented in startSession
     beforeEnter: [startSession],
   },
   {
