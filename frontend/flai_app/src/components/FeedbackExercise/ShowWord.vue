@@ -1,7 +1,12 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p v-for="letter in signs" :key="letter.name">{{ letter.name }}</p>
+      <span v-for="(letter, count) of signs" :key="letter.name">
+        <span v-if="count === index" class="currentLetter">
+          {{ letter.name }}
+        </span>
+        <span v-else>{{ letter.name }}</span>
+      </span>
       <Video
         :show-sign="showSign"
         :signs="signs"
@@ -21,24 +26,14 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  ComputedRef,
-  onBeforeMount,
-  watchEffect,
-  watch,
-} from 'vue'
+import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
 import Button from '../CustomButton.vue'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
-import { useRouter } from 'vue-router'
 import { FlaiNetResults } from '../../store/flainetdata'
-
-const router = useRouter()
 
 const inputAccepted = ref(true)
 const index = ref(0)
@@ -52,6 +47,9 @@ const progressStep: ComputedRef<Progress> = computed(
 )
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
+const newInputTimeout = computed(
+  () => store.flainetdata.flaiNetOptions.newInputTimeout
+)
 const status = ref('Loading')
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
@@ -83,9 +81,15 @@ function checkProgress(sign: Sign) {
     sign.level_3_reached
   )
 }
+
 onBeforeMount(() => checkProgress(props.signs[index.value]))
 
 const emit = defineEmits(['new-word'])
+
+function reEnableInput() {
+  store.flainetdata.methods.clearResultBuffer()
+  inputAccepted.value = true
+}
 
 async function correct() {
   inputAccepted.value = false
@@ -108,6 +112,10 @@ async function correct() {
     console.log('--- ShowWord correct is clearing the Buffer ---')
     store.flainetdata.methods.clearResultBuffer()
     inputAccepted.value = true
+    // TODO: remove debug status timeout
+    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = 'timeout'
+    setTimeout(reEnableInput, newInputTimeout.value)
   }
 }
 async function wrong() {
@@ -131,6 +139,10 @@ async function wrong() {
     console.log('--- ShowWord wrong is clearing the Buffer ---')
     store.flainetdata.methods.clearResultBuffer()
     inputAccepted.value = true
+    // TODO: remove debug status timeout
+    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = 'timeout'
+    setTimeout(reEnableInput, newInputTimeout.value)
   }
 }
 
@@ -165,5 +177,9 @@ div:focus {
 }
 .wrong {
   color: red;
+}
+.currentLetter {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>

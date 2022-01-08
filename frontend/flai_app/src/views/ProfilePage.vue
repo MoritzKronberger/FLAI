@@ -8,6 +8,8 @@ import { Changes } from '../store/userdata'
 const actions = store.userdata.actions
 const user = store.userdata.user
 
+const passwordReplacement = '*****'
+
 interface Options {
   [key: string]:
     | { label: string; value: string }
@@ -25,12 +27,12 @@ const options = ref<Options>({
   id: { label: 'id', value: '' },
   username: { label: 'Name', value: '' },
   email: { label: 'E-Mail', value: '' },
-  password: { label: 'Passwort', value: '*****' },
+  password: { label: 'Passwort', value: passwordReplacement },
   right_handed: { label: 'Rechtshänder', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
 })
 
-const displayForm = ref('nodisplay')
+const displayForm = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
 
@@ -42,11 +44,11 @@ const loadCurrentUser = (): void => {
 
 const discardChanges = (): void => {
   loadCurrentUser()
-  displayForm.value = 'nodisplay'
+  displayForm.value = false
 }
 
 const openChangeForm = (): void => {
-  displayForm.value = 'display'
+  displayForm.value = true
   successMessage.value = ''
   errorMessage.value = ''
 }
@@ -54,18 +56,22 @@ const submitChanges = async (): Promise<void> => {
   const changes: Changes = {}
   for (const prop in options.value) {
     if (user[prop] !== options.value[prop].value) {
-      if (prop !== 'password' || options.value[prop].value !== '*****')
+      if (
+        prop !== 'password' ||
+        options.value[prop].value !== passwordReplacement
+      )
         changes[prop] = options.value[prop].value
     }
   }
   const result = await actions.patchValues(changes)
   if (result?.status === 200) {
     successMessage.value = 'Profil wurde erfolgreich geändert'
-    displayForm.value = 'nodisplay'
+    options.value['password'].value = passwordReplacement
+    displayForm.value = false
   } else {
     errorMessage.value = result?.data.message
     loadCurrentUser()
-    options.value['password'].value = '*****'
+    options.value['password'].value = passwordReplacement
   }
 }
 onMounted(() => {
@@ -78,10 +84,12 @@ onMounted(() => {
   <div class="profile">
     <div class="information">
       <ul v-for="(item, key) in options" :key="key">
-        <li v-if="key !== 'id'">{{ item.label }}: {{ item.value }}</li>
+        <li v-if="key !== 'id'">
+          {{ item.label }}: {{ !displayForm ? item.value : '' }}
+        </li>
       </ul>
     </div>
-    <form :class="displayForm">
+    <form v-if="displayForm">
       <text-input-field
         v-model="options.username.value"
         placeholder="username"
@@ -99,6 +107,7 @@ onMounted(() => {
         placeholder="passwort"
         element-class="input-primary"
         component-class="input"
+        custom-type="password"
       />
       <custom-checkbox
         v-model="options.right_handed.value"
@@ -107,9 +116,11 @@ onMounted(() => {
       />
       <text-input-field
         v-model="options.target_learning_time.value"
-        placeholder="15"
+        placeholder="00:20:00"
         element-class="input-primary"
         component-class="input"
+        custom-type="time"
+        :time-step="1"
       />
       <p v-if="successMessage">{{ successMessage }}</p>
       <p v-if="errorMessage">{{ errorMessage }}</p>
@@ -117,7 +128,12 @@ onMounted(() => {
       <input type="button" value="Verwerfen" @click="discardChanges" />
     </form>
   </div>
-  <input type="button" value="Profil ändern" @click="openChangeForm" />
+  <input
+    v-if="!displayForm"
+    type="button"
+    value="Profil ändern"
+    @click="openChangeForm"
+  />
 </template>
 
 <style scoped lang="scss">
@@ -129,11 +145,5 @@ onMounted(() => {
   ul li {
     margin-bottom: 10px;
   }
-}
-.nodisplay {
-  display: none;
-}
-.display {
-  display: block;
 }
 </style>

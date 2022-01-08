@@ -17,12 +17,14 @@ export interface FlaiNetOptions {
   path: URL
   labels: string
   bufferedResult: boolean
+  newInputTimeout: number
 }
 
 const flaiNetOptions: FlaiNetOptions = reactive({
   path: new URL('../assets/neural_net/model.json', import.meta.url),
   labels: 'abcdefghiklmnopqrstuvwxy',
   bufferedResult: true,
+  newInputTimeout: 2000,
 })
 
 const resultBuffer: ResultBuffer = reactive({
@@ -39,6 +41,9 @@ const methods = {
   },
   changeResultBuffer(buffered: boolean) {
     flaiNetOptions.bufferedResult = buffered
+  },
+  changeNewInputTimeout(timeout: number) {
+    flaiNetOptions.newInputTimeout = timeout
   },
   changeResultBufferSize(size: number) {
     resultBuffer.size = size
