@@ -6,7 +6,7 @@
     .child-card {
       width: 100%;
     }
-    @media (max-width: 768px)
+    @media (max-width: 500px)
     {
       grid-template-columns: repeat(2, 1fr);
     }
