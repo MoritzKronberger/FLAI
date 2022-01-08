@@ -13,10 +13,10 @@ const session = computed(() => store.exercisedata.activeExerciseSession)
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 
 onBeforeRouteLeave(async () => {
+  console.log('stopSession')
   await store.exercisedata.actions.patchExerciseSession(
     exerciseId.value,
-    session.value,
-    store.sessiondata.methods.updateTimer()
+    session.value
   )
 })
 </script>
