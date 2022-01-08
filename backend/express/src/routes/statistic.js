@@ -33,5 +33,15 @@ statistic.get('/exercise_completion', async (req, res) => {
   })
 })
 
+statistic.get('/best_exercise_sign', async (req, res) => {
+  await request({
+    method: 'GET',
+    table: 'get_best_exercise_sign',
+    selectCols: ['user_id', 'exercise_id', 'sign_id', 'sign_name'],
+    ids: req.query,
+    res: res,
+  })
+})
+
 export { statistic }
 export default { statistic }

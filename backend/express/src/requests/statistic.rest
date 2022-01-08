@@ -9,3 +9,7 @@ GET http://localhost:5000/api/statistic/longest_streak/?user_id=0968cdda-c00a-4b
 GET http://localhost:5000/api/statistic/exercise_completion/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&exercise_id=a2dfcce1-65ac-4107-b6d1-46c31da6f330
 
 ###
+
+GET http://localhost:5000/api/statistic/best_exercise_sign/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&exercise_id=a2dfcce1-65ac-4107-b6d1-46c31da6f330
+
+###
