@@ -2,9 +2,9 @@
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
       <span v-for="(letter, count) of signs" :key="letter.name">
-        <b v-if="count === index" class="currentLetter">
+        <span v-if="count === index" class="currentLetter">
           {{ letter.name }}
-        </b>
+        </span>
         <span v-else>{{ letter.name }}</span>
       </span>
       <Video
@@ -127,5 +127,6 @@ div:focus {
 }
 .currentLetter {
   font-size: 20px;
+  font-weight: bold;
 }
 </style>
