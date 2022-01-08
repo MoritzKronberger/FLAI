@@ -1,0 +1,24 @@
+@import '../main.scss';
+
+
+:root {
+    span {
+      width: 15px;
+      height: 15px;
+      border: 2px solid $main-blue;
+      border-radius: 10%;
+      display: inline-block;
+      
+    }
+    input {
+      //display: none;
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      
+      &:checked ~ span {
+        background: $dark-grey;
+      }
+    }
+  }
+  

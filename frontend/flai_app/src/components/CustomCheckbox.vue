@@ -24,10 +24,12 @@ const onInput = (e: Event): void => {
         :class="elementClass"
         @input="onInput"
       />
+      <span></span>
     </label>
   </div>
 </template>
 <style scoped lang="scss">
+@import '../assets/scss/components/_customCheckbox.scss';
 .input {
   margin-bottom: 10px;
 }
