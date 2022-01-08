@@ -107,8 +107,6 @@ async function correct() {
     console.log('--- ShowWord correct is clearing the Buffer ---')
     store.flainetdata.methods.clearResultBuffer()
     inputAccepted.value = true
-  } else {
-    emit('new-word')
   }
 }
 async function wrong() {
@@ -132,8 +130,6 @@ async function wrong() {
     console.log('--- ShowWord wrong is clearing the Buffer ---')
     store.flainetdata.methods.clearResultBuffer()
     inputAccepted.value = true
-  } else {
-    emit('new-word')
   }
 }
 
