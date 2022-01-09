@@ -1,14 +1,19 @@
 <template>
   <div class="learning-exercise">
     <h1>Feedback Learning Exercise</h1>
-    <div class="exercise-card" :class="watchWord ? 'watchWord' : 'showWord'">
+    <div class="exercise-card">
       <!-- hiding must be done via css and not v-if so that components still render -->
-      <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
-        <div class="column">
+      <div
+        :class="[
+          flaiNetReady && handposeReady ? '' : 'hidden',
+          watchWord ? 'watch-word' : 'show-word',
+        ]"
+      >
+        <div class="column1">
           <FeedbackExercise :key="signIds" @change-layout="watchWord = false" />
         </div>
 
-        <div class="column">
+        <div class="column2">
           <flai-net
             @status-change="setflaiNetReady"
             @handpose-ready="setHandposeReady"
