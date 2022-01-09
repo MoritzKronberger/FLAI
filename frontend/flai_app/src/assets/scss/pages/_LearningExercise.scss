@@ -106,7 +106,7 @@ div {
   #next {
     position: absolute;
     bottom: calc($padding-height * -3);
-    right: $margin-width;
+    right: 0;
   }
 
   .instruction {
