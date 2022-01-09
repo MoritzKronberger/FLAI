@@ -39,7 +39,7 @@ const submit = async (): Promise<void> => {
 <template>
   <div class="register-form">
     <div class="register-items">
-      <div class="register-top-text">
+      <div class="register-top-text center-text">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
       <div class="error-message">{{ errorMessage }}</div>
@@ -80,7 +80,7 @@ const submit = async (): Promise<void> => {
         />
       </form>
       <div class="divider-line"></div>
-      <div class="login-offer">
+      <div class="login-offer center-text">
         Du ein Konto? <router-link to="/login">Melde dich an</router-link>
       </div>
     </div>
