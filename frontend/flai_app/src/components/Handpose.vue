@@ -12,7 +12,7 @@ but if the dependency is bundeled for production Rollup compilation fails to ins
 solution class (i.e. Hands, Camera, etc.).
 This produces the 'foo.Hands is not a constructor' error on runtime.
 The issue seems to be relatively new and I can't find any clean solutions to it:
-https://giters.com/google/mediapipe/issues/2883
+https://github.com/google/mediapipe/issues/2883
 
 As a workaround using the CDN version of the mediapipe solutions by implementing the scripts in index.js
 is a working, but ugly workaround used by mediapipe's own codepen (https://codepen.io/mediapipe/pen/RwGWYJw)
