@@ -1,6 +1,5 @@
 $left-column-width: 35%;
 $right-column-width: 65%;
-$padding: 2%;
 
 .hidden {
   display: none;
@@ -17,16 +16,29 @@ div {
 
   .exercise-card {
     background-color: $main-white;
-    margin: 5%; //TODO: get generic scss margin variable
-    padding: $padding;
+    margin: $margin-width;
+    padding: $padding-height $padding-width;
   }
 
   .watch-word {
+    padding-top: $padding-height;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+
     .column1 {
       flex: 50%;
     }
     .column2 {
       flex: 50%;
+    }
+
+    .sign-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
     }
   }
 
@@ -39,7 +51,7 @@ div {
     .column1 {
       flex: $left-column-width;
       width: $left-column-width;
-      padding-right: $padding;
+      padding-right: $padding-width;
     }
     .column2 {
       flex: $right-column-width;
@@ -48,7 +60,7 @@ div {
     .signs {
       padding: 1em 0;
       position: absolute;
-      background-color: black;
+      background-color: $transparent-black;
       left: $left-column-width;
       width: $right-column-width;
       overflow: visible;
@@ -71,7 +83,7 @@ div {
 
   #next {
     position: absolute;
-    bottom: calc($padding * -3);
-    right: 0;
+    bottom: calc($padding-height * -3);
+    right: $margin-width;
   }
 }
