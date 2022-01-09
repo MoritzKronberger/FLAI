@@ -47,10 +47,17 @@ aside {
   position: fixed;
   padding-left: 2%;
   padding-right: 2%;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+  }
 }
 main {
   width: 85%;
   float: right;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
