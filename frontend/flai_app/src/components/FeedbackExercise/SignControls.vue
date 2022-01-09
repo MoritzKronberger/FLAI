@@ -1,18 +1,19 @@
 <template>
-  <CustomButton
-    v-if="index > 0"
-    label="zurück"
-    btnclass="controls"
-    @click="decreaseIndex"
-  />
-  <span>{{ signs[index].name.toUpperCase() }}</span>
-  <CustomButton
-    v-if="index + 1 < signs.length"
-    label="weiter"
-    btnclass="controls"
-    @click="increaseIndex"
-  />
-  <br />
+  <div class="sign-controls">
+    <CustomButton
+      v-if="index > 0"
+      label="zurück"
+      btnclass="controls"
+      @click="decreaseIndex"
+    />
+    <span>{{ signs[index].name.toUpperCase() }}</span>
+    <CustomButton
+      v-if="index + 1 < signs.length"
+      label="weiter"
+      btnclass="controls"
+      @click="increaseIndex"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
