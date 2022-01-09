@@ -1,9 +1,12 @@
 <script setup lang="ts">
 defineProps<{
-  labelName: string
+  labelName?: string
   placeholder: string
   elementClass: string
-  modelValue: string
+  componentClass?: string
+  customType?: string
+  timeStep?: number
+  modelValue: string | number | undefined
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -14,15 +17,26 @@ const onInput = (e: Event): void => {
 </script>
 
 <template>
-  <label :for="labelName">
-    {{ labelName }}
-    <input
-      :value="modelValue"
-      type="text"
-      :name="labelName"
-      :placeholder="placeholder"
-      :class="elementClass"
-      @input="onInput"
-    />
-  </label>
+  <div :class="componentClass">
+    <label :for="labelName">
+      {{ labelName }}
+      <input
+        :value="modelValue"
+        :type="customType ? customType : 'text'"
+        :name="labelName"
+        :placeholder="placeholder"
+        :class="elementClass"
+        :step="timeStep"
+        @input="onInput"
+      />
+    </label>
+  </div>
 </template>
+<style scoped lang="scss">
+.email {
+  width: 300px;
+}
+.input {
+  margin-bottom: 10px;
+}
+</style>

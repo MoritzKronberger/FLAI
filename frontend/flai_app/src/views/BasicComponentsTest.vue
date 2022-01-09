@@ -108,8 +108,7 @@ const buttonClick = (): void => {
   <div>
     <h1>Icons</h1>
     <icon-loader
-      path="../assets/signs/pic/front/a_pic_front"
-      mimetype="webp"
+      path="/assets/signs/pic/front/a_pic_front.webp"
       alt="This is the icon's alt description"
       element-class="icon-large"
     />

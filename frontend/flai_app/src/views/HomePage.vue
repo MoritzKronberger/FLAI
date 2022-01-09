@@ -1,96 +1,68 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
+import StatisticDashboardLarge from '../components/Statistic/StatisticDashboardLarge.vue'
+import customButton from '../components/CustomButton.vue'
+import IconLoader from '../components/IconLoader.vue'
+import { useRouter } from 'vue-router'
+import store from '../store'
+
+const router = useRouter()
+
+const user = computed(() => store.userdata.user)
+const auth = computed(() => store.authdata.auth)
+
+const redirect = (viewName: string) => router.push({ name: viewName })
+const level = ref(1)
+</script>
+
 <template>
-  <h2>
-    Hallo, <b>{{ user.username }}!</b>
-  </h2>
-  <div class="row">
+  <div v-if="!auth.isAuth" class="landing-page">
+    <div>Wilkommen bei FLAI!</div>
     <div>
-      <h2>Tagesaufgabe</h2>
-      <img
-        id="exercisePicture"
-        alt="Tagesaufgabe"
-        src="../assets/exercise.png"
-      />
+      Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
     </div>
+    <custom-button
+      label="Konto erstellen"
+      btnclass="button-primary"
+      @button-click="redirect('RegisterPage')"
+    />
     <div>
-      <h2>Abzeichen</h2>
-      <img
-        id="badge"
-        alt="Abzeichen des aktuellen Levels"
-        src="../assets/badgeLevel3.png"
-      />
+      Du hast bereits ein Konto?<router-link to="/login">Login</router-link>
     </div>
   </div>
-  <h2>Statistik</h2>
-  <div class="row">
-    <div class="statistic">
-      <div class="circle">
-        <p class="number">5</p>
+  <div v-if="auth.isAuth" class="home-page">
+    <div class="dashboard">
+      <div class="start-panel">
+        <h2>
+          Hallo, <b>{{ user.username }}!</b>
+        </h2>
+        <div>Willkommen zurück!</div>
+        <div>Bereit für die heutige Aufgabe?</div>
+        <custom-button
+          label="Start"
+          btnclass="button-primary"
+          @button-click="redirect('ComingSoon')"
+        />
       </div>
-      <p class="underline">Statistik Platzhalter</p>
-    </div>
-    <div class="statistic">
-      <div class="circle">
-        <p class="number">3</p>
+      <div class="level-panel">
+        <IconLoader
+          :path="`/assets/icons/levels/level_${level}.svg`"
+          alt="Level Icon"
+          element-class="level-icon"
+        />
+        <div>Level {{ level }}</div>
       </div>
-      <p class="underline">Statistik Platzhalter2</p>
+      <div class="stats-small-panel">
+        <StatisticDashboardSmall />
+      </div>
+      <div class="stats-large-panel">
+        <StatisticDashboardLarge />
+      </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { inject, computed } from 'vue'
-
-export default {
-  setup() {
-    const store: any = inject('store')
-    const user = computed(() => store.userdata.user)
-    return {
-      user,
-    }
-  },
-}
-</script>
-
-<style>
-h2 {
-  font-weight: 200;
-}
-p {
-  margin: 0;
-}
-.row {
-  display: flex;
-}
-.row img {
-  margin: 0 1vw;
-  height: 30vh;
-  border-radius: 3vw;
-}
-.statistic {
-  margin: 1vw;
-  padding: 3vh 1vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  background-color: lightblue;
-  border-radius: 2vw;
-  text-align: center;
-}
-.circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: yellow;
-  margin: auto;
-  margin-bottom: 2vh;
-  height: 10vh;
-  width: 10vh;
-  border-radius: 50%;
-}
-.number {
-  margin: auto;
-  width: 100%;
-  font-size: 5vh;
-}
+<style lang="scss">
+@import '../assets/scss/main.scss';
 </style>

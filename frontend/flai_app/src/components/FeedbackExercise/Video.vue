@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, watchEffect, unref } from 'vue'
+import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
 import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
@@ -41,16 +41,15 @@ const videoPlayer = ref()
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
-    (el) => el.perspective_id === perspective.value
+    (el) => el.perspective === perspective.value
   )
   console.log('el', JSON.stringify(rec))
   if (rec === undefined) {
-    return 'src/assets/error.webm'
+    return '/assets/error.webm'
   }
-  return rec.path
+  return `${rec.path}.${rec.mimetype}`
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
-watchEffect(() => console.log('newIndex', props.index))
 
 function switchPerspective() {
   if (perspective.value === 'front') {

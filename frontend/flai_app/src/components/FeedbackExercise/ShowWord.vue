@@ -1,72 +1,76 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
+  <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p v-for="letter in props.signs" :key="letter.name">{{ letter.name }}</p>
+      <div class="signRow">
+        <div v-for="(letter, count) of signs" :key="letter.name" class="item">
+          <span v-if="count === index" class="currentLetter">
+            {{ letter.name }}
+          </span>
+          <span v-else>{{ letter.name }}</span>
+        </div>
+        <IconLoader
+          v-if="pathToIcon !== undefined"
+          :key="pathToIcon"
+          :path="pathToIcon"
+          mimetype="svg"
+          alt="Icon, das die Korrektheit anzeigt"
+          element-class="img"
+        />
+      </div>
       <Video
+        id="video"
         :show-sign="showSign"
         :signs="signs"
         :index="index"
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
+      <Button
+        v-if="wordComplete"
+        label="weiter"
+        btnclass="controls"
+        @button-click="emit('new-word')"
+      />
+      <p>{{ status }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject, ref, watchEffect } from 'vue'
-import router from '../../router'
+import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
+import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
+import store from '../../store'
+import Button from '../CustomButton.vue'
+import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
+import { FlaiNetResults } from '../../store/flainetdata'
+import IconLoader from '../IconLoader.vue'
+import { FeedbackStatus } from '../../ressources/ts/interfaces'
 
-const store: any = inject('store')
-
+const inputAccepted = ref(true)
 const index = ref(0)
+const pathToIcon = ref<string>()
+
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
+const wordComplete = ref(false)
+
+const progressStep: ComputedRef<Progress> = computed(
+  () => store.exercisedata.progressStep
+)
+
+const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
+const newInputTimeout = computed(
+  () => store.flainetdata.flaiNetOptions.newInputTimeout
+)
+const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
-function correct() {
-  if (
-    progressSmallerLevelTwo.value ||
-    (progressSmallerLevelThree.value && !showSign.value)
-  ) {
-    store.exercisedata.methods.increaseProgress(
-      props.exerciseId,
-      props.signs[index.value].name
-    )
-  }
-  feedbackClass.value = 'right'
-  if (index.value < props.signs.length - 1) {
-    index.value++
-  } else {
-    router.push({ name: 'HomePage' })
-  }
-}
-function wrong() {
-  if (
-    progressSmallerLevelTwo.value ||
-    (progressSmallerLevelThree.value && !showSign.value)
-  ) {
-    store.exercisedata.methods.decreaseProgress(
-      props.exerciseId,
-      props.signs[index.value].name
-    )
-  }
-  feedbackClass.value = 'wrong'
-  if (index.value < props.signs.length - 1) {
-    index.value++
-  } else {
-    //TODO: view is not reloading
-    router.push({ name: 'HomePage' })
-  }
-}
-
 function checkProgress(sign: Sign) {
-  console.log('sign', sign.name, 'progress', sign.progress)
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     progressSmallerLevelTwo.value = true
     progressSmallerLevelThree.value = true
@@ -75,8 +79,9 @@ function checkProgress(sign: Sign) {
       progressSmallerLevelTwo.value = false
       if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
         progressSmallerLevelThree.value = false
-        console.log('increaseUnlockedSigns')
-        store.exercisedata.methods.increaseUnlockedSigns()
+        if (!sign.level_3_reached) {
+          store.exercisedata.methods.increaseUnlockedSigns()
+        }
       }
     }
   } else {
@@ -85,16 +90,109 @@ function checkProgress(sign: Sign) {
   console.log(
     'progress',
     sign.progress,
+    'smaller2',
     progressSmallerLevelTwo.value,
-    progressSmallerLevelThree.value
+    'smaller3',
+    progressSmallerLevelThree.value,
+    sign.level_3_reached
   )
 }
-watchEffect(() => checkProgress(props.signs[index.value]))
+
+onBeforeMount(() => checkProgress(props.signs[index.value]))
+
+const emit = defineEmits(['new-word'])
+
+function reEnableInput() {
+  store.flainetdata.methods.clearResultBuffer()
+  inputAccepted.value = true
+}
+
+async function correct() {
+  inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Richtig'
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('update correct')
+    const progress =
+      props.signs[index.value].progress + progressStep.value.progressAdd
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      props.signs[index.value].id,
+      progress
+    )
+  }
+  feedbackClass.value = 'right'
+  if (index.value < props.signs.length - 1) {
+    index.value++
+    console.log('index', index.value)
+    checkProgress(props.signs[index.value])
+
+    // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
+    setTimeout(reEnableInput, newInputTimeout.value)
+  } else {
+    wordComplete.value = true
+  }
+}
+async function wrong() {
+  inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Fehler'
+  if (progressSmallerLevelTwo.value || !showSign.value) {
+    console.log('update wrong')
+    const progress =
+      props.signs[index.value].progress + progressStep.value.progressSubtract
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      props.signs[index.value].id,
+      progress
+    )
+  }
+  feedbackClass.value = 'wrong'
+  if (index.value < props.signs.length - 1) {
+    index.value++
+    console.log('index', index.value)
+    checkProgress(props.signs[index.value])
+
+    // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
+    setTimeout(reEnableInput, newInputTimeout.value)
+  } else {
+    wordComplete.value = true
+  }
+}
+
+// TODO: Add adjustable timeout to inputAccepted reenable?
+const onBufferUpdate = (buffer: FlaiNetResults) => {
+  if (inputAccepted.value) {
+    status.value = getFlaiNetResults(
+      buffer,
+      props.signs[index.value].name,
+      correct,
+      wrong
+    )
+  }
+}
+
+watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>
+div.content {
+  width: 50%;
+}
 div:focus {
   outline: none;
+}
+.signRow {
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+#video {
+  width: 100%;
+}
+.controls {
+  color: blue;
 }
 .waiting {
   color: grey;
@@ -104,5 +202,15 @@ div:focus {
 }
 .wrong {
   color: red;
+}
+.currentLetter {
+  font-size: 20px;
+  font-weight: bold;
+}
+div.item {
+  display: inline;
+}
+span {
+  display: inline;
 }
 </style>

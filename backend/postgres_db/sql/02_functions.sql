@@ -118,7 +118,7 @@ $_plpgsql_$
         _path_     TEXT;
     BEGIN
         _letters_ := REGEXP_SPLIT_TO_ARRAY(_alphabet, '');
-        _path_ := '@/assets/signs';
+        _path_ := '/assets/signs';
 
         SELECT "id" FROM "e_motion_category" WHERE "name" = _motion_category       INTO _mc_id_;
         SELECT "id" FROM "exercise"          WHERE "name" = 'Buchstabieren lernen' INTO _e_id_;

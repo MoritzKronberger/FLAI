@@ -1,53 +1,33 @@
 <script setup lang="ts">
-import { ref, inject, computed } from 'vue'
+import IconLoader from '../IconLoader.vue'
 
-const store: any = inject('store')
-
-//sesiondata
-const session = computed(() => store.sessiondata.session)
-const sessionMethods = store.sessiondata.methods
-const props = defineProps({
-  link: String,
-  icon: String,
-  description: String,
-  state: Boolean,
-})
-const show = ref()
-function updateLink() {
-  sessionMethods.updateMenuItemLink(props.link)
-}
+defineProps<{
+  viewName: string
+  iconPath: string
+  flyoutText: string
+  iconAltText: string
+}>()
 </script>
 
 <template>
-  <ul>
-    <li @mouseover="show = true" @mouseleave="show = false">
-      <span v-if="session.menuItemLink == link" class="active"></span>
-      <a :href="link" @click="updateLink()">
-        <span class="icon">{{ icon }}</span>
-        <span v-if="show">{{ description }}</span>
-      </a>
-    </li>
-  </ul>
+  <div class="container">
+    <div class="item">
+      <router-link :to="{ name: viewName }">
+        <div class="bar">
+          <div class="icon">
+            <icon-loader
+              :path="iconPath"
+              :alt="iconAltText"
+              element-class="sidebar-icon"
+            />
+          </div>
+          <span class="sidebar-flyout">{{ flyoutText }}</span>
+        </div>
+      </router-link>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-li {
-  padding-left: 15px;
-  text-align: left;
-  list-style-type: none;
-}
-
-a {
-  color: black;
-  text-decoration: none;
-}
-
-.icon {
-  margin-right: 25px;
-}
-
-span.active {
-  border: 2px solid #4a7bf6;
-  margin-right: 5px;
-}
+<style scoped lang="scss">
+@import '../../assets/scss/main.scss';
 </style>

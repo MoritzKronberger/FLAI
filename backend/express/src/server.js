@@ -14,6 +14,7 @@ import { user } from './routes/user.js'
 import { task } from './routes/task.js'
 import { auth } from './routes/auth.js'
 import { progress } from './routes/progress.js'
+import { statistic } from './routes/statistic.js'
 
 // middleware
 app.use(express.json())
@@ -27,6 +28,7 @@ app.use('/api/user', user)
 app.use('/api/task', task)
 app.use('/api/progress', progress)
 app.use('/api/auth', auth)
+app.use('/api/statistic', statistic)
 
 // server
 const port = process.env.PORT

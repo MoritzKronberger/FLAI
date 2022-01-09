@@ -10,25 +10,29 @@
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <CustomButton label="Fertig" btnclass="controls" @click="emit('next')" />
+      <p>{{ status }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, inject } from 'vue'
+import { ref, watchEffect, computed } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
 import SignControls from './SignControls.vue'
-
-const store: any = inject('store')
+import store from '../../store'
+import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
 const index = ref(0)
 const showSign = ref(true)
 
-const props = defineProps<{ signs: Sign[] }>()
+const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
+const status = ref('Loading')
+
+const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 const vFocus = {
   inserted: (el: any) => {
@@ -47,21 +51,44 @@ function wrong() {
   feedbackClass.value = 'wrong'
 }
 
-function onNewIndex(newIndex: number) {
+// TODO: progress property not really needed?
+async function onNewIndex(newIndex: number) {
   index.value = newIndex
-  store.exercisedata.methods.signAlreadySeen(props.signs[index.value].name)
+  console.log('--- WatchWord onNewIndex is clearing the Buffer ---')
+  store.flainetdata.methods.clearResultBuffer()
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    props.signs[index.value].progress,
+    true
+  )
   console.log(index.value)
 }
 
-function checkProgress(sign: Sign) {
-  if (sign.progress >= store.exercisedata.exerciseSettings.level1) {
+async function checkProgress(sign: Sign) {
+  if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     showSign.value = false
   } else {
     showSign.value = true
   }
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    props.signs[index.value].progress,
+    true
+  )
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
 const emit = defineEmits(['next'])
+watchEffect(
+  () =>
+    (status.value = getFlaiNetResults(
+      resultBuffer.value,
+      props.signs[index.value].name,
+      correct,
+      wrong
+    ))
+)
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,0 +1,65 @@
+.register-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70vh;
+}
+
+.register-form {
+  .register-items {
+    width: 12%;
+  }
+
+  .register-top-text {
+    // include Lead Paragraph font style
+    margin-bottom: $gutter-vertical;
+  }
+
+  input {
+    margin-bottom: $gutter-vertical;
+  }
+
+  .input-primary,
+  .button-primary {
+    width: 100%;
+  }
+
+  .divider-line {
+    margin-top: $gutter-vertical * 1.2;
+    margin-bottom: $gutter-vertical * 1.2;
+    line-height: 0;
+    border-bottom: solid $light-grey 1.2px;
+  }
+
+  .login-offer {
+    // include Tooltips font style
+  }
+
+  .login-offer a {
+    color: $main-blue;
+    text-decoration: none;
+  }
+
+  .center-text {
+    text-align: center;
+  }
+
+  @include media-query(L) {
+    .register-items {
+      width: 25%;
+    }
+  }
+
+  @include media-query(M) {
+    .register-items {
+      width: 30%;
+    }
+  }
+
+  @include media-query(S) {
+    .register-items {
+      width: 65%;
+    }
+  }
+}
