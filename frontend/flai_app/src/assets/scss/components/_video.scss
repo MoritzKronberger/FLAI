@@ -1,2 +1,26 @@
+#video {
+  div:focus {
+    outline: none;
+  }
+  h3 {
+    margin: 40px 0 0;
+  }
+  .controls {
+    background: lightblue;
+  }
+}
+
+#video.right video {
+  border: 2px solid $main-green;
+}
+#video.wrong video {
+  border: 2px solid $main-red;
+}
+
 video {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  text-align: center;
+  border-radius: 5px;
 }

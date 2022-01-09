@@ -78,22 +78,4 @@ const emit = defineEmits(['useHint'])
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 @import '../../assets/scss/main.scss';
-div:focus {
-  outline: none;
-}
-h3 {
-  margin: 40px 0 0;
-}
-.controls {
-  background: lightblue;
-}
-.waiting {
-  color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
-}
 </style>
