@@ -1,24 +1,22 @@
 .container {
+  .router-link-exact-active {
+    border-left: 0.2vw solid #4a7bf6;
+    filter: invert(49%) sepia(33%) saturate(5835%) hue-rotate(208deg) brightness(97%) contrast(99%);
+  }
   .item {
-    display: inline-flex;
-    align-items: center;
-    column-gap: 1vw;
-    justify-content: flex-start;
-
-    .icon {
-      width: 3.5vw;
+   display: inline-flex;
+    .bar {
+      @include flex-box(row, start, center, 0vh 1vw);
+      .icon {
+        width: 2.5vw;
+      }
+      .sidebar-flyout {
+        font-size: 12px;
+      }
     }
   }
-
   a {
     color: black;
     text-decoration: none;
-  }
-
-  .router-link-exact-active {
-    border-left: 0.3vw solid #4a7bf6;
-    margin-right: 5px;
-    height: 60px;
-    display: block;
   }
 }
