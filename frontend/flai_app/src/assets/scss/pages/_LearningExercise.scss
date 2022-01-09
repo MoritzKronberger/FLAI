@@ -66,6 +66,7 @@ div {
       width: $right-column-width;
       overflow: visible;
       z-index: 1;
+      border-radius: 10px 10px 0px 0px;
 
       .feedback-icon {
         position: absolute;
@@ -82,6 +83,17 @@ div {
         span {
           margin: 0 0.5em;
         }
+      }
+    }
+
+    .column2.correct {
+      #webcam-feed {
+        border: 4px solid $main-green;
+      }
+    }
+    .column2.wrong {
+      #webcam-feed {
+        border: 4px solid $main-red;
       }
     }
 
