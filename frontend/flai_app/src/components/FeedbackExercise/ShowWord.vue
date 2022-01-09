@@ -78,6 +78,7 @@ const newInputTimeout = computed(
 const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
+const emit = defineEmits(['new-word', 'correct', 'wrong'])
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -109,8 +110,6 @@ function checkProgress(sign: Sign) {
 
 onBeforeMount(() => checkProgress(props.signs[index.value]))
 
-const emit = defineEmits(['new-word'])
-
 function reEnableInput() {
   store.flainetdata.methods.clearResultBuffer()
   inputAccepted.value = true
@@ -141,6 +140,7 @@ async function correct() {
   } else {
     wordComplete.value = true
   }
+  emit('correct')
 }
 async function wrong() {
   inputAccepted.value = false
@@ -167,6 +167,7 @@ async function wrong() {
   } else {
     wordComplete.value = true
   }
+  emit('wrong')
 }
 
 // TODO: Add adjustable timeout to inputAccepted reenable?

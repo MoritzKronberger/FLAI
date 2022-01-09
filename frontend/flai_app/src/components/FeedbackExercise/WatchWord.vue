@@ -48,15 +48,19 @@ const vFocus = {
   },
 }
 
+const emit = defineEmits(['next', 'correct', 'wrong'])
+
 function correct() {
   console.log('correct')
   isCorrect.value = true
   feedbackClass.value = 'right'
+  emit('correct')
 }
 function wrong() {
   console.log('wrong')
   isCorrect.value = false
   feedbackClass.value = 'wrong'
+  emit('wrong')
 }
 
 // TODO: progress property not really needed?
@@ -87,7 +91,7 @@ async function checkProgress(sign: Sign) {
   )
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
-const emit = defineEmits(['next'])
+
 watchEffect(
   () =>
     (status.value = getFlaiNetResults(

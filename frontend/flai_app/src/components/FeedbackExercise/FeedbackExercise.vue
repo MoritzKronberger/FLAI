@@ -8,12 +8,16 @@
       :signs="newSigns"
       :exercise-id="exerciseId"
       @next="onNextStep"
+      @correct="emit('correct')"
+      @wrong="emit('wrong')"
     />
     <ShowWord
       v-else
       :signs="signsFromWord"
       :exercise-id="exerciseId"
       @new-word="newWord"
+      @correct="emit('correct')"
+      @wrong="emit('wrong')"
     />
   </div>
   <div v-else>
@@ -51,7 +55,7 @@ const exerciseId: ComputedRef<string> = computed(
 )
 const wordSet = ref(true)
 
-const emit = defineEmits(['change-layout'])
+const emit = defineEmits(['change-layout', 'correct', 'wrong'])
 
 function getNewSigns() {
   newSigns.value.length = 0

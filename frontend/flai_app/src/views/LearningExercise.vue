@@ -10,10 +10,15 @@
         ]"
       >
         <div class="column1">
-          <FeedbackExercise :key="signIds" @change-layout="watchWord = false" />
+          <FeedbackExercise
+            :key="signIds"
+            @change-layout="watchWord = false"
+            @correct="feedbackClass = 'correct'"
+            @wrong="feedbackClass = 'wrong'"
+          />
         </div>
 
-        <div class="column2">
+        <div class="column2" :class="feedbackClass">
           <flai-net
             @status-change="setflaiNetReady"
             @handpose-ready="setHandposeReady"
@@ -42,6 +47,7 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const watchWord = ref(true)
+const feedbackClass = ref('waiting')
 
 onBeforeRouteLeave(async () => {
   console.log('stopSession')
