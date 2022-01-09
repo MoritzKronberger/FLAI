@@ -11,7 +11,7 @@ const days = 15
       <DayStreak :days="days" />
       <div>
         <card-small
-          placeholder-path="../../assets/statisticPlaceholders/cardSmallProgress.svg"
+          placeholder-path="/assets/statisticPlaceholders/cardSmallProgress.svg"
           link-target="ComingSoon"
           alt-text="Aufgaben Fortschritt Statistik"
         />

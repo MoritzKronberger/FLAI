@@ -139,6 +139,7 @@ const actions = {
       data: {},
     })
     if (jsonData?.status === 200) {
+      console.log(jsonData.data)
       for (const row of jsonData.data.rows) {
         const exerciseCache: Exercise = {
           id: row.id,
@@ -168,10 +169,6 @@ const actions = {
     if (jsonData?.status === 200) {
       const exerciseData = jsonData?.data.rows[0]
 
-      // TODO: missing?: exerciseSettings.id
-      //exerciseSettings.id = exerciseData.id
-      // TODO: for props of... loop
-      exerciseSettings.exercise_id = exerciseId
       exerciseSettings.level_1 = exerciseData.level_1
       exerciseSettings.level_2 = exerciseData.level_2
       exerciseSettings.level_3 = exerciseData.level_3

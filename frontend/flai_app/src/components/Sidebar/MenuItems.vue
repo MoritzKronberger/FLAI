@@ -4,7 +4,6 @@ import IconLoader from '../IconLoader.vue'
 defineProps<{
   viewName: string
   iconPath: string
-  iconMimetype: string
   flyoutText: string
   iconAltText: string
 }>()
@@ -15,7 +14,6 @@ defineProps<{
     <router-link :to="{ name: viewName }">
       <icon-loader
         :path="iconPath"
-        :mimetype="iconMimetype"
         :alt="iconAltText"
         element-class="sidebar-icon"
       />

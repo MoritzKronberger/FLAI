@@ -3,9 +3,28 @@ import { computed, onMounted, Ref, ref } from 'vue'
 import store from '../store'
 import webcam from '../components/Webcam.vue'
 import { Hands, Results } from '@mediapipe/hands'
-import { Camera } from '@mediapipe/camera_utils'
+
+/*
+--- MEDIAPIPE TYPESCRIPT BUNDLING WORKAROUND ---
+
+Importing any mediapipe solution via npm and running it in dev-mode works fine,
+but if the dependency is bundeled for production Rollup compilation fails to instantiate the main
+solution class (i.e. Hands, Camera, etc.).
+This produces the 'foo.Hands is not a constructor' error on runtime.
+The issue seems to be relatively new and I can't find any clean solutions to it:
+https://github.com/google/mediapipe/issues/2883
+
+As a workaround using the CDN version of the mediapipe solutions by implementing the scripts in index.js
+is a working, but ugly workaround used by mediapipe's own codepen (https://codepen.io/mediapipe/pen/RwGWYJw)
+and requires both eslint and ts-errors to be disabled in multiple places.
+
+If this issue is fixed Hands and Camera should be imported from npm again, however, this seems to be
+the simplest working solution for now.
+*/
 
 const handposeReady = ref(false)
+const mpHands = window
+const mpCamera = window
 let hands: Hands
 const handposeOptions = computed(() => store.handposedata.handposeOptions)
 
@@ -16,11 +35,14 @@ const onResults = (results: Results) => {
   emit('newResult', results)
 }
 
-// setup from https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
 const loadMediapipeHands = (): void => {
-  hands = new Hands({
+  // eslint-disable-next-line
+  /* @ts-ignore */
+  hands = new mpHands.Hands({
     locateFile: (file: string) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+      const retFile = `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+      console.log(retFile)
+      return retFile
     },
   })
   hands.setOptions(handposeOptions.value)
@@ -34,7 +56,9 @@ onMounted(() => {
 
 // setup from https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
 const startMediapipeCamera = (webcamFeed: Ref<HTMLVideoElement>): void => {
-  const camera = new Camera(webcamFeed.value as HTMLVideoElement, {
+  // eslint-disable-next-line
+  /* @ts-ignore */
+  const camera = new mpCamera.Camera(webcamFeed.value as HTMLVideoElement, {
     onFrame: async () => {
       await hands.send({ image: webcamFeed.value as HTMLVideoElement })
     },
