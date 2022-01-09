@@ -51,10 +51,11 @@ div {
     .column1 {
       flex: $left-column-width;
       width: $left-column-width;
-      padding-right: $padding-width;
+      padding: calc($padding-height * 3) $padding-width 0 0;
     }
     .column2 {
       flex: $right-column-width;
+      padding: calc($padding-height * 3) 0 0 0;
     }
 
     .sign-with-icon {
@@ -70,8 +71,7 @@ div {
         position: absolute;
         right: calc($padding-width * 0.5);
         top: 0;
-        filter: invert(94%) sepia(100%) saturate(23%) hue-rotate(21deg)
-          brightness(104%) contrast(106%); // TODO: add to variables white
+        filter: $main-white-svg;
       }
       .signs {
         text-align: center;
@@ -80,7 +80,7 @@ div {
         align-items: center;
 
         span {
-          margin: 0 1em;
+          margin: 0 0.5em;
         }
       }
     }
@@ -107,5 +107,12 @@ div {
     position: absolute;
     bottom: calc($padding-height * -3);
     right: $margin-width;
+  }
+
+  .instruction {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 0;
   }
 }
