@@ -1,4 +1,4 @@
-GET http://localhost:5000/api/exercise/all
+GET 141.82.16.200:5000/api/exercise/all
 Authorization: bearer
 bearer: eyJhbGciOiJIUzI1NiJ9.MDc5Yzg3MjUtM2I0Ny00MzRjLWJhMWEtYWZlM2E4MTYyZGFj.X2bs0vZQyfT-asu-S_hHdwpfhzTFm2rvQmy65LzeWmU
 
