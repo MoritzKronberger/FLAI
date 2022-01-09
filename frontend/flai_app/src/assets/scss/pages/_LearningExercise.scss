@@ -2,6 +2,10 @@ $left-column-width: 35%;
 $right-column-width: 65%;
 $padding: 2%;
 
+.hidden {
+  display: none;
+}
+
 div {
   margin: 0;
   padding: 0;
@@ -22,7 +26,7 @@ div {
       flex: 50%;
     }
     .column2 {
-      box-flex-group: 50%;
+      flex: 50%;
     }
   }
 
