@@ -1,12 +1,14 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <span v-for="(letter, count) of signs" :key="letter.name">
-        <span v-if="count === index" class="currentLetter">
-          {{ letter.name }}
+      <div class="signs">
+        <span v-for="(letter, count) of signs" :key="letter.name">
+          <span v-if="count === index" class="currentLetter">
+            {{ letter.name }}
+          </span>
+          <span v-else>{{ letter.name }}</span>
         </span>
-        <span v-else>{{ letter.name }}</span>
-      </span>
+      </div>
       <Video
         :show-sign="showSign"
         :signs="signs"
