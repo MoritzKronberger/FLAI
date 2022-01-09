@@ -1,20 +1,26 @@
 <template>
   <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <div class="signs signRow">
-        <span v-for="(letter, count) of signs" :key="letter.name" class="item">
-          <span v-if="count === index" class="currentLetter">
-            {{ letter.name }}
+      <div class="sign-with-icon">
+        <div class="signs">
+          <span
+            v-for="(letter, count) of signs"
+            :key="letter.name"
+            class="item"
+          >
+            <span v-if="count === index" class="currentLetter">
+              {{ letter.name }}
+            </span>
+            <span v-else>{{ letter.name }}</span>
           </span>
-          <span v-else>{{ letter.name }}</span>
-        </span>
+        </div>
         <IconLoader
           v-if="pathToIcon !== undefined"
           :key="pathToIcon"
           :path="pathToIcon"
           mimetype="svg"
           alt="Icon, das die Korrektheit anzeigt"
-          element-class="img"
+          element-class="feedback-icon"
         />
       </div>
     </div>
@@ -177,35 +183,13 @@ watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>
-div.content {
-  width: 50%;
-}
 div:focus {
   outline: none;
-}
-.signRow {
-  width: 100%;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
-}
-#video {
-  width: 100%;
 }
 .controls {
   color: blue;
 }
 .waiting {
   color: grey;
-}
-.currentLetter {
-  font-size: 20px;
-  font-weight: bold;
-}
-div.item {
-  display: inline;
-}
-span {
-  display: inline;
 }
 </style>
