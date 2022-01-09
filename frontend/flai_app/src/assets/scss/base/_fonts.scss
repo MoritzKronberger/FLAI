@@ -1,92 +1,85 @@
 // Typography
 .display-1 {
   @include font(GothamSSm, xlight);
-  font-size: 48px;
+  font-size: $display-1;
   line-height: 1.3;
 }
 
 .display-2 {
   @include font(GothamSSm, xlight);
-  font-size: 40px;
+  font-size: $display-2;
   line-height: 1.3;
 }
 
 h1 {
  @include font(GothamSSm, bold);
- font-size: 64px;
+ font-size: $h1;
  line-height: 1.3;
 }
 
 h2 {
   @include font(GothamSSm, bold);
-  font-size: 36px;
+  font-size: $h2;
   line-height: 1.3;
 }
 
 h3 {
   @include font(GothamSSm, bold);
-  font-size: 28px;
+  font-size: $h3;
   line-height: 1.3;
 }
 
 h4 {
   @include font(GothamSSm, bold);
-  font-size: 20px;
+  font-size: $h4;
   line-height: 1.3;
 }
 
 body .large {
   @include font(GothamSSm, book);
-  font-size: 22px;
+  font-size: $large;
   line-height: 1.5;
 }
 
 body .medium {
   @include font(GothamSSm, medium);
-  font-size: 18px;
+  font-size: $medium;
   line-height: 1.7;
 }
 
 body .normal {
   @include font(GothamSSm, medium);
-  font-size: 16px;
+  font-size: $normal;
   line-height: 1.7;
 }
 
 body .small {
   @include font(GothamSSm, book);
-  font-size: 14px;
+  font-size: $small;
   line-height: 1.7;
 }
 
 body .xsmall {
   @include font(GothamSSm, book);
-  font-size: 12px;
+  font-size: $xsmall;
   line-height: 1.5;
-  letter-spacing: 0.5px;
-}
-
-label {
-  @include font(GothamSSm, medium);
-  font-size: 16;
-  line-height: 1.7;
   letter-spacing: 0.5px;
 }
 
 .header-links{
   @include font(GothamSSm, bold);
-  font-size: 18px;
+  font-size: $medium;
   line-height: 1.8;
 }
 
 .lp-text {
   @include font(GothamSSm, medium);
-  font-size: 16px;
+  font-size: $normal;
   line-height: 1.9;
 }
 
 .db-cal-date {
   @include font(GothamSSm, bold);
-  font-size: 16px;
+  font-size: $normal;
   line-height: 1.3;
 }

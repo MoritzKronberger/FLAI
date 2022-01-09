@@ -121,6 +121,27 @@ $base-font-stack:(
     )
 );
 
+//font sizes
+$font-size-base: 8px;
+
+$display-1: $font-size-base*6;
+$display-2: $font-size-base*5;
+
+$h1: $font-size-base*8;
+$h2: $font-size-base*4.5;
+$h3: $font-size-base*3.5;
+$h4: $font-size-base*2.5;
+
+$large: $font-size-base*2.75;
+$medium: $font-size-base*2.25;
+$normal: $font-size-base*2;
+$small: $font-size-base*1.75;
+$xsmall: $font-size-base*1.5;
+
+
+
+
+
 // Main Colors
 
 $main-blue: #4A7BF6;

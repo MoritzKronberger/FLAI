@@ -1,8 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-  <label>Label</label>
-  <br />
   <p class="display-1">Display 1</p>
   <p class="display-2">Display 2</p>
   <br />
