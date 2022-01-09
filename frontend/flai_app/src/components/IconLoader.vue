@@ -20,9 +20,14 @@ const dynamicPath: URL = new URL(
   <img :src="dynamicPath.toString()" :alt="alt" :class="elementClass" />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 /* Replace with real scss styling based on classes */
 img {
-  width: 50px;
+  width: 100%;
+}
+.flai-header-icon {
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 15vw;
 }
 </style>
