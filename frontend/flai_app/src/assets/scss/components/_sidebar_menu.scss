@@ -1,7 +1,10 @@
 nav {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     row-gap: 3vh;
-    margin-top: 10vh;
+    margin-top: 11vh;
+    @media (max-width: 768px) {
+      text-align: center;
+      row-gap: 6vh;
   }
+}
