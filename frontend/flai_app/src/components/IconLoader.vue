@@ -21,13 +21,5 @@ const dynamicPath: URL = new URL(
 </template>
 
 <style scoped lang="scss">
-/* Replace with real scss styling based on classes */
-img {
-  width: 100%;
-}
-.flai-header-icon {
-  margin-top: 1rem;
-  padding: 1rem;
-  width: 15vw;
-}
+@import '../assets/scss/main.scss';
 </style>
