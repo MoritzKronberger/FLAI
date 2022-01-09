@@ -1,3 +1,11 @@
+$left-column-width: 35%;
+$right-column-width: 65%;
+$padding: 2%;
+
+div {
+  margin: 0;
+  padding: 0;
+}
 .learning-exercise {
   background-color: $background-blue;
   margin: 0;
@@ -6,7 +14,7 @@
   .exercise-card {
     background-color: $main-white;
     margin: 5%; //TODO: get generic scss margin variable
-    padding: 2%;
+    padding: $padding;
   }
 
   .watch-word {
@@ -25,19 +33,27 @@
     position: relative;
 
     .column1 {
-      flex: 40%;
+      flex: $left-column-width;
+      width: $left-column-width;
+      padding-right: $padding;
     }
     .column2 {
-      flex: 60%;
+      flex: $right-column-width;
     }
 
     .signs {
-      position: relative;
+      padding: 1em 0;
+      position: absolute;
       background-color: black;
-      left: 100%;
-      width: 100%;
+      left: $left-column-width;
+      width: $right-column-width;
+      overflow: visible;
       z-index: 1;
       text-align: center;
+
+      span {
+        margin: 0 1em;
+      }
     }
   }
 
