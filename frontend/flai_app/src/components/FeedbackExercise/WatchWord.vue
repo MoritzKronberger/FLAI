@@ -9,9 +9,9 @@
         :signs="signs"
         :index="index"
         :show-sign="showSign"
+        :class="feedbackClass"
         @use-hint="showSign = true"
       />
-      <p :class="feedbackClass">TODO: Add webcam component</p>
       <CustomButton
         id="next"
         label="weiter"
