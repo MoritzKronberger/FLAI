@@ -9,6 +9,7 @@
       @include flex-box(row, start, center, 0vh 1vw);
       .icon {
         width: 2.5vw;
+        margin-left: 0.5vw;
       }
       .sidebar-flyout {
         font-size: 12px;
