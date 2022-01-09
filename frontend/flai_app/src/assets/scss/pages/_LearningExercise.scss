@@ -7,10 +7,37 @@
     background-color: $main-white;
     margin: 5%; //TODO: get generic scss margin variable
     padding: 2%;
-    column-count: 2;
+  }
 
-    .column {
+  .watch-word {
+    .column1 {
+      flex: 50%;
+    }
+    .column2 {
+      box-flex-group: 50%;
+    }
+  }
+
+  .show-word {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+
+    .column1 {
+      flex: 40%;
+    }
+    .column2 {
+      flex: 60%;
+    }
+
+    .signs {
+      position: relative;
+      background-color: black;
+      left: 100%;
       width: 100%;
+      z-index: 1;
+      text-align: center;
     }
   }
 
