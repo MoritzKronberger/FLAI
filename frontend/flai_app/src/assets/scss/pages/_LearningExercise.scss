@@ -64,4 +64,10 @@ div {
     text-align: center;
     border-radius: 5px;
   }
+
+  #next {
+    position: absolute;
+    bottom: calc($padding * -3);
+    right: 0;
+  }
 }

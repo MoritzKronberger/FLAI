@@ -18,6 +18,7 @@
       <p :class="feedbackClass">TODO: Add webcam component</p>
       <Button
         v-if="wordComplete"
+        id="next"
         label="weiter"
         btnclass="controls"
         @button-click="emit('new-word')"
