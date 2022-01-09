@@ -6,13 +6,14 @@
       <div
         :class="[
           flaiNetReady && handposeReady ? '' : 'hidden',
-          watchWord ? 'watch-word' : 'show-word',
+          currentlyWatchWord ? 'watch-word' : 'show-word',
         ]"
       >
         <div class="column1">
           <FeedbackExercise
             :key="signIds"
-            @change-layout="watchWord = false"
+            @watch-word="watchWord()"
+            @show-word="showWord()"
             @correct="feedbackClass = 'correct'"
             @wrong="feedbackClass = 'wrong'"
           />
@@ -46,8 +47,18 @@ const signIds = computed(() => {
 })
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
-const watchWord = ref(true)
+const currentlyWatchWord = ref(true)
 const feedbackClass = ref('waiting')
+
+function watchWord() {
+  console.log('watchWord')
+  currentlyWatchWord.value = true
+}
+
+function showWord() {
+  console.log('showWord')
+  currentlyWatchWord.value = false
+}
 
 onBeforeRouteLeave(async () => {
   console.log('stopSession')

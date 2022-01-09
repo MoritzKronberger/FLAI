@@ -78,7 +78,7 @@ const newInputTimeout = computed(
 const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
-const emit = defineEmits(['new-word', 'correct', 'wrong'])
+const emit = defineEmits(['new-word', 'correct', 'wrong', 'rendered'])
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -108,7 +108,10 @@ function checkProgress(sign: Sign) {
   )
 }
 
-onBeforeMount(() => checkProgress(props.signs[index.value]))
+onBeforeMount(() => {
+  checkProgress(props.signs[index.value])
+  emit('rendered')
+})
 
 function reEnableInput() {
   store.flainetdata.methods.clearResultBuffer()

@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, computed } from 'vue'
+import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
@@ -48,7 +48,7 @@ const vFocus = {
   },
 }
 
-const emit = defineEmits(['next', 'correct', 'wrong'])
+const emit = defineEmits(['next', 'correct', 'wrong', 'rendered'])
 
 function correct() {
   console.log('correct')
@@ -101,6 +101,8 @@ watchEffect(
       wrong
     ))
 )
+
+onBeforeMount(() => emit('rendered'))
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
