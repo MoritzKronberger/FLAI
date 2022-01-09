@@ -1,19 +1,36 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
+  <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <span v-for="(letter, count) of signs" :key="letter.name">
-        <span v-if="count === index" class="currentLetter">
-          {{ letter.name }}
-        </span>
-        <span v-else>{{ letter.name }}</span>
-      </span>
+      <div class="signRow">
+        <div v-for="(letter, count) of signs" :key="letter.name" class="item">
+          <span v-if="count === index" class="currentLetter">
+            {{ letter.name }}
+          </span>
+          <span v-else>{{ letter.name }}</span>
+        </div>
+        <IconLoader
+          v-if="pathToIcon !== undefined"
+          :key="pathToIcon"
+          :path="pathToIcon"
+          mimetype="svg"
+          alt="Icon, das die Korrektheit anzeigt"
+          element-class="img"
+        />
+      </div>
       <Video
+        id="video"
         :show-sign="showSign"
         :signs="signs"
         :index="index"
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
+      <Button
+        v-if="wordComplete"
+        label="weiter"
+        btnclass="controls"
+        @button-click="emit('new-word')"
+      />
       <p>{{ status }}</p>
     </div>
   </div>
@@ -25,18 +42,21 @@ import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
+import Button from '../CustomButton.vue'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
-import { useRouter } from 'vue-router'
 import { FlaiNetResults } from '../../store/flainetdata'
-
-const router = useRouter()
+import IconLoader from '../IconLoader.vue'
+import { FeedbackStatus } from '../../ressources/ts/interfaces'
 
 const inputAccepted = ref(true)
 const index = ref(0)
+const pathToIcon = ref<string>()
+
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
+const wordComplete = ref(false)
 
 const progressStep: ComputedRef<Progress> = computed(
   () => store.exercisedata.progressStep
@@ -46,7 +66,7 @@ const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const newInputTimeout = computed(
   () => store.flainetdata.flaiNetOptions.newInputTimeout
 )
-const status = ref('Loading')
+const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
@@ -80,6 +100,8 @@ function checkProgress(sign: Sign) {
 
 onBeforeMount(() => checkProgress(props.signs[index.value]))
 
+const emit = defineEmits(['new-word'])
+
 function reEnableInput() {
   store.flainetdata.methods.clearResultBuffer()
   inputAccepted.value = true
@@ -87,6 +109,7 @@ function reEnableInput() {
 
 async function correct() {
   inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Richtig'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -102,16 +125,17 @@ async function correct() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-    // TODO: remove debug status timeout
-    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
-    status.value = 'timeout'
+
+    // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
-    router.push({ name: 'HomePage' })
+    wordComplete.value = true
   }
 }
 async function wrong() {
   inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Fehler'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
@@ -127,18 +151,17 @@ async function wrong() {
     index.value++
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
-    // TODO: remove debug status timeout
-    // maybe the webcam opacity could be lowered or something else to signify the disabled input?
-    status.value = 'timeout'
+
+    // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
-    router.push({ name: 'HomePage' })
+    wordComplete.value = true
   }
 }
 
 // TODO: Add adjustable timeout to inputAccepted reenable?
 const onBufferUpdate = (buffer: FlaiNetResults) => {
-  console.log(inputAccepted.value)
   if (inputAccepted.value) {
     status.value = getFlaiNetResults(
       buffer,
@@ -153,8 +176,23 @@ watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>
+div.content {
+  width: 50%;
+}
 div:focus {
   outline: none;
+}
+.signRow {
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+#video {
+  width: 100%;
+}
+.controls {
+  color: blue;
 }
 .waiting {
   color: grey;
@@ -168,5 +206,11 @@ div:focus {
 .currentLetter {
   font-size: 20px;
   font-weight: bold;
+}
+div.item {
+  display: inline;
+}
+span {
+  display: inline;
 }
 </style>

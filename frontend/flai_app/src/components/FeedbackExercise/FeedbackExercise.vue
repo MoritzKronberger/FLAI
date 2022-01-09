@@ -1,30 +1,24 @@
 <template>
-  <div v-if="word !== undefined && word.length > 0" :key="startSession">
-    <h1>Feedback Learning Exercise</h1>
-    <!-- hiding must be done via css and not v-if so that components still render -->
-    <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
-      <WatchWord
-        v-if="stepOneWatch && newSigns.length > 0"
-        :signs="newSigns"
-        :exercise-id="exerciseId"
-        @next="onNextStep"
-      />
-      <ShowWord v-else :signs="signsFromWord" :exercise-id="exerciseId" />
-      <div>
-        <flai-net
-          @status-change="setflaiNetReady"
-          @handpose-ready="setHandposeReady"
-        />
-      </div>
-    </div>
-    <!-- TODO: replace text with or add loading icon/ animation -->
-    <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
-      {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
-    </div>
+  <div
+    v-if="word !== undefined && word.length > 0 && wordSet"
+    :key="startSession"
+  >
+    <WatchWord
+      v-if="stepOneWatch && newSigns.length > 0"
+      :signs="newSigns"
+      :exercise-id="exerciseId"
+      @next="onNextStep"
+    />
+    <ShowWord
+      v-else
+      :signs="signsFromWord"
+      :exercise-id="exerciseId"
+      @new-word="newWord"
+    />
   </div>
   <div v-else>
     <!-- TODO: second loading needed? -->
-    <p>Loading</p>
+    <p>Generating word...</p>
   </div>
 </template>
 
@@ -33,8 +27,8 @@ import { ref, onBeforeMount, computed, ComputedRef } from 'vue'
 import { Sign } from '../../store/signdata'
 import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
-import flaiNet from '../../components/FlaiNet.vue'
 import store from '../../store'
+import { initExerciseRound } from '../../ressources/ts/methods'
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 
@@ -55,6 +49,7 @@ const stepOneWatch = ref(true)
 const exerciseId: ComputedRef<string> = computed(
   () => store.exercisedata.exercises[0].id
 )
+const wordSet = ref(true)
 
 function getNewSigns() {
   newSigns.value.length = 0
@@ -74,26 +69,16 @@ function onNextStep() {
   console.log('nextStep')
 }
 
+async function newWord() {
+  startSession.value = 'false'
+  wordSet.value = false
+  await initExerciseRound()
+  wordSet.value = true
+}
+
 onBeforeMount(() => {
   store.sessiondata.methods.startTimer()
   startSession.value = 'true'
   getNewSigns()
 })
-
-//FLAI-NET
-const flaiNetReady = ref(false)
-const handposeReady = ref(false)
-
-const setflaiNetReady = (result: boolean): void => {
-  flaiNetReady.value = result
-}
-const setHandposeReady = (result: boolean): void => {
-  handposeReady.value = result
-}
 </script>
-
-<style scoped>
-.hidden {
-  display: none;
-}
-</style>

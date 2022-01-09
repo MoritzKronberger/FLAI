@@ -17,6 +17,7 @@ export interface RegisterUser {
   email: string
   password: string
   right_handed: boolean
+  target_learning_time: string
 }
 const user: User = reactive({
   id: '',
