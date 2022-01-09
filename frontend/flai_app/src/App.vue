@@ -30,7 +30,7 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
       <SidebarMenu />
       <custom-button
         label="Logout"
-        btnclass="button-primary"
+        btnclass="button-logout"
         @button-click="logoutUser"
       />
     </div>
@@ -44,6 +44,9 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
 aside {
   float: left;
   width: 15%;
+  position: fixed;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 main {
   width: 85%;
@@ -57,7 +60,6 @@ main {
   margin-top: 60px;
 }
 a {
-  margin: 1%;
   text-decoration: none;
 }
 </style>
