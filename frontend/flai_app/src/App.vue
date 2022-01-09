@@ -15,7 +15,7 @@ const logoutUser = () => {
 }
 const isAuth = computed(() => store.authdata.auth.isAuth)
 
-function switchClass() {
+const switchClass = () => {
   const path = router.currentRoute.value.path
   if ((path === '/' || path === '/profile') && isAuth.value === true) {
     return { aside: 'display-aside', main: 'main-home-profile' }
