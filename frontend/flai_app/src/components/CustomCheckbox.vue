@@ -16,7 +16,6 @@ const onInput = (e: Event): void => {
 <template>
   <div :class="componentClass">
     <label :for="labelName">
-      {{ labelName }}
       <input
         :checked="modelValue"
         type="checkbox"
@@ -24,6 +23,7 @@ const onInput = (e: Event): void => {
         :class="elementClass"
         @input="onInput"
       />
+      {{ labelName }}
     </label>
   </div>
 </template>

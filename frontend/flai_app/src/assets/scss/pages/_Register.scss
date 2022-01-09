@@ -1,0 +1,35 @@
+.register-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register-items {
+    width: 30%;
+}
+
+.register-top-text {
+    @include font(GothamSSm, light);
+    font-size: 14px;
+    margin-bottom: $gutter-vertical;
+}
+
+input {
+    margin-bottom: $gutter-vertical;
+}
+
+.divider-line {
+    margin-top: $gutter-vertical * 1.2;
+    margin-bottom: $gutter-vertical * 1.2;
+    line-height: 0;
+    border-bottom: solid 1px;
+}
+
+.login-offer {
+    @include font(GothamSSm, medium);
+}
+
+.login-offer a{
+    color: $main-blue;
+}
