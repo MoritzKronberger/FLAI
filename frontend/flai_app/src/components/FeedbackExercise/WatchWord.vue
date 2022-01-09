@@ -1,6 +1,7 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
+      <p>Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!</p>
       <SignControls :signs="signs" @new-index="onNewIndex" />
       <Video
         :signs="signs"
@@ -9,7 +10,12 @@
         @use-hint="showSign = true"
       />
       <p :class="feedbackClass">TODO: Add webcam component</p>
-      <CustomButton label="Fertig" btnclass="controls" @click="emit('next')" />
+      <CustomButton
+        id="next"
+        label="weiter"
+        btnclass="controls"
+        @click="emit('next')"
+      />
       <p>{{ status }}</p>
     </div>
   </div>
