@@ -31,12 +31,12 @@ const onInput = (e: Event): void => {
   </div>
 </template>
 <style scoped lang="scss">
+@import '../assets/scss/main.scss';
+@import '../assets/scss/components/_inputField.scss';
 .email {
   width: 300px;
 }
 .input {
   margin-bottom: 10px;
 }
-
-@import '../assets/scss/components/_inputField.scss';
 </style>
