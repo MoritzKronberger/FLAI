@@ -6,6 +6,7 @@ import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import { useRouter } from 'vue-router'
 import store from '../store'
+import TestFont from './TestFont.vue'
 
 const router = useRouter()
 
@@ -18,7 +19,8 @@ const level = ref(1)
 
 <template>
   <div v-if="!auth.isAuth" class="landing-page">
-    <div>Wilkommen bei FLAI!</div>
+    <TestFont />
+    <!--<div>Wilkommen bei FLAI!</div>
     <div>
       Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
     </div>
@@ -29,7 +31,7 @@ const level = ref(1)
     />
     <div>
       Du hast bereits ein Konto?<router-link to="/login">Login</router-link>
-    </div>
+    </div>-->
   </div>
   <div v-if="auth.isAuth" class="home-page">
     <div class="dashboard">
