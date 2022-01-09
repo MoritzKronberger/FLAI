@@ -14,36 +14,39 @@ const logoutUser = () => {
   router.push({ name: 'HomePage' })
 }
 const isAuth = computed(() => store.authdata.auth.isAuth)
+
+const _class = 'custom-aside'
 </script>
 
 <template>
-  <aside>
-    <router-link :to="{ name: 'HomePage' }">
-      <IconLoader
-        path="/assets/logos/faces"
-        mimetype="svg"
-        alt="FLAI Icon"
-        element-class="flai-header-icon"
-      />
-    </router-link>
-    <div v-if="isAuth">
+  <div v-if="isAuth">
+    <aside :class="_class">
+      <router-link :to="{ name: 'HomePage' }">
+        <IconLoader
+          path="/assets/logos/faces"
+          mimetype="svg"
+          alt="FLAI Icon"
+          element-class="flai-header-icon"
+        />
+      </router-link>
       <SidebarMenu />
       <custom-button
         label="Logout"
         btnclass="button-logout"
         @button-click="logoutUser"
       />
-    </div>
-  </aside>
+    </aside>
+  </div>
   <main>
     <router-view />
   </main>
 </template>
 
 <style scoped lang="scss">
-aside {
-  float: left;
-  width: 15%;
+.flex-view {
+  display: inline;
+}
+.custom-aside {
   position: fixed;
   padding-left: 2%;
   padding-right: 2%;
@@ -52,6 +55,11 @@ aside {
     position: relative;
   }
 }
+
+.hidden {
+  display: none;
+}
+
 main {
   width: 85%;
   float: right;
