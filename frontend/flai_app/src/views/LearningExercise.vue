@@ -1,11 +1,11 @@
 <template>
   <div class="learning-exercise">
     <h1>Feedback Learning Exercise</h1>
-    <div class="exercise-card">
+    <div class="exercise-card" :class="watchWord ? 'watchWord' : 'showWord'">
       <!-- hiding must be done via css and not v-if so that components still render -->
       <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
         <div class="column">
-          <FeedbackExercise :key="signIds" />
+          <FeedbackExercise :key="signIds" @change-layout="watchWord = false" />
         </div>
 
         <div class="column">
@@ -36,6 +36,7 @@ const signIds = computed(() => {
 })
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
+const watchWord = ref(true)
 
 onBeforeRouteLeave(async () => {
   console.log('stopSession')

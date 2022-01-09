@@ -51,6 +51,8 @@ const exerciseId: ComputedRef<string> = computed(
 )
 const wordSet = ref(true)
 
+const emit = defineEmits(['change-layout'])
+
 function getNewSigns() {
   newSigns.value.length = 0
   for (const signId of word.value) {
@@ -62,10 +64,14 @@ function getNewSigns() {
     }
   }
   console.log('newSigns', JSON.stringify(newSigns.value))
+  if (newSigns.value.length === 0) {
+    emit('change-layout')
+  }
 }
 
 function onNextStep() {
   stepOneWatch.value = false
+  emit('change-layout')
   console.log('nextStep')
 }
 
