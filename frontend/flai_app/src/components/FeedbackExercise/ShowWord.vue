@@ -13,9 +13,9 @@
         :show-sign="showSign"
         :signs="signs"
         :index="index"
+        :class="feedbackClass"
         @use-hint="showSign = true"
       />
-      <p :class="feedbackClass">TODO: Add webcam component</p>
       <Button
         v-if="wordComplete"
         id="next"
@@ -171,12 +171,6 @@ div:focus {
 }
 .waiting {
   color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
 }
 .currentLetter {
   font-size: 20px;
