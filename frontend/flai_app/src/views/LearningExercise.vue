@@ -63,8 +63,6 @@ const setHandposeReady = (result: boolean): void => {
 }
 </script>
 
-<style scoped>
-.hidden {
-  display: none;
-}
+<style lang="scss">
+@import '../assets/scss/main.scss';
 </style>
