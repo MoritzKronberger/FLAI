@@ -1,20 +1,22 @@
 @charset "UTF-8";
 
 // 1. Configuration
-@import "abstracts/variables", "abstracts/functions", "abstracts/mixins";
+@import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins';
 
 // 2. Base and Helpers
-@import "base/base", "base/fonts", "base/helpers", "base/grid";
+@import 'base/base', 'base/fonts', 'base/helpers', 'base/grid';
 
 // 4. Layout-related sections
-@import "layout/header", "layout/sidebar", "layout/footer";
+@import 'layout/header', 'layout/sidebar', 'layout/footer';
 
 // 5. Components
-@import "components/statistic/statistic_dashboard_small", "components/statistic/statistic_dashboard_large", "components/statistic/card_small";
+@import 'components/statistic/statistic_dashboard_small',
+  'components/statistic/statistic_dashboard_large',
+  'components/statistic/card_small';
 //  'components/button';
 
 // import fonts
 
 @include import-fonts();
 
-@import "pages/HelloWorld", "pages/HomePage";
+@import 'pages/HelloWorld', 'pages/HomePage', 'pages/LearningExercise';
