@@ -1,3 +1,24 @@
 .learning-exercise {
-  background-color: $light-blue;
+  background-color: $background-blue;
+  margin: 0;
+  padding: 0;
+
+  .exercise-card {
+    background-color: $main-white;
+    margin: 5%; //TODO: get generic scss margin variable
+    padding: 2%;
+    column-count: 2;
+
+    .column {
+      width: 100%;
+    }
+  }
+
+  video {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    text-align: center;
+    border-radius: 5px;
+  }
 }

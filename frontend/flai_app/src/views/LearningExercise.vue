@@ -1,16 +1,25 @@
 <template>
-  <h1>Feedback Learning Exercise</h1>
-  <!-- hiding must be done via css and not v-if so that components still render -->
-  <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
-    <FeedbackExercise :key="signIds" />
-    <flai-net
-      @status-change="setflaiNetReady"
-      @handpose-ready="setHandposeReady"
-    />
-  </div>
-  <!-- TODO: replace text with or add loading icon/ animation -->
-  <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
-    {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
+  <div class="learning-exercise">
+    <h1>Feedback Learning Exercise</h1>
+    <div class="exercise-card">
+      <!-- hiding must be done via css and not v-if so that components still render -->
+      <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
+        <div class="column">
+          <FeedbackExercise :key="signIds" />
+        </div>
+
+        <div class="column">
+          <flai-net
+            @status-change="setflaiNetReady"
+            @handpose-ready="setHandposeReady"
+          />
+        </div>
+        <!-- TODO: replace text with or add loading icon/ animation -->
+        <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
+          {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
