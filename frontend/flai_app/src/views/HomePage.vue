@@ -32,83 +32,38 @@ const level = ref(1)
     </div>
   </div>
   <div v-if="auth.isAuth" class="home-page">
-    <div class="start-panel">
-      <h2>
-        Hallo, <b>{{ user.username }}!</b>
-      </h2>
-      <div id="start-panel-text">
-        <p>Willkommen zurück!</p>
-        <p>Bereit für die heutige Aufgabe?</p>
+    <div class="dashboard">
+      <div class="start-panel">
+        <h2>
+          Hallo, <b>{{ user.username }}!</b>
+        </h2>
+        <div>Willkommen zurück!</div>
+        <div>Bereit für die heutige Aufgabe?</div>
+        <custom-button
+          label="Start"
+          btnclass="button-primary"
+          @button-click="redirect('ComingSoon')"
+        />
       </div>
-      <IconLoader
-        path="/assets/logos/icon_symbol"
-        mimetype="svg"
-        alt="FLAI Icon Symbol"
-        element-class="flai-startpanel-icon"
-      />
-      <custom-button
-        class="button"
-        label="Start"
-        btnclass="button-primary"
-        @button-click="redirect('ComingSoon')"
-      />
+      <div class="level-panel">
+        <IconLoader
+          :path="`../assets/icons/levels/level_${level}`"
+          mimetype="svg"
+          alt="Level Icon"
+          element-class="level-icon"
+        />
+        <div>Level {{ level }}</div>
+      </div>
+      <div class="stats-small-panel">
+        <StatisticDashboardSmall />
+      </div>
+      <div class="stats-large-panel">
+        <StatisticDashboardLarge />
+      </div>
     </div>
-    <div>
-      <IconLoader
-        :path="`/assets/icons/levels/level_${level}`"
-        mimetype="svg"
-        alt="Level Icon"
-        element-class="level-icon"
-      />
-      <div>Level {{ level }}</div>
-    </div>
-    <StatisticDashboardSmall />
-    <StatisticDashboardLarge />
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '../assets/scss/components/_startpanel.scss';
-
-h2 {
-  font-weight: 200;
-}
-p {
-  margin: 0;
-}
-.row {
-  display: flex;
-}
-.row img {
-  margin: 0 1vw;
-  height: 30vh;
-  border-radius: 3vw;
-}
-.statistic {
-  margin: 1vw;
-  padding: 3vh 1vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  background-color: lightblue;
-  border-radius: 2vw;
-  text-align: center;
-}
-.circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: yellow;
-  margin: auto;
-  margin-bottom: 2vh;
-  height: 10vh;
-  width: 10vh;
-  border-radius: 50%;
-}
-.number {
-  margin: auto;
-  width: 100%;
-  font-size: 5vh;
-}
+<style lang="scss">
+@import '../assets/scss/main.scss';
 </style>
