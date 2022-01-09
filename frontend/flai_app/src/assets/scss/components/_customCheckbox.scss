@@ -3,13 +3,15 @@
 
 .test-checkbox{
   span {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     border: 2px solid $main-blue;
     border-radius: 10%;
     display: inline-block;
   }
   input {
+    width: 22px;
+    height: 22px;
     //display: none;
     position: absolute;
     opacity: 0;
@@ -23,7 +25,40 @@
     }   
   }
 }
+span:after {
+  content: "";
+  //position: absolute;
+  display: none;
+  margin-left: 5px;
+  margin-top: 1px;
+  left: 8px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid $main-white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 
+/* Show the checkmark when checked */
+.test-checkbox input:checked ~ span:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator 
+.test-checkbox ~ span:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid $main-green;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}*/
 
 
 /*.test-checkbox{
