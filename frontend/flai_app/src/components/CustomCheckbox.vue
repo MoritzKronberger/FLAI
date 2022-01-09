@@ -4,6 +4,7 @@ defineProps<{
   elementClass: string
   modelValue: boolean | undefined
   componentClass?: string
+  checkmarkClass: string
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -24,7 +25,7 @@ const onInput = (e: Event): void => {
         :class="elementClass"
         @input="onInput"
       />
-      <span></span>
+      <span :class="checkmarkClass"></span>
     </label>
   </div>
 </template>

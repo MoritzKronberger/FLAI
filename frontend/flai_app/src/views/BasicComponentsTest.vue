@@ -47,6 +47,7 @@ const buttonClick = (): void => {
       label-name="Test Checkbox"
       element-class="checkbox-primary"
       component-class="test-checkbox"
+      checkmark-class="checkmark"
     />
     <div>Test Checkbox is: {{ testCheckbox }}</div>
   </div>
