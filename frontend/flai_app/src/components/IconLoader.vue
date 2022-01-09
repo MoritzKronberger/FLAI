@@ -20,9 +20,6 @@ const dynamicPath: URL = new URL(
   <img :src="dynamicPath.toString()" :alt="alt" :class="elementClass" />
 </template>
 
-<style scoped>
-/* Replace with real scss styling based on classes */
-img {
-  width: 50px;
-}
+<style scoped lang="scss">
+@import '../assets/scss/main.scss';
 </style>

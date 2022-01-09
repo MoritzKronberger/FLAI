@@ -14,6 +14,14 @@ function onclick() {
   </button>
 </template>
 
-<style scoped>
-/** here place for import scss */
+<style scoped lang="scss">
+.button-logout {
+  width: 70%;
+  margin-top: 40vh;
+  @media (max-width: 768px) {
+    margin-top: 10vh;
+    width: 25%;
+    margin-bottom: 10vh;
+  }
+}
 </style>

@@ -14,35 +14,58 @@ const logoutUser = () => {
   router.push({ name: 'HomePage' })
 }
 const isAuth = computed(() => store.authdata.auth.isAuth)
+
+const _class = 'custom-aside'
 </script>
 
 <template>
-  <main>
-    <router-view />
-  </main>
-  <aside>
-    <router-link :to="{ name: 'HomePage' }">
-      <IconLoader
-        path="/assets/flai_logo"
-        mimetype="jpg"
-        alt="FLAI Icon"
-        element-class="flai-header-icon"
-      />
-    </router-link>
-    <div v-if="isAuth">
+  <div v-if="isAuth">
+    <aside :class="_class">
+      <router-link :to="{ name: 'HomePage' }">
+        <IconLoader
+          path="/assets/logos/faces"
+          mimetype="svg"
+          alt="FLAI Icon"
+          element-class="flai-header-icon"
+        />
+      </router-link>
       <SidebarMenu />
       <custom-button
         label="Logout"
-        btnclass="button-primary"
+        btnclass="button-logout"
         @button-click="logoutUser"
       />
-    </div>
-  </aside>
+    </aside>
+  </div>
+  <main>
+    <router-view />
+  </main>
 </template>
 
-<style>
+<style scoped lang="scss">
+.flex-view {
+  display: inline;
+}
+.custom-aside {
+  position: fixed;
+  padding-left: 2%;
+  padding-right: 2%;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
 main {
-  margin-left: 15%;
+  width: 85%;
+  float: right;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -52,7 +75,6 @@ main {
   margin-top: 60px;
 }
 a {
-  margin: 1%;
   text-decoration: none;
 }
 </style>
