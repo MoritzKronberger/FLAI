@@ -57,7 +57,7 @@ div {
       flex: $right-column-width;
     }
 
-    .signs {
+    .sign-with-icon {
       padding: 1em 0;
       position: absolute;
       background-color: $transparent-black;
@@ -65,11 +65,26 @@ div {
       width: $right-column-width;
       overflow: visible;
       z-index: 1;
-      text-align: center;
 
-      span {
-        margin: 0 1em;
+      .signs {
+        text-align: center;
+        align-items: center;
+        justify-content: space-around;
+        display: flex;
+
+        span {
+          margin: 0 1em;
+        }
       }
+    }
+
+    .currentLetter {
+      font-size: 20px; // TODO: use font here and change to a bigger style?
+      font-weight: bold;
+    }
+
+    div.item {
+      display: inline;
     }
   }
 
