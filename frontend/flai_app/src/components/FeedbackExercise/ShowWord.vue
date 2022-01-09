@@ -18,7 +18,6 @@
           v-if="pathToIcon !== undefined"
           :key="pathToIcon"
           :path="pathToIcon"
-          mimetype="svg"
           alt="Icon, das die Korrektheit anzeigt"
           element-class="feedback-icon"
         />
@@ -116,7 +115,7 @@ function reEnableInput() {
 
 async function correct() {
   inputAccepted.value = false
-  pathToIcon.value = '/assets/icons/FLAI_Richtig'
+  pathToIcon.value = '/assets/icons/FLAI_Richtig.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -142,7 +141,7 @@ async function correct() {
 }
 async function wrong() {
   inputAccepted.value = false
-  pathToIcon.value = '/assets/icons/FLAI_Fehler'
+  pathToIcon.value = '/assets/icons/FLAI_Fehler.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
