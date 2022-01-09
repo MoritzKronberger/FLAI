@@ -60,13 +60,6 @@ const _class = 'custom-aside'
   display: none;
 }
 
-main {
-  width: 85%;
-  float: right;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
