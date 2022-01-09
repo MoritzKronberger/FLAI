@@ -17,16 +17,16 @@ $L: 1600px;
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 $used-fonts: ();
 $base-font-stack:(
-    GothamSSm:(
+    GothamSSm: (
       light: (
-      family: (Gotham SSm, Gotham),
-      weight: 300,
-      style: normal,
-      font-face:(
-        family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light',
-        formats: (otf)
-      )
+        family: (Gotham SSm, Gotham),
+        weight: 300,
+        style: normal,
+        font-face: (
+          family: 'Gotham SSm',
+          path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light',
+          formats: (otf)
+        )
     ),
       light-italic: (
       family: (Gotham SSm, Gotham),
@@ -100,7 +100,7 @@ $base-font-stack:(
     ),
     book: (
       family: (Gotham SSm, Gotham),
-      weight: normal,
+      weight: 350,
       style: normal,
       font-face:(
         family: 'Gotham SSm',
@@ -110,7 +110,7 @@ $base-font-stack:(
     ),
       book-italic: (
       family: (Gotham SSm, Gotham),
-      weight: normal,
+      weight: 350,
       style: italic,
       font-face:(
         family: 'Gotham SSm',
