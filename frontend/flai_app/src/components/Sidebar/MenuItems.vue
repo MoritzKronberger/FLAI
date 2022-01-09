@@ -12,19 +12,21 @@ defineProps<{
 
 <template>
   <div class="container">
-    <router-link :to="{ name: viewName }">
-      <div class="item">
-        <div class="icon">
-          <icon-loader
-            :path="iconPath"
-            :mimetype="iconMimetype"
-            :alt="iconAltText"
-            element-class="sidebar-icon"
-          />
+    <div class="item">
+      <router-link :to="{ name: viewName }">
+        <div class="bar">
+          <div class="icon">
+            <icon-loader
+              :path="iconPath"
+              :mimetype="iconMimetype"
+              :alt="iconAltText"
+              element-class="sidebar-icon"
+            />
+          </div>
+          <span class="sidebar-flyout">{{ flyoutText }}</span>
         </div>
-        <span class="sidebar-flyout">{{ flyoutText }}</span>
-      </div>
-    </router-link>
+      </router-link>
+    </div>
   </div>
 </template>
 
