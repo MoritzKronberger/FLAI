@@ -1,14 +1,35 @@
 @import '../main.scss';
 
 
+.test-checkbox{
+  span {
+    width: 18px;
+    height: 18px;
+    border: 2px solid $main-blue;
+    border-radius: 10%;
+    display: inline-block;
+  }
+  input {
+    //display: none;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    
+    &:checked ~ span {
+      background: $dark-grey;
+    }
+  }
+}
+
+
+/*
 :root {
     span {
-      width: 15px;
-      height: 15px;
+      width: 10px;
+      height: 10px;
       border: 2px solid $main-blue;
       border-radius: 10%;
       display: inline-block;
-      
     }
     input {
       //display: none;
@@ -21,4 +42,5 @@
       }
     }
   }
-  
+
+*/

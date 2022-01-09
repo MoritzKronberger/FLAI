@@ -46,6 +46,7 @@ const buttonClick = (): void => {
       v-model="testCheckbox"
       label-name="Test Checkbox"
       element-class="checkbox-primary"
+      component-class="test-checkbox"
     />
     <div>Test Checkbox is: {{ testCheckbox }}</div>
   </div>
