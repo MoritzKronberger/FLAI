@@ -15,16 +15,24 @@ const logoutUser = () => {
 }
 const isAuth = computed(() => store.authdata.auth.isAuth)
 
-const _class = 'custom-aside'
+const switchClass = () => {
+  const path = router.currentRoute.value.path
+  if ((path === '/' || path === '/profile') && isAuth.value === true) {
+    return { aside: 'display-aside', main: 'main-home-profile' }
+  } else {
+    return { aside: 'hidden', main: 'main-login-register-lection' }
+  }
+}
+
+const classState = computed(() => switchClass())
 </script>
 
 <template>
   <div v-if="isAuth">
-    <aside :class="_class">
+    <aside :class="classState.aside">
       <router-link :to="{ name: 'HomePage' }">
         <IconLoader
-          path="/assets/logos/faces"
-          mimetype="svg"
+          path="/assets/logos/faces.svg"
           alt="FLAI Icon"
           element-class="flai-header-icon"
         />
@@ -37,16 +45,16 @@ const _class = 'custom-aside'
       />
     </aside>
   </div>
-  <main>
+  <main :class="classState.main">
     <router-view />
   </main>
 </template>
 
 <style scoped lang="scss">
-.flex-view {
-  display: inline;
-}
-.custom-aside {
+.display-aside {
+  width: 15%;
+  height: 100%;
+  background-color: white;
   position: fixed;
   padding-left: 2%;
   padding-right: 2%;
@@ -60,6 +68,17 @@ const _class = 'custom-aside'
   display: none;
 }
 
+.main-login-register-lection {
+  width: 100%;
+}
+
+.main-home-profile {
+  float: right;
+  width: 85%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

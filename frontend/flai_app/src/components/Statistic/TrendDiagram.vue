@@ -10,7 +10,7 @@ const date = new Date(Date.now())
       <span>{{ date.toLocaleString('default', { year: 'numeric' }) }}</span>
     </div>
     <CardSmall
-      placeholder-path="../../assets/statisticPlaceholders/diagram.svg"
+      placeholder-path="/assets/statisticPlaceholders/diagram.svg"
       link-target="ComingSoon"
       alt-text="Lernzeit Trend Diagramm"
     />

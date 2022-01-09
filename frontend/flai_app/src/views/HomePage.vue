@@ -47,8 +47,7 @@ const level = ref(1)
       </div>
       <div class="level-panel">
         <IconLoader
-          :path="`../assets/icons/levels/level_${level}`"
-          mimetype="svg"
+          :path="`/assets/icons/levels/level_${level}.svg`"
           alt="Level Icon"
           element-class="level-icon"
         />
