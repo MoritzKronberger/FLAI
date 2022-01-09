@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
-
-const props = defineProps<{
+defineProps<{
   path: string
-  mimetype: string
   alt: string
   elementClass: string
 }>()
-
-const { path, mimetype } = toRefs(props)
-
-const dynamicPath: URL = new URL(
-  `/src${path.value}.${mimetype.value}`,
-  import.meta.url
-)
 </script>
 
 <template>
-  <img :src="dynamicPath.toString()" :alt="alt" :class="elementClass" />
+  <img :src="path" :alt="alt" :class="elementClass" />
 </template>
 
 <style scoped>

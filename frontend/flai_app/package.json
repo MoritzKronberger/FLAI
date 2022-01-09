@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
-    "serve": "vite preview",
+    "serve": "vite preview --port 3000",
     "test": "jest src",
     "lint": "eslint \"src/**/*.{js,vue,ts,tsx}\"",
     "lint-fix": "eslint \"src/**/*.{js,vue,ts,tsx}\" --fix",
