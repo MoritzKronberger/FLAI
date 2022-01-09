@@ -1,7 +1,9 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p>Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!</p>
+      <p class="instruction">
+        Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!
+      </p>
       <SignControls :signs="signs" @new-index="onNewIndex" />
       <Video
         :signs="signs"

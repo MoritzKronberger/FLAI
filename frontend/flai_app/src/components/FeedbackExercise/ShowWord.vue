@@ -1,6 +1,9 @@
 <template>
   <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
+      <p class="instruction">
+        Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
+      </p>
       <div class="sign-with-icon">
         <div class="signs">
           <span
