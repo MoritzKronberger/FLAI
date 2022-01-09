@@ -32,8 +32,7 @@ const classState = computed(() => switchClass())
     <aside :class="classState.aside">
       <router-link :to="{ name: 'HomePage' }">
         <IconLoader
-          path="/assets/logos/faces"
-          mimetype="svg"
+          path="/assets/logos/faces.svg"
           alt="FLAI Icon"
           element-class="flai-header-icon"
         />

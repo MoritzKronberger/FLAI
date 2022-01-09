@@ -45,7 +45,7 @@ function getSource() {
   )
   console.log('el', JSON.stringify(rec))
   if (rec === undefined) {
-    return 'src/assets/error.webm'
+    return '/assets/error.webm'
   }
   return `${rec.path}.${rec.mimetype}`
 }

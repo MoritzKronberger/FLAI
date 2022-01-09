@@ -54,8 +54,7 @@ async function postNewExerciseSession() {
 async function patchExerciseSession() {
   await store.exercisedata.actions.patchExerciseSession(
     exercises.value[0].id,
-    exerciseSessions.value[exerciseSession.value.length - 1],
-    100
+    exerciseSessions.value[exerciseSession.value.length - 1]
   )
 }
 //signactions
