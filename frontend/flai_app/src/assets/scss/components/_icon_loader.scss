@@ -1,0 +1,14 @@
+img {
+    width: 100%;
+  }
+  .flai-header-icon {
+    margin-top: 5vh;
+    width: 10vw
+  }
+  @media (max-width: 768px) {
+    .flai-header-icon {
+      margin-top: 5vh;
+      width: 100vw;
+      padding: 10vw;
+    }
+  }
