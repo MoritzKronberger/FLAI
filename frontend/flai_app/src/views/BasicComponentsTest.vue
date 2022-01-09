@@ -90,7 +90,8 @@ const buttonClick = (): void => {
       v-model="testInput"
       label-name="Test Input"
       placeholder="your test input"
-      element-class="input-primary"
+      element-class="default_input_field"
+      component-class="component_input"
     />
     <div>Test Input is: {{ testInput }}</div>
   </div>
