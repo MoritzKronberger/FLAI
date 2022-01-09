@@ -13,6 +13,7 @@ div {
   background-color: $background-blue;
   margin: 0;
   padding: 0;
+  height: 100%;
 
   .exercise-card {
     background-color: $main-white;
@@ -30,16 +31,21 @@ div {
 
     .column1 {
       flex: 50%;
+      padding-top: calc($padding-height * 3);
+      margin-right: $padding-width;
     }
     .column2 {
       flex: 50%;
+      padding-top: calc($padding-height * 3);
     }
 
     .sign-controls {
       position: absolute;
-      top: 0;
+      top: calc($padding-height * 3);
       left: 0;
       width: 50%;
+      display: flex;
+      justify-content: center;
     }
   }
 
@@ -86,26 +92,26 @@ div {
         }
       }
     }
+  }
 
-    .column2.correct {
-      #webcam-feed {
-        border: 4px solid $main-green;
-      }
+  .column2.correct {
+    #webcam-feed {
+      border: 4px solid $main-green;
     }
-    .column2.wrong {
-      #webcam-feed {
-        border: 4px solid $main-red;
-      }
+  }
+  .column2.wrong {
+    #webcam-feed {
+      border: 4px solid $main-red;
     }
+  }
 
-    .currentLetter {
-      font-size: 20px; // TODO: use font here and change to a bigger style?
-      font-weight: bold;
-    }
+  .currentLetter {
+    font-size: 20px; // TODO: use font here and change to a bigger style?
+    font-weight: bold;
+  }
 
-    div.item {
-      display: inline;
-    }
+  div.item {
+    display: inline;
   }
 
   #next {
