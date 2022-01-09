@@ -2,15 +2,15 @@
 
 @mixin media-query($canvas) {
   @if $canvas == S {
-    @media only screen and (min-width: $S) {
+    @media only screen and (max-width: $S) {
       @content;
     }
   } @else if $canvas == M {
-    @media only screen and (min-width: $M) {
+    @media only screen and (max-width: $M) {
       @content;
     }
   } @else if $canvas == L {
-    @media only screen and (min-width: $L) {
+    @media only screen and (max-width: $L) {
       @content;
     }
   }
