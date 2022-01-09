@@ -66,11 +66,18 @@ div {
       overflow: visible;
       z-index: 1;
 
+      .feedback-icon {
+        position: absolute;
+        right: calc($padding-width * 0.5);
+        top: 0;
+        filter: invert(94%) sepia(100%) saturate(23%) hue-rotate(21deg)
+          brightness(104%) contrast(106%); // TODO: add to variables white
+      }
       .signs {
         text-align: center;
-        align-items: center;
-        justify-content: space-around;
+        justify-content: center;
         display: flex;
+        align-items: center;
 
         span {
           margin: 0 1em;
