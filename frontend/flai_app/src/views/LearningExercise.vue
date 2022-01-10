@@ -5,7 +5,7 @@
       <!-- hiding must be done via css and not v-if so that components still render -->
       <div
         :class="[
-          flaiNetReady && handposeReady ? '' : 'hidden',
+          hidden ? 'hidden' : '',
           currentlyWatchWord ? 'watch-word' : 'show-word',
         ]"
       >
@@ -26,9 +26,17 @@
           />
         </div>
         <!-- TODO: replace text with or add loading icon/ animation -->
-        <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
-          {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
-        </div>
+      </div>
+      <div :class="hidden ? '' : 'hidden'">
+        <p>
+          Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
+        </p>
+        <CustomButton
+          v-if="flaiNetReady && handposeReady"
+          label="Start"
+          btnclass="''"
+          @button-click="hidden = false"
+        />
       </div>
     </div>
   </div>
@@ -39,6 +47,7 @@ import { computed, ref } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
 import FlaiNet from '../components/FlaiNet.vue'
+import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 
 const session = computed(() => store.exercisedata.activeExerciseSession)
@@ -49,6 +58,7 @@ const signIds = computed(() => {
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
 const feedbackClass = ref('waiting')
+const hidden = ref(true)
 
 function watchWord() {
   console.log('watchWord')
