@@ -1,21 +1,49 @@
 <template>
-  <h1>Feedback Learning Exercise</h1>
-  <CustomButton
-    label="x"
-    btnclass="exit"
-    @click="router.push({ name: 'HomePage' })"
-  />
-  <!-- hiding must be done via css and not v-if so that components still render -->
-  <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
-    <FeedbackExercise :key="signIds" />
-    <flai-net
-      @status-change="setflaiNetReady"
-      @handpose-ready="setHandposeReady"
+  <div class="learning-exercise">
+    <CustomButton
+      label="x"
+      btnclass="exit"
+      @click="router.push({ name: 'HomePage' })"
     />
-  </div>
-  <!-- TODO: replace text with or add loading icon/ animation -->
-  <div :class="flaiNetReady && handposeReady ? 'hidden' : ''">
-    {{ !flaiNetReady ? 'FLAI_Net loading...' : 'Handpose loading...' }}
+    <h1>Feedback Learning Exercise</h1>
+    <div class="exercise-card">
+      <!-- hiding must be done via css and not v-if so that components still render -->
+      <div
+        :class="[
+          hidden ? 'hidden' : '',
+          currentlyWatchWord ? 'watch-word' : 'show-word',
+        ]"
+      >
+        <div class="column1">
+          <FeedbackExercise
+            :key="signIds"
+            @watch-word="watchWord()"
+            @show-word="showWord()"
+            @correct="feedbackClass = 'correct'"
+            @wrong="feedbackClass = 'wrong'"
+          />
+        </div>
+
+        <div class="column2" :class="feedbackClass">
+          <flai-net
+            @status-change="setflaiNetReady"
+            @handpose-ready="setHandposeReady"
+          />
+        </div>
+        <!-- TODO: replace text with or add loading icon/ animation -->
+      </div>
+      <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
+        <p>
+          Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
+        </p>
+        <CustomButton
+          v-if="flaiNetReady && handposeReady"
+          label="Start"
+          btnclass="start"
+          @button-click="hidden = false"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,8 +52,8 @@ import { computed, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
 import FlaiNet from '../components/FlaiNet.vue'
-import store from '../store'
 import CustomButton from '../components/CustomButton.vue'
+import store from '../store'
 
 const router = useRouter()
 
@@ -35,6 +63,19 @@ const signIds = computed(() => {
 })
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
+const currentlyWatchWord = ref(true)
+const feedbackClass = ref('waiting')
+const hidden = ref(true)
+
+function watchWord() {
+  console.log('watchWord')
+  currentlyWatchWord.value = true
+}
+
+function showWord() {
+  console.log('showWord')
+  currentlyWatchWord.value = false
+}
 
 onBeforeRouteLeave(async () => {
   console.log('stopSession')
@@ -56,8 +97,6 @@ const setHandposeReady = (result: boolean): void => {
 }
 </script>
 
-<style scoped>
-.hidden {
-  display: none;
-}
+<style lang="scss">
+@import '../assets/scss/main.scss';
 </style>

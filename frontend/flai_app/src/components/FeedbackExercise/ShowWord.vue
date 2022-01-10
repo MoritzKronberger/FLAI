@@ -1,38 +1,47 @@
 <template>
   <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <div class="signRow">
-        <div v-for="(letter, count) of signs" :key="letter.name" class="item">
-          <span v-if="count === index" class="currentLetter">
-            {{ letter.name }}
+      <p class="instruction">
+        Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
+      </p>
+      <div class="sign-with-icon">
+        <div class="signs">
+          <span
+            v-for="(letter, count) of signs"
+            :key="letter.name"
+            class="item"
+          >
+            <span v-if="count === index" class="currentLetter">
+              {{ letter.name }}
+            </span>
+            <span v-else>{{ letter.name }}</span>
           </span>
-          <span v-else>{{ letter.name }}</span>
         </div>
         <IconLoader
           v-if="pathToIcon !== undefined"
           :key="pathToIcon"
           :path="pathToIcon"
-          mimetype="svg"
           alt="Icon, das die Korrektheit anzeigt"
-          element-class="img"
+          element-class="feedback-icon"
         />
       </div>
-      <Video
-        id="video"
-        :show-sign="showSign"
-        :signs="signs"
-        :index="index"
-        @use-hint="showSign = true"
-      />
-      <p :class="feedbackClass">TODO: Add webcam component</p>
-      <Button
-        v-if="wordComplete"
-        label="weiter"
-        btnclass="controls"
-        @button-click="emit('new-word')"
-      />
-      <p>{{ status }}</p>
     </div>
+    <Video
+      id="video"
+      :show-sign="showSign"
+      :signs="signs"
+      :index="index"
+      :class="feedbackClass"
+      @use-hint="showSign = true"
+    />
+    <Button
+      v-if="wordComplete"
+      id="next"
+      label="weiter"
+      btnclass="controls"
+      @button-click="emit('new-word')"
+    />
+    <p>{{ status }}</p>
   </div>
 </template>
 
@@ -69,6 +78,7 @@ const newInputTimeout = computed(
 const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
+const emit = defineEmits(['new-word', 'correct', 'wrong', 'rendered'])
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -98,9 +108,10 @@ function checkProgress(sign: Sign) {
   )
 }
 
-onBeforeMount(() => checkProgress(props.signs[index.value]))
-
-const emit = defineEmits(['new-word'])
+onBeforeMount(() => {
+  checkProgress(props.signs[index.value])
+  emit('rendered')
+})
 
 function reEnableInput() {
   store.flainetdata.methods.clearResultBuffer()
@@ -109,7 +120,7 @@ function reEnableInput() {
 
 async function correct() {
   inputAccepted.value = false
-  pathToIcon.value = '/assets/icons/FLAI_Richtig'
+  pathToIcon.value = '/assets/icons/FLAI_Richtig.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -132,10 +143,11 @@ async function correct() {
   } else {
     wordComplete.value = true
   }
+  emit('correct')
 }
 async function wrong() {
   inputAccepted.value = false
-  pathToIcon.value = '/assets/icons/FLAI_Fehler'
+  pathToIcon.value = '/assets/icons/FLAI_Fehler.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
@@ -158,6 +170,7 @@ async function wrong() {
   } else {
     wordComplete.value = true
   }
+  emit('wrong')
 }
 
 // TODO: Add adjustable timeout to inputAccepted reenable?
@@ -176,41 +189,13 @@ watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>
-div.content {
-  width: 50%;
-}
 div:focus {
   outline: none;
-}
-.signRow {
-  width: 100%;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
-}
-#video {
-  width: 100%;
 }
 .controls {
   color: blue;
 }
 .waiting {
   color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
-}
-.currentLetter {
-  font-size: 20px;
-  font-weight: bold;
-}
-div.item {
-  display: inline;
-}
-span {
-  display: inline;
 }
 </style>

@@ -7,24 +7,29 @@
       autoplay
       loop
     />
-    <br />
-    <CustomButton
-      label="Front"
-      btnclass="controls"
-      @click="frontPerspective()"
-    />
-    <CustomButton
-      label="Seite"
-      btnclass="controls"
-      @click="sidePerspective()"
-    />
-    <CustomButton
-      v-for="item in speedItems"
-      :key="item.label"
-      :label="item.label"
-      btnclass="controls"
-      @click="changeSpeed(item.value)"
-    />
+    <div class="video-controls">
+      <div class="perspective-buttons">
+        <CustomButton
+          label="Front"
+          btnclass="controls"
+          @click="frontPerspective()"
+        />
+        <CustomButton
+          label="Seite"
+          btnclass="controls"
+          @click="sidePerspective()"
+        />
+      </div>
+      <div class="speed-buttons">
+        <CustomButton
+          v-for="item in speedItems"
+          :key="item.label"
+          :label="item.label"
+          btnclass="controls"
+          @click="changeSpeed(item.value)"
+        />
+      </div>
+    </div>
   </div>
   <CustomButton
     v-else
@@ -83,26 +88,6 @@ const emit = defineEmits(['useHint'])
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div:focus {
-  outline: none;
-}
-h3 {
-  margin: 40px 0 0;
-}
-video {
-  width: 40%;
-}
-.controls {
-  background: lightblue;
-}
-.waiting {
-  color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
-}
+<style lang="scss">
+@import '../../assets/scss/main.scss';
 </style>

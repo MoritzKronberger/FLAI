@@ -8,12 +8,18 @@
       :signs="newSigns"
       :exercise-id="exerciseId"
       @next="onNextStep"
+      @correct="emit('correct')"
+      @wrong="emit('wrong')"
+      @rendered="emit('watch-word')"
     />
     <ShowWord
       v-else
       :signs="signsFromWord"
       :exercise-id="exerciseId"
       @new-word="newWord"
+      @correct="emit('correct')"
+      @wrong="emit('wrong')"
+      @rendered="emit('show-word')"
     />
   </div>
   <div v-else>
@@ -51,6 +57,8 @@ const exerciseId: ComputedRef<string> = computed(
 )
 const wordSet = ref(true)
 
+const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
+
 function getNewSigns() {
   newSigns.value.length = 0
   for (const signId of word.value) {
@@ -80,5 +88,6 @@ onBeforeMount(() => {
   store.sessiondata.methods.startTimer()
   startSession.value = 'true'
   getNewSigns()
+  console.log(newSigns.value.length)
 })
 </script>

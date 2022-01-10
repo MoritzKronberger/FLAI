@@ -1,0 +1,21 @@
+#video {
+  div:focus {
+    outline: none;
+  }
+  h3 {
+    margin: 40px 0 0;
+  }
+}
+
+video {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  text-align: center;
+  border-radius: $border-radius;
+}
+
+.video-controls {
+  display: flex;
+  justify-content: space-around;
+}

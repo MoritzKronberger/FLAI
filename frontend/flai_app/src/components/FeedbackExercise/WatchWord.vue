@@ -1,22 +1,30 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
+      <p class="instruction">
+        Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!
+      </p>
       <SignControls :signs="signs" @new-index="onNewIndex" />
       <Video
         :signs="signs"
         :index="index"
         :show-sign="showSign"
+        :class="feedbackClass"
         @use-hint="showSign = true"
       />
-      <p :class="feedbackClass">TODO: Add webcam component</p>
-      <CustomButton label="Fertig" btnclass="controls" @click="emit('next')" />
+      <CustomButton
+        id="next"
+        label="weiter"
+        btnclass="controls"
+        @click="emit('next')"
+      />
       <p>{{ status }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, computed } from 'vue'
+import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
@@ -40,15 +48,19 @@ const vFocus = {
   },
 }
 
+const emit = defineEmits(['next', 'correct', 'wrong', 'rendered'])
+
 function correct() {
   console.log('correct')
   isCorrect.value = true
   feedbackClass.value = 'right'
+  emit('correct')
 }
 function wrong() {
   console.log('wrong')
   isCorrect.value = false
   feedbackClass.value = 'wrong'
+  emit('wrong')
 }
 
 // TODO: progress property not really needed?
@@ -79,7 +91,7 @@ async function checkProgress(sign: Sign) {
   )
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
-const emit = defineEmits(['next'])
+
 watchEffect(
   () =>
     (status.value = getFlaiNetResults(
@@ -89,6 +101,8 @@ watchEffect(
       wrong
     ))
 )
+
+onBeforeMount(() => emit('rendered'))
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

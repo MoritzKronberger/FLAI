@@ -1,0 +1,144 @@
+$left-column-width: 35%;
+$right-column-width: 65%;
+
+.hidden {
+  display: none !important;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  padding: 0 $margin-width;
+}
+
+.learning-exercise {
+  background-color: $background-blue;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+  .exercise-card {
+    background-color: $main-white;
+    margin: $margin-width;
+    padding: $padding-height $padding-width;
+    min-width: 50%;
+    min-height: calc(100vh - 2 * $margin-width);
+    position: relative;
+
+    .loading-screen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      p {
+        text-align: center;
+        margin-bottom: $margin-height;
+      }
+      .start {
+        position: absolute;
+        left: 50%;
+      }
+    }
+  }
+
+  .watch-word {
+    padding-top: $padding-height;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+
+    .column1 {
+      flex: 50%;
+      padding-top: calc($padding-height * 7);
+      margin-right: $padding-width;
+    }
+    .column2 {
+      flex: 50%;
+      padding-top: calc($padding-height * 7);
+    }
+  }
+
+  .show-word {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+
+    .column1 {
+      flex: $left-column-width;
+      width: $left-column-width;
+      padding: calc($padding-height * 3) $padding-width 0 0;
+    }
+    .column2 {
+      flex: $right-column-width;
+      padding: calc($padding-height * 3) 0 0 0;
+    }
+
+    .sign-with-icon {
+      padding: 1em 0;
+      position: absolute;
+      background-color: $transparent-black;
+      left: $left-column-width;
+      width: $right-column-width;
+      overflow: visible;
+      z-index: 1;
+      border-radius: $border-radius $border-radius 0px 0px;
+
+      .feedback-icon {
+        position: absolute;
+        right: calc($padding-width * 0.5);
+        top: 0;
+        filter: $main-white-svg;
+      }
+      .signs {
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+        span {
+          margin: 0 0.5em;
+        }
+      }
+    }
+  }
+
+  .column2.correct {
+    #webcam-feed {
+      border: 4px solid $main-green;
+    }
+  }
+  .column2.wrong {
+    #webcam-feed {
+      border: 4px solid $main-red;
+    }
+  }
+
+  div.item {
+    display: inline;
+  }
+
+  #next {
+    position: absolute;
+    bottom: calc($padding-height * -3);
+    right: 0;
+  }
+
+  .exit {
+    position: absolute;
+    top: $margin-height;
+    right: $margin-width;
+  }
+
+  .instruction {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 0;
+  }
+}

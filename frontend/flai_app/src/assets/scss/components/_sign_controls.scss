@@ -1,0 +1,47 @@
+
+.sign-controls {
+  position: absolute;
+  top: calc($padding-height * 3);
+  left: 0;
+  width: calc(50% - $padding-width);
+  margin-top: $margin-height;
+
+  display: flex;
+  align-items: center;
+
+  .lastLetter {
+    position: absolute;
+    left: 40%;
+    font-size: 20px;
+  }
+  .currentLetter {
+    position: absolute;
+    left: 50%;
+    font-weight: 800;
+    font-size: 40px;
+  }
+  .nextLetter {
+    position: absolute;
+    left: 60%;
+    font-size: 20px;
+  }
+
+  .back-button {
+    position: absolute;
+    left: 30%;
+    color: $main-blue;
+    font-size: x-large;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+  }
+  .next-button {
+    position: absolute;
+    left: 70%;
+    color: $main-blue;
+    font-size: x-large;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+  }
+}
