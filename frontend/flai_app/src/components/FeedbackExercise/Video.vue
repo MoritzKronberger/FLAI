@@ -34,7 +34,7 @@
   <CustomButton
     v-else
     label="Hinweis"
-    btnclass="controls"
+    btnclass="sec_small_button_blue"
     @click="emit('useHint')"
   />
 </template>

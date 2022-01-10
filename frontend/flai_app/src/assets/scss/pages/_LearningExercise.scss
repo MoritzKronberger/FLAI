@@ -133,6 +133,9 @@ h1 {
     position: absolute;
     top: $margin-height;
     right: $margin-width;
+    background: inherit;
+    border: none;
+    font-size: 4vh;
   }
 
   .instruction {
