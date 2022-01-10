@@ -18,17 +18,21 @@ const level = ref(1)
 
 <template>
   <div v-if="!auth.isAuth" class="landing-page">
-    <div>Wilkommen bei FLAI!</div>
-    <div>
-      Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
-    </div>
-    <custom-button
-      label="Konto erstellen"
-      btnclass="button-primary"
-      @button-click="redirect('RegisterPage')"
-    />
-    <div>
-      Du hast bereits ein Konto?<router-link to="/login">Login</router-link>
+    <div class="main">
+      <div class="heading-large">Wilkommen bei FLAI!</div>
+      <div class="heading-medium">
+        Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
+      </div>
+      <div class="register">
+        <custom-button
+          label="Konto erstellen"
+          btnclass="prim_small_button_blue"
+          @button-click="redirect('RegisterPage')"
+        />
+      </div>
+      <div class="login">
+        Du hast bereits ein Konto?<router-link to="/login"> Login</router-link>
+      </div>
     </div>
   </div>
   <div v-if="auth.isAuth" class="home-page">
