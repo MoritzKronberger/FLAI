@@ -1,7 +1,6 @@
 @import '../main.scss';
 
-
-.test-checkbox{
+.test-checkbox {
   span {
     width: 22px;
     height: 22px;
@@ -17,91 +16,33 @@
     opacity: 0;
     cursor: pointer;
     z-index: 3;
-    &:hover ~ span{
+    &:hover ~ span {
       background-color: $subtle-grey;
     }
     &:checked ~ span {
       background: $main-blue;
-    }   
-  }
-}
-span:after {
-  content: "";
-  //position: absolute;
-  display: none;
-  margin-left: 5px;
-  margin-top: 1px;
-  left: 8px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid $main-white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-radius: 2px;
-}
-
-/* Show the checkmark when checked */
-.test-checkbox input:checked ~ span:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator 
-.test-checkbox ~ span:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid $main-green;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}*/
-
-
-/*.test-checkbox{
-  span {
-    width: 18px;
-    height: 18px;
-    border: 2px solid $main-blue;
-    border-radius: 10%;
-    display: inline-block;
-  }
-  input {
-    //display: none;
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    
-    &:checked ~ span {
-      background: $main-blue;
     }
   }
-}
-*/
-
-/*
-:root {
-    span {
-      width: 10px;
-      height: 10px;
-      border: 2px solid $main-blue;
-      border-radius: 10%;
-      display: inline-block;
-    }
-    input {
-      //display: none;
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      
-      &:checked ~ span {
-        background: $dark-grey;
-      }
-    }
+  span:after {
+    content: '';
+    //position: absolute;
+    display: none;
+    margin-left: 5px;
+    margin-top: 1px;
+    left: 8px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid $main-white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-radius: 2px;
   }
 
-*/
+  /* Show the checkmark when checked */
+  input:checked ~ span:after {
+    display: block;
+  }
+}
