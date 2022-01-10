@@ -39,7 +39,7 @@
         <CustomButton
           v-if="flaiNetReady && handposeReady"
           label="Start"
-          btnclass="start"
+          btnclass="prim_medium_button_blue start"
           @button-click="hidden = false"
         />
       </div>

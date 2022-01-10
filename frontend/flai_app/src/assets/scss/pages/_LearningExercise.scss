@@ -40,7 +40,7 @@ h1 {
       }
       .start {
         position: absolute;
-        left: 50%;
+        left: calc(50% - $button-Prim-width-Medium / 2);
       }
     }
   }
