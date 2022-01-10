@@ -17,15 +17,17 @@ const onInput = (e: Event): void => {
 <template>
   <div :class="componentClass">
     <label :for="labelName">
+      <div>
+        <input
+          :checked="modelValue"
+          type="checkbox"
+          :name="labelName"
+          :class="elementClass"
+          @input="onInput"
+        />
+        <span :class="checkmarkClass"></span>
+      </div>
       {{ labelName }}
-      <input
-        :checked="modelValue"
-        type="checkbox"
-        :name="labelName"
-        :class="elementClass"
-        @input="onInput"
-      />
-      <span :class="checkmarkClass"></span>
     </label>
   </div>
 </template>
