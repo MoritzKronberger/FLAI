@@ -61,15 +61,6 @@ h1 {
       flex: 50%;
       padding-top: calc($padding-height * 3);
     }
-
-    .sign-controls {
-      position: absolute;
-      top: calc($padding-height * 3);
-      left: 0;
-      width: 50%;
-      display: flex;
-      justify-content: center;
-    }
   }
 
   .show-word {

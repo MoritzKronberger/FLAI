@@ -44,9 +44,6 @@ function increaseIndex() {
 }
 </script>
 
-<style scoped>
-.currentLetter {
-  font-weight: 800;
-  font-size: 20px;
-}
+<style lang="scss">
+@import '../../assets/scss/main.scss';
 </style>
