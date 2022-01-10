@@ -8,6 +8,7 @@ import ProfilePage from '../views/ProfilePage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
+import TestFont from '../views/TestFont.vue'
 import DebugPage from '../views/DebugPage.vue'
 import {
   authenticateFromSessionStorage,
@@ -81,6 +82,11 @@ const routes = [
     name: 'ComingSoon',
     component: ComingSoon,
     meta: { authRequired: true },
+  },
+  {
+    path: '/testfont',
+    name: 'TestFont',
+    component: TestFont,
   },
   {
     path: '/debug',

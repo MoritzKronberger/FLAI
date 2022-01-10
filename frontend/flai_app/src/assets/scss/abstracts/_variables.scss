@@ -17,16 +17,16 @@ $L: 1600px;
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 $used-fonts: ();
 $base-font-stack:(
-    GothamSSm:(
+    GothamSSm: (
       light: (
-      family: (Gotham SSm, Gotham),
-      weight: 300,
-      style: normal,
-      font-face:(
-        family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Light',
-        formats: (otf)
-      )
+        family: (Gotham SSm, Gotham),
+        weight: 300,
+        style: normal,
+        font-face: (
+          family: 'Gotham SSm',
+          path: '/assets/fonts/GothamSSm-Light.otf',
+          formats: ('opentype')
+        )
     ),
       light-italic: (
       family: (Gotham SSm, Gotham),
@@ -34,8 +34,8 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-LightItalic.otf',
+        formats: ('opentype')
       )
     ),
       medium: (
@@ -44,8 +44,8 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Medium',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-Medium.otf',
+        formats: ('opentype')
       )
     ),
       medium-italic: (
@@ -54,8 +54,8 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-LightItalic',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-LightItalic.otf',
+        formats: ('opentype')
       )
     ),
       xlight: (
@@ -64,8 +64,8 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLight',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-XLight.otf',
+        formats: ('opentype')
       )
     ),
       xlight-italic: (
@@ -74,8 +74,8 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-XLightItalic',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-XLightItalic.otf',
+        formats: ('opentype')
       )
     ),
       bold: (
@@ -84,8 +84,8 @@ $base-font-stack:(
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Bold',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-Bold.otf',
+        formats: ('opentype')
       )
     ),
       bold-italic: (
@@ -94,32 +94,53 @@ $base-font-stack:(
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BoldItalic',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-BoldItalic.otf',
+        formats: ('opentype')
       )
     ),
     book: (
       family: (Gotham SSm, Gotham),
-      weight: normal,
+      weight: 350,
       style: normal,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-Book',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-Book.otf',
+        formats: ('opentype')
       )
     ),
       book-italic: (
       family: (Gotham SSm, Gotham),
-      weight: normal,
+      weight: 350,
       style: italic,
       font-face:(
         family: 'Gotham SSm',
-        path: 'ia5_teamprojekt_flai\frontend\flai_app\src\assets\scss\fonts\GothamSSm-BookItalic',
-        formats: (otf)
+        path: '/assets/fonts/GothamSSm-BookItalic.otf',
+        formats: ('opentype')
       )
     ),
     )
 );
+
+//font sizes
+$font-size-base: 8px;
+
+$display-1: $font-size-base*6;
+$display-2: $font-size-base*5;
+
+$h1: $font-size-base*8;
+$h2: $font-size-base*4.5;
+$h3: $font-size-base*3.5;
+$h4: $font-size-base*2.5;
+
+$large: $font-size-base*2.75;
+$medium: $font-size-base*2.25;
+$normal: $font-size-base*2;
+$small: $font-size-base*1.75;
+$xsmall: $font-size-base*1.5;
+
+
+
+
 
 // Main Colors
 
