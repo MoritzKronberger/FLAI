@@ -6,9 +6,14 @@ const date = new Date(Date.now())
 <template>
   <div>
     <div>
-      <span>{{ date.toLocaleString('default', { month: 'long' }) + ' ' }}</span>
-      <span>{{ date.toLocaleString('default', { year: 'numeric' }) }}</span>
+      <span class="heading-medium month">{{
+        date.toLocaleString('default', { month: 'long' }) + ' '
+      }}</span>
+      <span class="heading-medium">{{
+        date.toLocaleString('default', { year: 'numeric' })
+      }}</span>
     </div>
+    <br />
     <CardSmall
       placeholder-path="/assets/statisticPlaceholders/diagram.svg"
       link-target="ComingSoon"
