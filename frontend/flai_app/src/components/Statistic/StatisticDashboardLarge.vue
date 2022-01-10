@@ -9,6 +9,7 @@ const days = 15
   <div class="statistic-dashboard-large">
     <div class="flex-cards">
       <DayStreak :days="days" />
+      <hr />
       <div>
         <card-small
           placeholder-path="/assets/statisticPlaceholders/cardSmallProgress.svg"
@@ -16,6 +17,7 @@ const days = 15
           alt-text="Aufgaben Fortschritt Statistik"
         />
       </div>
+      <hr />
       <TrendDiagram />
     </div>
   </div>
