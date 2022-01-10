@@ -113,6 +113,7 @@ onMounted(() => {
         v-model="options.right_handed.value"
         element-class="checkbox-primary"
         component-class="input"
+        checkmark-class="checkmark"
       />
       <text-input-field
         v-model="options.target_learning_time.value"
