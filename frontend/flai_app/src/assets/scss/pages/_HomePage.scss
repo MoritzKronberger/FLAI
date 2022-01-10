@@ -1,5 +1,4 @@
 .landing-page {
-  color: $main-blue;
   .main {
     display: flex;
     flex-flow: column wrap;
@@ -10,6 +9,7 @@
     align-items: center;
     .heading-large {
       margin-bottom: 50px;
+      color: $main-blue;
     }
 
     .register {
@@ -21,7 +21,7 @@
     }
     a {
       text-decoration: none;
-      color: black;
+      color: $main-blue;
     }
   }
 }
