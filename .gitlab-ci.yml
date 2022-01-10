@@ -24,5 +24,4 @@ deploy_to_flai:
     - EOT
     - echo "------------> Automatic deploy finished successfully!"
   only:
-    - main
     - moritz-bugfix-fix-env-creation-in-ci-pipeline-#189
