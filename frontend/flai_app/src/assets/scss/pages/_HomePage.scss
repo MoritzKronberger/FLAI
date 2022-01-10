@@ -1,3 +1,31 @@
+.landing-page {
+  color: $main-blue;
+  .main {
+    display: flex;
+    flex-flow: column wrap;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 10%;
+    text-align: center;
+    align-items: center;
+    .heading-large {
+      margin-bottom: 50px;
+    }
+
+    .register {
+      margin-top: 50px;
+    }
+
+    .login {
+      margin-top: 50px;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
 .home-page {
   background-color: $background-blue;
   .dashboard {
