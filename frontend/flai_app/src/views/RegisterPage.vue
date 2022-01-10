@@ -46,16 +46,19 @@ const submit = async (): Promise<void> => {
       <form>
         <text-input-field
           v-model="user.username"
+          label-name="Benutzername"
           placeholder="Benutzername"
           element-class="input-form-primary"
         />
         <text-input-field
           v-model="user.email"
+          label-name="E-Mail-Adresse"
           placeholder="E-Mail-Adresse"
           element-class="input-form-primary"
         />
         <text-input-field
           v-model="user.password"
+          label-name="Passwort"
           placeholder="Passwort"
           element-class="input-form-primary"
           custom-type="password"
