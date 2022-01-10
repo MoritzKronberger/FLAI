@@ -34,10 +34,10 @@ const level = ref(1)
   <div v-if="auth.isAuth" class="home-page">
     <div class="dashboard">
       <div class="start-panel">
-        <h2 class="heading-large">Hallo, {{ user.username }}!</h2>
-        <div class="body-normal start-panel-text">Willkommen zurück!</div>
-        <div class="body-normal start-panel-text">
-          Bereit für die heutige Aufgabe?
+        <h2 class="heading-medium">Hallo, {{ user.username }}!</h2>
+        <div class="start-panel-text">
+          <div class="body-small">Willkommen zurück!</div>
+          <div class="body-small">Bereit für die heutige Aufgabe?</div>
         </div>
         <custom-button
           label="Start"
