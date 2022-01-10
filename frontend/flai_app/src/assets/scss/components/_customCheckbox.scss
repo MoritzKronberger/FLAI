@@ -1,7 +1,7 @@
 @import '../main.scss';
 
 // for centerd Label solution
-.test-checkbox {
+.primary-checkbox {
   label {
     display: flex;
     align-items: center;
@@ -9,7 +9,7 @@
     line-height: 0;
   }
 }
-.test-checkbox {
+.primary-checkbox {
   .checkmark {
     width: 22px;
     height: 22px;
