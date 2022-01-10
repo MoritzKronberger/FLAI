@@ -86,8 +86,14 @@ onMounted(() => {
       <div class="information">
         <div v-for="(item, key) in options" :key="key">
           <div v-if="key !== 'id'" class="flex">
-            <li class="title">{{ item.label }}</li>
-            <li>{{ !displayForm ? item.value : '' }}</li>
+            <li class="title">
+              <span class="body-small">{{ item.label }}</span>
+            </li>
+            <li>
+              <span class="body-small">{{
+                !displayForm ? item.value : ''
+              }}</span>
+            </li>
           </div>
         </div>
         <custom-button
@@ -96,6 +102,20 @@ onMounted(() => {
           btnclass="prim_small_button_blue"
           @button-click="openChangeForm"
         />
+        <div v-if="displayForm">
+          <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
+          <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
+          <custom-button
+            label="Bestätigen"
+            btnclass="prim_small_button_blue"
+            @button-click="submitChanges"
+          />
+          <custom-button
+            label="Verwerfen"
+            btnclass="prim_small_button_orange"
+            @button-click="discardChanges"
+          />
+        </div>
       </div>
       <div class="profile-form-container">
         <div class="form-items">
@@ -131,20 +151,6 @@ onMounted(() => {
             />
           </form>
         </div>
-      </div>
-      <div v-if="displayForm">
-        <p v-if="successMessage">{{ successMessage }}</p>
-        <p v-if="errorMessage">{{ errorMessage }}</p>
-        <custom-button
-          label="Bestätigen"
-          btnclass="prim_small_button_blue"
-          @button-click="submitChanges"
-        />
-        <custom-button
-          label="Verwerfen"
-          btnclass="prim_small_button_orange"
-          @button-click="discardChanges"
-        />
       </div>
     </div>
   </div>
