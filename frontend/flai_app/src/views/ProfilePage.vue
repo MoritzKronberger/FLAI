@@ -80,70 +80,65 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Profil</h1>
-  <div class="profile">
-    <div class="information">
-      <ul v-for="(item, key) in options" :key="key">
-        <li v-if="key !== 'id'">
-          {{ item.label }}: {{ !displayForm ? item.value : '' }}
-        </li>
-      </ul>
+  <div class="profile-page">
+    <h2>Profil</h2>
+    <div class="profile">
+      <div class="information">
+        <div v-for="(item, key) in options" :key="key">
+          <div v-if="key !== 'id'" class="flex">
+            <li class="title">{{ item.label }}</li>
+            <li>{{ !displayForm ? item.value : '' }}</li>
+          </div>
+        </div>
+        <input
+          v-if="!displayForm"
+          type="button"
+          value="Profil ändern"
+          @click="openChangeForm"
+        />
+      </div>
+      <form v-if="displayForm">
+        <text-input-field
+          v-model="options.username.value"
+          placeholder="username"
+          element-class="input-form-primary"
+          component-class="input"
+        />
+        <text-input-field
+          v-model="options.email.value"
+          placeholder="x.y@email.com"
+          element-class="email"
+          component-class="input"
+        />
+        <text-input-field
+          v-model="options.password.value"
+          placeholder="passwort"
+          element-class="input-primary"
+          component-class="input"
+          custom-type="password"
+        />
+        <custom-checkbox
+          v-model="options.right_handed.value"
+          element-class="checkbox-primary"
+          component-class="input"
+        />
+        <text-input-field
+          v-model="options.target_learning_time.value"
+          placeholder="00:20:00"
+          element-class="input-primary"
+          component-class="input"
+          custom-type="time"
+          :time-step="1"
+        />
+        <p v-if="successMessage">{{ successMessage }}</p>
+        <p v-if="errorMessage">{{ errorMessage }}</p>
+        <input type="button" value="Bestätigen" @click="submitChanges" />
+        <input type="button" value="Verwerfen" @click="discardChanges" />
+      </form>
     </div>
-    <form v-if="displayForm">
-      <text-input-field
-        v-model="options.username.value"
-        placeholder="username"
-        element-class="input-primary"
-        component-class="input"
-      />
-      <text-input-field
-        v-model="options.email.value"
-        placeholder="x.y@email.com"
-        element-class="email"
-        component-class="input"
-      />
-      <text-input-field
-        v-model="options.password.value"
-        placeholder="passwort"
-        element-class="input-primary"
-        component-class="input"
-        custom-type="password"
-      />
-      <custom-checkbox
-        v-model="options.right_handed.value"
-        element-class="checkbox-primary"
-        component-class="input"
-      />
-      <text-input-field
-        v-model="options.target_learning_time.value"
-        placeholder="00:20:00"
-        element-class="input-primary"
-        component-class="input"
-        custom-type="time"
-        :time-step="1"
-      />
-      <p v-if="successMessage">{{ successMessage }}</p>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <input type="button" value="Bestätigen" @click="submitChanges" />
-      <input type="button" value="Verwerfen" @click="discardChanges" />
-    </form>
   </div>
-  <input
-    v-if="!displayForm"
-    type="button"
-    value="Profil ändern"
-    @click="openChangeForm"
-  />
 </template>
 
 <style scoped lang="scss">
-.profile {
-  display: flex;
-  .information {
-    margin-right: 100px;
-  }
-  ul li {
-    margin-bottom: 10px;
-  }
-}
+@import '../assets/scss/main.scss';
 </style>
