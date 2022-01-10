@@ -27,14 +27,14 @@
         </div>
         <!-- TODO: replace text with or add loading icon/ animation -->
       </div>
-      <div :class="hidden ? '' : 'hidden'">
+      <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
         <p>
           Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
         </p>
         <CustomButton
           v-if="flaiNetReady && handposeReady"
           label="Start"
-          btnclass="''"
+          btnclass="start"
           @button-click="hidden = false"
         />
       </div>

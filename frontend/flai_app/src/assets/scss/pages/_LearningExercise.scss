@@ -13,13 +13,31 @@ div {
   background-color: $background-blue;
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
 
   .exercise-card {
     background-color: $main-white;
     margin: $margin-width;
     padding: $padding-height $padding-width;
     min-width: 50%;
+    min-height: calc(100vh - 2 * $margin-width);
+    position: relative;
+
+    .loading-screen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      p {
+        text-align: center;
+        margin-bottom: $margin-height;
+      }
+      .start {
+        position: absolute;
+        left: 50%;
+      }
+    }
   }
 
   .watch-word {
