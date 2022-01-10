@@ -11,55 +11,55 @@
   line-height: 1.3;
 }
 
-h1 {
+.h1 {
  @include font(GothamSSm, bold);
  font-size: $h1;
  line-height: 1.3;
 }
 
-h2 {
+.h2 {
   @include font(GothamSSm, bold);
   font-size: $h2;
   line-height: 1.3;
 }
 
-h3 {
+.h3 {
   @include font(GothamSSm, bold);
   font-size: $h3;
   line-height: 1.3;
 }
 
-h4 {
+.h4 {
   @include font(GothamSSm, bold);
   font-size: $h4;
   line-height: 1.3;
 }
 
-body .large {
+.body-large {
   @include font(GothamSSm, book);
   font-size: $large;
   line-height: 1.5;
 }
 
-body .medium {
+.body-medium {
   @include font(GothamSSm, medium);
   font-size: $medium;
   line-height: 1.7;
 }
 
-body .normal {
+.body-normal {
   @include font(GothamSSm, medium);
   font-size: $normal;
   line-height: 1.7;
 }
 
-body .small {
+.body-small {
   @include font(GothamSSm, book);
   font-size: $small;
   line-height: 1.7;
 }
 
-body .xsmall {
+.body-xsmall {
   @include font(GothamSSm, book);
   font-size: $xsmall;
   line-height: 1.5;
