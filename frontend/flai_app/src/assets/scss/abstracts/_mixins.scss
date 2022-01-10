@@ -18,7 +18,12 @@
 
 // font mixins
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
-@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack) {
+@mixin font(
+  $group,
+  $variant: regular,
+  $properties: family weight style,
+  $font-stack: $base-font-stack
+) {
   $font-properties: map-deep-get($font-stack, $group, $variant);
 
   @if $font-properties {
@@ -73,9 +78,20 @@
           $font-style: map-get($font-properties, style);
 
           @if $file-formats {
-            @include font-face($font-family, $file-path, $font-weight, $font-style, $file-formats);
+            @include font-face(
+              $font-family,
+              $file-path,
+              $font-weight,
+              $font-style,
+              $file-formats
+            );
           } @else {
-            @include font-face($font-family, $file-path, $font-weight, $font-style);
+            @include font-face(
+              $font-family,
+              $file-path,
+              $font-weight,
+              $font-style
+            );
           }
         }
       }
@@ -103,10 +119,83 @@
 
 // creating flex-box mixin
 
-@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 0vh 0vw) {
+@mixin flex-box(
+  $flex-flow: column wrap,
+  $justify-content: flex-start,
+  $align-items: flex-start,
+  $gap: 0vh 0vw
+) {
   display: flex;
   flex-flow: $flex-flow;
   justify-content: $justify-content;
   align-items: $align-items;
   gap: $gap;
+}
+
+// creating form mixin
+
+@mixin form-layout() {
+  .form-container {
+    .form-items {
+      width: 12%;
+    }
+
+    .lead-paragraph {
+      // include Lead Paragraph font style
+      margin-bottom: $gutter-vertical;
+    }
+
+    .bottom-paragraph {
+      // include Tooltips font style
+    }
+
+    .bottom-paragraph a {
+      color: $main-blue;
+      text-decoration: none;
+    }
+
+    .center-text {
+      text-align: center;
+    }
+
+    .error-message {
+      // include Tooltips font style
+      color: $main-red;
+      margin-bottom: $gutter-vertical;
+    }
+
+    input {
+      margin-bottom: $gutter-vertical;
+    }
+
+    .input-form-primary,
+    .button-form-primary {
+      width: 100%;
+    }
+
+    .divider-line {
+      margin-top: $gutter-vertical * 1.2;
+      margin-bottom: $gutter-vertical * 1.2;
+      line-height: 0;
+      border-bottom: solid $light-grey 1.2px;
+    }
+
+    @include media-query(L) {
+      .form-items {
+        width: 25%;
+      }
+    }
+
+    @include media-query(M) {
+      .form-items {
+        width: 30%;
+      }
+    }
+
+    @include media-query(S) {
+      .form-items {
+        width: 65%;
+      }
+    }
+  }
 }
