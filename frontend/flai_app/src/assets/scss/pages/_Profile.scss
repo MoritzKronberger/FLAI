@@ -1,0 +1,47 @@
+.profile-page {
+    background-color: $background-blue;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    .profile {
+        margin: 50px 30px 0px 30px;
+        padding: 40px 50px;
+        display: flex;
+        background-color: white;
+        border-radius: 5px;
+        height: 85%;
+        width: 80%;
+        .information {
+            .flex {
+                display: flex;
+                .title {
+                    width: 16vw;
+                    color: $main-blue;
+                }
+                li {
+                    margin-bottom: 9.5vh;
+                    list-style-type: none;
+                }
+            }
+        }
+        .profile-form-container {
+            display: flex;
+            align-items: start;
+            flex-direction: column;
+            .form-items {
+                width: 16vw;
+                margin-right: 5vw;
+               
+            }
+            
+            input {
+                margin-bottom: 9.5vh;
+            }
+
+            .input-form-primary,
+            .button-form-primary {
+                width: 100%;
+            }
+        }
+    }
+}

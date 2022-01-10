@@ -38,29 +38,29 @@ const submit = async (): Promise<void> => {
 <template>
   <div class="login-form-container">
     <div class="form-items">
-      <div class="error-message">{{ errorMessage }}</div>
+      <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
           v-model="user.email"
           label-name="E-Mail-Adresse"
           placeholder="E-Mail-Adresse"
-          element-class="input-form-primary"
+          element-class="default_input_field input-form-primary"
         />
         <text-input-field
           v-model="user.password"
           label-name="Passwort"
           placeholder="Passwort"
-          element-class="input-form-primary"
+          element-class="default_input_field input-form-primary"
           custom-type="password"
         />
         <custom-button
           label="Login"
-          btnclass="button-form-primary"
+          btnclass="button-form-primary prim_small_button_blue"
           @button-click="submit"
         />
       </form>
       <div class="divider-line"></div>
-      <div class="bottom-paragraph center-text">
+      <div class="bottom-paragraph center-text body-normal">
         Du hast noch keinen Account?
         <router-link to="/register">Registrieren</router-link>
       </div>
