@@ -1,5 +1,15 @@
 @import '../main.scss';
 
+// for centerd Label solution
+/*
+.test-checkbox {
+  label {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+}
+*/
 .test-checkbox {
   .checkmark {
     width: 22px;
@@ -13,6 +23,10 @@
     height: 22px;
     //display: none;
     position: absolute;
+
+    // for centered Label solution; set margin so invisible default checkbox is underneath customCheckbox
+    //margin-left: 123px;
+
     opacity: 0;
     cursor: pointer;
     z-index: 3;
