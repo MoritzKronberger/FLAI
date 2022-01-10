@@ -4,7 +4,7 @@ defineProps<{
   elementClass: string
   modelValue: boolean | undefined
   componentClass?: string
-  checkmarkClass: string
+  checkmarkClass?: string
 }>()
 const emit = defineEmits(['update:modelValue'])
 

@@ -6,4 +6,4 @@
   height: 70vh;
 }
 
-@include form-layout($container-name: 'register-form-container');
+@include form-layout($container-name: 'register-form-container', $bottom: $gutter-vertical);

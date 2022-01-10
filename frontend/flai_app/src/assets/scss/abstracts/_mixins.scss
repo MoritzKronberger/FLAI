@@ -134,19 +134,14 @@
 
 // creating form mixin
 
-@mixin form-layout($container-name) {
+@mixin form-layout($container-name, $bottom) {
   .#{$container-name} {
     .form-items {
       width: 12%;
     }
 
     .lead-paragraph {
-      // include Lead Paragraph font style
       margin-bottom: $gutter-vertical;
-    }
-
-    .bottom-paragraph {
-      // include Tooltips font style
     }
 
     .bottom-paragraph a {
@@ -159,13 +154,12 @@
     }
 
     .error-message {
-      // include Tooltips font style
       color: $main-red;
       margin-bottom: $gutter-vertical;
     }
 
-    input {
-      margin-bottom: $gutter-vertical;
+    input, .primary-checkbox {
+      margin-bottom: $bottom;
     }
 
     .input-form-primary,

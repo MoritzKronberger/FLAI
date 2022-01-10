@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
+import customButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Changes } from '../store/userdata'
 
@@ -80,70 +81,82 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Profil</h1>
-  <div class="profile">
-    <div class="information">
-      <ul v-for="(item, key) in options" :key="key">
-        <li v-if="key !== 'id'">
-          {{ item.label }}: {{ !displayForm ? item.value : '' }}
-        </li>
-      </ul>
+  <div class="profile-page">
+    <div class="profile">
+      <div class="information">
+        <div v-for="(item, key) in options" :key="key">
+          <div v-if="key !== 'id'" class="flex">
+            <li class="title">
+              <span class="body-small">{{ item.label }}</span>
+            </li>
+            <li>
+              <span class="body-small">{{
+                !displayForm ? item.value : ''
+              }}</span>
+            </li>
+          </div>
+        </div>
+        <custom-button
+          v-if="!displayForm"
+          label="Bearbeiten"
+          btnclass="prim_small_button_blue"
+          @button-click="openChangeForm"
+        />
+        <div v-if="displayForm">
+          <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
+          <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
+          <custom-button
+            label="Bestätigen"
+            btnclass="prim_small_button_blue"
+            @button-click="submitChanges"
+          />
+          <custom-button
+            label="Verwerfen"
+            btnclass="prim_small_button_orange"
+            @button-click="discardChanges"
+          />
+        </div>
+      </div>
+      <div class="profile-form-container">
+        <div class="form-items">
+          <form v-if="displayForm">
+            <text-input-field
+              v-model="options.username.value"
+              placeholder="username"
+              element-class="default_input_field"
+            />
+            <text-input-field
+              v-model="options.email.value"
+              placeholder="x.y@email.com"
+              element-class="default_input_field"
+            />
+            <text-input-field
+              v-model="options.password.value"
+              placeholder="passwort"
+              element-class="default_input_field"
+              custom-type="password"
+            />
+            <custom-checkbox
+              v-model="options.right_handed.value"
+              element-class="checkbox-primary"
+              component-class=""
+              checkmark-class="checkmark"
+            />
+            <text-input-field
+              v-model="options.target_learning_time.value"
+              placeholder="00:20:00"
+              element-class="default_input_field"
+              custom-type="time"
+              :time-step="1"
+            />
+          </form>
+        </div>
+      </div>
     </div>
-    <form v-if="displayForm">
-      <text-input-field
-        v-model="options.username.value"
-        placeholder="username"
-        element-class="input-primary"
-        component-class="input"
-      />
-      <text-input-field
-        v-model="options.email.value"
-        placeholder="x.y@email.com"
-        element-class="email"
-        component-class="input"
-      />
-      <text-input-field
-        v-model="options.password.value"
-        placeholder="passwort"
-        element-class="input-primary"
-        component-class="input"
-        custom-type="password"
-      />
-      <custom-checkbox
-        v-model="options.right_handed.value"
-        element-class="checkbox-primary"
-        component-class="input"
-      />
-      <text-input-field
-        v-model="options.target_learning_time.value"
-        placeholder="00:20:00"
-        element-class="input-primary"
-        component-class="input"
-        custom-type="time"
-        :time-step="1"
-      />
-      <p v-if="successMessage">{{ successMessage }}</p>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
-      <input type="button" value="Bestätigen" @click="submitChanges" />
-      <input type="button" value="Verwerfen" @click="discardChanges" />
-    </form>
   </div>
-  <input
-    v-if="!displayForm"
-    type="button"
-    value="Profil ändern"
-    @click="openChangeForm"
-  />
 </template>
 
 <style scoped lang="scss">
-.profile {
-  display: flex;
-  .information {
-    margin-right: 100px;
-  }
-  ul li {
-    margin-bottom: 10px;
-  }
-}
+@import '../assets/scss/main.scss';
+@import '../assets/scss/components/buttonMixins';
 </style>

@@ -102,7 +102,7 @@ const buttonClick = (): void => {
       v-model="testCheckbox"
       label-name="Test Checkbox"
       element-class="checkbox-primary"
-      component-class="test-checkbox"
+      component-class="primary-checkbox"
       checkmark-class="checkmark"
     />
     <div>Test Checkbox is: {{ testCheckbox }}</div>
@@ -121,3 +121,9 @@ const buttonClick = (): void => {
     <webcam @webcam-ready="logWebcamFeed" />
   </div>
 </template>
+
+<style scoped>
+.icon-large {
+  width: 100px;
+}
+</style>
