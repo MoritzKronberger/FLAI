@@ -22,7 +22,7 @@ h1 {
 
   .exercise-card {
     background-color: $main-white;
-    margin: $margin-width;
+    margin: $margin-height $margin-width;
     padding: $padding-height $padding-width;
     min-width: 50%;
     min-height: calc(100vh - 2 * $margin-width);
