@@ -89,8 +89,4 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
-
-form > * {
-  display: block;
-}
 </style>
