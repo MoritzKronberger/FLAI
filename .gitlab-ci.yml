@@ -12,7 +12,7 @@ deploy_to_flai:
     - apk update
     - apk add openssh 
     - apk add sshpass
-    - sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER@$SERVER_ADDRESS /bin/bash <<'EOT'
+    - sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER@$SERVER_ADDRESS $PG_SUPERUSER_NAME=$PG_SUPERUSER_NAME cmd cmdargs /bin/bash <<'EOT'
     - cd ia5_teamprojekt_flai
     - sudo docker-compose down --rmi all && sudo rm -rf backend/postgres_db/pgdata
     - git checkout .
