@@ -10,13 +10,6 @@
   }
 }
 
-#video.right video {
-  border: 2px solid $main-green;
-}
-#video.wrong video {
-  border: 2px solid $main-red;
-}
-
 video {
   width: 100%;
   aspect-ratio: 1/1;
