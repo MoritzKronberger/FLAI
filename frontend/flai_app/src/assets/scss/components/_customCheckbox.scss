@@ -1,15 +1,14 @@
 @import '../main.scss';
 
 // for centerd Label solution
-/*
 .test-checkbox {
   label {
     display: flex;
     align-items: center;
     column-gap: 10px;
+    line-height: 0;
   }
 }
-*/
 .test-checkbox {
   .checkmark {
     width: 22px;
