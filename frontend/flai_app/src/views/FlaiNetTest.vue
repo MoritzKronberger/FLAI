@@ -51,6 +51,7 @@ const setflaiNetReady = (result: boolean): void => {
       v-model="bufferedResult"
       label-name="Use Result Buffer"
       element-class="checkbox-primary"
+      checkmark-class="checkmark"
       @input="setBufferedResult"
     />
   </div>

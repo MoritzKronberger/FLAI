@@ -67,6 +67,7 @@ const submit = async (): Promise<void> => {
           v-model="user.right_handed"
           label-name="Rechtshänder:in?"
           element-class="checkbox-primary"
+          checkmark-class="checkmark"
         />
         <text-input-field
           v-model="user.target_learning_time"
