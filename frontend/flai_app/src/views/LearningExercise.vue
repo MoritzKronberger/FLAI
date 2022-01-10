@@ -1,5 +1,10 @@
 <template>
   <h1>Feedback Learning Exercise</h1>
+  <CustomButton
+    label="x"
+    btnclass="exit"
+    @click="router.push({ name: 'HomePage' })"
+  />
   <!-- hiding must be done via css and not v-if so that components still render -->
   <div :class="flaiNetReady && handposeReady ? '' : 'hidden'">
     <FeedbackExercise :key="signIds" />
@@ -16,10 +21,13 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
 import FlaiNet from '../components/FlaiNet.vue'
 import store from '../store'
+import CustomButton from '../components/CustomButton.vue'
+
+const router = useRouter()
 
 const session = computed(() => store.exercisedata.activeExerciseSession)
 const signIds = computed(() => {

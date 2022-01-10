@@ -9,14 +9,21 @@
     />
     <br />
     <CustomButton
-      label="Perspektive wechseln"
+      label="Front"
       btnclass="controls"
-      @click="switchPerspective()"
+      @click="frontPerspective()"
     />
-    <DropDownMenu
-      title="Geschwindigkeit"
-      :items="dropDownItems"
-      @click-element="changeSpeed"
+    <CustomButton
+      label="Seite"
+      btnclass="controls"
+      @click="sidePerspective()"
+    />
+    <CustomButton
+      v-for="item in speedItems"
+      :key="item.label"
+      :label="item.label"
+      btnclass="controls"
+      @click="changeSpeed(item.value)"
     />
   </div>
   <CustomButton
@@ -51,24 +58,24 @@ function getSource() {
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
 
-function switchPerspective() {
-  if (perspective.value === 'front') {
-    perspective.value = 'side'
-  } else {
-    perspective.value = 'front'
-  }
+function frontPerspective() {
+  perspective.value = 'front'
 }
 
-const dropDownItems: DropDown[] = [
+function sidePerspective() {
+  perspective.value = 'side'
+}
+
+const speedItems: DropDown[] = [
   { label: '1x', value: 1 },
   { label: '0.5x', value: 0.5 },
   { label: '0.25x', value: 0.25 },
 ]
 
-function changeSpeed(output: any) {
+function changeSpeed(newSpeed: any) {
   const videoHtml = unref(videoPlayer)
   if (videoHtml) {
-    videoHtml.playbackRate = output
+    videoHtml.playbackRate = newSpeed
   }
 }
 

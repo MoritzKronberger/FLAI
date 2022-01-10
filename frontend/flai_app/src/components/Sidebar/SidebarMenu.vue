@@ -42,14 +42,6 @@ const menuItems: MenuItem[] = [
   </nav>
 </template>
 
-<style scoped>
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 50vh;
-}
+<style scoped lang="scss">
+@import '../../assets/scss/main.scss';
 </style>
