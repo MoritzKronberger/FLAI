@@ -7,20 +7,21 @@
     flex-direction: column;
     justify-content: center;
     background-color: $subtle-yellow;
-    padding: 25px;
+    padding: 5%;
 
     h2 {
-        position: absolute; 
-        top: 25px; 
-        left:25px;
-        margin: 0px;
+        position:absolute;
+        top: 8%;
+        left: 4%;
+        padding-bottom: 1.5%;
         color: $dark-blue;
     }
 
     button {
-        position: absolute; 
-        bottom: 25px; 
-        right:25px;
+        position:absolute;
+        bottom: 8%;
+        right: 4%;
+        float: right;
         width: 115px;
     }
 
@@ -34,9 +35,6 @@
     }
 }
 
-#start-panel-text {
-    p {
-        padding-bottom: 10px;
-        color: $dark-grey;
-    }
+.start-panel-text {
+    color: $dark-grey;
 }
