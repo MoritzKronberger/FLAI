@@ -136,12 +136,16 @@
 
 @mixin form-layout($container-name, $bottom) {
   .#{$container-name} {
+    .flai-icon {
+      margin-bottom: $bottom * 2;
+    }
+
     .form-items {
       width: 12%;
     }
 
     .lead-paragraph {
-      margin-bottom: $gutter-vertical;
+      margin-bottom: $bottom;
     }
 
     .bottom-paragraph a {
@@ -155,7 +159,7 @@
 
     .error-message {
       color: $main-red;
-      margin-bottom: $gutter-vertical;
+      margin-bottom: $bottom;
     }
 
     input, .primary-checkbox {
@@ -168,8 +172,8 @@
     }
 
     .divider-line {
-      margin-top: $gutter-vertical * 1.2;
-      margin-bottom: $gutter-vertical * 1.2;
+      margin-top: $bottom * 1.2;
+      margin-bottom: $bottom * 1.2;
       line-height: 0;
       border-bottom: solid $light-grey 1.2px;
     }
