@@ -1,0 +1,23 @@
+.profile-page {
+    background-color: $background-blue;
+
+    .profile {
+        margin: 30px 30px 20px 30px;
+        padding: 50px;
+        display: flex;
+        background-color: white;
+        border-radius: 5px;
+        .information {
+            .flex {
+                display: flex;
+                .title {
+                    width: 200px;
+                }
+                li {
+                    margin-bottom: 10vh;
+                    list-style-type: none;
+                }
+            }
+        }
+    }
+}
