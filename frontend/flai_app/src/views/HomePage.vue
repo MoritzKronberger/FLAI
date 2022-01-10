@@ -41,7 +41,7 @@ const level = ref(1)
         </div>
         <custom-button
           label="Start"
-          btnclass="button-primary"
+          btnclass="prim_small_button_blue"
           @button-click="redirect('ComingSoon')"
         />
       </div>
