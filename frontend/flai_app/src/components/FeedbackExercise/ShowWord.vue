@@ -11,10 +11,14 @@
             :key="letter.name"
             class="item"
           >
-            <span v-if="count === index" class="currentLetter">
+            <span v-if="count === index" class="current-letter display-1">
               {{ letter.name }}
             </span>
-            <span v-else>{{ letter.name }}</span>
+            <span
+              v-else
+              :class="['display-1', index < count ? 'next-letter' : '']"
+              >{{ letter.name }}</span
+            >
           </span>
         </div>
         <IconLoader
