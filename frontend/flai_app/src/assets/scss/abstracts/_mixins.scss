@@ -93,11 +93,11 @@
   $file-formats: eot woff2 woff ttf svg
 ) {
   @font-face {
-    font-family: $font-family;
+    font-family: quote($font-family);
     font-style: $font-style;
     font-weight: $font-weight;
 
-    src: font-source-declaration($font-family, $file-path, $file-formats);
+    src: url($file-path) format(quote($file-formats));
   }
 }
 
