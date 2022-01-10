@@ -1,7 +1,7 @@
 @import '../main.scss';
 
 .test-checkbox {
-  span {
+  .checkmark {
     width: 22px;
     height: 22px;
     border: 2px solid $main-blue;
@@ -16,14 +16,14 @@
     opacity: 0;
     cursor: pointer;
     z-index: 3;
-    &:hover ~ span {
-      background-color: $subtle-grey;
+    &:hover ~ .checkmark {
+      background-color: $subtle-blue;
     }
-    &:checked ~ span {
+    &:checked ~ .checkmark {
       background: $main-blue;
     }
   }
-  span:after {
+  .checkmark:after {
     content: '';
     //position: absolute;
     display: none;
@@ -42,7 +42,7 @@
   }
 
   /* Show the checkmark when checked */
-  input:checked ~ span:after {
+  input:checked ~ .checkmark:after {
     display: block;
   }
 }
