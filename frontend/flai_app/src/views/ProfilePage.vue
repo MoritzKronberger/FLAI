@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import textInputField from '../components/TextInputField.vue'
+import customButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Changes } from '../store/userdata'
 
@@ -81,7 +82,6 @@ onMounted(() => {
 
 <template>
   <div class="profile-page">
-    <h2>Profil</h2>
     <div class="profile">
       <div class="information">
         <div v-for="(item, key) in options" :key="key">
@@ -90,11 +90,11 @@ onMounted(() => {
             <li>{{ !displayForm ? item.value : '' }}</li>
           </div>
         </div>
-        <input
+        <custom-button
           v-if="!displayForm"
-          type="button"
-          value="Profil ändern"
-          @click="openChangeForm"
+          label="Bearbeiten"
+          btnclass="prim_small_button_blue"
+          @button-click="openChangeForm"
         />
       </div>
       <div class="profile-form-container">
@@ -103,38 +103,48 @@ onMounted(() => {
             <text-input-field
               v-model="options.username.value"
               placeholder="username"
-              element-class="input-form-primary"
+              element-class="default_input_field"
             />
             <text-input-field
               v-model="options.email.value"
               placeholder="x.y@email.com"
-              element-class="input-form-primary"
+              element-class="default_input_field"
             />
             <text-input-field
               v-model="options.password.value"
               placeholder="passwort"
-              element-class="input-form-primary"
+              element-class="default_input_field"
               custom-type="password"
             />
             <custom-checkbox
               v-model="options.right_handed.value"
               element-class="checkbox-primary"
+              component-class=""
+              checkmark-class="checkmark"
             />
             <text-input-field
               v-model="options.target_learning_time.value"
               placeholder="00:20:00"
-              element-class="input-primary"
+              element-class="default_input_field"
               custom-type="time"
               :time-step="1"
             />
           </form>
         </div>
       </div>
-      <div>
+      <div v-if="displayForm">
         <p v-if="successMessage">{{ successMessage }}</p>
         <p v-if="errorMessage">{{ errorMessage }}</p>
-        <input type="button" value="Bestätigen" @click="submitChanges" />
-        <input type="button" value="Verwerfen" @click="discardChanges" />
+        <custom-button
+          label="Bestätigen"
+          btnclass="prim_small_button_blue"
+          @button-click="submitChanges"
+        />
+        <custom-button
+          label="Verwerfen"
+          btnclass="prim_small_button_orange"
+          @button-click="discardChanges"
+        />
       </div>
     </div>
   </div>
@@ -142,4 +152,5 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
+@import '../assets/scss/components/buttonMixins';
 </style>
