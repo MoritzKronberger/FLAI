@@ -12,7 +12,6 @@
   .lastLetter {
     position: absolute;
     left: 40%;
-    bottom: 0;
     font-size: 20px;
   }
   .currentLetter {
@@ -24,7 +23,25 @@
   .nextLetter {
     position: absolute;
     left: 60%;
-    bottom: 0;
     font-size: 20px;
+  }
+
+  .back-button {
+    position: absolute;
+    left: 30%;
+    color: $main-blue;
+    font-size: x-large;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+  }
+  .next-button {
+    position: absolute;
+    left: 70%;
+    color: $main-blue;
+    font-size: x-large;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
   }
 }

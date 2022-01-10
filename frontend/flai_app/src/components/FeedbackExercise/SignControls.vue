@@ -3,7 +3,7 @@
     <CustomButton
       v-if="index > 0"
       label="<"
-      btnclass="controls"
+      btnclass="back-button"
       @click="decreaseIndex"
     />
     <span v-if="index > 0" class="lastLetter">{{
@@ -16,7 +16,7 @@
     <CustomButton
       v-if="index + 1 < signs.length"
       label=">"
-      btnclass="controls"
+      btnclass="next-button"
       @click="increaseIndex"
     />
   </div>
