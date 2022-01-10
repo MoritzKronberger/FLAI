@@ -22,11 +22,66 @@ const buttonClick = (): void => {
   <div>
     <h1>Buttons</h1>
     <custom-button
-      label="Test Button"
-      btnclass="button-primary"
+      label="Prim S"
+      btnclass="prim_small_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Prim S"
+      btnclass="prim_small_button_orange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Prim M"
+      btnclass="prim_medium_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Prim M"
+      btnclass="prim_medium_button_orange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Prim L"
+      btnclass="prim_large_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Prim L"
+      btnclass="prim_large_button_orange"
       @button-click="buttonClick"
     />
     <div>Test Button click count is: {{ clickCount }}</div>
+    <custom-button
+      label="Sec S"
+      btnclass="sec_small_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec S"
+      btnclass="sec_small_button_orange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec M"
+      btnclass="sec_medium_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec M"
+      btnclass="sec_medium_button_orange"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec L"
+      btnclass="sec_large_button_blue"
+      @button-click="buttonClick"
+    />
+    <custom-button
+      label="Sec L"
+      btnclass="sec_large_button_orange"
+      @button-click="buttonClick"
+    />
   </div>
   <br />
   <div>
@@ -35,7 +90,8 @@ const buttonClick = (): void => {
       v-model="testInput"
       label-name="Test Input"
       placeholder="your test input"
-      element-class="input-primary"
+      element-class="default_input_field"
+      component-class="component_input"
     />
     <div>Test Input is: {{ testInput }}</div>
   </div>
@@ -46,6 +102,8 @@ const buttonClick = (): void => {
       v-model="testCheckbox"
       label-name="Test Checkbox"
       element-class="checkbox-primary"
+      component-class="test-checkbox"
+      checkmark-class="checkmark"
     />
     <div>Test Checkbox is: {{ testCheckbox }}</div>
   </div>
@@ -53,8 +111,7 @@ const buttonClick = (): void => {
   <div>
     <h1>Icons</h1>
     <icon-loader
-      path="/assets/signs/pic/front/a_pic_front"
-      mimetype="webp"
+      path="/assets/signs/pic/front/a_pic_front.webp"
       alt="This is the icon's alt description"
       element-class="icon-large"
     />

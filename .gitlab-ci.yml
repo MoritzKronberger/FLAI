@@ -15,6 +15,7 @@ deploy_to_flai:
     - sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER@$SERVER_ADDRESS /bin/bash <<'EOT'
     - cd ia5_teamprojekt_flai
     - sudo docker-compose down --rmi all && rm -rf backend/postgres_db/pgdata
+    - git checkout .
     - git pull
     - bash create_dotenv.sh $PG_SUPERUSER_NAME $PG_SUPERUSER_PWD $PG_USERNAME $PG_PWD
     - sudo docker-compose up -d --build

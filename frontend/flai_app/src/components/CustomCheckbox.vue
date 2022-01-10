@@ -4,6 +4,7 @@ defineProps<{
   elementClass: string
   modelValue: boolean | undefined
   componentClass?: string
+  checkmarkClass: string
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -16,18 +17,22 @@ const onInput = (e: Event): void => {
 <template>
   <div :class="componentClass">
     <label :for="labelName">
+      <div>
+        <input
+          :checked="modelValue"
+          type="checkbox"
+          :name="labelName"
+          :class="elementClass"
+          @input="onInput"
+        />
+        <span :class="checkmarkClass"></span>
+      </div>
       {{ labelName }}
-      <input
-        :checked="modelValue"
-        type="checkbox"
-        :name="labelName"
-        :class="elementClass"
-        @input="onInput"
-      />
     </label>
   </div>
 </template>
 <style scoped lang="scss">
+@import '../assets/scss/components/_customCheckbox.scss';
 .input {
   margin-bottom: 10px;
 }

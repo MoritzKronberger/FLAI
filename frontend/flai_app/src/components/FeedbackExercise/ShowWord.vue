@@ -1,13 +1,24 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
+  <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <span v-for="(letter, count) of signs" :key="letter.name">
-        <span v-if="count === index" class="currentLetter">
-          {{ letter.name }}
-        </span>
-        <span v-else>{{ letter.name }}</span>
-      </span>
+      <div class="signRow">
+        <div v-for="(letter, count) of signs" :key="letter.name" class="item">
+          <span v-if="count === index" class="currentLetter">
+            {{ letter.name }}
+          </span>
+          <span v-else>{{ letter.name }}</span>
+        </div>
+        <IconLoader
+          v-if="pathToIcon !== undefined"
+          :key="pathToIcon"
+          :path="pathToIcon"
+          mimetype="svg"
+          alt="Icon, das die Korrektheit anzeigt"
+          element-class="img"
+        />
+      </div>
       <Video
+        id="video"
         :show-sign="showSign"
         :signs="signs"
         :index="index"
@@ -34,10 +45,13 @@ import store from '../../store'
 import Button from '../CustomButton.vue'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 import { FlaiNetResults } from '../../store/flainetdata'
+import IconLoader from '../IconLoader.vue'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
 
 const inputAccepted = ref(true)
 const index = ref(0)
+const pathToIcon = ref<string>()
+
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
@@ -95,6 +109,7 @@ function reEnableInput() {
 
 async function correct() {
   inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Richtig'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -120,6 +135,7 @@ async function correct() {
 }
 async function wrong() {
   inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Fehler'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
@@ -160,8 +176,20 @@ watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
 
 <style>
+div.content {
+  width: 50%;
+}
 div:focus {
   outline: none;
+}
+.signRow {
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+#video {
+  width: 100%;
 }
 .controls {
   color: blue;
@@ -178,5 +206,11 @@ div:focus {
 .currentLetter {
   font-size: 20px;
   font-weight: bold;
+}
+div.item {
+  display: inline;
+}
+span {
+  display: inline;
 }
 </style>
