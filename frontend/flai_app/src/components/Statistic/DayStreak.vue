@@ -16,7 +16,10 @@ defineProps<{
       />
     </div>
     <div class="hot-streak-item">
-      <span class="day-counter">{{ days }}</span> <span> Tage in Folge</span>
+      <span class="day-counter heading-medium">{{ days }}</span>
+    </div>
+    <div class="hot-streak-item">
+      <span class="day-text body-normal"> Tage in Folge</span>
     </div>
   </div>
 </template>
