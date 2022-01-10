@@ -141,12 +141,7 @@
     }
 
     .lead-paragraph {
-      // include Lead Paragraph font style
       margin-bottom: $gutter-vertical;
-    }
-
-    .bottom-paragraph {
-      // include Tooltips font style
     }
 
     .bottom-paragraph a {
@@ -159,12 +154,11 @@
     }
 
     .error-message {
-      // include Tooltips font style
       color: $main-red;
       margin-bottom: $gutter-vertical;
     }
 
-    input {
+    input, .primary-checkbox {
       margin-bottom: $gutter-vertical;
     }
 
