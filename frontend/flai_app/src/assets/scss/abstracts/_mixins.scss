@@ -2,15 +2,15 @@
 
 @mixin media-query($canvas) {
   @if $canvas == S {
-    @media only screen and (min-width: $S) {
+    @media only screen and (max-width: $S) {
       @content;
     }
   } @else if $canvas == M {
-    @media only screen and (min-width: $M) {
+    @media only screen and (max-width: $M) {
       @content;
     }
   } @else if $canvas == L {
-    @media only screen and (min-width: $L) {
+    @media only screen and (max-width: $L) {
       @content;
     }
   }
@@ -103,7 +103,7 @@
 
 // creating flex-box mixin
 
-@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 0vw 0vh) {
+@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 0vh 0vw) {
   display: flex;
   flex-flow: $flex-flow;
   justify-content: $justify-content;

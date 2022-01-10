@@ -5,10 +5,8 @@ h2 {
 
 .home-page {
   background-color: $background-blue;
-
   .dashboard {
-    padding: 2rem;
-    margin: 0 auto;
+    padding: 18vh 1vw 2vh 1vw;
     display: grid;
     justify-content: center;
     gap: 1rem;
@@ -26,7 +24,7 @@ h2 {
       grid-column: span 3;
     }
     .stats-large-panel {
-      grid-row: 1 / 4;
+      grid-row: 1 / 5;
       grid-column: 4 / 6;
     }
     @media (max-width: 1200px) {
