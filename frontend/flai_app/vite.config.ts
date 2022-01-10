@@ -11,7 +11,7 @@ export default () => {
     server: {
       proxy: {
         '/api': {
-          target: `${process.env.REST_HOSTNAME}:${process.env.REST_PORT}/`,
+          target: `${process.env.REST_HOSTNAME}/`,
           changeOrigin: true,
         },
       },
