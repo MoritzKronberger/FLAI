@@ -19,5 +19,12 @@
                 }
             }
         }
+
+        .profile-form-container {
+            display: flex;
+            align-items: start;
+            flex-direction: column;
+        }
+        @include form-layout($container-name: "profile-form-container", $bottom: 10vh);
     }
 }
