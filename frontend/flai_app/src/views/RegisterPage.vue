@@ -94,7 +94,7 @@ const submit = async (): Promise<void> => {
       </form>
       <div class="divider-line"></div>
       <div class="bottom-paragraph center-text body-normal">
-        Du ein Konto? <router-link to="/login">Melde dich an</router-link>
+        Du hast ein Konto? <router-link to="/login">Melde dich an</router-link>
       </div>
     </div>
   </div>
