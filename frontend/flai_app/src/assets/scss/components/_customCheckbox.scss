@@ -16,7 +16,7 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
-    
+    z-index: 3;
     &:hover ~ span{
       background-color: $subtle-grey;
     }
