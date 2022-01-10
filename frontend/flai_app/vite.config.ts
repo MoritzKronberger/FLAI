@@ -1,15 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import dotenv from 'dotenv'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000/',
-        changeOrigin: true,
+export default () => {
+  dotenv.config()
+
+  return defineConfig({
+    plugins: [vue()],
+    server: {
+      proxy: {
+        '/api': {
+          target: `${process.env.REST_HOSTNAME}/`,
+          changeOrigin: true,
+        },
       },
     },
-  },
-})
+  })
+}

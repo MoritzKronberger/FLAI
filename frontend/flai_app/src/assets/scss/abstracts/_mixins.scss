@@ -134,7 +134,7 @@
 
 // creating form mixin
 
-@mixin form-layout($container-name) {
+@mixin form-layout($container-name, $bottom) {
   .#{$container-name} {
     .form-items {
       width: 12%;
@@ -159,7 +159,7 @@
     }
 
     input, .primary-checkbox {
-      margin-bottom: $gutter-vertical;
+      margin-bottom: $bottom;
     }
 
     .input-form-primary,
