@@ -37,12 +37,20 @@ const level = ref(1)
         <h2 class="heading-medium">Hallo, {{ user.username }}!</h2>
         <div class="start-panel-text">
           <div class="body-small">Willkommen zurück!</div>
-          <div class="body-small">Bereit für die heutige Aufgabe?</div>
+          <div class="body-small">
+            Bereit für die heutige <br />
+            Aufgabe?
+          </div>
         </div>
         <custom-button
           label="Start"
           btnclass="prim_small_button_blue"
           @button-click="redirect('ComingSoon')"
+        />
+        <IconLoader
+          path="/assets/logos/hand.svg"
+          alt="Start Panel Background Image"
+          element-class="flai-startpanel-icon"
         />
       </div>
       <div class="level-panel">
