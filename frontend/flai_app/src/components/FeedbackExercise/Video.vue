@@ -7,24 +7,29 @@
       autoplay
       loop
     />
-    <br />
-    <CustomButton
-      label="Front"
-      btnclass="controls"
-      @click="frontPerspective()"
-    />
-    <CustomButton
-      label="Seite"
-      btnclass="controls"
-      @click="sidePerspective()"
-    />
-    <CustomButton
-      v-for="item in speedItems"
-      :key="item.label"
-      :label="item.label"
-      btnclass="controls"
-      @click="changeSpeed(item.value)"
-    />
+    <div class="video-controls">
+      <div class="perspective-buttons">
+        <CustomButton
+          label="Front"
+          btnclass="controls"
+          @click="frontPerspective()"
+        />
+        <CustomButton
+          label="Seite"
+          btnclass="controls"
+          @click="sidePerspective()"
+        />
+      </div>
+      <div class="speed-buttons">
+        <CustomButton
+          v-for="item in speedItems"
+          :key="item.label"
+          :label="item.label"
+          btnclass="controls"
+          @click="changeSpeed(item.value)"
+        />
+      </div>
+    </div>
   </div>
   <CustomButton
     v-else

@@ -5,9 +5,6 @@
   h3 {
     margin: 40px 0 0;
   }
-  .controls {
-    background: lightblue;
-  }
 }
 
 video {
@@ -16,4 +13,9 @@ video {
   object-fit: cover;
   text-align: center;
   border-radius: $border-radius;
+}
+
+.video-controls {
+  display: flex;
+  justify-content: space-around;
 }
