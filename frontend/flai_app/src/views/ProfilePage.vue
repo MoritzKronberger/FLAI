@@ -97,44 +97,45 @@ onMounted(() => {
           @click="openChangeForm"
         />
       </div>
-      <form v-if="displayForm">
-        <text-input-field
-          v-model="options.username.value"
-          placeholder="username"
-          element-class="input-form-primary"
-          component-class="input"
-        />
-        <text-input-field
-          v-model="options.email.value"
-          placeholder="x.y@email.com"
-          element-class="email"
-          component-class="input"
-        />
-        <text-input-field
-          v-model="options.password.value"
-          placeholder="passwort"
-          element-class="input-primary"
-          component-class="input"
-          custom-type="password"
-        />
-        <custom-checkbox
-          v-model="options.right_handed.value"
-          element-class="checkbox-primary"
-          component-class="input"
-        />
-        <text-input-field
-          v-model="options.target_learning_time.value"
-          placeholder="00:20:00"
-          element-class="input-primary"
-          component-class="input"
-          custom-type="time"
-          :time-step="1"
-        />
+      <div class="profile-form-container">
+        <div class="form-items">
+          <form v-if="displayForm">
+            <text-input-field
+              v-model="options.username.value"
+              placeholder="username"
+              element-class="input-form-primary"
+            />
+            <text-input-field
+              v-model="options.email.value"
+              placeholder="x.y@email.com"
+              element-class="input-form-primary"
+            />
+            <text-input-field
+              v-model="options.password.value"
+              placeholder="passwort"
+              element-class="input-form-primary"
+              custom-type="password"
+            />
+            <custom-checkbox
+              v-model="options.right_handed.value"
+              element-class="checkbox-primary"
+            />
+            <text-input-field
+              v-model="options.target_learning_time.value"
+              placeholder="00:20:00"
+              element-class="input-primary"
+              custom-type="time"
+              :time-step="1"
+            />
+          </form>
+        </div>
+      </div>
+      <div>
         <p v-if="successMessage">{{ successMessage }}</p>
         <p v-if="errorMessage">{{ errorMessage }}</p>
         <input type="button" value="Bestätigen" @click="submitChanges" />
         <input type="button" value="Verwerfen" @click="discardChanges" />
-      </form>
+      </div>
     </div>
   </div>
 </template>
