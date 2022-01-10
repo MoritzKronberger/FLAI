@@ -2,6 +2,7 @@
 import textInputField from '../components/TextInputField.vue'
 import customCheckbox from '../components/CustomCheckbox.vue'
 import customButton from '../components/CustomButton.vue'
+import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
 import { ref } from 'vue'
 import { RegisterUser } from '../store/userdata'
@@ -38,6 +39,13 @@ const submit = async (): Promise<void> => {
 
 <template>
   <div class="register-form-container">
+    <router-link :to="{ name: 'HomePage' }">
+      <IconLoader
+        path="/assets/logos/faces.svg"
+        alt="FLAI Icon"
+        element-class="flai-icon"
+      />
+    </router-link>
     <div class="form-items">
       <div class="lead-paragraph center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
