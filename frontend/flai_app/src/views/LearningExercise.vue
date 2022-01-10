@@ -33,7 +33,7 @@
         <!-- TODO: replace text with or add loading icon/ animation -->
       </div>
       <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
-        <p>
+        <p class="display-2">
           Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
         </p>
         <CustomButton
