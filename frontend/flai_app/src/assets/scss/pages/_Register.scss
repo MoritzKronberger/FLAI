@@ -1,4 +1,4 @@
-.form-container {
+.register-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,4 +6,4 @@
   height: 70vh;
 }
 
-@include form-layout();
+@include form-layout($container-name: 'register-form-container');

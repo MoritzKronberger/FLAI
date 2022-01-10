@@ -37,7 +37,7 @@ const submit = async (): Promise<void> => {
 </script>
 
 <template>
-  <div class="form-container">
+  <div class="register-form-container">
     <div class="form-items">
       <div class="lead-paragraph center-text">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.

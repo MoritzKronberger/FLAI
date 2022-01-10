@@ -134,8 +134,8 @@
 
 // creating form mixin
 
-@mixin form-layout() {
-  .form-container {
+@mixin form-layout($container-name) {
+  .#{$container-name} {
     .form-items {
       width: 12%;
     }
