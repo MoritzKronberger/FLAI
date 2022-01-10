@@ -1,5 +1,10 @@
 <template>
   <div class="learning-exercise">
+    <CustomButton
+      label="x"
+      btnclass="exit"
+      @click="router.push({ name: 'HomePage' })"
+    />
     <h1>Feedback Learning Exercise</h1>
     <div class="exercise-card">
       <!-- hiding must be done via css and not v-if so that components still render -->
@@ -44,11 +49,13 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
 import FlaiNet from '../components/FlaiNet.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
+
+const router = useRouter()
 
 const session = computed(() => store.exercisedata.activeExerciseSession)
 const signIds = computed(() => {
