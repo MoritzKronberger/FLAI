@@ -36,37 +36,38 @@ const submit = async (): Promise<void> => {
 </script>
 
 <template>
-  <h1>Login</h1>
-  <div class="error-message">{{ errorMessage }}</div>
-  <form>
-    <text-input-field
-      v-model="user.email"
-      label-name="E-Mail"
-      placeholder="Deine E-Mail-Adresse"
-      element-class="input-primary"
-    />
-    <text-input-field
-      v-model="user.password"
-      label-name="Passwort"
-      placeholder="Passwort"
-      element-class="input-primary"
-      custom-type="password"
-    />
-    <custom-button
-      label="Login"
-      btnclass="button-primary"
-      @button-click="submit"
-    />
-  </form>
-  <div>
-    Du hast noch keinen Account?<router-link to="/register"
-      >Registrieren</router-link
-    >
+  <div class="login-form-container">
+    <div class="form-items">
+      <div class="error-message">{{ errorMessage }}</div>
+      <form>
+        <text-input-field
+          v-model="user.email"
+          label-name="E-Mail-Adresse"
+          placeholder="E-Mail-Adresse"
+          element-class="input-form-primary"
+        />
+        <text-input-field
+          v-model="user.password"
+          label-name="Passwort"
+          placeholder="Passwort"
+          element-class="input-form-primary"
+          custom-type="password"
+        />
+        <custom-button
+          label="Login"
+          btnclass="button-form-primary"
+          @button-click="submit"
+        />
+      </form>
+      <div class="divider-line"></div>
+      <div class="bottom-paragraph center-text">
+        Du hast noch keinen Account?
+        <router-link to="/register">Registrieren</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
-<style scoped>
-form > * {
-  display: block;
-}
+<style scoped lang="scss">
+@import '../assets/scss/main.scss';
 </style>
