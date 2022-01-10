@@ -4,10 +4,10 @@
   <p class="display-1">Display 1</p>
   <p class="display-2">Display 2</p>
   <br />
-  <p class="h1">Heading 1</p>
-  <p class="h2">Heading 2</p>
-  <p class="h3">Heading 3</p>
-  <p class="h4">Heading 4</p>
+  <p class="heading-xlarge">Heading 1</p>
+  <p class="heading-large">Heading 2</p>
+  <p class="heading-medium">Heading 3</p>
+  <p class="heading-small">Heading 4</p>
   <br />
   <p class="body-large">Body Large</p>
   <p class="body-medium">Body Medium</p>
