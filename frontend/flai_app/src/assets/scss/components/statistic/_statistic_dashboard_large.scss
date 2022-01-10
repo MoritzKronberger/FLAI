@@ -1,6 +1,7 @@
 .statistic-dashboard-large {
 
-  background-color: white;
+  background-color: $main-white;
+  border-radius: 10px;
   height: 100%;
   .flex-cards {
     @include flex-box(column, space-between, center, 10px);
@@ -8,7 +9,7 @@
   padding: 35px 25px 35px 25px;
 
   hr {
-    width: 80%;
+    width: 83%;
     height: 50;
     margin: 35px 0px 35px 0px;
     color: $light-grey;
