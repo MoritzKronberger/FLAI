@@ -37,27 +37,30 @@ const submit = async (): Promise<void> => {
 </script>
 
 <template>
-  <div class="register-form">
-    <div class="register-items">
-      <div class="register-top-text center-text">
+  <div class="register-form-container">
+    <div class="form-items">
+      <div class="lead-paragraph center-text">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
       <div class="error-message">{{ errorMessage }}</div>
       <form>
         <text-input-field
           v-model="user.username"
+          label-name="Benutzername"
           placeholder="Benutzername"
-          element-class="input-primary"
+          element-class="input-form-primary"
         />
         <text-input-field
           v-model="user.email"
+          label-name="E-Mail-Adresse"
           placeholder="E-Mail-Adresse"
-          element-class="input-primary"
+          element-class="input-form-primary"
         />
         <text-input-field
           v-model="user.password"
+          label-name="Passwort"
           placeholder="Passwort"
-          element-class="input-primary"
+          element-class="input-form-primary"
           custom-type="password"
         />
         <custom-checkbox
@@ -69,18 +72,18 @@ const submit = async (): Promise<void> => {
           v-model="user.target_learning_time"
           label-name="Tägliches Lernziel"
           :placeholder="defaultTargetTime"
-          element-class="input-primary"
+          element-class="input-form-primary"
           custom-type="time"
           :time-step="1"
         />
         <custom-button
           label="Registrieren"
-          btnclass="button-primary"
+          btnclass="button-form-primary"
           @button-click="submit"
         />
       </form>
       <div class="divider-line"></div>
-      <div class="login-offer center-text">
+      <div class="bottom-paragraph center-text">
         Du ein Konto? <router-link to="/login">Melde dich an</router-link>
       </div>
     </div>
@@ -89,8 +92,4 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
-
-form > * {
-  display: block;
-}
 </style>
