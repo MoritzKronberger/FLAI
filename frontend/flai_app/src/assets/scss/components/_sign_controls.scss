@@ -3,12 +3,28 @@
   position: absolute;
   top: calc($padding-height * 3);
   left: 0;
-  width: 50%;
-  display: flex;
-  justify-content: center;
+  width: calc(50% - $padding-width);
+  margin-top: $margin-height;
 
+  display: flex;
+  align-items: center;
+
+  .lastLetter {
+    position: absolute;
+    left: 40%;
+    bottom: 0;
+    font-size: 20px;
+  }
   .currentLetter {
+    position: absolute;
+    left: 50%;
     font-weight: 800;
+    font-size: 40px;
+  }
+  .nextLetter {
+    position: absolute;
+    left: 60%;
+    bottom: 0;
     font-size: 20px;
   }
 }

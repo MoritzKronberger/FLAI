@@ -6,9 +6,11 @@
       btnclass="controls"
       @click="decreaseIndex"
     />
-    <span v-if="index > 0">{{ signs[index - 1].name.toUpperCase() }}</span>
+    <span v-if="index > 0" class="lastLetter">{{
+      signs[index - 1].name.toUpperCase()
+    }}</span>
     <span class="currentLetter">{{ signs[index].name.toUpperCase() }}</span>
-    <span v-if="index + 1 < signs.length">{{
+    <span v-if="index + 1 < signs.length" class="nextLetter">{{
       signs[index + 1].name.toUpperCase()
     }}</span>
     <CustomButton
