@@ -25,7 +25,7 @@ h1 {
     margin: $margin-height $margin-width;
     padding: $padding-height $padding-width;
     min-width: 50%;
-    height: calc(100vh - 2 * $margin-width - $h1);
+    height: calc(100vh - 2 * $h1);
     position: relative;
 
     .loading-screen {
@@ -143,7 +143,7 @@ h1 {
 
   #next {
     position: absolute;
-    bottom: calc(($margin-height + $button-Prim-height-Small) * -1);
+    bottom: calc((2 * $margin-height + $button-Prim-height-Small) * -1);
     right: 0;
   }
 
