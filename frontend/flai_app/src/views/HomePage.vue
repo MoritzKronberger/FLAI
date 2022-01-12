@@ -55,7 +55,7 @@ const level = ref(1)
           alt="Level Icon"
           element-class="level-icon"
         />
-        <div>Level {{ level }}</div>
+        <div class="heading-small level-text">Level {{ level }}</div>
       </div>
       <div class="stats-small-panel">
         <StatisticDashboardSmall />
