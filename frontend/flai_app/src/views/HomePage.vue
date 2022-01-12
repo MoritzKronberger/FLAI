@@ -38,15 +38,23 @@ const level = ref(1)
   <div v-if="auth.isAuth" class="home-page">
     <div class="dashboard">
       <div class="start-panel">
-        <h2>
-          Hallo, <b>{{ user.username }}!</b>
-        </h2>
-        <div>Willkommen zurück!</div>
-        <div>Bereit für die heutige Aufgabe?</div>
+        <h2 class="heading-medium">Hallo, {{ user.username }}!</h2>
+        <div class="start-panel-text">
+          <div class="body-small">Willkommen zurück!</div>
+          <div class="body-small">
+            Bereit für die heutige <br />
+            Aufgabe?
+          </div>
+        </div>
         <custom-button
           label="Start"
-          btnclass="button-primary"
+          btnclass="prim_small_button_blue"
           @button-click="redirect('ComingSoon')"
+        />
+        <IconLoader
+          path="/assets/logos/hand.svg"
+          alt="Start Panel Background Image"
+          element-class="flai-startpanel-icon"
         />
       </div>
       <div class="level-panel">
@@ -69,4 +77,5 @@ const level = ref(1)
 
 <style lang="scss">
 @import '../assets/scss/main.scss';
+@import '../assets/scss/components/startpanel';
 </style>
