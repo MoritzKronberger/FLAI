@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
+import IconLoader from '../components/IconLoader.vue'
 import { computed, onMounted, ref } from 'vue'
 import { LoginUser } from '../store/authdata'
 import store from '../store'
@@ -37,6 +38,13 @@ const submit = async (): Promise<void> => {
 
 <template>
   <div class="login-form-container">
+    <router-link :to="{ name: 'HomePage' }">
+      <IconLoader
+        path="/assets/logos/faces.svg"
+        alt="FLAI Icon"
+        element-class="flai-icon"
+      />
+    </router-link>
     <div class="form-items">
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
