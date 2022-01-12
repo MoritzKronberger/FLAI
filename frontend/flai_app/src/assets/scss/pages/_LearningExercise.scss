@@ -18,14 +18,14 @@ h1 {
   background-color: $background-blue;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 100vh;
 
   .exercise-card {
     background-color: $main-white;
     margin: $margin-height $margin-width;
     padding: $padding-height $padding-width;
     min-width: 50%;
-    min-height: calc(100vh - 2 * $margin-width);
+    height: calc(100vh - 2 * $margin-width - $h1);
     position: relative;
 
     .loading-screen {
@@ -33,7 +33,6 @@ h1 {
       top: calc(50% - $button-Prim-width-Medium / 2);
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 100%;
 
       p {
         text-align: center;
@@ -52,15 +51,18 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
+    max-height: calc(100vh - 2 * $margin-width - $h1 - $padding-height);
 
     .column1 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
       margin-right: $padding-width;
+      max-height: 100%;
     }
     .column2 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
+      max-height: 100%;
     }
   }
 
@@ -69,6 +71,7 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
+    max-height: calc(100vh - 2 * $margin-width - $h1);
 
     .column1 {
       flex: $left-column-width;
