@@ -57,12 +57,12 @@ h1 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
       margin-right: $padding-width;
-      height: 100%;
+      height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
     .column2 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
-      height: 100%;
+      height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
   }
 
