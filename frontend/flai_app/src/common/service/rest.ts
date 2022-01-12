@@ -1,7 +1,9 @@
 import axios, { AxiosError, Method } from 'axios'
 import authdata from '../../store/authdata'
 
-axios.defaults.baseURL = '/api'
+const restPath = import.meta.env.VITE_REST_HOSTNAME
+
+axios.defaults.baseURL = `${restPath}/api`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export interface AxiosOptions {
   method: Method
