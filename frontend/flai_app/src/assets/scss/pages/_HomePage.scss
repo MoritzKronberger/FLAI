@@ -19,17 +19,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       color: $main-white;
       .level-icon {
         height: 65%;
         padding-left: 4%;
         filter: invert(100);
       }
-
-      .level-text {
-        align-self: center;
-      }
-
     }
     .stats-small-panel {
       grid-column: span 3;
