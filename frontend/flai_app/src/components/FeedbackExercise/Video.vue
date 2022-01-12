@@ -11,12 +11,12 @@
       <div class="perspective-buttons">
         <CustomButton
           label="Front"
-          btnclass="sec_small_button_blue"
+          btnclass="video_controls_button_blue"
           @click="frontPerspective()"
         />
         <CustomButton
           label="Seite"
-          btnclass="sec_small_button_blue"
+          btnclass="video_controls_button_blue"
           @click="sidePerspective()"
         />
       </div>
@@ -25,7 +25,7 @@
           v-for="item in speedItems"
           :key="item.label"
           :label="item.label"
-          btnclass="sec_small_button_blue"
+          btnclass="video_controls_button_blue"
           @click="changeSpeed(item.value)"
         />
       </div>
