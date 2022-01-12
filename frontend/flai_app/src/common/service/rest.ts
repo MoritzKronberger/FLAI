@@ -1,7 +1,7 @@
 import axios, { AxiosError, Method } from 'axios'
 import authdata from '../../store/authdata'
 
-axios.defaults.baseURL = 'http://localhost:5000/api/'
+axios.defaults.baseURL = '/api'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export interface AxiosOptions {
   method: Method
