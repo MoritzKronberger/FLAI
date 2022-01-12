@@ -1,7 +1,37 @@
 .statistic-dashboard-large {
-  background-color: white;
+  background-color: $main-white;
+  border-radius: 10px;
   height: 100%;
   .flex-cards {
     @include flex-box(column, space-between, center, 10px);
+  }
+  padding: 35px 25px 35px 25px;
+
+  hr {
+    width: 85%;
+    margin: 35px 0px 35px 0px;
+    color: $light-grey;
+    opacity: 25%;
+  }
+
+  .hot-streak {
+    @include flex-box(row, center, center);
+  }
+
+  .hot-streak-item {
+    padding-right: 12px;
+  }
+
+  .day-counter {
+    padding-right: 12px;
+    color: $main-orange;
+  }
+
+  .day-text {
+    color: $dark-grey;
+  }
+
+  .month {
+    color: $main-blue;
   }
 }
