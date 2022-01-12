@@ -16,10 +16,7 @@
       background-color: $main-blue;
       grid-column: span 1;
       border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      @include flex-box(column, center, center);
       color: $main-white;
       .level-icon {
         height: 65%;
