@@ -12,7 +12,7 @@ PG_PORT="5432"
 
 declare -A vue=(
     ["dir"]="frontend/flai_app"
-    ["REST_HOSTNAME"]="${5-http://localhost:5000}"
+    ["VITE_REST_HOSTNAME"]="${5-http://localhost:5000}"
 )
 
 declare -A express=(
