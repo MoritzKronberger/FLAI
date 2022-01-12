@@ -57,12 +57,12 @@ h1 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
       margin-right: $padding-width;
-      max-height: 100%;
+      height: 100%;
     }
     .column2 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
-      max-height: 100%;
+      height: 100%;
     }
   }
 
@@ -77,10 +77,12 @@ h1 {
       flex: $left-column-width;
       width: $left-column-width;
       padding: calc($padding-height * 3) $padding-width 0 0;
+      height: calc(100% - $padding-height * 3);
     }
     .column2 {
       flex: $right-column-width;
       padding: calc($padding-height * 3) 0 0 0;
+      height: calc(100% - $padding-height * 3);
     }
 
     .sign-with-icon {
