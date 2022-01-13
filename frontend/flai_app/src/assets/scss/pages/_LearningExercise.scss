@@ -10,15 +10,20 @@ div {
   padding: 0;
 }
 
-h1 {
-  padding: 0 $margin-width;
-}
-
 .learning-exercise {
-  background-color: $background-blue;
+  background-color: $main-white;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 100vh;
+
+  h1 {
+    text-align: center;
+    // TODO: use predefined fonts
+    @include font(GothamSSm, light);
+    font-size: 46.4pt;
+    color: $main-blue;
+    padding: $padding-height $padding-width;
+  }
 
   .loading-screen {
     position: absolute;
@@ -28,7 +33,10 @@ h1 {
 
     p {
       text-align: center;
-      margin-bottom: $margin-height;
+      @include font(GothamSSm, book);
+      font-size: 46.4pt;
+      color: $main-blue;
+      padding: $padding-height $padding-width;
     }
     .start {
       position: absolute;
