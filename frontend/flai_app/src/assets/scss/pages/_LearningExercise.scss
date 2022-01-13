@@ -20,28 +20,19 @@ h1 {
   padding: 0;
   min-height: 100vh;
 
-  .exercise-card {
-    background-color: $main-white;
-    margin: $margin-width;
-    padding: $padding-height $padding-width;
-    min-width: 50%;
-    min-height: calc(100vh - 2 * $margin-width);
-    position: relative;
+  .loading-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    .loading-screen {
+    p {
+      text-align: center;
+      margin-bottom: $margin-height;
+    }
+    .start {
       position: absolute;
-      top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-
-      p {
-        text-align: center;
-        margin-bottom: $margin-height;
-      }
-      .start {
-        position: absolute;
-        left: 50%;
-      }
     }
   }
 
@@ -106,16 +97,16 @@ h1 {
         }
       }
     }
-  }
 
-  .column2.correct {
-    #webcam-feed {
-      border: 4px solid $main-green;
+    .column2.correct {
+      #webcam-feed {
+        border: 4px solid $main-green;
+      }
     }
-  }
-  .column2.wrong {
-    #webcam-feed {
-      border: 4px solid $main-red;
+    .column2.wrong {
+      #webcam-feed {
+        border: 4px solid $main-red;
+      }
     }
   }
 

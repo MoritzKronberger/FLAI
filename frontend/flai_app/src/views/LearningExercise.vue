@@ -6,40 +6,38 @@
       @click="router.push({ name: 'HomePage' })"
     />
     <h1>Feedback Learning Exercise</h1>
-    <div class="exercise-card">
-      <!-- hiding must be done via css and not v-if so that components still render -->
-      <div
-        :class="[
-          hidden ? 'hidden' : '',
-          currentlyWatchWord ? 'watch-word' : 'show-word',
-        ]"
-      >
-        <div class="column1">
-          <FeedbackExercise
-            :key="signIds"
-            @watch-word="watchWord()"
-            @show-word="showWord()"
-            @correct="feedbackClass = 'correct'"
-            @wrong="feedbackClass = 'wrong'"
-          />
-        </div>
-
-        <div class="column2" :class="feedbackClass">
-          <webcam />
-        </div>
-        <!-- TODO: replace text with or add loading icon/ animation -->
-      </div>
-      <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
-        <p>
-          Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
-        </p>
-        <CustomButton
-          v-if="flaiNetReady && handposeReady"
-          label="Start"
-          btnclass="start"
-          @button-click="hidden = false"
+    <!-- hiding must be done via css and not v-if so that components still render -->
+    <div
+      :class="[
+        hidden ? 'hidden' : '',
+        currentlyWatchWord ? 'watch-word' : 'show-word',
+      ]"
+    >
+      <div class="column1">
+        <FeedbackExercise
+          :key="signIds"
+          @watch-word="watchWord()"
+          @show-word="showWord()"
+          @correct="feedbackClass = 'correct'"
+          @wrong="feedbackClass = 'wrong'"
         />
       </div>
+
+      <div class="column2" :class="feedbackClass">
+        <webcam />
+      </div>
+      <!-- TODO: replace text with or add loading icon/ animation -->
+    </div>
+    <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
+      <p>
+        Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
+      </p>
+      <CustomButton
+        v-if="flaiNetReady && handposeReady"
+        label="Start"
+        btnclass="start"
+        @button-click="hidden = false"
+      />
     </div>
   </div>
 </template>
