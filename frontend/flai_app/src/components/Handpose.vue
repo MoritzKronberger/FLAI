@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, Ref, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import store from '../store'
 import webcam from '../components/Webcam.vue'
 import { Hands, Results } from '@mediapipe/hands'
@@ -55,12 +55,12 @@ onMounted(() => {
 })
 
 // setup from https://google.github.io/mediapipe/solutions/hands.html#javascript-solution-api
-const startMediapipeCamera = (webcamFeed: Ref<HTMLVideoElement>): void => {
+const startMediapipeCamera = (webcamFeed: HTMLVideoElement): void => {
   // eslint-disable-next-line
   /* @ts-ignore */
-  const camera = new mpCamera.Camera(webcamFeed.value as HTMLVideoElement, {
+  const camera = new mpCamera.Camera(webcamFeed as HTMLVideoElement, {
     onFrame: async () => {
-      await hands.send({ image: webcamFeed.value as HTMLVideoElement })
+      await hands.send({ image: webcamFeed as HTMLVideoElement })
     },
   })
 

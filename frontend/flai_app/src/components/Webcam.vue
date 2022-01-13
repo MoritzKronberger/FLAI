@@ -1,33 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-
-const emit = defineEmits(['webcamReady'])
-const emitFeed = (webcamFeed: object): void => {
-  emit('webcamReady', webcamFeed)
-}
+import store from '../store'
 
 const webcamLoading = ref(true)
 const webcamFeed = ref<HTMLVideoElement>()
-const stream = ref<MediaStream>()
-const constraints = {
-  video: {
-    facingMode: 'user',
-  },
-  audio: false,
+const emit = defineEmits(['webcamReady'])
+
+const emitFeed = (): void => {
+  emit('webcamReady', webcamFeed.value)
 }
 
-const start = async (): Promise<void> => {
-  stream.value = await navigator.mediaDevices.getUserMedia(constraints)
-  // sometimes the video element seems to be undefined when this function is called,
-  // but it's basically not reproducable and might be an issue with the vite hot reload, that won't exist in production
+const startWebcam = () => {
   if (!webcamFeed.value) throw new Error('Video reference is null')
-  webcamFeed.value.srcObject = stream.value
+  console.log(webcamFeed.value)
+  store.webcamdata.methods.setWebcamFeed(webcamFeed.value)
+  console.log(webcamFeed.value)
+  emitFeed()
+  webcamLoading.value = false
 }
+
+// could be moved to FeedbackExercise
 onMounted(async () => {
   try {
-    await start()
-    emitFeed(webcamFeed)
-    webcamLoading.value = false
+    await store.webcamdata.actions.startWebcam(startWebcam)
   } catch (error) {
     console.log(error)
     window.alert(

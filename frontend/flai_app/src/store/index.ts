@@ -5,6 +5,7 @@ import signdata from './signdata'
 import handposedata from './handposedata'
 import flainetdata from './flainetdata'
 import authdata from './authdata'
+import webcamdata from './webcamdata'
 
 export const networkMessage =
   'Sorry, you need  to have internet access to do this!'
@@ -18,6 +19,7 @@ const store = {
   handposedata,
   flainetdata,
   authdata,
+  webcamdata,
 }
 
 export default store
