@@ -25,10 +25,7 @@
         </div>
 
         <div class="column2" :class="feedbackClass">
-          <flai-net
-            @status-change="setflaiNetReady"
-            @handpose-ready="setHandposeReady"
-          />
+          <webcam />
         </div>
         <!-- TODO: replace text with or add loading icon/ animation -->
       </div>
@@ -48,12 +45,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
-import FlaiNet from '../components/FlaiNet.vue'
+import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
+import { Results } from '@mediapipe/hands'
 
 const router = useRouter()
 
@@ -66,6 +64,17 @@ const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
 const feedbackClass = ref('waiting')
 const hidden = ref(true)
+
+const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
+//FLAI-NET
+const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
+const flaiNetReady = ref(false)
+const handposeReady = ref(false)
+const webcamReady = ref(false)
+
+const setflaiNetReady = (): void => {
+  flaiNetReady.value = true
+}
 
 function watchWord() {
   console.log('watchWord')
@@ -85,16 +94,39 @@ onBeforeRouteLeave(async () => {
   )
 })
 
-//FLAI-NET
-const flaiNetReady = ref(false)
-const handposeReady = ref(false)
+// TODO: move functions below to FeedbackExercise component?
 
-const setflaiNetReady = (result: boolean): void => {
-  flaiNetReady.value = result
+function onResults(handposeResults: Results) {
+  handposeReady.value = true
+  if (store.flainetdata.methods.getFlaiNet().model) {
+    const flaiNetResults =
+      store.flainetdata.methods.flaiNetPredict(handposeResults)
+    if (flaiNetOptions.value.bufferedResult) {
+      store.flainetdata.methods.resultBufferUpdate(flaiNetResults)
+    }
+  }
 }
-const setHandposeReady = (result: boolean): void => {
-  handposeReady.value = result
+
+async function webcamStarted() {
+  store.handposedata.methods.loadMediapipeHands(onResults)
+  await store.flainetdata.actions.loadFlaiNet(setflaiNetReady)
+  store.webcamdata.methods.setWebcamFeed(document.createElement('video'))
+  if (webcamFeed.value) {
+    store.handposedata.methods.startMediapipeCamera(webcamFeed.value)
+    webcamReady.value = true
+  }
 }
+
+onMounted(async () => {
+  try {
+    await store.webcamdata.actions.startWebcam(webcamStarted)
+  } catch (error) {
+    console.log(error)
+    window.alert(
+      'Es steht keine Webcam zur Verfügung. Bitte schließen Sie ein Gerät an und versuchen Sie es erneut.'
+    )
+  }
+})
 </script>
 
 <style lang="scss">
