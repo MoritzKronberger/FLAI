@@ -1,11 +1,6 @@
 <template>
   <div class="learning-exercise">
-    <CustomButton
-      label="x"
-      btnclass="exit"
-      @click="router.push({ name: 'HomePage' })"
-    />
-    <h1>Feedback Learning Exercise</h1>
+    <h1>Übung</h1>
     <!-- hiding must be done via css and not v-if so that components still render -->
     <div
       :class="[
@@ -30,15 +25,30 @@
     </div>
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
       <p>
-        Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
+        Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
+        Phasen Lernmethodik.
       </p>
+      <br />
+      <p>1. Phase: Einprägen 2. Phase: Üben</p>
+      <p>Ab hier verwenden wir deine Kamera.</p>
       <CustomButton
         v-if="flaiNetReady && handposeReady"
         label="Start"
-        btnclass="start"
+        btnclass="start prim_small_button_blue"
         @button-click="hidden = false"
       />
+      <IconLoader
+        v-else
+        path="assets/icons/home.svg"
+        alt="Ladeicon"
+        element-class="loading-icon"
+      />
     </div>
+    <CustomButton
+      label="Home"
+      btnclass="exit"
+      @click="router.push({ name: 'HomePage' })"
+    />
   </div>
 </template>
 
@@ -50,6 +60,7 @@ import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'
+import IconLoader from '../components/IconLoader.vue'
 
 const router = useRouter()
 
