@@ -94,6 +94,8 @@ onBeforeRouteLeave(async () => {
   )
 })
 
+// TODO: move functions below to FeedbackExercise component?
+
 function onResults(handposeResults: Results) {
   handposeReady.value = true
   if (store.flainetdata.methods.getFlaiNet().model) {
