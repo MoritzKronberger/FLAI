@@ -33,10 +33,12 @@ div {
 
     p {
       text-align: center;
-      @include font(GothamSSm, book);
-      font-size: 46.4pt;
-      color: $main-blue;
       padding: $padding-height $padding-width;
+    }
+
+    ol {
+      text-align: center;
+      list-style-position: inside;
     }
     .start {
       position: absolute;
