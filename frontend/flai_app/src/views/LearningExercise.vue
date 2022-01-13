@@ -29,7 +29,10 @@
         Phasen Lernmethodik.
       </p>
       <br />
-      <p>1. Phase: Einprägen 2. Phase: Üben</p>
+      <ol>
+        <li>Phase: Einprägen</li>
+        <li>Phase: Üben</li>
+      </ol>
       <p>Ab hier verwenden wir deine Kamera.</p>
       <CustomButton
         v-if="flaiNetReady && handposeReady"
