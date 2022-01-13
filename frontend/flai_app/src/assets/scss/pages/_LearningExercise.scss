@@ -16,11 +16,8 @@ div {
   padding: 0;
   height: 100vh;
 
-  h1 {
+  h2 {
     text-align: center;
-    // TODO: use predefined fonts
-    @include font(GothamSSm, light);
-    font-size: 46.4pt;
     color: $main-blue;
     padding: $padding-height $padding-width;
   }
@@ -30,6 +27,7 @@ div {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: $main-blue;
 
     p {
       text-align: center;

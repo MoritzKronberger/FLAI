@@ -29,7 +29,7 @@
         Phasen Lernmethodik.
       </p>
       <br />
-      <ol>
+      <ol class="body-large">
         <li>Phase: Einprägen</li>
         <li>Phase: Üben</li>
       </ol>
