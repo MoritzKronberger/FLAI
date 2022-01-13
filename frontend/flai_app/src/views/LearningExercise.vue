@@ -1,6 +1,6 @@
 <template>
   <div class="learning-exercise">
-    <h1>Übung</h1>
+    <h2 class="heading-large">Übung</h2>
     <!-- hiding must be done via css and not v-if so that components still render -->
     <div
       :class="[
@@ -24,7 +24,7 @@
       <!-- TODO: replace text with or add loading icon/ animation -->
     </div>
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
-      <p>
+      <p class="body-large">
         Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
         Phasen Lernmethodik.
       </p>
@@ -33,19 +33,14 @@
         <li>Phase: Einprägen</li>
         <li>Phase: Üben</li>
       </ol>
-      <p>Ab hier verwenden wir deine Kamera.</p>
+      <p class="body-medium">Ab hier verwenden wir deine Kamera.</p>
       <CustomButton
         v-if="flaiNetReady && handposeReady"
         label="Start"
         btnclass="start prim_small_button_blue"
         @button-click="hidden = false"
       />
-      <IconLoader
-        v-else
-        path="assets/icons/home.svg"
-        alt="Ladeicon"
-        element-class="loading-icon"
-      />
+      <div class="loading-circle" />
     </div>
     <CustomButton
       label="Home"
