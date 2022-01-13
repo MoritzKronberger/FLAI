@@ -7,19 +7,22 @@
         margin: 50px 30px 0px 30px;
         padding: 40px 50px;
         display: flex;
-        background-color: white;
+        justify-content: center;
+        column-gap: 4vw;
         border-radius: 5px;
         height: 85%;
         width: 80%;
         .information {
+            width: 12vw;
             .flex {
                 display: flex;
-                .title {
-                    width: 16vw;
+                .body-medium {
+                    text-align: end;
+                    width: 100%;
                     color: $main-blue;
                 }
                 li {
-                    margin-bottom: 9.5vh;
+                    margin-bottom: 5vh;
                     list-style-type: none;
                 }
             }
@@ -31,11 +34,10 @@
             .form-items {
                 width: 16vw;
                 margin-right: 5vw;
-               
             }
-            
+
             input {
-                margin-bottom: 9.5vh;
+                margin-bottom: 5vh;
             }
 
             .input-form-primary,
