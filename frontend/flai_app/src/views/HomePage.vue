@@ -44,7 +44,7 @@ const openModal = (): void => {
         />
       </div>
       <div v-show="modalOpen" class="modal" @click="modalOpen = false">
-        <Register class="container" @click.stop />
+        <Register @click.stop />
       </div>
       <div class="login">
         Du hast bereits ein Konto?<router-link to="/login"> Login</router-link>
