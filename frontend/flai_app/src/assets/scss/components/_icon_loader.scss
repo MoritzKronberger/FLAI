@@ -20,7 +20,7 @@ img.feedback-icon {
 }
 
 .loading-circle {
-  margin: 0;
+  margin: $margin-height $margin-width;
   width: 10vh;
   height: 10vh;
   border-radius: 50%;

@@ -40,7 +40,7 @@
         btnclass="start prim_small_button_blue"
         @button-click="hidden = false"
       />
-      <div class="loading-circle" />
+      <div v-else class="loading-circle" />
     </div>
     <CustomButton
       label="Home"
