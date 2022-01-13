@@ -1,5 +1,5 @@
 # This file may be used to create an environment using:
-# $ conda create --name <your_env_name> --file requirements.txt
+# $ conda create --name <env> --file <this file>
 # platform: win-64
 _ipyw_jlab_nb_ext_conf=0.1.0=py38_0
 alabaster=0.7.12=py_0
@@ -44,7 +44,7 @@ cloudpickle=1.6.0=py_0
 clyent=1.2.2=py38_1
 colorama=0.4.4=py_0
 comtypes=1.1.7=py38_1001
-conda=4.10.3=py38haa244fe_2
+conda=4.11.0=py38haa95532_0
 conda-build=3.20.5=py38_1
 conda-content-trust=0.1.1=pyhd3eb1b0_0
 conda-env=2.6.0=1
@@ -78,6 +78,7 @@ future=0.18.2=py38_1
 get_terminal_size=1.0.0=h38e98db_0
 gevent=20.9.0=py38he774522_0
 glob2=0.7=py_0
+graphviz=2.38=hfd603c8_2
 greenlet=0.4.17=py38he774522_0
 h5py=2.10.0=py38h5e291fa_0
 hdf5=1.10.4=h7ebc959_0
@@ -209,6 +210,8 @@ pycosat=0.6.3=py38he774522_0
 pycparser=2.20=py_2
 pycurl=7.43.0.6=py38h7a1dbc1_0
 pydocstyle=5.1.1=py_0
+pydot=1.4.1=py38haa95532_0
+pydotplus=2.0.2=py_3
 pyflakes=2.2.0=py_0
 pygments=2.7.2=pyhd3eb1b0_0
 pylint=2.6.0=py38_0
