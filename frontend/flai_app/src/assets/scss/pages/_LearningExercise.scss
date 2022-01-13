@@ -104,6 +104,11 @@ h1 {
           margin: 0 0.5em;
           color: $main-white;
         }
+
+        .currentLetter {
+          font-weight: 800;
+          font-size: 40px;
+        }
       }
     }
   }

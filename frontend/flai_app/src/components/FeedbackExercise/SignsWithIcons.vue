@@ -22,3 +22,7 @@ import IconLoader from '../IconLoader.vue'
 
 defineProps<{ signs: Sign[]; index: number; path: string[] }>()
 </script>
+
+<style lang="scss">
+@import '../../assets/scss/main.scss';
+</style>
