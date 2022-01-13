@@ -2,9 +2,9 @@
   <div class="sign-with-icon">
     <span v-for="(letter, count) of signs" :key="letter.name" class="item">
       <span v-if="count === index" class="currentLetter">
-        {{ letter.name }}
+        {{ letter.name.toUpperCase() }}
       </span>
-      <span v-else>{{ letter.name }}</span>
+      <span v-else>{{ letter.name.toUpperCase() }}</span>
       <IconLoader
         v-if="path[count] !== undefined"
         :key="count"
