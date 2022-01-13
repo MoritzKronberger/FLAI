@@ -8,9 +8,12 @@ import ProfilePage from '../views/ProfilePage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
+import TestFont from '../views/TestFont.vue'
 import DebugPage from '../views/DebugPage.vue'
-import { authenticateFromSessionStorage } from '../ressources/ts/methods'
-import { computed } from 'vue'
+import {
+  authenticateFromSessionStorage,
+  initExerciseRound,
+} from '../ressources/ts/methods'
 import store from '../store'
 
 const tryReAuthentication = async () => {
@@ -18,15 +21,15 @@ const tryReAuthentication = async () => {
 }
 
 async function startSession() {
-  const signData = computed(() => store.signdata)
+  // try re-autheticating
+  const authenticated = await authenticateFromSessionStorage()
+  if (!authenticated) return '/login'
 
+  // get initial data and start new session if authenticated
   await store.exercisedata.actions.postNewExerciseSession(
     store.exercisedata.exercises[0].id
   )
-  await store.exercisedata.actions.getFullExerciseForUser(
-    store.exercisedata.exercises[0].id
-  )
-  store.exercisedata.methods.changeWord(signData.value.methods.generateWord())
+  await initExerciseRound()
 }
 
 const routes = [
@@ -50,7 +53,7 @@ const routes = [
     path: '/exercise',
     name: 'LearningExercise',
     component: LearningExercise,
-    meta: { authRequired: true },
+    // authRequired is true, but implemented in startSession
     beforeEnter: [startSession],
   },
   {
@@ -79,6 +82,11 @@ const routes = [
     name: 'ComingSoon',
     component: ComingSoon,
     meta: { authRequired: true },
+  },
+  {
+    path: '/testfont',
+    name: 'TestFont',
+    component: TestFont,
   },
   {
     path: '/debug',

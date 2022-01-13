@@ -1,0 +1,61 @@
+@import '../main.scss';
+
+// for centerd Label solution
+.primary-checkbox {
+  label {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    line-height: 0;
+  }
+}
+.primary-checkbox {
+  .checkmark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid $main-blue;
+    border-radius: 10%;
+    display: inline-block;
+  }
+  input {
+    width: 22px;
+    height: 22px;
+    //display: none;
+    position: absolute;
+
+    // for centered Label solution; set margin so invisible default checkbox is underneath customCheckbox
+    //margin-left: 123px;
+
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+    &:hover ~ .checkmark {
+      background-color: $subtle-blue;
+    }
+    &:checked ~ .checkmark {
+      background: $main-blue;
+    }
+  }
+  .checkmark:after {
+    content: '';
+    //position: absolute;
+    display: none;
+    margin-left: 5px;
+    margin-top: 1px;
+    left: 8px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid $main-white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+
+  /* Show the checkmark when checked */
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+}

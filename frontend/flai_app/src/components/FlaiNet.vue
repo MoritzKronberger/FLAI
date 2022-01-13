@@ -8,11 +8,11 @@ import {
   FlaiNetResults,
 } from '../store/flainetdata'
 import handpose from '../components/Handpose.vue'
-import * as tf from '@tensorflow/tfjs'
+import { loadLayersModel, tensor, Tensor, LayersModel } from '@tensorflow/tfjs'
 
-const emit = defineEmits(['newResult', 'statusChange'])
+const emit = defineEmits(['newResult', 'statusChange', 'handposeReady'])
 
-let flaiNet: tf.LayersModel
+let flaiNet: LayersModel
 const flaiNetOptions = computed(
   () => store.flainetdata.flaiNetOptions
 ) as ComputedRef<FlaiNetOptions>
@@ -22,10 +22,9 @@ const labels = flaiNetOptions.value.labels
 const bufferedResult = flaiNetOptions.value.bufferedResult
 
 const flaiNetReady = ref(false)
-const handposeReady = ref(false)
 
 const setHandposeReady = (result: boolean): void => {
-  handposeReady.value = result
+  emit('handposeReady', result)
 }
 const clearResultBuffer = (): void => {
   flaiNetMethods.clearResultBuffer()
@@ -42,19 +41,19 @@ const evaluateResultBuffer = (): FlaiNetResults => {
    whenever model.jon is updated
 */
 const loadFlaiNet = async (): Promise<void> => {
-  flaiNet = await tf.loadLayersModel(flaiNetPath.toString())
+  flaiNet = await loadLayersModel(flaiNetPath.toString())
   flaiNetReady.value = true
   emit('statusChange', flaiNetReady.value as boolean)
 }
 
-const handposeResultsToFlaiNetInput = (handposeResults: Results): tf.Tensor => {
+const handposeResultsToFlaiNetInput = (handposeResults: Results): Tensor => {
   const results = handposeResults.multiHandLandmarks
   const resultsArray = results.map((landmarks) =>
     landmarks.map((landmark) =>
       Object.values(landmark).filter((el) => el !== undefined)
     )
   )
-  return tf.tensor(resultsArray)
+  return tensor(resultsArray)
 }
 
 onMounted(() => {
@@ -77,7 +76,7 @@ const flaiNetPredict = (handposeResults: Results): FlaiNetResults => {
   const resultsTensor = handposeResultsToFlaiNetInput(handposeResults)
   const flaiNetResults: FlaiNetPrediction[] = []
   if (resultsTensor.size > 0) {
-    const prediction = flaiNet.predict(resultsTensor) as tf.Tensor
+    const prediction = flaiNet.predict(resultsTensor) as Tensor
     resultsTensor.dispose()
     const maxArg = prediction.argMax(-1).dataSync() as Int32Array
     const confidence = prediction.max(-1).dataSync() as Float32Array
@@ -107,5 +106,4 @@ const emitResults = (handposeResults: Results): void => {
 
 <template>
   <handpose @new-result="emitResults" @status-change="setHandposeReady" />
-  <div>Handpose Status: {{ handposeReady ? 'ready' : 'loading' }}</div>
 </template>

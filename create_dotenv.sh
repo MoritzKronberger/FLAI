@@ -5,9 +5,15 @@ set -e
 # $2 password for postgres superuser
 # $3 username for regular postgres user
 # $4 password for regular postgres user
+# $5 hostname of REST server (default: http://localhost)
 
 PG_DB="flai_db_v1"
 PG_PORT="5432"
+
+declare -A vue=(
+    ["dir"]="frontend/flai_app"
+    ["VITE_REST_HOSTNAME"]="${5-http://localhost:5000}"
+)
 
 declare -A express=(
     ["dir"]="backend/express"
@@ -59,6 +65,6 @@ create_env_variables(){
     done
 }
 
-create_env_variables 'express docker'
+create_env_variables 'vue express docker'
 
 echo "------------> $0 has finished successfully"

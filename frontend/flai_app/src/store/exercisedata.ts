@@ -4,6 +4,7 @@ import { errorMessage } from '../ressources/ts/methods'
 import signData from './signdata'
 import userData from './userdata'
 import { networkMessage } from './index'
+import moment from 'moment'
 
 export interface Exercise {
   id: string
@@ -45,7 +46,7 @@ const exerciseSettingsUser: ExerciseSettingsUser = reactive({
 
 export interface ExerciseSession {
   start_time: string
-  session_duration: number
+  session_duration: string
   order: number
 }
 
@@ -53,7 +54,7 @@ const exerciseSessions: ExerciseSession[] = reactive([])
 
 const activeExerciseSession: ExerciseSession = reactive({
   start_time: '',
-  session_duration: 0,
+  session_duration: '',
   order: 1,
 })
 
@@ -72,7 +73,7 @@ export interface Word {
 }
 
 const word: Word = {
-  signs: [],
+  signs: reactive([]),
 }
 
 const methods = {
@@ -104,18 +105,18 @@ const methods = {
   startNewExerciseSession(exerciseId: string, startTime: string) {
     const newSession: ExerciseSession = {
       start_time: startTime,
-      session_duration: 0,
+      session_duration: '',
       order: 0,
     }
     exerciseSessions.push(newSession)
     Object.assign(activeExerciseSession, newSession)
   },
-  changeExerciseSessionDuration(startTime: string, duration: number) {
+  changeExerciseSessionDuration(startTime: string, sessionDuration: string) {
     const session = exerciseSessions.find((el) => el.start_time === startTime)
     if (session) {
-      session.session_duration = duration
-      console.log('new duration', session)
+      session.session_duration = sessionDuration
     }
+    activeExerciseSession.session_duration = sessionDuration
   },
   deleteExerciseSession(startTime: string) {
     console.log(exerciseSessions)
@@ -126,7 +127,7 @@ const methods = {
     console.log(exerciseSessions)
   },
   changeWord(newWord: string[]) {
-    word.signs = newWord
+    Object.assign(word.signs, newWord)
   },
 }
 
@@ -138,6 +139,7 @@ const actions = {
       data: {},
     })
     if (jsonData?.status === 200) {
+      console.log(jsonData.data)
       for (const row of jsonData.data.rows) {
         const exerciseCache: Exercise = {
           id: row.id,
@@ -167,10 +169,6 @@ const actions = {
     if (jsonData?.status === 200) {
       const exerciseData = jsonData?.data.rows[0]
 
-      // TODO: missing?: exerciseSettings.id
-      //exerciseSettings.id = exerciseData.id
-      // TODO: for props of... loop
-      exerciseSettings.exercise_id = exerciseId
       exerciseSettings.level_1 = exerciseData.level_1
       exerciseSettings.level_2 = exerciseData.level_2
       exerciseSettings.level_3 = exerciseData.level_3
@@ -282,9 +280,12 @@ const actions = {
   },
   async patchExerciseSession(
     exerciseId: string,
-    exerciseSession: ExerciseSession,
-    sessionDuration: number
+    exerciseSession: ExerciseSession
   ) {
+    const timeNow = new Date(Date.now()).getTime()
+    const startTime = new Date(exerciseSession.start_time).getTime()
+    const difference = timeNow - startTime
+    const sessionDuration = moment(difference).utc().format('HH:mm:ss')
     const jsonData = await jsonAction({
       method: 'patch',
       url: 'exercise-session',

@@ -1,53 +1,84 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
+  <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p v-for="letter in signs" :key="letter.name">{{ letter.name }}</p>
-      <Video
-        :show-sign="showSign"
-        :signs="signs"
-        :index="index"
-        @use-hint="showSign = true"
-      />
-      <p :class="feedbackClass">TODO: Add webcam component</p>
-      <p>{{ status }}</p>
+      <p class="instruction">
+        Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
+      </p>
+      <div class="sign-with-icon">
+        <div class="signs">
+          <span
+            v-for="(letter, count) of signs"
+            :key="letter.name"
+            class="item"
+          >
+            <span v-if="count === index" class="currentLetter">
+              {{ letter.name }}
+            </span>
+            <span v-else>{{ letter.name }}</span>
+          </span>
+        </div>
+        <IconLoader
+          v-if="pathToIcon !== undefined"
+          :key="pathToIcon"
+          :path="pathToIcon"
+          alt="Icon, das die Korrektheit anzeigt"
+          element-class="feedback-icon"
+        />
+      </div>
     </div>
+    <Video
+      id="video"
+      :show-sign="showSign"
+      :signs="signs"
+      :index="index"
+      :class="feedbackClass"
+      @use-hint="showSign = true"
+    />
+    <Button
+      v-if="wordComplete"
+      id="next"
+      label="weiter"
+      btnclass="controls"
+      @button-click="emit('new-word')"
+    />
+    <p>{{ status }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  ComputedRef,
-  onBeforeMount,
-  watchEffect,
-  watch,
-} from 'vue'
+import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
 import { Progress } from '../../store/exercisedata'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
+import Button from '../CustomButton.vue'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
-import { useRouter } from 'vue-router'
 import { FlaiNetResults } from '../../store/flainetdata'
-
-const router = useRouter()
+import IconLoader from '../IconLoader.vue'
+import { FeedbackStatus } from '../../ressources/ts/interfaces'
 
 const inputAccepted = ref(true)
 const index = ref(0)
+const pathToIcon = ref<string>()
+
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
 const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
+const wordComplete = ref(false)
 
 const progressStep: ComputedRef<Progress> = computed(
   () => store.exercisedata.progressStep
 )
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
-const status = ref('Loading')
+const newInputTimeout = computed(
+  () => store.flainetdata.flaiNetOptions.newInputTimeout
+)
+const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
+const emit = defineEmits(['new-word', 'correct', 'wrong', 'rendered'])
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -76,10 +107,20 @@ function checkProgress(sign: Sign) {
     sign.level_3_reached
   )
 }
-onBeforeMount(() => checkProgress(props.signs[index.value]))
+
+onBeforeMount(() => {
+  checkProgress(props.signs[index.value])
+  emit('rendered')
+})
+
+function reEnableInput() {
+  store.flainetdata.methods.clearResultBuffer()
+  inputAccepted.value = true
+}
 
 async function correct() {
   inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Richtig.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -96,15 +137,17 @@ async function correct() {
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
 
-    console.log('--- ShowWord correct is clearing the Buffer ---')
-    store.flainetdata.methods.clearResultBuffer()
-    inputAccepted.value = true
+    // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
+    setTimeout(reEnableInput, newInputTimeout.value)
   } else {
-    router.push({ name: 'HomePage' })
+    wordComplete.value = true
   }
+  emit('correct')
 }
 async function wrong() {
   inputAccepted.value = false
+  pathToIcon.value = '/assets/icons/FLAI_Fehler.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
@@ -121,17 +164,17 @@ async function wrong() {
     console.log('index', index.value)
     checkProgress(props.signs[index.value])
 
-    console.log('--- ShowWord wrong is clearing the Buffer ---')
-    store.flainetdata.methods.clearResultBuffer()
-    inputAccepted.value = true
+    // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?
+    status.value = FeedbackStatus.Paused
+    setTimeout(reEnableInput, newInputTimeout.value)
   } else {
-    router.push({ name: 'HomePage' })
+    wordComplete.value = true
   }
+  emit('wrong')
 }
 
 // TODO: Add adjustable timeout to inputAccepted reenable?
 const onBufferUpdate = (buffer: FlaiNetResults) => {
-  console.log(inputAccepted.value)
   if (inputAccepted.value) {
     status.value = getFlaiNetResults(
       buffer,
@@ -149,13 +192,10 @@ watchEffect(() => onBufferUpdate(resultBuffer.value))
 div:focus {
   outline: none;
 }
+.controls {
+  color: blue;
+}
 .waiting {
   color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
 }
 </style>

@@ -2,20 +2,29 @@
 import DayStreak from './DayStreak.vue'
 import CardSmall from './CardSmall.vue'
 import TrendDiagram from './TrendDiagram.vue'
+import ProgressBar from './ProgressBar.vue'
 const days = 15
 </script>
 
 <template>
-  <DayStreak :days="days" />
-  <div>Buchstabieren lernen</div>
-  <card-small
-    placeholder-path="../../assets/statisticPlaceholders/cardSmallProgress.svg"
-    link-target="ComingSoon"
-    alt-text="Aufgaben Fortschritt Statistik"
-  />
-  <TrendDiagram />
+  <div class="statistic-dashboard-large">
+    <div class="flex-cards">
+      <DayStreak :days="days" />
+      <hr />
+      <div>
+        <ProgressBar />
+        <card-small
+          placeholder-path="/assets/statisticPlaceholders/cardSmallProgress.svg"
+          link-target="ComingSoon"
+          alt-text="Aufgaben Fortschritt Statistik"
+        />
+      </div>
+      <hr />
+      <TrendDiagram />
+    </div>
+  </div>
 </template>
 
-<style scoped>
-/** here place for import scss */
+<style scoped lang="scss">
+@import '../../assets/scss/main.scss';
 </style>

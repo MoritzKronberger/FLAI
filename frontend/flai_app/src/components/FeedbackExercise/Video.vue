@@ -7,17 +7,29 @@
       autoplay
       loop
     />
-    <br />
-    <CustomButton
-      label="Perspektive wechseln"
-      btnclass="controls"
-      @click="switchPerspective()"
-    />
-    <DropDownMenu
-      title="Geschwindigkeit"
-      :items="dropDownItems"
-      @click-element="changeSpeed"
-    />
+    <div class="video-controls">
+      <div class="perspective-buttons">
+        <CustomButton
+          label="Front"
+          btnclass="controls"
+          @click="frontPerspective()"
+        />
+        <CustomButton
+          label="Seite"
+          btnclass="controls"
+          @click="sidePerspective()"
+        />
+      </div>
+      <div class="speed-buttons">
+        <CustomButton
+          v-for="item in speedItems"
+          :key="item.label"
+          :label="item.label"
+          btnclass="controls"
+          @click="changeSpeed(item.value)"
+        />
+      </div>
+    </div>
   </div>
   <CustomButton
     v-else
@@ -45,30 +57,30 @@ function getSource() {
   )
   console.log('el', JSON.stringify(rec))
   if (rec === undefined) {
-    return 'src/assets/error.webm'
+    return '/assets/error.webm'
   }
   return `${rec.path}.${rec.mimetype}`
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
 
-function switchPerspective() {
-  if (perspective.value === 'front') {
-    perspective.value = 'side'
-  } else {
-    perspective.value = 'front'
-  }
+function frontPerspective() {
+  perspective.value = 'front'
 }
 
-const dropDownItems: DropDown[] = [
+function sidePerspective() {
+  perspective.value = 'side'
+}
+
+const speedItems: DropDown[] = [
   { label: '1x', value: 1 },
   { label: '0.5x', value: 0.5 },
   { label: '0.25x', value: 0.25 },
 ]
 
-function changeSpeed(output: any) {
+function changeSpeed(newSpeed: any) {
   const videoHtml = unref(videoPlayer)
   if (videoHtml) {
-    videoHtml.playbackRate = output
+    videoHtml.playbackRate = newSpeed
   }
 }
 
@@ -76,26 +88,6 @@ const emit = defineEmits(['useHint'])
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div:focus {
-  outline: none;
-}
-h3 {
-  margin: 40px 0 0;
-}
-video {
-  width: 40%;
-}
-.controls {
-  background: lightblue;
-}
-.waiting {
-  color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
-}
+<style lang="scss">
+@import '../../assets/scss/main.scss';
 </style>

@@ -1,0 +1,9 @@
+.register-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+@include form-layout($container-name: 'register-form-container', $bottom: $gutter-vertical);

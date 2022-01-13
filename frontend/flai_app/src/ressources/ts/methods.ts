@@ -32,3 +32,10 @@ export async function authenticateFromSessionStorage() {
   }
   return true
 }
+
+export async function initExerciseRound() {
+  await store.exercisedata.actions.getFullExerciseForUser(
+    store.exercisedata.exercises[0].id
+  )
+  store.exercisedata.methods.changeWord(store.signdata.methods.generateWord())
+}

@@ -1,8 +1,25 @@
 <template>
-  <CustomButton label="zurück" btnclass="controls" @click="decreaseIndex" />
-  <span>{{ signs[index].name.toUpperCase() }}</span>
-  <CustomButton label="weiter" btnclass="controls" @click="increaseIndex" />
-  <br />
+  <div class="sign-controls">
+    <CustomButton
+      v-if="index > 0"
+      label="<"
+      btnclass="back-button"
+      @click="decreaseIndex"
+    />
+    <span v-if="index > 0" class="lastLetter">{{
+      signs[index - 1].name.toUpperCase()
+    }}</span>
+    <span class="currentLetter">{{ signs[index].name.toUpperCase() }}</span>
+    <span v-if="index + 1 < signs.length" class="nextLetter">{{
+      signs[index + 1].name.toUpperCase()
+    }}</span>
+    <CustomButton
+      v-if="index + 1 < signs.length"
+      label=">"
+      btnclass="next-button"
+      @click="increaseIndex"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -28,3 +45,7 @@ function increaseIndex() {
   emit('new-index', index.value)
 }
 </script>
+
+<style lang="scss">
+@import '../../assets/scss/main.scss';
+</style>

@@ -1,0 +1,86 @@
+.landing-page {
+  .main {
+    display: flex;
+    flex-flow: column wrap;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 10%;
+    text-align: center;
+    align-items: center;
+    .heading-large {
+      margin-bottom: 50px;
+      color: $main-blue;
+    }
+
+    .register {
+      margin-top: 50px;
+    }
+
+    .login {
+      margin-top: 50px;
+    }
+    a {
+      text-decoration: none;
+      color: $main-blue;
+    }
+  }
+}
+
+.home-page {
+  background-color: $background-blue;
+  .dashboard {
+    margin: 0px 30px 0px 30px;
+    padding: 50px;
+    display: grid;
+    justify-content: center;
+    gap: 1rem;
+    grid-template-columns: repeat(5, 190px);
+    grid-template-rows: repeat(3, 190px);
+    .start-panel {
+      background-color: $subtle-yellow;
+      grid-column: span 2;
+    }
+    .level-panel {
+      background-color: $main-blue;
+      grid-column: span 1;
+      border-radius: 10px;
+      @include flex-box(column, center, center);
+      color: $main-white;
+      .level-icon {
+        height: 65%;
+        padding-left: 4%;
+        filter: invert(100);
+      }
+    }
+    .stats-small-panel {
+      grid-column: span 3;
+    }
+    .stats-large-panel {
+      grid-row: 1 / 5;
+      grid-column: 4 / 6;
+    }
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 100px);
+      grid-template-rows: repeat(4, 200px);
+      .start-panel {
+        grid-column: span 3;
+      }
+
+      .level-panel {
+        grid-column: span 3;
+      }
+
+      .stats-small-panel {
+        grid-row: 3 / 4;
+      }
+      .stats-large-panel {
+        grid-column: span 3;
+        grid-row: 5 / 6;
+      }
+    }
+    @media (min-width: 2450px) {
+      grid-template-columns: repeat(5, 400px);
+      grid-template-rows: repeat(3, 400px);
+    }
+  }
+}

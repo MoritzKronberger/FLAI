@@ -1,0 +1,9 @@
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+@include form-layout($container-name: 'login-form-container', $bottom: $gutter-vertical);
