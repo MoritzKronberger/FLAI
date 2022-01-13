@@ -21,4 +21,4 @@ deploy_to_flai:
     - EOT
     - echo "------------> Automatic deploy finished successfully!"
   only:
-    - main
+    - ux-test
