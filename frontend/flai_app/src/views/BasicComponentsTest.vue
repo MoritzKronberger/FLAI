@@ -5,6 +5,7 @@ import customCheckbox from '../components/CustomCheckbox.vue'
 import iconLoader from '../components/IconLoader.vue'
 import webcam from '../components/Webcam.vue'
 import customButton from '../components/CustomButton.vue'
+import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
 
 const testInput = ref('')
 const testCheckbox = ref(false)
@@ -62,5 +63,8 @@ const buttonClick = (): void => {
   <div>
     <h1>Webcam</h1>
     <webcam @webcam-ready="logWebcamFeed" />
+  </div>
+  <div class="stats-small-panel">
+    <StatisticDashboardSmall />
   </div>
 </template>
