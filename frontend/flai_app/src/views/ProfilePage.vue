@@ -89,35 +89,17 @@ onMounted(() => {
             <li class="body-medium">
               {{ item.label }}
             </li>
-            <li>
-              {{ !displayForm ? item.value : '' }}
+            <li v-if="!displayForm" class="item">
+              {{ item.value }}
             </li>
           </div>
         </div>
-        <custom-button
-          v-if="!displayForm"
-          label="Bearbeiten"
-          btnclass="prim_small_button_blue"
-          @button-click="openChangeForm"
-        />
-        <div v-if="displayForm">
-          <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
-          <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
-          <custom-button
-            label="Bestätigen"
-            btnclass="prim_small_button_blue"
-            @button-click="submitChanges"
-          />
-          <custom-button
-            label="Verwerfen"
-            btnclass="prim_small_button_orange"
-            @button-click="discardChanges"
-          />
-        </div>
       </div>
-      <div class="profile-form-container">
+      <div v-if="displayForm" class="profile-form-container">
+        <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
+        <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
         <div class="form-items">
-          <form v-if="displayForm">
+          <form>
             <text-input-field
               v-model="options.username.value"
               placeholder="username"
@@ -149,7 +131,23 @@ onMounted(() => {
             />
           </form>
         </div>
+        <custom-button
+          label="Bestätigen"
+          btnclass="prim_small_button_blue"
+          @button-click="submitChanges"
+        />
+        <custom-button
+          label="Verwerfen"
+          btnclass="prim_small_button_orange"
+          @button-click="discardChanges"
+        />
       </div>
+      <custom-button
+        v-if="!displayForm"
+        label="Bearbeiten"
+        btnclass="prim_small_button_blue"
+        @button-click="openChangeForm"
+      />
     </div>
   </div>
 </template>
