@@ -86,13 +86,11 @@ onMounted(() => {
       <div class="information">
         <div v-for="(item, key) in options" :key="key">
           <div v-if="key !== 'id'" class="flex">
-            <li class="title">
-              <span class="body-small">{{ item.label }}</span>
+            <li class="body-medium">
+              {{ item.label }}
             </li>
             <li>
-              <span class="body-small">{{
-                !displayForm ? item.value : ''
-              }}</span>
+              {{ !displayForm ? item.value : '' }}
             </li>
           </div>
         </div>
