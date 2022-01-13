@@ -78,39 +78,6 @@ h1 {
       flex: $right-column-width;
       padding: calc($padding-height * 3) 0 0 0;
     }
-
-    .sign-with-icon {
-      padding: 1em 0;
-      position: absolute;
-      background-color: $transparent-black;
-      left: $left-column-width;
-      width: $right-column-width;
-      overflow: visible;
-      z-index: 1;
-      border-radius: $border-radius $border-radius 0px 0px;
-      display: flex;
-      justify-content: center;
-
-      .item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .feedback-icon {
-          filter: $main-white-svg;
-        }
-
-        span {
-          margin: 0 0.5em;
-          color: $main-white;
-        }
-
-        .currentLetter {
-          font-weight: 800;
-          font-size: 40px;
-        }
-      }
-    }
   }
 
   .column2.correct {
