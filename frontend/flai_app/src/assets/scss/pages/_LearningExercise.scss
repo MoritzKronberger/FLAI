@@ -28,6 +28,10 @@ div {
     left: 50%;
     transform: translate(-50%, -50%);
     color: $main-blue;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     p {
       text-align: center;
