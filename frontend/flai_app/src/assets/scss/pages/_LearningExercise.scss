@@ -134,8 +134,8 @@ div {
 
   .exit {
     position: absolute;
-    top: $margin-height;
-    right: $margin-width;
+    bottom: $margin-height;
+    left: $margin-width;
   }
 
   .instruction {

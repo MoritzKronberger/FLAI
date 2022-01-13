@@ -44,7 +44,7 @@
     </div>
     <CustomButton
       label="Home"
-      btnclass="exit"
+      btnclass="exit sec_small_button_blue"
       @click="router.push({ name: 'HomePage' })"
     />
   </div>
