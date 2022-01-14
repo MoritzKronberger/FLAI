@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import customButton from '../components/CustomButton.vue'
 import store from '../store'
@@ -11,8 +11,9 @@ enum SelectedTest {
 
 const router = useRouter()
 const currentTest = ref<SelectedTest>()
-const startButton = ref()
 const errorMessage = ref<string>()
+const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
+const maxRounds = computed(() => store.uxtestdata.uxTest.testRounds)
 
 const selectTestOne = (): void => {
   store.flainetdata.methods.changeResultBufferSize(10)
@@ -40,37 +41,47 @@ const startTest = (): void => {
 </script>
 
 <template>
-  <div class="choose-test-container">
-    <h1 class="heading-large">
-      {{ currentTest ? currentTest : 'Kein Test gewählt' }}
-    </h1>
-    <p class="error-message body-medium">{{ errorMessage }}</p>
-    <div class="choose-test-buttons">
+  <div class="main-container">
+    <div v-if="roundsComplete !== maxRounds" class="choose-test-container">
+      <h1 class="heading-large">
+        {{ currentTest ? currentTest : 'Kein Test gewählt' }}
+      </h1>
+      <p class="error-message body-medium">{{ errorMessage }}</p>
+      <div class="choose-test-buttons">
+        <custom-button
+          label="Test 1"
+          :btnclass="
+            currentTest === SelectedTest.TestOne
+              ? 'selected-button'
+              : 'not-selected-button'
+          "
+          @button-click="selectTestOne"
+        />
+        <custom-button
+          label="Test 2"
+          :btnclass="
+            currentTest === SelectedTest.TestTwo
+              ? 'selected-button'
+              : 'not-selected-button'
+          "
+          @button-click="selectTestTwo"
+        />
+      </div>
       <custom-button
-        label="Test 1"
-        :btnclass="
-          currentTest === SelectedTest.TestOne
-            ? 'selected-button'
-            : 'not-selected-button'
-        "
-        @button-click="selectTestOne"
+        class="start-button"
+        label="Start Test"
+        :btnclass="currentTest ? 'selected-button' : 'to-home-button'"
+        @button-click="startTest"
       />
-      <custom-button
-        label="Test 2"
-        :btnclass="
-          currentTest === SelectedTest.TestTwo
-            ? 'selected-button'
-            : 'not-selected-button'
-        "
-        @button-click="selectTestTwo"
-      />
+      <p>Durchgang {{ roundsComplete + 1 }}/{{ maxRounds }}</p>
     </div>
-    <custom-button
-      ref="startButton"
-      label="Start Test"
-      :btnclass="currentTest ? 'selected-button' : 'to-home-button'"
-      @button-click="startTest"
-    />
+    <div v-else class="choose-test-container">
+      <h1>Danke fürs Testen!</h1>
+      <p>
+        Hier geht's zum
+        <a href="https://forms.gle/ZT2gqc5LPSzSVN189">Fragebogen</a>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -123,7 +134,8 @@ h1 {
   margin-bottom: $gutter-vertical * 1.2;
 }
 
-.choose-test-buttons {
+.choose-test-buttons,
+.start-button {
   margin-bottom: $gutter-vertical;
 }
 
