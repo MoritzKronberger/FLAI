@@ -1,18 +1,19 @@
 .statistic-dashboard-small {
   h4{
       color: $main-blue;
+      display: none;
   }
   .grid-cards {
    display: grid;
-   grid-template-columns: repeat(3, 1fr);
-   gap: 25px; // in rem umrechnen
+   grid-template-columns: repeat(1, 1fr);
+   gap: 31px; // in rem umrechnen
     .child-card {
-      width: 100%;
+      width: 52.5%;
       border-radius: 10px;
     }
     @media (max-width: 500px)
     {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 }
