@@ -10,32 +10,25 @@ const currentTest = computed(() => store.uxtestdata.uxTest.currentTest)
 const errorMessage = ref<string>()
 const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
 const maxRounds = computed(() => store.uxtestdata.uxTest.testRounds)
-const firstTest = computed(() => store.uxtestdata.uxTest.firstTest)
+const completedTests = computed(() => store.uxtestdata.uxTest.completedTests)
 
-const selectTestOne = (): void => {
-  store.flainetdata.methods.changeResultBufferSize(10)
-  store.flainetdata.methods.changeNewInputTimeout(1500)
-  store.uxtestdata.methods.changeCurrentWords(0)
-  if (!firstTest.value)
-    store.uxtestdata.methods.changeFirstTest(SelectedTest.TestOne)
-  store.uxtestdata.methods.changeCurrentTest(SelectedTest.TestOne)
-  errorMessage.value = undefined
-}
-
-const selectTestTwo = (): void => {
-  store.flainetdata.methods.changeResultBufferSize(30)
-  store.flainetdata.methods.changeNewInputTimeout(3500)
-  store.uxtestdata.methods.changeCurrentWords(0)
-  store.uxtestdata.methods.changeCurrentTest(SelectedTest.TestTwo)
-  if (!firstTest.value)
-    store.uxtestdata.methods.changeFirstTest(SelectedTest.TestTwo)
-  errorMessage.value = undefined
+const selectTest = (
+  test: SelectedTest,
+  bufferSize: number,
+  inputTimeout: number
+): void => {
+  if (!completedTests.value.includes(test)) {
+    store.flainetdata.methods.changeResultBufferSize(bufferSize)
+    store.flainetdata.methods.changeNewInputTimeout(inputTimeout)
+    store.uxtestdata.methods.changeCurrentTest(test)
+    errorMessage.value = undefined
+  }
 }
 
 const getTestButtonClass = (test: SelectedTest): string => {
   if (test === currentTest.value) {
     return 'selected-button'
-  } else if (test === firstTest.value) {
+  } else if (completedTests.value.includes(test)) {
     return 'inactive-button'
   }
   return 'not-selected-button'
@@ -61,12 +54,12 @@ const startTest = (): void => {
         <custom-button
           label="Test 1"
           :btnclass="getTestButtonClass(SelectedTest.TestOne)"
-          @button-click="selectTestOne"
+          @button-click="selectTest(SelectedTest.TestOne, 10, 1500)"
         />
         <custom-button
           label="Test 2"
           :btnclass="getTestButtonClass(SelectedTest.TestTwo)"
-          @button-click="selectTestTwo"
+          @button-click="selectTest(SelectedTest.TestTwo, 30, 3500)"
         />
       </div>
       <custom-button

@@ -9,7 +9,7 @@ export interface UxTest {
   testSelected: boolean
   testRounds: number
   roundsComplete: number
-  firstTest: SelectedTest | undefined
+  completedTests: SelectedTest[]
   currentTest: SelectedTest | undefined
 }
 
@@ -22,7 +22,7 @@ const uxTest: UxTest = reactive({
   testSelected: false,
   testRounds: 2,
   roundsComplete: 0,
-  firstTest: undefined,
+  completedTests: [],
   currentTest: undefined,
 })
 
@@ -38,8 +38,8 @@ const methods = {
   changeRoundsComplete(rounds: number) {
     uxTest.roundsComplete = rounds
   },
-  changeFirstTest(test: SelectedTest) {
-    uxTest.firstTest = test
+  addCompletedTest(test: SelectedTest) {
+    uxTest.completedTests.push(test)
   },
   changeCurrentTest(test: SelectedTest | undefined) {
     uxTest.currentTest = test

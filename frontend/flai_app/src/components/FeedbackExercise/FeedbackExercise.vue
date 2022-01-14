@@ -64,6 +64,7 @@ const currentWordCount = computed(
 )
 const maxWordCount = computed(() => store.uxtestdata.wordsCompleted.maxWords)
 const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
+const currentTest = computed(() => store.uxtestdata.uxTest.currentTest)
 
 const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
 
@@ -94,7 +95,10 @@ async function newWord() {
   store.uxtestdata.methods.changeCurrentWords(currentWordCount.value + 1)
   if (currentWordCount.value === maxWordCount.value) {
     store.uxtestdata.methods.changeRoundsComplete(roundsComplete.value + 1)
+    if (currentTest.value)
+      store.uxtestdata.methods.addCompletedTest(currentTest.value)
     store.uxtestdata.methods.changeCurrentTest(undefined)
+    store.uxtestdata.methods.changeCurrentWords(0)
     router.push({ name: 'ChooseTest' })
     return
   }
