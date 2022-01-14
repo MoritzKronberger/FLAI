@@ -1,10 +1,10 @@
 $left-column-width: 35%;
-$right-column-width: 65%;
+$right-column-width: calc(0.8 * (100vh - 2 * $margin-width));
 
 .sign-with-icon {
     padding: 1em 0;
     position: absolute;
-    background-color: $transparent-black;
+    background-color: $transparent-white;
     left: $left-column-width;
     width: $right-column-width;
     overflow: visible;
@@ -19,12 +19,12 @@ $right-column-width: 65%;
       align-items: center;
 
       .feedback-icon {
-        filter: $main-white-svg;
+        filter: $main-black-svg;
       }
 
       span {
         margin: 0 0.5em;
-        color: $main-white;
+        color: $main-black;
       }
 
       .currentLetter {
