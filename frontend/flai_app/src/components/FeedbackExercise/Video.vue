@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showSign">
+  <div>
     <video
       ref="videoPlayer"
       :src="videoSource"
@@ -11,12 +11,12 @@
       <div class="perspective-buttons">
         <CustomButton
           label="Front"
-          btnclass="controls"
+          btnclass="video_controls_button_blue"
           @click="frontPerspective()"
         />
         <CustomButton
           label="Seite"
-          btnclass="controls"
+          btnclass="video_controls_button_blue"
           @click="sidePerspective()"
         />
       </div>
@@ -25,18 +25,12 @@
           v-for="item in speedItems"
           :key="item.label"
           :label="item.label"
-          btnclass="controls"
+          btnclass="video_controls_button_blue"
           @click="changeSpeed(item.value)"
         />
       </div>
     </div>
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="controls"
-    @click="emit('useHint')"
-  />
 </template>
 
 <script setup lang="ts">
@@ -44,7 +38,6 @@ import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
 import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
-import DropDownMenu from '../DropDownMenu.vue'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
@@ -83,8 +76,6 @@ function changeSpeed(newSpeed: any) {
     videoHtml.playbackRate = newSpeed
   }
 }
-
-const emit = defineEmits(['useHint'])
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

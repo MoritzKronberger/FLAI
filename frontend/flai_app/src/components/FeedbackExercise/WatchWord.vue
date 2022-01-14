@@ -1,6 +1,6 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
+  <div vFocus tabindex="0">
+    <div vFocus tabindex="0">
       <p class="instruction">
         Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!
       </p>
@@ -15,7 +15,7 @@
       <CustomButton
         id="next"
         label="weiter"
-        btnclass="controls"
+        btnclass="prim_small_button_blue"
         @click="emit('next')"
       />
       <p>{{ status }}</p>
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, computed, onBeforeMount } from 'vue'
+import { ref, watchEffect, computed, onBeforeMount, watch } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
@@ -78,18 +78,14 @@ async function onNewIndex(newIndex: number) {
 }
 
 async function checkProgress(sign: Sign) {
-  if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
-    showSign.value = false
-  } else {
-    showSign.value = true
-  }
   await store.signdata.actions.patchProgress(
     props.exerciseId,
-    props.signs[index.value].id,
-    props.signs[index.value].progress,
+    sign.id,
+    sign.progress,
     true
   )
 }
+
 watchEffect(() => checkProgress(props.signs[index.value]))
 
 watchEffect(

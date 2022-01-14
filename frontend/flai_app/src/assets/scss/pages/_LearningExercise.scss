@@ -12,7 +12,7 @@ div {
 
 .learning-exercise {
   background-color: $main-white;
-  margin: 0;
+  margin: 0 $margin-width;
   padding: 0;
   height: 100vh;
 
@@ -50,15 +50,18 @@ div {
     flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
+    max-height: calc(100vh - 2 * $margin-width - $h1 - $padding-height);
 
     .column1 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
       margin-right: $padding-width;
+      height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
     .column2 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
+      height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
   }
 
@@ -67,15 +70,22 @@ div {
     flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
+    max-height: calc(100vh - 2 * $margin-width - $h1);
 
     .column1 {
       flex: $left-column-width;
       width: $left-column-width;
       padding: calc($padding-height * 3) $padding-width 0 0;
+      height: calc(100% - $padding-height * 3);
     }
     .column2 {
       flex: $right-column-width;
       padding: calc($padding-height * 3) 0 0 0;
+      height: calc(100% - $padding-height * 3);
+
+      .webcam-container {
+        height: calc(100vh - 2 * $margin-width - $h1);
+      }
     }
   }
 
@@ -96,7 +106,7 @@ div {
 
   #next {
     position: absolute;
-    bottom: calc($padding-height * -3);
+    bottom: calc((2 * $margin-height + $button-Prim-height-Small) * -1);
     right: 0;
   }
 
@@ -104,6 +114,7 @@ div {
     position: absolute;
     bottom: $margin-height;
     left: $margin-width;
+    cursor: pointer;
   }
 
   .instruction {
@@ -111,5 +122,16 @@ div {
     position: absolute;
     width: 100%;
     top: 0;
+  }
+
+  // TODO: apply proper styling
+  .detection-status {
+    padding: 1em 0;
+    z-index: 1;
+    position: absolute;
+    background-color: $transparent-white;
+    left: $left-column-width;
+    width: calc(0.8 * (100vh - 2 * $margin-width));
+    text-align: center;
   }
 }

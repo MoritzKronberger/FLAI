@@ -35,6 +35,9 @@ import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 import store from '../../store'
 import { initExerciseRound } from '../../ressources/ts/methods'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 
@@ -56,6 +59,12 @@ const exerciseId: ComputedRef<string> = computed(
   () => store.exercisedata.exercises[0].id
 )
 const wordSet = ref(true)
+const currentWordCount = computed(
+  () => store.uxtestdata.wordsCompleted.currentValue
+)
+const maxWordCount = computed(() => store.uxtestdata.wordsCompleted.maxWords)
+const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
+const currentTest = computed(() => store.uxtestdata.uxTest.currentTest)
 
 const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
 
@@ -77,9 +86,23 @@ function onNextStep() {
   console.log('nextStep')
 }
 
+// add word counter
+// redirect to ChooseText after third word
 async function newWord() {
   startSession.value = 'false'
   wordSet.value = false
+
+  store.uxtestdata.methods.changeCurrentWords(currentWordCount.value + 1)
+  if (currentWordCount.value === maxWordCount.value) {
+    store.uxtestdata.methods.changeRoundsComplete(roundsComplete.value + 1)
+    if (currentTest.value)
+      store.uxtestdata.methods.addCompletedTest(currentTest.value)
+    store.uxtestdata.methods.changeCurrentTest(undefined)
+    store.uxtestdata.methods.changeCurrentWords(0)
+    router.push({ name: 'ChooseTest' })
+    return
+  }
+
   await initExerciseRound()
   wordSet.value = true
 }

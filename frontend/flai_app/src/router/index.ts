@@ -9,6 +9,7 @@ import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
 import TestFont from '../views/TestFont.vue'
 import DebugPage from '../views/DebugPage.vue'
+import ChooseTest from '../views/ChooseTest.vue'
 import {
   authenticateFromSessionStorage,
   initExerciseRound,
@@ -17,6 +18,11 @@ import store from '../store'
 
 const tryReAuthentication = async () => {
   await authenticateFromSessionStorage()
+}
+
+const checkTestSelected = () => {
+  const test = store.uxtestdata.uxTest.currentTest
+  if (!test) return '/'
 }
 
 async function startSession() {
@@ -34,9 +40,14 @@ async function startSession() {
 const routes = [
   {
     path: '/',
+    name: 'ChooseTest',
+    component: ChooseTest,
+  },
+  {
+    path: '/home',
     name: 'HomePage',
     component: HomePage,
-    beforeEnter: [tryReAuthentication],
+    beforeEnter: [checkTestSelected, tryReAuthentication],
   },
   {
     path: '/components',
@@ -53,13 +64,13 @@ const routes = [
     name: 'LearningExercise',
     component: LearningExercise,
     // authRequired is true, but implemented in startSession
-    beforeEnter: [startSession],
+    beforeEnter: [checkTestSelected, startSession],
   },
   {
     path: '/profile',
     name: 'ProfilePage',
     component: ProfilePage,
-    meta: { authRequired: true },
+    meta: { authRequired: true, testRequired: true },
   },
   {
     path: '/register',
@@ -75,7 +86,7 @@ const routes = [
     path: '/comingsoon',
     name: 'ComingSoon',
     component: ComingSoon,
-    meta: { authRequired: true },
+    meta: { authRequired: true, testRequired: true },
   },
   {
     path: '/testfont',
@@ -96,7 +107,10 @@ const router = createRouter({
 
 // from https://next.router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 router.beforeResolve(async (to) => {
-  if (to.matched.some((record) => record.meta.authRequired)) {
+  if (to.matched.some((record) => record.meta.testRequired)) {
+    const test = store.uxtestdata.uxTest.currentTest
+    if (!test) return '/'
+  } else if (to.matched.some((record) => record.meta.authRequired)) {
     const authenticated = await authenticateFromSessionStorage()
     if (!authenticated) return '/login'
   }

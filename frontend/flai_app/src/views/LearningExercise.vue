@@ -1,6 +1,6 @@
 <template>
   <div class="learning-exercise">
-    <h2 class="heading-large">Übung</h2>
+    <h2 class="heading-large">Übung {{ currentTest }}</h2>
     <!-- hiding must be done via css and not v-if so that components still render -->
     <div
       :class="[
@@ -73,6 +73,7 @@ const feedbackClass = ref('waiting')
 const hidden = ref(true)
 
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
+const currentTest = computed(() => store.uxtestdata.uxTest.currentTest)
 //FLAI-NET
 const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
 const flaiNetReady = ref(false)
