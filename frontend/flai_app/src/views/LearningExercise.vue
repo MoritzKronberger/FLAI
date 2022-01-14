@@ -1,46 +1,52 @@
 <template>
   <div class="learning-exercise">
-    <CustomButton
-      label="x"
-      btnclass="exit"
-      @click="router.push({ name: 'HomePage' })"
-    />
-    <h1>Feedback Learning Exercise</h1>
-    <div class="exercise-card">
-      <!-- hiding must be done via css and not v-if so that components still render -->
-      <div
-        :class="[
-          hidden ? 'hidden' : '',
-          currentlyWatchWord ? 'watch-word' : 'show-word',
-        ]"
-      >
-        <div class="column1">
-          <FeedbackExercise
-            :key="signIds"
-            @watch-word="watchWord()"
-            @show-word="showWord()"
-            @correct="feedbackClass = 'correct'"
-            @wrong="feedbackClass = 'wrong'"
-          />
-        </div>
-
-        <div class="column2" :class="feedbackClass">
-          <webcam />
-        </div>
-        <!-- TODO: replace text with or add loading icon/ animation -->
-      </div>
-      <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
-        <p>
-          Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
-        </p>
-        <CustomButton
-          v-if="flaiNetReady && handposeReady"
-          label="Start"
-          btnclass="start"
-          @button-click="hidden = false"
+    <h2 class="heading-large">Übung</h2>
+    <!-- hiding must be done via css and not v-if so that components still render -->
+    <div
+      :class="[
+        hidden ? 'hidden' : '',
+        currentlyWatchWord ? 'watch-word' : 'show-word',
+      ]"
+    >
+      <div class="column1">
+        <FeedbackExercise
+          :key="signIds"
+          @watch-word="watchWord()"
+          @show-word="showWord()"
+          @correct="feedbackClass = 'correct'"
+          @wrong="feedbackClass = 'wrong'"
         />
       </div>
+
+      <div class="column2" :class="feedbackClass">
+        <webcam />
+      </div>
+      <!-- TODO: replace text with or add loading icon/ animation -->
     </div>
+    <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
+      <p class="body-large">
+        Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
+        Phasen Lernmethodik.
+      </p>
+      <br />
+      <ol class="body-large">
+        <li>Phase: Einprägen</li>
+        <li>Phase: Üben</li>
+      </ol>
+      <p class="body-medium">Ab hier verwenden wir deine Kamera.</p>
+      <CustomButton
+        v-if="flaiNetReady && handposeReady"
+        label="Start"
+        btnclass="start prim_small_button_blue"
+        @button-click="hidden = false"
+      />
+      <div v-else class="loading-circle" />
+    </div>
+    <CustomButton
+      label="Home"
+      btnclass="exit sec_small_button_blue"
+      @click="router.push({ name: 'HomePage' })"
+    />
   </div>
 </template>
 
@@ -52,6 +58,7 @@ import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'
+import IconLoader from '../components/IconLoader.vue'
 
 const router = useRouter()
 
