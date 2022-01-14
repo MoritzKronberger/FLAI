@@ -77,3 +77,10 @@
   left: $margin-width;
   cursor: pointer;
 }
+
+#next {
+  position: absolute;
+  bottom: $margin-height;
+  right: $margin-width;
+  cursor: pointer;
+}
