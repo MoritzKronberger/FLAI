@@ -53,12 +53,13 @@ const level = ref(1)
         />
       </div>
       <div class="level-panel">
+        <div class="heading-small">Lernfortschritt</div>
         <IconLoader
           :path="`/assets/icons/levels/level_${level}.svg`"
           alt="Level Icon"
           element-class="level-icon"
         />
-        <div class="heading-small level-text">Level {{ level }}</div>
+        <div class="heading-medium level-text">Level {{ level }}</div>
       </div>
       <div class="stats-small-panel">
         <StatisticDashboardSmall />
