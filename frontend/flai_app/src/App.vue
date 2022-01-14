@@ -16,8 +16,11 @@ const logoutUser = () => {
 const isAuth = computed(() => store.authdata.auth.isAuth)
 
 const switchClass = () => {
-  const path = router.currentRoute.value.path
-  if ((path === '/' || path === '/profile') && isAuth.value === true) {
+  const viewName = router.currentRoute.value.name
+  if (
+    (viewName === 'HomePage' || viewName === 'ProfilePage') &&
+    isAuth.value === true
+  ) {
     return { aside: 'display-aside', main: 'main-home-profile' }
   } else {
     return { aside: 'hidden', main: 'main-login-register-lection' }
