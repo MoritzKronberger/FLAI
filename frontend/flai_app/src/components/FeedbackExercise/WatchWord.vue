@@ -77,21 +77,6 @@ async function onNewIndex(newIndex: number) {
   console.log(index.value)
 }
 
-async function checkProgress(sign: Sign) {
-  if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
-    showSign.value = false
-  } else {
-    showSign.value = true
-  }
-  await store.signdata.actions.patchProgress(
-    props.exerciseId,
-    props.signs[index.value].id,
-    props.signs[index.value].progress,
-    true
-  )
-}
-watchEffect(() => checkProgress(props.signs[index.value]))
-
 watchEffect(
   () =>
     (status.value = getFlaiNetResults(

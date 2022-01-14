@@ -65,7 +65,6 @@ function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
     progressSmallerLevelTwo.value = true
     progressSmallerLevelThree.value = true
-    showSign.value = false
     if (sign.progress >= store.exercisedata.exerciseSettings.level_2) {
       progressSmallerLevelTwo.value = false
       if (sign.progress >= store.exercisedata.exerciseSettings.level_3) {
@@ -75,8 +74,6 @@ function checkProgress(sign: Sign) {
         }
       }
     }
-  } else {
-    showSign.value = true
   }
   console.log(
     'progress',
@@ -102,16 +99,14 @@ function reEnableInput() {
 async function correct() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
-  if (progressSmallerLevelTwo.value || !showSign.value) {
-    console.log('update correct')
-    const progress =
-      props.signs[index.value].progress + progressStep.value.progressAdd
-    await store.signdata.actions.patchProgress(
-      props.exerciseId,
-      props.signs[index.value].id,
-      progress
-    )
-  }
+  console.log('update correct')
+  const progress =
+    props.signs[index.value].progress + progressStep.value.progressAdd
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    progress
+  )
   feedbackClass.value = 'right'
   if (index.value < props.signs.length - 1) {
     index.value++
@@ -129,16 +124,14 @@ async function correct() {
 async function wrong() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Fehler.svg'
-  if (progressSmallerLevelTwo.value || !showSign.value) {
-    console.log('update wrong')
-    const progress =
-      props.signs[index.value].progress + progressStep.value.progressSubtract
-    await store.signdata.actions.patchProgress(
-      props.exerciseId,
-      props.signs[index.value].id,
-      progress
-    )
-  }
+  console.log('update wrong')
+  const progress =
+    props.signs[index.value].progress + progressStep.value.progressSubtract
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    progress
+  )
   feedbackClass.value = 'wrong'
   if (index.value < props.signs.length - 1) {
     index.value++

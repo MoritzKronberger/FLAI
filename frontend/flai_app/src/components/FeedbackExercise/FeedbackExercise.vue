@@ -77,6 +77,8 @@ function onNextStep() {
   console.log('nextStep')
 }
 
+// add word counter
+// redirect to ChooseText after third word
 async function newWord() {
   startSession.value = 'false'
   wordSet.value = false
