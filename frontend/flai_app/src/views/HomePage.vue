@@ -6,7 +6,7 @@ import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import { useRouter } from 'vue-router'
 import store from '../store'
-
+import Register from './RegisterPage.vue'
 const router = useRouter()
 
 const user = computed(() => store.userdata.user)
@@ -14,6 +14,12 @@ const auth = computed(() => store.authdata.auth)
 
 const redirect = (viewName: string) => router.push({ name: viewName })
 const level = ref(1)
+
+const modalOpen = ref(false)
+
+const openModal = (): void => {
+  modalOpen.value = !modalOpen.value
+}
 </script>
 
 <template>
@@ -23,12 +29,22 @@ const level = ref(1)
       <div class="heading-medium">
         Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
       </div>
-      <div class="register">
+      <!--<div class="register">
         <custom-button
           label="Konto erstellen"
           btnclass="prim_small_button_blue"
           @button-click="redirect('RegisterPage')"
         />
+      </div>-->
+      <div class="register">
+        <custom-button
+          label="Konto erstellen"
+          btnclass="prim_small_button_blue"
+          @button-click="openModal"
+        />
+      </div>
+      <div v-show="modalOpen" class="modal" @click="modalOpen = false">
+        <Register @click.stop />
       </div>
       <div class="login">
         Du hast bereits ein Konto?<router-link to="/login"> Login</router-link>

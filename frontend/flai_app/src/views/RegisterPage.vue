@@ -39,44 +39,36 @@ const submit = async (): Promise<void> => {
 
 <template>
   <div class="register-form-container">
-    <router-link :to="{ name: 'HomePage' }">
+    <div class="form-item">
       <IconLoader
-        path="/assets/logos/faces.svg"
+        path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-icon"
+        element-class="flai-logo"
       />
-    </router-link>
-    <div class="form-items">
-      <div class="lead-paragraph center-text body-small">
+      <div class="center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
+      <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
           v-model="user.username"
           label-name="Benutzername"
-          placeholder="Benutzername"
+          placeholder="MaxMuster"
           element-class="default_input_field input-form-primary"
         />
         <text-input-field
           v-model="user.email"
           label-name="E-Mail-Adresse"
-          placeholder="E-Mail-Adresse"
+          placeholder="maxmusterman@flai.de"
           element-class="default_input_field input-form-primary"
         />
         <text-input-field
           v-model="user.password"
           label-name="Passwort"
-          placeholder="Passwort"
+          placeholder="********"
           element-class="default_input_field input-form-primary"
           custom-type="password"
-        />
-        <custom-checkbox
-          v-model="user.right_handed"
-          label-name="Rechtshänder:in?"
-          element-class="primary-checkbox"
-          component-class="primary-checkbox"
-          checkmark-class="checkmark"
         />
         <text-input-field
           v-model="user.target_learning_time"
@@ -86,6 +78,14 @@ const submit = async (): Promise<void> => {
           custom-type="time"
           :time-step="1"
         />
+        <custom-checkbox
+          v-model="user.right_handed"
+          label-name="Rechtshänder:in?"
+          element-class="primary-checkbox"
+          component-class="primary-checkbox body-small"
+          checkmark-class="checkmark"
+        />
+        <br />
         <custom-button
           label="Registrieren"
           btnclass="button-form-primary prim_small_button_blue"
@@ -93,7 +93,7 @@ const submit = async (): Promise<void> => {
         />
       </form>
       <div class="divider-line"></div>
-      <div class="bottom-paragraph center-text body-normal">
+      <div class="bottom-paragraph center-text body-small">
         Du hast ein Konto? <router-link to="/login">Melde dich an</router-link>
       </div>
     </div>
@@ -102,4 +102,16 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
+
+.body-small {
+  font-size: $font-size-base * 0.75;
+  @include font(GothamSSm, medium);
+  color: $dark-grey;
+  line-height: 1.7;
+}
+
+.flai-logo {
+  width: 60%;
+  margin-bottom: 16px;
+}
 </style>
