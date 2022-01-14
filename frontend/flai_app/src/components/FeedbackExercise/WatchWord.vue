@@ -1,24 +1,27 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p class="instruction">
-        Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!
-      </p>
-      <SignControls :signs="signs" @new-index="onNewIndex" />
-      <Video
-        :signs="signs"
-        :index="index"
-        :show-sign="showSign"
-        :class="feedbackClass"
-        @use-hint="showSign = true"
-      />
-      <CustomButton
-        id="next"
-        label="weiter"
-        btnclass="prim_small_button_blue"
-        @click="emit('next')"
-      />
-      <p>{{ status }}</p>
+      <h2>Einprägen</h2>
+      <div class="column1">
+        <SignControls :signs="signs" @new-index="onNewIndex" />
+        <Video
+          :signs="signs"
+          :index="index"
+          :show-sign="showSign"
+          :class="feedbackClass"
+          @use-hint="showSign = true"
+        />
+      </div>
+      <div class="column2">
+        <Webcam />
+        <CustomButton
+          id="next"
+          label="weiter"
+          btnclass="prim_small_button_blue"
+          @click="emit('next')"
+        />
+        <p>{{ status }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +31,7 @@ import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
+import Webcam from '../Webcam.vue'
 import SignControls from './SignControls.vue'
 import store from '../../store'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
