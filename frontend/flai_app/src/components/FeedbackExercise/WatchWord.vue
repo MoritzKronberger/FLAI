@@ -77,16 +77,16 @@ async function onNewIndex(newIndex: number) {
   console.log(index.value)
 }
 
-async function checkProgress() {
+async function checkProgress(sign: Sign) {
   await store.signdata.actions.patchProgress(
     props.exerciseId,
-    props.signs[index.value].id,
-    props.signs[index.value].progress,
+    sign.id,
+    sign.progress,
     true
   )
 }
 
-watch(props.signs[index.value], () => checkProgress())
+watchEffect(() => checkProgress(props.signs[index.value]))
 
 watchEffect(
   () =>
