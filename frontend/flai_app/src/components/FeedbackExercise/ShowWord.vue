@@ -17,7 +17,7 @@
         v-if="wordComplete"
         id="next"
         label="weiter"
-        btnclass="controls"
+        btnclass="controls prim_small_button_blue"
         @button-click="emit('new-word')"
       />
       <p>{{ status }}</p>
