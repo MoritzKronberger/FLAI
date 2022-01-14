@@ -39,6 +39,7 @@
   .watch-word {
     display: flex;
     flex-direction: row;
+    height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
 
     h2 {
       text-align: left;
@@ -47,19 +48,25 @@
     .column1 {
       flex: 50%;
       //height - headline and headline paddings - bottom buttons and paddings and button margin/position
-      height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height);
+      height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
       margin-right: $margin-width;
+      padding-bottom: $padding-height;
 
       .sign-video {
-        height: 100%;
+        height: calc(100% - $sign-div-height - $margin-height * 2);
       }
     }
 
     .column2 {
       flex: 50%;
       //height - headline and headline paddings - bottom buttons and paddings and button margin/position
-      height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height);
+      height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
       margin-top: $sign-div-height;
+      padding-bottom: $padding-height;
+
+      .webcam-container {
+        height: calc(100% - $sign-div-height - $margin-height * 2);
+      }
     }
   }
 }
