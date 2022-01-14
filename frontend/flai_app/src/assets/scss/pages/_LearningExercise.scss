@@ -123,4 +123,15 @@ div {
     width: 100%;
     top: 0;
   }
+
+  // TODO: apply proper styling
+  .detection-status {
+    padding: 1em 0;
+    z-index: 1;
+    position: absolute;
+    background-color: $transparent-white;
+    left: $left-column-width;
+    width: calc(0.8 * (100vh - 2 * $margin-width));
+    text-align: center;
+  }
 }

@@ -20,7 +20,7 @@
         btnclass="controls prim_small_button_blue"
         @button-click="emit('new-word')"
       />
-      <p>{{ status }}</p>
+      <p class="detection-status">{{ status }}</p>
     </div>
   </div>
 </template>
