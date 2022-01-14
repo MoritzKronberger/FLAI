@@ -20,6 +20,7 @@ div {
     text-align: center;
     color: $main-blue;
     padding: $padding-height $padding-width;
+    
   }
 
   .loading-screen {
@@ -87,6 +88,13 @@ div {
         height: calc(100vh - 2 * $margin-width - $h1);
       }
     }
+  }
+
+  .column2 {
+    
+    padding-left: 50px;
+    display: flex;
+    flex-direction: row;
   }
 
   .column2.correct {
