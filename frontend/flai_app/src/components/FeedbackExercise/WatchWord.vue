@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, computed, onBeforeMount } from 'vue'
+import { ref, watchEffect, computed, onBeforeMount, watch } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
@@ -76,6 +76,17 @@ async function onNewIndex(newIndex: number) {
   )
   console.log(index.value)
 }
+
+async function checkProgress() {
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    props.signs[index.value].progress,
+    true
+  )
+}
+
+watch(props.signs[index.value], () => checkProgress())
 
 watchEffect(
   () =>
