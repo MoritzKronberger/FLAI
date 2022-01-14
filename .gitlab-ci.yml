@@ -16,9 +16,10 @@ deploy_to_flai:
     - cd ia5_teamprojekt_flai
     - sudo docker-compose down --rmi all && sudo rm -rf backend/postgres_db/pgdata
     - git checkout .
+    - git checkout ux-test
     - git pull
     - sudo docker-compose up -d --build
     - EOT
     - echo "------------> Automatic deploy finished successfully!"
   only:
-    - main
+    - ux-test
