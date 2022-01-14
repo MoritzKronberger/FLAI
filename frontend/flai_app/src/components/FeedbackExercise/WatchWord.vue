@@ -15,7 +15,7 @@
       <CustomButton
         id="next"
         label="weiter"
-        btnclass="controls"
+        btnclass="prim_small_button_blue"
         @click="emit('next')"
       />
       <p>{{ status }}</p>
