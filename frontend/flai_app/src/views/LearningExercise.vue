@@ -2,18 +2,15 @@
   <div class="learning-exercise">
     <h2 class="heading-large">Übung</h2>
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <div
+    <FeedbackExercise
+      :key="signIds"
       :class="[
         hidden ? 'hidden' : '',
         currentlyWatchWord ? 'watch-word' : 'show-word',
       ]"
-    >
-      <FeedbackExercise
-        :key="signIds"
-        @watch-word="currentlyWatchWord = true"
-        @show-word="currentlyWatchWord = false"
-      />
-    </div>
+      @watch-word="currentlyWatchWord = true"
+      @show-word="currentlyWatchWord = false"
+    />
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
       <p class="body-large">
         Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
