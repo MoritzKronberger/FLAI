@@ -9,6 +9,7 @@ import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
 import TestFont from '../views/TestFont.vue'
 import DebugPage from '../views/DebugPage.vue'
+import ChooseTest from '../views/ChooseTest.vue'
 import {
   authenticateFromSessionStorage,
   initExerciseRound,
@@ -34,6 +35,11 @@ async function startSession() {
 const routes = [
   {
     path: '/',
+    name: 'ChooseTest',
+    component: ChooseTest,
+  },
+  {
+    path: '/home',
     name: 'HomePage',
     component: HomePage,
     beforeEnter: [tryReAuthentication],
