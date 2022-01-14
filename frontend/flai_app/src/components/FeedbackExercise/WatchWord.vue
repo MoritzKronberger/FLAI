@@ -1,29 +1,31 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
-      <h2 class="heading-large">Einprägen</h2>
-      <div class="column1">
-        <SignControls :signs="signs" @new-index="onNewIndex" />
-        <Video
-          :signs="signs"
-          :index="index"
-          :show-sign="showSign"
-          :class="feedbackClass"
-          @use-hint="showSign = true"
-        />
-      </div>
-      <div class="column2">
-        <Webcam />
-        <CustomButton
-          id="next"
-          label="weiter"
-          btnclass="prim_small_button_blue"
-          @click="emit('next')"
-        />
-        <p>{{ status }}</p>
-      </div>
+  <!--div vFocus tabindex="0" @keydown.c="correct">
+    <div vFocus tabindex="0" @keydown.w="wrong"-->
+  <h2 class="heading-large">Einprägen</h2>
+  <div class="watch-word">
+    <div class="column1">
+      <SignControls :signs="signs" @new-index="onNewIndex" />
+      <Video
+        :signs="signs"
+        :index="index"
+        :show-sign="showSign"
+        :class="feedbackClass"
+        @use-hint="showSign = true"
+      />
+    </div>
+    <div class="column2">
+      <Webcam />
+      <CustomButton
+        id="next"
+        label="weiter"
+        btnclass="prim_small_button_blue"
+        @click="emit('next')"
+      />
+      <p>{{ status }}</p>
     </div>
   </div>
+  <!--/div>
+  </div-->
 </template>
 
 <script setup lang="ts">
