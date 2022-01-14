@@ -91,7 +91,8 @@ const startTest = (): void => {
     $font-size-Small,
     $main-white,
     $light-grey,
-    $light-grey
+    $light-grey,
+    false
   );
 }
 
