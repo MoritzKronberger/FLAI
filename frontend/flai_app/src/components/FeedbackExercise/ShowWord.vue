@@ -21,23 +21,10 @@
         @button-click="emit('new-word')"
       />
       <p>{{ status }}</p>
+      <div class="column2" :class="feedbackClass">
+        <webcam />
+      </div>
     </div>
-    <Video
-      id="video"
-      :show-sign="showSign"
-      :signs="signs"
-      :index="index"
-      :class="feedbackClass"
-      @use-hint="showSign = true"
-    />
-    <Button
-      v-if="wordComplete"
-      id="next"
-      label="weiter"
-      btnclass="controls"
-      @button-click="emit('new-word')"
-    />
-    <p>{{ status }}</p>
   </div>
 </template>
 
@@ -52,6 +39,7 @@ import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 import { FlaiNetResults } from '../../store/flainetdata'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
 import SignsWithIcons from './SignsWithIcons.vue'
+import Webcam from '../Webcam.vue'
 
 const inputAccepted = ref(true)
 const index = ref(0)
