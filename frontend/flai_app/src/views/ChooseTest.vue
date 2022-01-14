@@ -15,7 +15,7 @@ const firstTest = computed(() => store.uxtestdata.uxTest.firstTest)
 const selectTestOne = (): void => {
   store.flainetdata.methods.changeResultBufferSize(10)
   store.flainetdata.methods.changeNewInputTimeout(1500)
-  store.exercisedata.methods.changeCurrentWords(0)
+  store.uxtestdata.methods.changeCurrentWords(0)
   if (!firstTest.value)
     store.uxtestdata.methods.changeFirstTest(SelectedTest.TestOne)
   currentTest.value = SelectedTest.TestOne
@@ -25,7 +25,7 @@ const selectTestOne = (): void => {
 const selectTestTwo = (): void => {
   store.flainetdata.methods.changeResultBufferSize(30)
   store.flainetdata.methods.changeNewInputTimeout(3500)
-  store.exercisedata.methods.changeCurrentWords(0)
+  store.uxtestdata.methods.changeCurrentWords(0)
   currentTest.value = SelectedTest.TestTwo
   if (!firstTest.value)
     store.uxtestdata.methods.changeFirstTest(SelectedTest.TestTwo)

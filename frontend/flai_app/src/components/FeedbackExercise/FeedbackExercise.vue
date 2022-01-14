@@ -60,9 +60,9 @@ const exerciseId: ComputedRef<string> = computed(
 )
 const wordSet = ref(true)
 const currentWordCount = computed(
-  () => store.exercisedata.wordsCompleted.currentValue
+  () => store.uxtestdata.wordsCompleted.currentValue
 )
-const maxWordCount = computed(() => store.exercisedata.wordsCompleted.maxWords)
+const maxWordCount = computed(() => store.uxtestdata.wordsCompleted.maxWords)
 const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
 
 const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
@@ -91,7 +91,7 @@ async function newWord() {
   startSession.value = 'false'
   wordSet.value = false
 
-  store.exercisedata.methods.changeCurrentWords(currentWordCount.value + 1)
+  store.uxtestdata.methods.changeCurrentWords(currentWordCount.value + 1)
   if (currentWordCount.value === maxWordCount.value) {
     store.uxtestdata.methods.changeRoundsComplete(roundsComplete.value + 1)
     console.log(roundsComplete.value)
