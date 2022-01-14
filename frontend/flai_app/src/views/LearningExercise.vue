@@ -1,6 +1,7 @@
 <template>
   <div class="learning-exercise">
     <!-- hiding must be done via css and not v-if so that components still render -->
+    <h2 :class="[hidden ? '' : 'hidden', 'heading-large']">Übung</h2>
     <FeedbackExercise
       :key="signIds"
       :class="[
@@ -11,7 +12,6 @@
       @show-word="currentlyWatchWord = false"
     />
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
-      <h2 class="heading-large">Übung</h2>
       <p class="body-large">
         Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
         Phasen Lernmethodik.
