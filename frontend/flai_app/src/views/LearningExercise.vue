@@ -8,20 +8,11 @@
         currentlyWatchWord ? 'watch-word' : 'show-word',
       ]"
     >
-      <div class="column1">
-        <FeedbackExercise
-          :key="signIds"
-          @watch-word="watchWord()"
-          @show-word="showWord()"
-          @correct="feedbackClass = 'correct'"
-          @wrong="feedbackClass = 'wrong'"
-        />
-      </div>
-
-      <div class="column2" :class="feedbackClass">
-        <webcam />
-      </div>
-      <!-- TODO: replace text with or add loading icon/ animation -->
+      <FeedbackExercise
+        :key="signIds"
+        @watch-word="currentlyWatchWord = true"
+        @show-word="currentlyWatchWord = false"
+      />
     </div>
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
       <p class="body-large">
@@ -54,11 +45,9 @@
 import { computed, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
-import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'
-import IconLoader from '../components/IconLoader.vue'
 
 const router = useRouter()
 
@@ -69,7 +58,7 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
-const feedbackClass = ref('waiting')
+
 const hidden = ref(true)
 
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
@@ -81,16 +70,6 @@ const webcamReady = ref(false)
 
 const setflaiNetReady = (): void => {
   flaiNetReady.value = true
-}
-
-function watchWord() {
-  console.log('watchWord')
-  currentlyWatchWord.value = true
-}
-
-function showWord() {
-  console.log('showWord')
-  currentlyWatchWord.value = false
 }
 
 onBeforeRouteLeave(async () => {
