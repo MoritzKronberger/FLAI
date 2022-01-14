@@ -1,9 +1,19 @@
 .login-form-container {
+  width: 400px;
+  height: 63%;
+  min-height: 520px;
+  max-height: 800px;
+  border-radius: 10px;
+  padding: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  background-color: $main-white;
+
+  .form-item {
+    padding: 25% 12% 30% 12%;
+  }
 }
 
 @include form-layout($container-name: 'login-form-container', $bottom: $gutter-vertical);

@@ -7,6 +7,7 @@ import IconLoader from '../components/IconLoader.vue'
 import { useRouter } from 'vue-router'
 import store from '../store'
 import Register from './RegisterPage.vue'
+import LoginPage from './LoginPage.vue'
 const router = useRouter()
 
 const user = computed(() => store.userdata.user)
@@ -15,10 +16,12 @@ const auth = computed(() => store.authdata.auth)
 const redirect = (viewName: string) => router.push({ name: viewName })
 const level = ref(1)
 
-const modalOpen = ref(false)
+const showRegister = ref(false)
+const showLogin = ref(false)
 
-const openModal = (): void => {
-  modalOpen.value = !modalOpen.value
+const switchModal = (): void => {
+  showLogin.value = !showLogin.value
+  showRegister.value = !showRegister.value
 }
 </script>
 
@@ -40,14 +43,18 @@ const openModal = (): void => {
         <custom-button
           label="Konto erstellen"
           btnclass="prim_small_button_blue"
-          @button-click="openModal"
+          @button-click="showRegister = true"
         />
       </div>
-      <div v-show="modalOpen" class="modal" @click="modalOpen = false">
+      <div v-show="showRegister" class="modal" @click="showRegister = false">
         <Register @click.stop />
       </div>
       <div class="login">
-        Du hast bereits ein Konto?<router-link to="/login"> Login</router-link>
+        Du hast bereits ein Konto?
+        <span id="login" @click="showLogin = true">Login</span>
+      </div>
+      <div v-show="showLogin" class="modal" @click="showLogin = false">
+        <LoginPage @click.stop />
       </div>
     </div>
   </div>
@@ -94,4 +101,9 @@ const openModal = (): void => {
 <style lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/components/startpanel';
+
+#login {
+  cursor: pointer;
+  color: $main-blue;
+}
 </style>

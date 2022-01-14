@@ -38,14 +38,13 @@ const submit = async (): Promise<void> => {
 
 <template>
   <div class="login-form-container">
-    <router-link :to="{ name: 'HomePage' }">
+    <div class="form-item">
       <IconLoader
-        path="/assets/logos/faces.svg"
+        path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-icon"
+        element-class="flai-logo"
       />
-    </router-link>
-    <div class="form-items">
+      <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
@@ -68,7 +67,7 @@ const submit = async (): Promise<void> => {
         />
       </form>
       <div class="divider-line"></div>
-      <div class="bottom-paragraph center-text body-normal">
+      <div class="bottom-paragraph center-text body-small">
         Du hast noch keinen Account?
         <router-link to="/register">Registrieren</router-link>
       </div>
@@ -78,4 +77,16 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
+
+.body-small {
+  font-size: $font-size-base * 0.75;
+  @include font(GothamSSm, medium);
+  color: $dark-grey;
+  line-height: 1.7;
+}
+
+.flai-logo {
+  width: 60%;
+  margin-bottom: 16px;
+}
 </style>

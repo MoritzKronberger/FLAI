@@ -94,7 +94,7 @@ const submit = async (): Promise<void> => {
       </form>
       <div class="divider-line"></div>
       <div class="bottom-paragraph center-text body-small">
-        Du hast ein Konto? <router-link to="/login">Melde dich an</router-link>
+        Du hast ein Konto? <span id="anmelden">Melde dich an</span>
       </div>
     </div>
   </div>
@@ -110,6 +110,10 @@ const submit = async (): Promise<void> => {
   line-height: 1.7;
 }
 
+#anmelden {
+  cursor: pointer;
+  color: $main-blue;
+}
 .flai-logo {
   width: 60%;
   margin-bottom: 16px;
