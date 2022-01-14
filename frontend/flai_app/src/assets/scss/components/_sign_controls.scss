@@ -1,33 +1,32 @@
 
 .sign-controls {
-  position: absolute;
+  /*position: absolute;
   top: calc($padding-height * 3);
   left: 0;
-  width: calc(50% - $padding-width);
-  margin-top: $margin-height;
+  width: calc(50% - $padding-width);*/
 
   display: flex;
   align-items: center;
 
   .lastLetter {
-    position: absolute;
+    position: relative; //absolute
     left: 40%;
     font-size: 20px;
   }
   .currentLetter {
-    position: absolute;
+    position: relative; //absolute
     left: 50%;
     font-weight: 800;
     font-size: 40px;
   }
   .nextLetter {
-    position: absolute;
+    position: relative; //absolute
     left: 60%;
     font-size: 20px;
   }
 
   .back-button {
-    position: absolute;
+    position: relative; //absolute
     left: 30%;
     color: $main-blue;
     font-size: x-large;
@@ -36,7 +35,7 @@
     cursor: pointer;
   }
   .next-button {
-    position: absolute;
+    position: relative; //absolute
     left: 70%;
     color: $main-blue;
     font-size: x-large;
