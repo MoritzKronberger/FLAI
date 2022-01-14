@@ -1,0 +1,37 @@
+.start-panel {
+    position: relative;
+    border-radius: 10px;
+    background-color: $subtle-yellow;
+    padding: 5%;
+
+    h2 {
+        position:absolute;
+        top: 8%;
+        left: 4%;
+        padding-bottom: 1.5%;
+        color: $dark-blue;
+    }
+
+    .start-panel-text {
+        position: absolute;
+        top: 32%;
+        color: $dark-grey;
+    }
+
+    button {
+        position:absolute;
+        bottom: 8%;
+        right: 4%;
+        float: right;
+        width: 115px;
+    }
+
+    .flai-startpanel-icon {
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        width: 90px;
+        opacity:0.2;
+        transform: rotate(-13deg);
+    }
+}

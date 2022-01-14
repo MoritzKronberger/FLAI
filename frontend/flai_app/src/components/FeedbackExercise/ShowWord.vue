@@ -4,31 +4,7 @@
       <p class="instruction">
         Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
       </p>
-      <div class="sign-with-icon">
-        <div class="signs">
-          <span
-            v-for="(letter, count) of signs"
-            :key="letter.name"
-            class="item"
-          >
-            <span v-if="count === index" class="current-letter display-1">
-              {{ letter.name }}
-            </span>
-            <span
-              v-else
-              :class="['display-1', index < count ? 'next-letter' : '']"
-              >{{ letter.name }}</span
-            >
-          </span>
-        </div>
-        <IconLoader
-          v-if="pathToIcon !== undefined"
-          :key="pathToIcon"
-          :path="pathToIcon"
-          alt="Icon, das die Korrektheit anzeigt"
-          element-class="feedback-icon"
-        />
-      </div>
+      <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
       <Video
         id="video"
         :show-sign="showSign"
@@ -37,15 +13,15 @@
         :class="feedbackClass"
         @use-hint="showSign = true"
       />
+      <Button
+        v-if="wordComplete"
+        id="next"
+        label="weiter"
+        btnclass="controls"
+        @button-click="emit('new-word')"
+      />
+      <p>{{ status }}</p>
     </div>
-    <Button
-      v-if="wordComplete"
-      id="next"
-      label="weiter"
-      btnclass="prim_small_button_blue"
-      @button-click="emit('new-word')"
-    />
-    <p>{{ status }}</p>
   </div>
 </template>
 
@@ -58,12 +34,13 @@ import store from '../../store'
 import Button from '../CustomButton.vue'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 import { FlaiNetResults } from '../../store/flainetdata'
-import IconLoader from '../IconLoader.vue'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
+import SignsWithIcons from './SignsWithIcons.vue'
 
 const inputAccepted = ref(true)
 const index = ref(0)
-const pathToIcon = ref<string>()
+
+const pathToIcon = ref<string[]>([])
 
 const feedbackClass = ref('waiting')
 const progressSmallerLevelTwo = ref(true)
@@ -124,7 +101,7 @@ function reEnableInput() {
 
 async function correct() {
   inputAccepted.value = false
-  pathToIcon.value = '/assets/icons/FLAI_Richtig.svg'
+  pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -151,7 +128,7 @@ async function correct() {
 }
 async function wrong() {
   inputAccepted.value = false
-  pathToIcon.value = '/assets/icons/FLAI_Fehler.svg'
+  pathToIcon.value[index.value] = '/assets/icons/FLAI_Fehler.svg'
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =

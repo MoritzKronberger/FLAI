@@ -1,59 +1,64 @@
 <template>
   <div class="learning-exercise">
-    <CustomButton
-      label="x"
-      btnclass="exit"
-      @click="router.push({ name: 'HomePage' })"
-    />
-    <h1>Feedback Learning Exercise</h1>
-    <div class="exercise-card">
-      <!-- hiding must be done via css and not v-if so that components still render -->
-      <div
-        :class="[
-          hidden ? 'hidden' : '',
-          currentlyWatchWord ? 'watch-word' : 'show-word',
-        ]"
-      >
-        <div class="column1">
-          <FeedbackExercise
-            :key="signIds"
-            @watch-word="watchWord()"
-            @show-word="showWord()"
-            @correct="feedbackClass = 'correct'"
-            @wrong="feedbackClass = 'wrong'"
-          />
-        </div>
-
-        <div class="column2" :class="feedbackClass">
-          <flai-net
-            @status-change="setflaiNetReady"
-            @handpose-ready="setHandposeReady"
-          />
-        </div>
-        <!-- TODO: replace text with or add loading icon/ animation -->
-      </div>
-      <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
-        <p class="display-2">
-          Lerne neue Buchstaben in deutscher Gebärdensprache kennen und übe Sie!
-        </p>
-        <CustomButton
-          v-if="flaiNetReady && handposeReady"
-          label="Start"
-          btnclass="prim_medium_button_blue start"
-          @button-click="hidden = false"
+    <h2 class="heading-large">Übung</h2>
+    <!-- hiding must be done via css and not v-if so that components still render -->
+    <div
+      :class="[
+        hidden ? 'hidden' : '',
+        currentlyWatchWord ? 'watch-word' : 'show-word',
+      ]"
+    >
+      <div class="column1">
+        <FeedbackExercise
+          :key="signIds"
+          @watch-word="watchWord()"
+          @show-word="showWord()"
+          @correct="feedbackClass = 'correct'"
+          @wrong="feedbackClass = 'wrong'"
         />
       </div>
+
+      <div class="column2" :class="feedbackClass">
+        <webcam />
+      </div>
+      <!-- TODO: replace text with or add loading icon/ animation -->
     </div>
+    <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
+      <p class="body-large">
+        Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
+        Phasen Lernmethodik.
+      </p>
+      <br />
+      <ol class="body-large">
+        <li>Phase: Einprägen</li>
+        <li>Phase: Üben</li>
+      </ol>
+      <p class="body-medium">Ab hier verwenden wir deine Kamera.</p>
+      <CustomButton
+        v-if="flaiNetReady && handposeReady"
+        label="Start"
+        btnclass="start prim_small_button_blue"
+        @button-click="hidden = false"
+      />
+      <div v-else class="loading-circle" />
+    </div>
+    <CustomButton
+      label="Home"
+      btnclass="exit sec_small_button_blue"
+      @click="router.push({ name: 'HomePage' })"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
-import FlaiNet from '../components/FlaiNet.vue'
+import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
+import { Results } from '@mediapipe/hands'
+import IconLoader from '../components/IconLoader.vue'
 
 const router = useRouter()
 
@@ -66,6 +71,17 @@ const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
 const feedbackClass = ref('waiting')
 const hidden = ref(true)
+
+const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
+//FLAI-NET
+const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
+const flaiNetReady = ref(false)
+const handposeReady = ref(false)
+const webcamReady = ref(false)
+
+const setflaiNetReady = (): void => {
+  flaiNetReady.value = true
+}
 
 function watchWord() {
   console.log('watchWord')
@@ -85,16 +101,39 @@ onBeforeRouteLeave(async () => {
   )
 })
 
-//FLAI-NET
-const flaiNetReady = ref(false)
-const handposeReady = ref(false)
+// TODO: move functions below to FeedbackExercise component?
 
-const setflaiNetReady = (result: boolean): void => {
-  flaiNetReady.value = result
+function onResults(handposeResults: Results) {
+  handposeReady.value = true
+  if (store.flainetdata.methods.getFlaiNet().model) {
+    const flaiNetResults =
+      store.flainetdata.methods.flaiNetPredict(handposeResults)
+    if (flaiNetOptions.value.bufferedResult) {
+      store.flainetdata.methods.resultBufferUpdate(flaiNetResults)
+    }
+  }
 }
-const setHandposeReady = (result: boolean): void => {
-  handposeReady.value = result
+
+async function webcamStarted() {
+  store.handposedata.methods.loadMediapipeHands(onResults)
+  await store.flainetdata.actions.loadFlaiNet(setflaiNetReady)
+  store.webcamdata.methods.setWebcamFeed(document.createElement('video'))
+  if (webcamFeed.value) {
+    store.handposedata.methods.startMediapipeCamera(webcamFeed.value)
+    webcamReady.value = true
+  }
 }
+
+onMounted(async () => {
+  try {
+    await store.webcamdata.actions.startWebcam(webcamStarted)
+  } catch (error) {
+    console.log(error)
+    window.alert(
+      'Es steht keine Webcam zur Verfügung. Bitte schließen Sie ein Gerät an und versuchen Sie es erneut.'
+    )
+  }
+})
 </script>
 
 <style lang="scss">

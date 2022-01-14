@@ -11,7 +11,7 @@ export default () => {
     server: {
       proxy: {
         '/api': {
-          target: `${process.env.REST_HOSTNAME}/`,
+          target: `${process.env.VITE_REST_HOSTNAME}/`,
           changeOrigin: true,
         },
       },

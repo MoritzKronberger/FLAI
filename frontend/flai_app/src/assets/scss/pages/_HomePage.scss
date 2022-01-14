@@ -41,8 +41,16 @@
       grid-column: span 2;
     }
     .level-panel {
-      background-color: $light-blue;
+      background-color: $main-blue;
       grid-column: span 1;
+      border-radius: 10px;
+      @include flex-box(column, center, center);
+      color: $main-white;
+      .level-icon {
+        height: 65%;
+        padding-left: 4%;
+        filter: invert(100);
+      }
     }
     .stats-small-panel {
       grid-column: span 3;

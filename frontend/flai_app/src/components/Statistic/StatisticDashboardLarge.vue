@@ -2,6 +2,7 @@
 import DayStreak from './DayStreak.vue'
 import CardSmall from './CardSmall.vue'
 import TrendDiagram from './TrendDiagram.vue'
+import ProgressBar from './ProgressBar.vue'
 const days = 15
 </script>
 
@@ -9,13 +10,16 @@ const days = 15
   <div class="statistic-dashboard-large">
     <div class="flex-cards">
       <DayStreak :days="days" />
+      <hr />
       <div>
+        <ProgressBar />
         <card-small
           placeholder-path="/assets/statisticPlaceholders/cardSmallProgress.svg"
           link-target="ComingSoon"
           alt-text="Aufgaben Fortschritt Statistik"
         />
       </div>
+      <hr />
       <TrendDiagram />
     </div>
   </div>
