@@ -1,5 +1,5 @@
 $left-column-width: 35%;
-$right-column-width: calc(100vh - 2 * $margin-width);
+$right-column-width: calc(0.8 * (100vh - 2 * $margin-width));
 
 .sign-with-icon {
     padding: 1em 0;
