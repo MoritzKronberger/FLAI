@@ -1,6 +1,6 @@
 <template>
-  <div class="content" vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
+  <div class="content" vFocus tabindex="0">
+    <div vFocus tabindex="0">
       <p class="instruction">
         Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
       </p>
