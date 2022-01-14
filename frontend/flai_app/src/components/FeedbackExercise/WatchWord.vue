@@ -21,7 +21,7 @@
         btnclass="prim_small_button_blue"
         @click="emit('next')"
       />
-      <p>{{ status }}</p>
+      <p id="status">{{ status }}</p>
     </div>
   </div>
   <!--/div>

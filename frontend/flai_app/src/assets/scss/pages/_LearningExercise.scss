@@ -67,6 +67,10 @@
       .webcam-container {
         height: calc(100% - $sign-div-height - $margin-height * 2);
       }
+
+      #status {
+        padding: $padding-height 0;
+      }
     }
   }
 }
