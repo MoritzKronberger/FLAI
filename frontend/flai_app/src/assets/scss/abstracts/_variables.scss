@@ -150,21 +150,15 @@ $base-font-stack:(
 );
 
 //font sizes
-$font-size-base: 8px;
+$font-size-base: 19px;
 
-$display-1: $font-size-base*6;
-$display-2: $font-size-base*5;
+$h1: $font-size-base*3.05;
+$h2: $font-size-base*2.44;
+$h3: $font-size-base*1.95;
+$h4: $font-size-base*1.57;
 
-$h1: $font-size-base*8;
-$h2: $font-size-base*4.5;
-$h3: $font-size-base*3.5;
-$h4: $font-size-base*2.5;
-
-$large: $font-size-base*2.75;
-$medium: $font-size-base*2.25;
-$normal: $font-size-base*2;
-$small: $font-size-base*1.75;
-$xsmall: $font-size-base*1.5;
+$large: $font-size-base*1.25;
+$medium: $font-size-base;
 
 
 
