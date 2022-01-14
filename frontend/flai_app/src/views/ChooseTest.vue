@@ -12,53 +12,64 @@ enum SelectedTest {
 const router = useRouter()
 const currentTest = ref<SelectedTest>()
 const startButton = ref()
-const testReady = ref(false)
+const errorMessage = ref<string>()
 
 const selectTestOne = (): void => {
   store.flainetdata.methods.changeResultBufferSize(10)
   store.flainetdata.methods.changeNewInputTimeout(1500)
   currentTest.value = SelectedTest.TestOne
-  testReady.value = true
+  errorMessage.value = undefined
 }
 
 const selectTestTwo = (): void => {
   store.flainetdata.methods.changeResultBufferSize(30)
   store.flainetdata.methods.changeNewInputTimeout(3500)
   currentTest.value = SelectedTest.TestTwo
-  testReady.value = true
+  errorMessage.value = undefined
 }
 
 const startTest = (): void => {
-  router.push({ name: 'HomePage' })
+  if (currentTest.value) {
+    router.push({ name: 'HomePage' })
+  } else {
+    errorMessage.value = 'Kein Test gewählt'
+  }
 }
 </script>
 
 <template>
-  <h1>{{ currentTest ? currentTest : 'Kein Test gewählt' }}</h1>
-  <custom-button
-    label="Test 1"
-    :btnclass="
-      currentTest === SelectedTest.TestOne
-        ? 'selected-button'
-        : 'not-selected-button'
-    "
-    @button-click="selectTestOne"
-  />
-  <custom-button
-    label="Test 2"
-    :btnclass="
-      currentTest === SelectedTest.TestTwo
-        ? 'selected-button'
-        : 'not-selected-button'
-    "
-    @button-click="selectTestTwo"
-  />
-  <custom-button
-    ref="startButton"
-    label="Start Test"
-    :btnclass="testReady ? 'selected-button' : 'to-home-button'"
-    @button-click="startTest"
-  />
+  <div class="choose-test-container">
+    <h1 class="heading-large">
+      {{ currentTest ? currentTest : 'Kein Test gewählt' }}
+    </h1>
+    <p class="error-message body-medium">{{ errorMessage }}</p>
+    <div class="choose-test-buttons">
+      <custom-button
+        label="Test 1"
+        :btnclass="
+          currentTest === SelectedTest.TestOne
+            ? 'selected-button'
+            : 'not-selected-button'
+        "
+        @button-click="selectTestOne"
+      />
+      <custom-button
+        label="Test 2"
+        :btnclass="
+          currentTest === SelectedTest.TestTwo
+            ? 'selected-button'
+            : 'not-selected-button'
+        "
+        @button-click="selectTestTwo"
+      />
+    </div>
+    <custom-button
+      ref="startButton"
+      label="Start Test"
+      :btnclass="currentTest ? 'selected-button' : 'to-home-button'"
+      @button-click="startTest"
+    />
+  </div>
 </template>
 
 <style lang="scss">
@@ -96,5 +107,26 @@ const startTest = (): void => {
     $main-white,
     $main-blue
   );
+}
+
+.choose-test-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+h1 {
+  margin-bottom: $gutter-vertical * 1.2;
+}
+
+.choose-test-buttons {
+  margin-bottom: $gutter-vertical;
+}
+
+.error-message {
+  color: $main-red;
+  margin-bottom: $gutter-vertical;
 }
 </style>
