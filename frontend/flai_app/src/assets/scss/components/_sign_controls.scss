@@ -1,28 +1,25 @@
 
 .sign-controls {
-  /*position: absolute;
-  top: calc($padding-height * 3);
-  left: 0;
-  width: calc(50% - $padding-width);*/
-
+  width: 100%;
+  height: calc($margin-height + $h2);
   display: flex;
   align-items: center;
 
   .lastLetter {
     position: relative; //absolute
     left: 40%;
-    font-size: 20px;
+    font-size: $h3;
   }
   .currentLetter {
     position: relative; //absolute
     left: 50%;
     font-weight: 800;
-    font-size: 40px;
+    font-size: $h2;
   }
   .nextLetter {
     position: relative; //absolute
     left: 60%;
-    font-size: 20px;
+    font-size: $h3;
   }
 
   .back-button {
