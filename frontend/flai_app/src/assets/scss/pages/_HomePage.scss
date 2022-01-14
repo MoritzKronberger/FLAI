@@ -37,8 +37,9 @@
     grid-template-columns: repeat(5, 190px);
     grid-template-rows: repeat(3, 190px);
     .start-panel {
-      background-color: $subtle-yellow;
+      background-color: $main-blue;
       grid-column: span 2;
+      grid-row: span 2;
     }
     .level-panel {
       background-color: $main-blue;
