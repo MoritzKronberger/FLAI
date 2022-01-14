@@ -10,38 +10,37 @@ div {
   padding: 0;
 }
 
-h1 {
-  padding: 0 $margin-width;
-}
-
 .learning-exercise {
-  background-color: $background-blue;
-  margin: 0;
+  background-color: $main-white;
+  margin: 0 $margin-width;
   padding: 0;
-  min-height: 100vh;
+  height: 100vh;
 
-  .exercise-card {
-    background-color: $main-white;
-    margin: $margin-width;
+  h2 {
+    text-align: center;
+    color: $main-blue;
     padding: $padding-height $padding-width;
-    min-width: 50%;
-    min-height: calc(100vh - 2 * $margin-width);
-    position: relative;
+  }
 
-    .loading-screen {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+  .loading-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $main-blue;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-      p {
-        text-align: center;
-        margin-bottom: $margin-height;
-      }
-      .start {
-        position: absolute;
-        left: 50%;
-      }
+    p {
+      text-align: center;
+      padding: $padding-height $padding-width;
+    }
+
+    ol {
+      text-align: center;
+      list-style-position: inside;
     }
   }
 
@@ -51,15 +50,18 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
+    max-height: calc(100vh - 2 * $margin-width - $h1 - $padding-height);
 
     .column1 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
       margin-right: $padding-width;
+      height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
     .column2 {
       flex: 50%;
       padding-top: calc($padding-height * 7);
+      height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
   }
 
@@ -68,42 +70,21 @@ h1 {
     flex-direction: row;
     flex-wrap: nowrap;
     position: relative;
+    max-height: calc(100vh - 2 * $margin-width - $h1);
 
     .column1 {
       flex: $left-column-width;
       width: $left-column-width;
       padding: calc($padding-height * 3) $padding-width 0 0;
+      height: calc(100% - $padding-height * 3);
     }
     .column2 {
       flex: $right-column-width;
       padding: calc($padding-height * 3) 0 0 0;
-    }
+      height: calc(100% - $padding-height * 3);
 
-    .sign-with-icon {
-      padding: 1em 0;
-      position: absolute;
-      background-color: $transparent-black;
-      left: $left-column-width;
-      width: $right-column-width;
-      overflow: visible;
-      z-index: 1;
-      border-radius: $border-radius $border-radius 0px 0px;
-
-      .feedback-icon {
-        position: absolute;
-        right: calc($padding-width * 0.5);
-        top: 0;
-        filter: $main-white-svg;
-      }
-      .signs {
-        text-align: center;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-
-        span {
-          margin: 0 0.5em;
-        }
+      .webcam-container {
+        height: calc(100vh - 2 * $margin-width - $h1);
       }
     }
   }
@@ -125,14 +106,15 @@ h1 {
 
   #next {
     position: absolute;
-    bottom: calc($padding-height * -3);
+    bottom: calc((2 * $margin-height + $button-Prim-height-Small) * -1);
     right: 0;
   }
 
   .exit {
     position: absolute;
-    top: $margin-height;
-    right: $margin-width;
+    bottom: $margin-height;
+    left: $margin-width;
+    cursor: pointer;
   }
 
   .instruction {
