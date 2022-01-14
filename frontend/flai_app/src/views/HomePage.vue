@@ -51,11 +51,6 @@ const level = ref(1)
           btnclass="prim_small_button_blue"
           @button-click="redirect('ComingSoon')"
         />
-        <IconLoader
-          path="/assets/logos/hand.svg"
-          alt="Start Panel Background Image"
-          element-class="flai-startpanel-icon"
-        />
       </div>
       <div class="level-panel">
         <IconLoader
