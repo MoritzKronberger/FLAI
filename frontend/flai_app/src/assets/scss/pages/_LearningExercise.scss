@@ -48,6 +48,11 @@
       flex: 50%;
       //height - headline and headline paddings - bottom buttons and paddings and button margin/position
       height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height);
+      margin-right: $margin-width;
+
+      .sign-video {
+        height: 100%;
+      }
     }
 
     .column2 {

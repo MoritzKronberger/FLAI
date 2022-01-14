@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showSign">
+  <div v-if="showSign" class="sign-video">
     <video
       ref="videoPlayer"
       :src="videoSource"
