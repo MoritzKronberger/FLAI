@@ -49,7 +49,7 @@ const level = ref(1)
         <custom-button
           label="Start"
           btnclass="prim_small_button_blue"
-          @button-click="redirect('ComingSoon')"
+          @button-click="redirect('LearningExercise')"
         />
         <IconLoader
           path="/assets/logos/hand.svg"
