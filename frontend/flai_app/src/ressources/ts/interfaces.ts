@@ -4,9 +4,9 @@ export interface DropDown {
 }
 
 export enum FeedbackStatus {
-  Correct = 'Correct',
-  Wrong = 'Wrong',
-  Paused = 'Paused',
-  NoHandDetected = 'No hand detected',
-  Detecting = 'Detecting, please hold...',
+  Correct = 'Richtig',
+  Wrong = 'Falsch',
+  Paused = 'Pausiert',
+  NoHandDetected = 'Keine Hand erkannt',
+  Detecting = 'Erkenne Gebärde. Bitte halten ...',
 }
