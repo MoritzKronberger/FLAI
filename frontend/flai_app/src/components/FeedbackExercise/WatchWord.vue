@@ -1,7 +1,7 @@
 <template>
   <div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <h2>Einprägen</h2>
+      <h2 class="heading-large">Einprägen</h2>
       <div class="column1">
         <SignControls :signs="signs" @new-index="onNewIndex" />
         <Video
