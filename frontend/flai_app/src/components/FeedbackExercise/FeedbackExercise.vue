@@ -35,6 +35,9 @@ import WatchWord from './WatchWord.vue'
 import ShowWord from './ShowWord.vue'
 import store from '../../store'
 import { initExerciseRound } from '../../ressources/ts/methods'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const allSigns: ComputedRef<Sign[]> = computed(() => store.signdata.signs)
 
@@ -56,6 +59,10 @@ const exerciseId: ComputedRef<string> = computed(
   () => store.exercisedata.exercises[0].id
 )
 const wordSet = ref(true)
+const currentWordCount = computed(
+  () => store.exercisedata.wordsCompleted.currentValue
+)
+const maxWordCount = computed(() => store.exercisedata.wordsCompleted.maxWords)
 
 const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
 
@@ -82,6 +89,13 @@ function onNextStep() {
 async function newWord() {
   startSession.value = 'false'
   wordSet.value = false
+
+  store.exercisedata.methods.changeCurrentWords(currentWordCount.value + 1)
+  if (currentWordCount.value === maxWordCount.value) {
+    router.push({ name: 'ChooseTest' })
+    return
+  }
+
   await initExerciseRound()
   wordSet.value = true
 }

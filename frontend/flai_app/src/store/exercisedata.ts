@@ -76,6 +76,16 @@ const word: Word = {
   signs: reactive([]),
 }
 
+export interface WordsCompleted {
+  maxWords: number
+  currentValue: number
+}
+
+const wordsCompleted: WordsCompleted = reactive({
+  maxWords: 3,
+  currentValue: 0,
+})
+
 const methods = {
   /*getExercises() {
     const exercise: Exercise = {
@@ -128,6 +138,12 @@ const methods = {
   },
   changeWord(newWord: string[]) {
     Object.assign(word.signs, newWord)
+  },
+  changeMaxWords(newMax: number) {
+    wordsCompleted.maxWords = newMax
+  },
+  changeCurrentWords(newValue: number) {
+    wordsCompleted.currentValue = newValue
   },
 }
 
@@ -341,6 +357,7 @@ const exerciseData = {
   activeExerciseSession: readonly(activeExerciseSession) as ExerciseSession,
   progressStep: readonly(progressStep),
   word: readonly(word) as Word,
+  wordsCompleted: readonly(wordsCompleted) as WordsCompleted,
   methods,
   actions,
 }

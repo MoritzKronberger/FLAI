@@ -17,6 +17,7 @@ const errorMessage = ref<string>()
 const selectTestOne = (): void => {
   store.flainetdata.methods.changeResultBufferSize(10)
   store.flainetdata.methods.changeNewInputTimeout(1500)
+  store.exercisedata.methods.changeCurrentWords(0)
   currentTest.value = SelectedTest.TestOne
   errorMessage.value = undefined
 }
@@ -24,6 +25,7 @@ const selectTestOne = (): void => {
 const selectTestTwo = (): void => {
   store.flainetdata.methods.changeResultBufferSize(30)
   store.flainetdata.methods.changeNewInputTimeout(3500)
+  store.exercisedata.methods.changeCurrentWords(0)
   currentTest.value = SelectedTest.TestTwo
   errorMessage.value = undefined
 }
