@@ -94,7 +94,7 @@ async function newWord() {
   store.uxtestdata.methods.changeCurrentWords(currentWordCount.value + 1)
   if (currentWordCount.value === maxWordCount.value) {
     store.uxtestdata.methods.changeRoundsComplete(roundsComplete.value + 1)
-    console.log(roundsComplete.value)
+    store.uxtestdata.methods.changeCurrentTest(undefined)
     router.push({ name: 'ChooseTest' })
     return
   }

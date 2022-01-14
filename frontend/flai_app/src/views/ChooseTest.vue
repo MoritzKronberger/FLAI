@@ -6,7 +6,7 @@ import store from '../store'
 import { SelectedTest } from '../store/uxtestdata'
 
 const router = useRouter()
-const currentTest = ref<SelectedTest>()
+const currentTest = computed(() => store.uxtestdata.uxTest.currentTest)
 const errorMessage = ref<string>()
 const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
 const maxRounds = computed(() => store.uxtestdata.uxTest.testRounds)
@@ -18,7 +18,7 @@ const selectTestOne = (): void => {
   store.uxtestdata.methods.changeCurrentWords(0)
   if (!firstTest.value)
     store.uxtestdata.methods.changeFirstTest(SelectedTest.TestOne)
-  currentTest.value = SelectedTest.TestOne
+  store.uxtestdata.methods.changeCurrentTest(SelectedTest.TestOne)
   errorMessage.value = undefined
 }
 
@@ -26,7 +26,7 @@ const selectTestTwo = (): void => {
   store.flainetdata.methods.changeResultBufferSize(30)
   store.flainetdata.methods.changeNewInputTimeout(3500)
   store.uxtestdata.methods.changeCurrentWords(0)
-  currentTest.value = SelectedTest.TestTwo
+  store.uxtestdata.methods.changeCurrentTest(SelectedTest.TestTwo)
   if (!firstTest.value)
     store.uxtestdata.methods.changeFirstTest(SelectedTest.TestTwo)
   errorMessage.value = undefined

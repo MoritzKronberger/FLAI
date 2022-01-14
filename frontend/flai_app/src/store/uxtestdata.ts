@@ -10,6 +10,7 @@ export interface UxTest {
   testRounds: number
   roundsComplete: number
   firstTest: SelectedTest | undefined
+  currentTest: SelectedTest | undefined
 }
 
 export interface WordsCompleted {
@@ -22,6 +23,7 @@ const uxTest: UxTest = reactive({
   testRounds: 2,
   roundsComplete: 0,
   firstTest: undefined,
+  currentTest: undefined,
 })
 
 const wordsCompleted: WordsCompleted = reactive({
@@ -38,6 +40,9 @@ const methods = {
   },
   changeFirstTest(test: SelectedTest) {
     uxTest.firstTest = test
+  },
+  changeCurrentTest(test: SelectedTest | undefined) {
+    uxTest.currentTest = test
   },
   changeMaxWords(newMax: number) {
     wordsCompleted.maxWords = newMax
