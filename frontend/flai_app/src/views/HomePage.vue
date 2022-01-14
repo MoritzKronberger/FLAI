@@ -18,11 +18,6 @@ const level = ref(1)
 
 const showRegister = ref(false)
 const showLogin = ref(false)
-
-const switchModal = (): void => {
-  showLogin.value = !showLogin.value
-  showRegister.value = !showRegister.value
-}
 </script>
 
 <template>
