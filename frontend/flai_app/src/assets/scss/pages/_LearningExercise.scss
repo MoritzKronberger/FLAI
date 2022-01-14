@@ -82,6 +82,10 @@ div {
       flex: $right-column-width;
       padding: calc($padding-height * 3) 0 0 0;
       height: calc(100% - $padding-height * 3);
+
+      .webcam-container {
+        height: calc(100vh - 2 * $margin-width - $h1);
+      }
     }
   }
 
