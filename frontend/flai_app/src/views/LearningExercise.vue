@@ -15,6 +15,7 @@
           @show-word="showWord()"
           @correct="feedbackClass = 'correct'"
           @wrong="feedbackClass = 'wrong'"
+          @waiting="feedbackClass = 'waiting'"
         />
       </div>
 
@@ -58,7 +59,6 @@ import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'
-import IconLoader from '../components/IconLoader.vue'
 
 const router = useRouter()
 

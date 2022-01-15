@@ -63,6 +63,18 @@ div {
       padding-top: calc($padding-height * 7);
       height: calc(100vh - 2 * $margin-width - $h1 - $padding-height * 8);
     }
+
+      // TODO: apply proper styling
+  .detection-status {
+    padding: 1em 0;
+    z-index: 1;
+    position: absolute;
+    background-color: $transparent-white;
+    left: 50%;
+    top: calc(100vh - $margin-width - $h1 - $padding-height * 8);
+    width: calc(0.8 * (100vh - 2 * $margin-width));
+    text-align: center;
+  }
   }
 
   .show-word {
@@ -86,6 +98,17 @@ div {
       .webcam-container {
         height: calc(100vh - 2 * $margin-width - $h1);
       }
+    }
+
+    // TODO: apply proper styling
+    .detection-status {
+      padding: 1em 0;
+      z-index: 1;
+      position: absolute;
+      background-color: $transparent-white;
+      left: $left-column-width;
+      width: calc(0.8 * (100vh - 2 * $margin-width));
+      text-align: center;
     }
   }
 
@@ -122,16 +145,5 @@ div {
     position: absolute;
     width: 100%;
     top: 0;
-  }
-
-  // TODO: apply proper styling
-  .detection-status {
-    padding: 1em 0;
-    z-index: 1;
-    position: absolute;
-    background-color: $transparent-white;
-    left: $left-column-width;
-    width: calc(0.8 * (100vh - 2 * $margin-width));
-    text-align: center;
   }
 }
