@@ -22,11 +22,9 @@
       </div>
       <div class="speed-buttons">
         <CustomButton
-          v-for="item in speedItems"
-          :key="item.label"
-          :label="item.label"
+          label="Start"
           btnclass="sec_small_button_blue"
-          @click="changeSpeed(item.value)"
+          @click="console.log('click start, not working sorry')"
         />
       </div>
     </div>
