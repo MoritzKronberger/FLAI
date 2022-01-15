@@ -20,6 +20,11 @@
 
   }
 
+  .status {
+    padding: $padding-height 0;
+    margin-top: 1px;
+  }
+
   .loading-screen {
     position: absolute;
     top: 50%;
@@ -54,6 +59,12 @@
     flex-direction: row;
     height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
 
+    
+    .status:after {
+      content:"";
+      display:inline-block;
+    }
+
     h2 {
       text-align: left;
     }
@@ -67,7 +78,6 @@
 
       .status {
         text-align: left;
-        padding: $padding-height 0;
         margin-right: 0;
         margin-left: auto;
       }
@@ -101,7 +111,6 @@
       .status {
         text-align: right;
         width: calc(100% - $sign-div-height - $margin-height * 2);
-        padding: $padding-height 0;
       }
 
       .exercise-controls {

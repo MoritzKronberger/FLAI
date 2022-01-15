@@ -7,7 +7,7 @@
       autoplay
       loop
     />
-    <p class="status body-medium">.</p>
+    <p class="status body-medium"></p>
     <div class="video-controls">
       <div class="perspective-buttons">
         <CustomButton
