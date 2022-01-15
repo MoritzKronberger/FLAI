@@ -1,9 +1,9 @@
 <template>
   <!--div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
-  <h2 class="heading-large align-left">Einprägen</h2>
   <div class="watch-word">
     <div class="column1">
+      <h2 class="heading-large align-left">Einprägen</h2>
       <SignControls :signs="signs" @new-index="onNewIndex" />
       <Video
         :signs="signs"
@@ -14,6 +14,7 @@
       />
     </div>
     <div class="column2">
+      <h2 class="heading-large align-left"></h2>
       <Webcam />
       <p class="status body-medium">{{ status }}</p>
       <div class="exercise-controls">
