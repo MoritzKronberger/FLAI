@@ -53,7 +53,7 @@ function onclick() {
         element-class="flai-logo"
       />
       <div class="center-text body-small">
-        Registriere dich, um die deutsche Gebärdensprache zu erlernen.
+        Registriere dich, um die deutsche Gebärdensprache zu erlernen
       </div>
       <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
