@@ -40,6 +40,13 @@
       text-align: center;
       list-style-position: inside;
     }
+
+    .exit {
+      position: absolute;
+      bottom: $margin-height;
+      left: $margin-width;
+      cursor: pointer;
+    }
   }
 
   .watch-word {
@@ -54,9 +61,10 @@
     .column1 {
       flex: 50%;
       //height - headline and headline paddings - bottom buttons and paddings and button margin/position
-      height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
+      //height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
       margin-right: $margin-width;
       padding-bottom: $padding-height;
+      width: calc(100% - $margin-width - ($button-Prim-height-Small + 2 * $button-margin));
 
       .sign-video {
         height: calc(100% - $sign-div-height - $margin-height * 2);
@@ -72,25 +80,29 @@
 
       .webcam-container {
         height: calc(100% - $sign-div-height - $margin-height * 2);
+        display: flex;
+        justify-content: end;
       }
 
       #status {
+        text-align: right;
         padding: $padding-height 0;
+      }
+
+      .exercise-controls {
+        display: flex;
+        justify-content: end;
+
+        .exit {
+          margin-right: $margin-width;
+          cursor: pointer;
+        }
+        
+        #next {
+          cursor: pointer;
+        }
       }
     }
   }
 }
 
-.exit {
-  position: absolute;
-  bottom: $margin-height;
-  left: $margin-width;
-  cursor: pointer;
-}
-
-#next {
-  position: absolute;
-  bottom: $margin-height;
-  right: $margin-width;
-  cursor: pointer;
-}

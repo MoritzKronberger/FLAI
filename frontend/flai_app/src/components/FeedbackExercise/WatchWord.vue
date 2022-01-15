@@ -15,13 +15,20 @@
     </div>
     <div class="column2">
       <Webcam />
-      <CustomButton
-        id="next"
-        label="weiter"
-        btnclass="prim_small_button_blue"
-        @click="emit('next')"
-      />
       <p id="status">{{ status }}</p>
+      <div class="exercise-controls">
+        <CustomButton
+          label="Home"
+          btnclass="exit sec_small_button_blue"
+          @click="router.push({ name: 'HomePage' })"
+        />
+        <CustomButton
+          id="next"
+          label="weiter"
+          btnclass="prim_small_button_blue"
+          @click="emit('next')"
+        />
+      </div>
     </div>
   </div>
   <!--/div>
@@ -31,12 +38,15 @@
 <script setup lang="ts">
 import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
+import { useRouter } from 'vue-router'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
 import Webcam from '../Webcam.vue'
 import SignControls from './SignControls.vue'
 import store from '../../store'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
+
+const router = useRouter()
 
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')

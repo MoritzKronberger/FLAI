@@ -26,12 +26,12 @@
         @button-click="hidden = false"
       />
       <div v-else class="loading-circle" />
+      <CustomButton
+        label="Home"
+        btnclass="exit sec_small_button_blue"
+        @click="router.push({ name: 'HomePage' })"
+      />
     </div>
-    <CustomButton
-      label="Home"
-      btnclass="exit sec_small_button_blue"
-      @click="router.push({ name: 'HomePage' })"
-    />
   </div>
 </template>
 
