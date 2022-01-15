@@ -35,6 +35,13 @@ const submit = async (): Promise<void> => {
     errorMessage.value = result?.data.message
   }
 }
+
+const emit = defineEmits(['openLogin'])
+
+function onclick() {
+  // emit is placed in method so that validation for input value can be added
+  emit('openLogin')
+}
 </script>
 
 <template>
@@ -94,7 +101,8 @@ const submit = async (): Promise<void> => {
       </form>
       <div class="divider-line"></div>
       <div class="bottom-paragraph center-text body-small">
-        Du hast ein Konto? <span id="anmelden">Melde dich an</span>
+        Du hast ein Konto?
+        <span id="anmelden" @click="onclick">Melde dich an</span>
       </div>
     </div>
   </div>

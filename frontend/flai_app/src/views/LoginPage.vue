@@ -34,6 +34,13 @@ const submit = async (): Promise<void> => {
     errorMessage.value = result?.data.message
   }
 }
+
+const emit = defineEmits(['openRegister'])
+
+function onclick() {
+  // emit is placed in method so that validation for input value can be added
+  emit('openRegister')
+}
 </script>
 
 <template>
@@ -69,7 +76,7 @@ const submit = async (): Promise<void> => {
       <div class="divider-line"></div>
       <div class="bottom-paragraph center-text body-small">
         Du hast noch keinen Account?
-        <router-link to="/register">Registrieren</router-link>
+        <span id="registrieren" @click="onclick">Registrieren</span>
       </div>
     </div>
   </div>
@@ -83,6 +90,11 @@ const submit = async (): Promise<void> => {
   @include font(GothamSSm, medium);
   color: $dark-grey;
   line-height: 1.7;
+}
+
+#registrieren {
+  cursor: pointer;
+  color: $main-blue;
 }
 
 .flai-logo {
