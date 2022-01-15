@@ -15,7 +15,7 @@
     </div>
     <div class="column2">
       <Webcam />
-      <p id="status">{{ status }}</p>
+      <p class="status body-medium">{{ status }}</p>
       <div class="exercise-controls">
         <CustomButton
           label="Home"

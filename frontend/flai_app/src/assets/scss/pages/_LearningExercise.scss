@@ -66,6 +66,11 @@
       padding-bottom: $padding-height;
       width: calc(100% - $margin-width - ($button-Prim-height-Small + 2 * $button-margin));
 
+      .status {
+        text-align: left;
+        padding: $padding-height 0;
+      }
+
       .sign-video {
         height: calc(100% - $sign-div-height - $margin-height * 2);
       }
@@ -84,7 +89,7 @@
         justify-content: end;
       }
 
-      #status {
+      .status {
         text-align: right;
         padding: $padding-height 0;
       }
