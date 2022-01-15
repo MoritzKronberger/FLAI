@@ -40,9 +40,7 @@
 <script setup lang="ts">
 import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
-import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
-import DropDownMenu from '../DropDownMenu.vue'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
@@ -87,7 +85,6 @@ function togglePlay() {
 const emit = defineEmits(['useHint'])
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 @import '../../assets/scss/main.scss';
 </style>
