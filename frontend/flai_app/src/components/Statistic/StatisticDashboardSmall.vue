@@ -4,7 +4,7 @@ import CardSmall from './CardSmall.vue'
 
 <template>
   <div class="statistic-dashboard-small">
-    <h2>Statistiken</h2>
+    <h4 class="heading-small">Statistiken</h4>
     <div class="grid-cards">
       <div class="child-card">
         <card-small

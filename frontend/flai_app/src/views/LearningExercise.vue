@@ -17,10 +17,6 @@
           @wrong="feedbackClass = 'wrong'"
         />
       </div>
-
-      <div class="column2" :class="feedbackClass">
-        <webcam />
-      </div>
       <!-- TODO: replace text with or add loading icon/ animation -->
     </div>
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">

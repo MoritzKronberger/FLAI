@@ -1,5 +1,5 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
+  <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
       <p class="instruction">
         Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
@@ -21,6 +21,9 @@
         @button-click="emit('new-word')"
       />
       <p>{{ status }}</p>
+      <div class="column2" :class="feedbackClass">
+        <webcam />
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +39,7 @@ import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 import { FlaiNetResults } from '../../store/flainetdata'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
 import SignsWithIcons from './SignsWithIcons.vue'
+import Webcam from '../Webcam.vue'
 
 const inputAccepted = ref(true)
 const index = ref(0)
