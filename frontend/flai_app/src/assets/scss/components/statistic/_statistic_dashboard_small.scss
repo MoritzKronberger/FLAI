@@ -1,14 +1,24 @@
 .statistic-dashboard-small {
+  height: 100%;
+
   h4{
       color: $main-blue;
       display: none;
   }
   .grid-cards {
-   display: grid;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
    grid-template-columns: repeat(1, 1fr);
-   gap: 31px; // in rem umrechnen
+   justify-content: space-between;
+
     .child-card {
       width: 100%;
+      height: 32%;
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      background-color: $main-white;
       border-radius: 10px;
     }
     @media (max-width: 500px)
