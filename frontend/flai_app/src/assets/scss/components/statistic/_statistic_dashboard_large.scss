@@ -5,20 +5,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   .flex-cards {
     @include flex-box(column, space-between, center, 10px);
   }
   padding: 35px 25px 35px 25px;
 
-  hr {
-    width: 85%;
-    margin: 35px 0px 35px 0px;
-    color: $light-grey;
-    opacity: 25%;
-  }
-
   .hot-streak {
     @include flex-box(row, center, center);
+    margin-top: 10%;
   }
 
   .hot-streak-item {
@@ -33,4 +28,17 @@
   .day-text {
     color: $dark-grey;
   }
+
+  .counter {
+    color: $dark-grey;
+    margin-top: 2%;
+
+    #days {
+      display: flex;
+      justify-content: center;
+      margin-top: 2%;
+    }
+  }
+
+
 }
