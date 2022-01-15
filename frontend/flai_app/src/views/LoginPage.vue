@@ -2,7 +2,7 @@
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { LoginUser } from '../store/authdata'
 import store from '../store'
 import { useRouter } from 'vue-router'
@@ -23,6 +23,13 @@ const errorMessage = ref('')
 onMounted(() => {
   user.value.email = userData.value.email
 })
+
+//onMounted will not work on modal view
+function updateUser(mail: string) {
+  user.value.email = mail
+}
+
+watchEffect(() => updateUser(userData.value.email))
 
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
