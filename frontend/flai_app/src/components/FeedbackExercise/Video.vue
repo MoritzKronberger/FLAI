@@ -22,7 +22,7 @@
       </div>
       <div class="play-button">
         <CustomButton
-          :label="play ? 'play' : 'pause'"
+          :label="play ? '||' : '&#9658;'"
           btnclass="video_controls_button_blue"
           @click="togglePlay()"
         />
