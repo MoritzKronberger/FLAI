@@ -13,7 +13,7 @@
 
   .hot-streak {
     @include flex-box(row, center, center);
-    margin-top: 10%;
+    margin-top: 5%;
   }
 
   .hot-streak-item {
@@ -38,6 +38,11 @@
       justify-content: center;
       margin-top: 2%;
     }
+  }
+
+  #month {
+    margin-top: 10%;
+    margin-bottom: 10%;
   }
 
 
