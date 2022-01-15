@@ -51,10 +51,10 @@
     }
   }
 
+  // In many iterations with grid, flexbox and float I decided to hardcode the heights with calculations and variables, otherwise the video will always be too big or the buttons not fit to video width. The calculations are long but pretty flexible, because the only hardcoded value is the line-height right now.
   .watch-word {
     display: flex;
     flex-direction: row;
-    //height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
     height: 100vh;
     
     .status:after {
@@ -79,9 +79,7 @@
     .column1 {
       flex: 50%;
       height: 100vh;
-      padding-right: $padding-width;
-      padding-bottom: $padding-height;
-      
+      padding-right: $padding-width;      
 
       .status {
         text-align: left;
@@ -91,14 +89,15 @@
 
       .sign-controls {
         margin-right: 0;
-        margin-left: auto;//width same as height of video
+        margin-left: auto;
+        //width same as height of video
         width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
       }
 
       .sign-video {
-        height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height);
         margin-right: 0;
         margin-left: auto;
+        height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height);
         //width same as height of video
         width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
 
@@ -115,7 +114,6 @@
       flex: 50%;
       height: 100vh;
       padding-right: $padding-width;
-      padding-bottom: $padding-height;
 
       .webcam-container {
         margin-top: $sign-div-height;
@@ -133,14 +131,6 @@
         width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
         display: flex;
         justify-content: end;
-
-        .exit {
-          cursor: pointer;
-        }
-        
-        #next {
-          cursor: pointer;
-        }
       }
     }
   }
