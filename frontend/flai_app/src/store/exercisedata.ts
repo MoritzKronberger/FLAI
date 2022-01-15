@@ -64,8 +64,8 @@ export interface Progress {
 }
 
 const progressStep: Progress = {
-  progressAdd: 10,
-  progressSubtract: -10,
+  progressAdd: 5,
+  progressSubtract: -5,
 }
 
 export interface Word {
