@@ -20,13 +20,11 @@
           @click="sidePerspective()"
         />
       </div>
-      <div class="speed-buttons">
+      <div class="play-button">
         <CustomButton
-          v-for="item in speedItems"
-          :key="item.label"
-          :label="item.label"
+          :label="play ? 'play' : 'pause'"
           btnclass="video_controls_button_blue"
-          @click="changeSpeed(item.value)"
+          @click="togglePlay()"
         />
       </div>
     </div>
@@ -71,16 +69,18 @@ function sidePerspective() {
   perspective.value = 'side'
 }
 
-const speedItems: DropDown[] = [
-  { label: '1x', value: 1 },
-  { label: '0.5x', value: 0.5 },
-  { label: '0.25x', value: 0.25 },
-]
+const play = ref(true)
 
-function changeSpeed(newSpeed: any) {
+function togglePlay() {
   const videoHtml = unref(videoPlayer)
   if (videoHtml) {
-    videoHtml.playbackRate = newSpeed
+    if (play.value) {
+      play.value = false
+      videoHtml.pause()
+    } else {
+      play.value = true
+      videoHtml.play()
+    }
   }
 }
 
