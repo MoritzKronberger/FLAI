@@ -7,9 +7,9 @@
   }
   .grid-cards {
    height: 100%;
+   //display: grid;
    display: flex;
    flex-direction: column;
-   grid-template-columns: repeat(1, 1fr);
    justify-content: space-between;
 
     .child-card {
@@ -17,13 +17,14 @@
       height: 32%;
       display: flex;
       align-items: center;
+      justify-content: center;
       border-radius: 10px;
       background-color: $main-white;
       border-radius: 10px;
     }
     @media (max-width: 500px)
     {
-      grid-template-columns: repeat(1, 1fr);
+      justify-content: center;
     }
   }
 }
