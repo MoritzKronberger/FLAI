@@ -11,6 +11,7 @@
       @correct="emit('correct')"
       @wrong="emit('wrong')"
       @rendered="emit('watch-word')"
+      @waiting="emit('waiting')"
     />
     <ShowWord
       v-else
@@ -20,6 +21,7 @@
       @correct="emit('correct')"
       @wrong="emit('wrong')"
       @rendered="emit('show-word')"
+      @waiting="emit('waiting')"
     />
   </div>
   <div v-else>
@@ -66,7 +68,13 @@ const maxWordCount = computed(() => store.uxtestdata.wordsCompleted.maxWords)
 const roundsComplete = computed(() => store.uxtestdata.uxTest.roundsComplete)
 const currentTest = computed(() => store.uxtestdata.uxTest.currentTest)
 
-const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
+const emit = defineEmits([
+  'watch-word',
+  'show-word',
+  'correct',
+  'wrong',
+  'waiting',
+])
 
 function getNewSigns() {
   newSigns.value.length = 0

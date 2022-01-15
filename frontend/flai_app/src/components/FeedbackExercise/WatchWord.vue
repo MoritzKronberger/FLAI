@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, computed, onBeforeMount, watch } from 'vue'
+import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
@@ -48,7 +48,7 @@ const vFocus = {
   },
 }
 
-const emit = defineEmits(['next', 'correct', 'wrong', 'rendered'])
+const emit = defineEmits(['next', 'correct', 'wrong', 'rendered', 'waiting'])
 
 function correct() {
   console.log('correct')
@@ -61,6 +61,9 @@ function wrong() {
   isCorrect.value = false
   feedbackClass.value = 'wrong'
   emit('wrong')
+}
+function reset() {
+  emit('waiting')
 }
 
 // TODO: progress property not really needed?
@@ -94,7 +97,8 @@ watchEffect(
       resultBuffer.value,
       props.signs[index.value].name,
       correct,
-      wrong
+      wrong,
+      reset
     ))
 )
 
