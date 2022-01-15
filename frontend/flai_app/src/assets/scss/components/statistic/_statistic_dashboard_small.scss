@@ -8,7 +8,7 @@
    grid-template-columns: repeat(1, 1fr);
    gap: 31px; // in rem umrechnen
     .child-card {
-      width: 52.5%;
+      width: 100%;
       border-radius: 10px;
     }
     @media (max-width: 500px)

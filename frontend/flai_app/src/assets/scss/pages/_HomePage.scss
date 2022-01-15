@@ -29,13 +29,13 @@
 .home-page {
   background-color: $background-blue;
   .dashboard {
-    margin: 0px 30px 0px 30px;
+    margin: auto;
     padding: 50px;
     display: grid;
     justify-content: center;
     gap: 1rem;
     grid-template-columns: repeat(5, 190px);
-    grid-template-rows: repeat(3, 190px);
+    grid-template-rows: repeat(4, 190px);
     .start-panel {
       background-color: $main-blue;
       grid-column: span 2;
@@ -57,6 +57,7 @@
     }
     .stats-small-panel {
       grid-column: 3;
+      grid-row: 1 / 5;
     }
     .stats-large-panel {
       grid-row: 1 / 5;
