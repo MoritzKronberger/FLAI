@@ -6,9 +6,9 @@ import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
 import { ref } from 'vue'
 import { RegisterUser } from '../store/userdata'
-import { useRouter } from 'vue-router'
+//import { useRouter } from 'vue-router'
 
-const router = useRouter()
+//const router = useRouter()
 
 const defaultTargetTime = '00:20:00'
 
@@ -25,22 +25,22 @@ const errorMessage = ref('')
 const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
 
-const submit = async (): Promise<void> => {
-  const submitUser = { ...user.value }
-  const result = await userActions.postNewUser(submitUser)
-  if (result?.status === 200) {
-    userMethods.changeEmail(submitUser.email)
-    router.push({ name: 'LoginPage' })
-  } else {
-    errorMessage.value = result?.data.message
-  }
-}
-
 const emit = defineEmits(['openLogin'])
 
 function onclick() {
   // emit is placed in method so that validation for input value can be added
   emit('openLogin')
+}
+
+const submit = async (): Promise<void> => {
+  const submitUser = { ...user.value }
+  const result = await userActions.postNewUser(submitUser)
+  if (result?.status === 200) {
+    userMethods.changeEmail(submitUser.email)
+    emit('openLogin')
+  } else {
+    errorMessage.value = result?.data.message
+  }
 }
 </script>
 
