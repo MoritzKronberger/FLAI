@@ -54,12 +54,12 @@ const startTest = (): void => {
         <custom-button
           label="Test 1"
           :btnclass="getTestButtonClass(SelectedTest.TestOne)"
-          @button-click="selectTest(SelectedTest.TestOne, 10, 1500)"
+          @button-click="selectTest(SelectedTest.TestOne, 20, 2500)"
         />
         <custom-button
           label="Test 2"
           :btnclass="getTestButtonClass(SelectedTest.TestTwo)"
-          @button-click="selectTest(SelectedTest.TestTwo, 30, 3500)"
+          @button-click="selectTest(SelectedTest.TestTwo, 45, 4500)"
         />
       </div>
       <custom-button
