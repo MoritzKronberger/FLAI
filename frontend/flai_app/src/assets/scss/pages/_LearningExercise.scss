@@ -62,17 +62,27 @@
       flex: 50%;
       //height - headline and headline paddings - bottom buttons and paddings and button margin/position
       //height: calc(100vh - ($h2 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin) - $margin-height - $padding-height);
-      margin-right: $margin-width;
       padding-bottom: $padding-height;
       width: calc(100% - $margin-width - ($button-Prim-height-Small + 2 * $button-margin));
 
       .status {
         text-align: left;
         padding: $padding-height 0;
+        margin-right: 0;
+        margin-left: auto;
+      }
+
+      .sign-controls {
+        width: calc(100% - $sign-div-height - $margin-height * 2);
+        margin-right: 0;
+        margin-left: auto;
       }
 
       .sign-video {
         height: calc(100% - $sign-div-height - $margin-height * 2);
+        width: calc(100% - $sign-div-height - $margin-height * 2);
+        margin-right: 0;
+        margin-left: auto;
       }
     }
 
@@ -85,21 +95,21 @@
 
       .webcam-container {
         height: calc(100% - $sign-div-height - $margin-height * 2);
-        display: flex;
-        justify-content: end;
+        width: calc(100% - $sign-div-height - $margin-height * 2);
       }
 
       .status {
         text-align: right;
+        width: calc(100% - $sign-div-height - $margin-height * 2);
         padding: $padding-height 0;
       }
 
       .exercise-controls {
+        width: calc(100% - $sign-div-height - $margin-height * 2);
         display: flex;
         justify-content: end;
 
         .exit {
-          margin-right: $margin-width;
           cursor: pointer;
         }
         
