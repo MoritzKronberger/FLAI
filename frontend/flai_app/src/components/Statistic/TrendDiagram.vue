@@ -6,10 +6,10 @@ const date = new Date(Date.now())
 <template>
   <div>
     <div>
-      <span class="heading-medium month">{{
+      <span class="heading-small month">{{
         date.toLocaleString('default', { month: 'long' }) + ' '
       }}</span>
-      <span class="heading-medium">{{
+      <span class="heading-small">{{
         date.toLocaleString('default', { year: 'numeric' })
       }}</span>
     </div>
