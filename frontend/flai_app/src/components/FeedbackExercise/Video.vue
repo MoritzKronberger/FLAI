@@ -1,12 +1,14 @@
 <template>
   <div v-if="showSign" class="sign-video">
-    <video
-      ref="videoPlayer"
-      :src="videoSource"
-      type="video/webm"
-      autoplay
-      loop
-    />
+    <div class="video">
+      <video
+        ref="videoPlayer"
+        :src="videoSource"
+        type="video/webm"
+        autoplay
+        loop
+      />
+    </div>
     <p class="status body-medium"></p>
     <div class="video-controls">
       <div class="perspective-buttons">
