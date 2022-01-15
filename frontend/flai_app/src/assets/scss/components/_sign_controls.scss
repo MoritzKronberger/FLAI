@@ -9,17 +9,20 @@
     position: relative; //absolute
     left: 40%;
     font-size: $h3;
+    transform: translate(-50%, 0);
   }
   .currentLetter {
     position: relative; //absolute
     left: 50%;
     font-weight: 800;
     font-size: $h2;
+    transform: translate(-50%, 0);
   }
   .nextLetter {
     position: relative; //absolute
     left: 60%;
     font-size: $h3;
+    transform: translate(-50%, 0);
   }
 
   .back-button {
@@ -30,6 +33,7 @@
     background-color: inherit;
     border: none;
     cursor: pointer;
+    transform: translate(-50%, 0);
   }
   .next-button {
     position: relative; //absolute
@@ -39,5 +43,6 @@
     background-color: inherit;
     border: none;
     cursor: pointer;
+    transform: translate(-50%, 0);
   }
 }
