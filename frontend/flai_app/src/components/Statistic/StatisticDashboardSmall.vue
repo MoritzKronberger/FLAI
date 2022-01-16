@@ -30,8 +30,8 @@ const targetTime = computed(() => store.userdata.user.target_learning_time)
           statistic-text="heute gelernt"
           :progress="
             Math.min(
-              moment.duration(timeLearnt).asMilliseconds() /
-                moment.duration(targetTime).asMilliseconds(),
+              Math.round(moment.duration(timeLearnt).asMinutes()) /
+                Math.round(moment.duration(targetTime).asMinutes()),
               1
             )
           "
@@ -51,7 +51,7 @@ const targetTime = computed(() => store.userdata.user.target_learning_time)
           }%`"
           link-target="ComingSoon"
           :statistic-text="`von ${currentExercise} abgeschlossen`"
-          :progress="exerciseCompletion ?? 0"
+          :progress="exerciseCompletion ? +exerciseCompletion.toFixed(2) : 0"
         />
       </div>
     </div>
