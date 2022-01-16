@@ -13,17 +13,17 @@
             .flex {
                 display: flex;
                 column-gap: 10%;
-                align-items: center;
+                flex-direction: row;
+                align-items: baseline;
                 list-style-type: none;
-                .body-medium {
+                margin-bottom: 5vh;
+                .key {
                     text-align: end;
                     color: $main-blue;
-                    height: 30px;
+                    height: 40px;
                     width: 100%;
-                    margin-bottom: 5vh;
                 }
                 .item {
-                    margin-bottom: 5vh;
                     width: 100%;
                     background-color: white;
                     padding: 1% 2%;
@@ -34,13 +34,19 @@
         .profile-form-container {
             width: 72%;
             .form-items {
-                width: 50%;
+                width: 100%;
+                display: flex;
+                column-gap: 10%;
+                row-gap: 4.5vh;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 8vh;
             }
 
             input {
-                margin-bottom: 5vh;
-                height: 30px;
-                width: 90%;
+                font-size: $medium;
+                height: 40px;
+                width: 100%;
             }
 
             .input-form-primary,
