@@ -1,25 +1,27 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import store from '../../store'
 import IconLoader from '../IconLoader.vue'
 
-defineProps<{
-  days: number
-}>()
+const streak = computed(() => store.statisticdata.userStatistic.activeStreak)
 </script>
 
 <template>
   <div class="hot-streak">
     <div class="hot-streak-item">
       <IconLoader
-        path="/assets/statisticPlaceholders/streak.svg"
+        :path="`/assets/icons/FLAI_Flamme${!streak ? '_BW' : ''}.svg`"
         alt="Streak Icon"
         element-class="streak-icon"
       />
     </div>
     <div class="hot-streak-item">
-      <span class="day-counter heading-medium">{{ days }}</span>
+      <span v-if="streak" class="day-counter heading-medium">{{ streak }}</span>
     </div>
     <div class="hot-streak-item">
-      <span class="day-text body-normal"> Tage in Folge</span>
+      <span class="day-text body-normal"
+        >{{ !streak ? 'Keine' : '' }} Tage in Folge</span
+      >
     </div>
   </div>
 </template>

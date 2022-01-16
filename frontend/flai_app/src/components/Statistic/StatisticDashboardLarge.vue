@@ -3,13 +3,12 @@ import DayStreak from './DayStreak.vue'
 import CardSmall from './CardSmall.vue'
 import TrendDiagram from './TrendDiagram.vue'
 import ProgressBar from './ProgressBar.vue'
-const days = 15
 </script>
 
 <template>
   <div class="statistic-dashboard-large">
     <div class="flex-cards">
-      <DayStreak :days="days" />
+      <DayStreak />
       <hr />
       <div>
         <ProgressBar />
