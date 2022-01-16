@@ -24,7 +24,7 @@ const longestStreak = computed(
     <div class="hot-streak-item">
       <span class="day-text body-normal">{{
         `${!streak ? 'Keine' : ''} Tag${
-          (streak ?? 0) === 1 ? 'e' : ''
+          (streak ?? 0) === 1 ? '' : 'e'
         } in Folge`
       }}</span>
     </div>
@@ -33,7 +33,7 @@ const longestStreak = computed(
     <p class="body-medium">Dein Highscore:</p>
     <p class="body-medium">
       {{
-        `${longestStreak} Tag${(longestStreak ?? 0) === 1 ? 'e' : ''} in Folge`
+        `${longestStreak} Tag${(longestStreak ?? 0) === 1 ? '' : 'e'} in Folge`
       }}
     </p>
   </div>
