@@ -14,6 +14,7 @@ const bestSign = computed(
 const exerciseCompletion = computed(
   () => store.statisticdata.userStatistic.exerciseCompletion
 )
+const targetTime = computed(() => store.userdata.user.target_learning_time)
 </script>
 
 <template>
@@ -27,6 +28,13 @@ const exerciseCompletion = computed(
           )} Min`"
           link-target="ComingSoon"
           statistic-text="heute gelernt"
+          :progress="
+            Math.min(
+              moment.duration(timeLearnt).asMilliseconds() /
+                moment.duration(targetTime).asMilliseconds(),
+              1
+            )
+          "
         />
       </div>
       <div class="child-card">
@@ -43,6 +51,7 @@ const exerciseCompletion = computed(
           }%`"
           link-target="ComingSoon"
           :statistic-text="`von ${currentExercise} abgeschlossen`"
+          :progress="exerciseCompletion ?? 0"
         />
       </div>
     </div>

@@ -16,6 +16,7 @@ a {
 }
 
 .statistic-circle {
+  position: relative;
   width: 70%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
@@ -25,6 +26,11 @@ a {
   align-items: center;
 }
 
+.progress-bar {
+  width: 125%;
+  position: absolute;
+}
+
 .statistic-value {
   color: $dark-blue;
 }
@@ -32,7 +38,7 @@ a {
 .statistic-text {
   width: 100%;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 12%;
   @include font(GothamSSm, book);
   // TODO: choose defined font-size
   font-size: 14px;
