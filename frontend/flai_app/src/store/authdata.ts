@@ -102,6 +102,7 @@ const actions = {
       await userData.actions.getUser()
       console.log('-----GET EXERCISE')
       await exerciseData.actions.getAllExercises()
+      await store.statisticdata.actions.getUserStatistic()
     }
   },
 }

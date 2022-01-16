@@ -21,7 +21,7 @@ const tryReAuthentication = async () => {
 
 // fetch statistic on every HomePage enter to be updated with i.e. the current learning time
 const fetchStatistic = async () => {
-  store.statisticdata.actions.getUserStatistic()
+  await store.statisticdata.actions.getUserStatistic()
 }
 
 async function startSession() {
