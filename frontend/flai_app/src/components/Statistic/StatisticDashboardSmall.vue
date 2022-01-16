@@ -8,23 +8,23 @@ import CardSmall from './CardSmall.vue'
     <div class="grid-cards">
       <div class="child-card">
         <card-small
-          placeholder-path="/assets/statisticPlaceholders/cardSmallTimeWeek.svg"
+          statistic-value="42 Min"
           link-target="ComingSoon"
-          alt-text="Wochen-Lernziel Statistik"
+          statistic-text="heute gelernt"
         />
       </div>
       <div class="child-card">
         <card-small
-          placeholder-path="/assets/statisticPlaceholders/cardSmallLetter.svg"
+          statistic-value="E"
           link-target="ComingSoon"
-          alt-text="Meist-gelernter Buchstabe Statistik"
+          statistic-text="beste Gebärde aus Buchstabieren lernen"
         />
       </div>
       <div class="child-card">
         <card-small
-          placeholder-path="/assets/statisticPlaceholders/cardSmallLection.svg"
+          statistic-value="40%"
           link-target="ComingSoon"
-          alt-text="Abgeschlossene Lektionen Statistik"
+          statistic-text="von Buchstabieren lernen abgeschlossen"
         />
       </div>
     </div>

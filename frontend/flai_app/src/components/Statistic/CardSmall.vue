@@ -1,14 +1,19 @@
 <script setup lang="ts">
 defineProps<{
-  placeholderPath: string
+  statisticValue: string
   linkTarget: string
-  altText: string
+  statisticText: string
 }>()
 </script>
 
 <template>
   <router-link :to="{ name: linkTarget }">
-    <img :src="placeholderPath" :alt="altText" />
+    <div class="card-container">
+      <div class="statistic-circle">
+        <div class="body-large statistic-value">{{ statisticValue }}</div>
+      </div>
+      <div class="body-small statistic-text">{{ statisticText }}</div>
+    </div>
   </router-link>
 </template>
 
