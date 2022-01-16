@@ -16,7 +16,7 @@ a {
 }
 
 .statistic-circle {
-  width: 80%;
+  width: 70%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: 2px solid $subtle-blue;
@@ -32,5 +32,9 @@ a {
 .statistic-text {
   width: 100%;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 10%;
+  @include font(GothamSSm, book);
+  // TODO: choose defined font-size
+  font-size: 14px;
+  line-height: 1.5;
 }

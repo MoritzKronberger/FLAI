@@ -12,7 +12,7 @@ defineProps<{
       <div class="statistic-circle">
         <div class="body-large statistic-value">{{ statisticValue }}</div>
       </div>
-      <div class="body-small statistic-text">{{ statisticText }}</div>
+      <div class="statistic-text">{{ statisticText }}</div>
     </div>
   </router-link>
 </template>

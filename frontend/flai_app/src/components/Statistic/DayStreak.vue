@@ -29,13 +29,11 @@ const longestStreak = computed(
       }}</span>
     </div>
   </div>
-  <div v-if="longestStreak" class="counter">
-    <p class="body-medium">Dein Highscore:</p>
-    <p class="body-medium">
-      {{
-        `${longestStreak} Tag${(longestStreak ?? 0) === 1 ? '' : 'e'} in Folge`
-      }}
-    </p>
+  <div v-if="longestStreak" class="body-medium counter">
+    Längste Folge am Stück:
+    <div id="days">
+      {{ `${longestStreak} Tag${(longestStreak ?? 0) === 1 ? '' : 'e'}` }}
+    </div>
   </div>
 </template>
 
