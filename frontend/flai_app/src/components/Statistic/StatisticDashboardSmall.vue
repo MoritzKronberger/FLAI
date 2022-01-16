@@ -7,7 +7,7 @@ import moment from 'moment'
 const timeLearnt = computed(
   () => store.statisticdata.userStatistic.timeLearntToday
 )
-const currentExercise = computed(() => store.exercisedata.exercises[0].name)
+const currentExercise = computed(() => store.exercisedata.exercises?.[0]?.name)
 const bestSign = computed(
   () => store.statisticdata.userStatistic.bestExerciseSign
 )
