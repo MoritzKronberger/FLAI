@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import progressbar from 'progressbar.js'
-import { onMounted, ref, toRefs, watchEffect } from 'vue'
+import { ref, toRefs, watchEffect } from 'vue'
 
 const props = defineProps<{
   statisticValue: string
@@ -13,24 +13,22 @@ const progressBarElement = ref<HTMLDivElement>()
 const progressBarOptions: progressbar.PathDrawingOptions = {
   color: '#355bbc',
   strokeWidth: 4,
-  duration: 500,
+  duration: 300,
 }
 const progressCircle = ref()
 const { progress } = toRefs(props)
 
 const renderProgress = (pg: number) => {
-  if (progressCircle.value) progressCircle.value.animate(pg)
-}
-
-onMounted(() => {
-  if (progressBarElement.value && progress) {
+  if (!progressCircle.value && progressBarElement.value) {
     progressCircle.value = new progressbar.Circle(
       progressBarElement.value,
       progressBarOptions
     )
-    renderProgress(progress.value ?? 0)
   }
-})
+  if (progressCircle.value) progressCircle.value.animate(pg)
+  console.log(progressCircle.value)
+  console.log(`${props.statisticText}: ${progress?.value}`)
+}
 
 watchEffect(() => renderProgress(progress?.value ?? 0))
 </script>
