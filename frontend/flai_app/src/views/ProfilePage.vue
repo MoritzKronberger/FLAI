@@ -85,21 +85,23 @@ onMounted(() => {
     <div class="profile">
       <div class="information">
         <div v-for="(item, key) in options" :key="key">
-          <div v-if="key !== 'id'" class="flex">
-            <li class="body-medium">
-              {{ item.label }}
-            </li>
-            <li v-if="!displayForm" class="item">
-              {{ item.value }}
-            </li>
+          <div class="body-medium">
+            <div v-if="key !== 'id'" class="flex">
+              <li class="key">
+                {{ item.label }}
+              </li>
+              <li v-if="!displayForm" class="item">
+                {{ item.value }}
+              </li>
+            </div>
           </div>
         </div>
       </div>
       <div v-if="displayForm" class="profile-form-container">
         <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
         <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
-        <div class="form-items">
-          <form>
+        <div>
+          <form class="form-items">
             <text-input-field
               v-model="options.username.value"
               placeholder="username"
