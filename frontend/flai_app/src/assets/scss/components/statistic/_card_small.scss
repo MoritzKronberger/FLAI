@@ -1,6 +1,7 @@
 a {
   text-decoration: none;
   color: $main-black;
+  width: 100%;
 }
 
 .card-container {
@@ -29,6 +30,7 @@ a {
 }
 
 .statistic-text {
+  width: 100%;
   text-align: center;
   margin-top: 2%;
 }
