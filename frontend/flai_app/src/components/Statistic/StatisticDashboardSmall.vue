@@ -22,7 +22,9 @@ const exerciseCompletion = computed(
     <div class="grid-cards">
       <div class="child-card">
         <card-small
-          :statistic-value="`${moment.duration(timeLearnt).asMinutes()} Min`"
+          :statistic-value="`${Math.round(
+            moment.duration(timeLearnt).asMinutes()
+          )} Min`"
           link-target="ComingSoon"
           statistic-text="heute gelernt"
         />
