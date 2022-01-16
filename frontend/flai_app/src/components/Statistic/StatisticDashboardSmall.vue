@@ -41,7 +41,7 @@ const targetTime = computed(() => store.userdata.user.target_learning_time)
         <card-small
           :statistic-value="bestSign ? bestSign.toUpperCase() : '-'"
           link-target="ComingSoon"
-          :statistic-text="`beste Gebärde aus ${currentExercise}`"
+          :statistic-text="`beste Gebärde aus &quot;${currentExercise}&quot;`"
         />
       </div>
       <div class="child-card">
@@ -50,7 +50,7 @@ const targetTime = computed(() => store.userdata.user.target_learning_time)
             exerciseCompletion ? Math.round(exerciseCompletion * 100) : 0
           }%`"
           link-target="ComingSoon"
-          :statistic-text="`von ${currentExercise} abgeschlossen`"
+          :statistic-text="`von &quot;${currentExercise}&quot; abgeschlossen`"
           :progress="exerciseCompletion ? +exerciseCompletion.toFixed(2) : 0"
         />
       </div>
