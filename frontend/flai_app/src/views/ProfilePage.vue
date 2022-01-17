@@ -94,12 +94,17 @@ onMounted(() => {
       </div>
       <div v-if="!displayForm" class="information">
         <div v-for="(item, key) in options" :key="key">
-          <div v-if="key !== 'id'" class="body-medium">
-            <li v-if="item.value == true" class="item">Links</li>
-            <li v-else-if="item.value == false" class="item">Rechts</li>
-            <li v-else class="item">
+          <div
+            v-if="key !== 'id' && key !== 'right_handed'"
+            class="body-medium"
+          >
+            <li class="item">
               {{ item.value }}
             </li>
+          </div>
+          <div v-else-if="key == 'right_handed'" class="body-medium">
+            <li v-if="item.value == true" class="item">Rechts</li>
+            <li v-else-if="item.value == false" class="item">Links</li>
           </div>
         </div>
         <custom-button
@@ -110,8 +115,6 @@ onMounted(() => {
         />
       </div>
       <div v-if="displayForm" class="profile-form-container">
-        <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
-        <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
         <form class="form-items">
           <text-input-field
             v-model="options.username.value"
@@ -137,15 +140,17 @@ onMounted(() => {
             :time-step="1"
           />
           <div class="checkbox">
-            <div class="body-medium">Rechts</div>
             <custom-checkbox
               v-model="options.right_handed.value"
               element-class="checkbox-primary"
               component-class=""
               checkmark-class="checkmark"
             />
+            <div class="body-medium">Rechts</div>
           </div>
         </form>
+        <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
+        <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
         <custom-button
           label="Bestätigen"
           btnclass="prim_small_button_blue"
