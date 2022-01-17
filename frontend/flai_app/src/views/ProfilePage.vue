@@ -82,10 +82,10 @@ onMounted(() => {
 
 <template>
   <div class="profile-page">
-    <div class="profile">
+    <div class="profile body-medium">
       <div class="property">
         <div v-for="(item, key) in options" :key="key">
-          <div v-if="key !== 'id'" class="body-medium">
+          <div v-if="key !== 'id'">
             <li class="key">
               {{ item.label }}
             </li>
@@ -94,10 +94,7 @@ onMounted(() => {
       </div>
       <div v-if="!displayForm" class="information">
         <div v-for="(item, key) in options" :key="key">
-          <div
-            v-if="key !== 'id' && key !== 'right_handed'"
-            class="body-medium"
-          >
+          <div v-if="key !== 'id' && key !== 'right_handed'">
             <li class="item">
               {{ item.value }}
             </li>
@@ -115,7 +112,7 @@ onMounted(() => {
         />
       </div>
       <div v-if="displayForm" class="profile-form-container">
-        <form class="form-items">
+        <form class="form-items body-medium">
           <text-input-field
             v-model="options.username.value"
             placeholder="username"
@@ -139,18 +136,18 @@ onMounted(() => {
             custom-type="time"
             :time-step="1"
           />
-          <div class="checkbox">
-            <custom-checkbox
-              v-model="options.right_handed.value"
-              element-class="checkbox-primary"
-              component-class=""
-              checkmark-class="checkmark"
-            />
-            <div class="body-medium">Rechts</div>
-          </div>
+          <custom-checkbox
+            v-model="options.right_handed.value"
+            label-name="Rechts"
+            element-class="checkbox-primary"
+            component-class="primary-checkbox"
+            checkmark-class="checkmark"
+          />
         </form>
         <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
-        <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
+        <p v-if="errorMessage" class="body-small">
+          {{ errorMessage }}
+        </p>
         <custom-button
           label="Bestätigen"
           btnclass="prim_small_button_blue"
@@ -169,4 +166,5 @@ onMounted(() => {
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/components/buttonMixins';
+@import '../assets/scss/components/customCheckbox';
 </style>
