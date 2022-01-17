@@ -130,7 +130,7 @@ onMounted(() => {
             custom-type="password"
           />
           <div class="checkbox">
-            <div>Rechts</div>
+            <div class="body-medium">Rechts</div>
             <custom-checkbox
               v-model="options.right_handed.value"
               element-class="checkbox-primary"
