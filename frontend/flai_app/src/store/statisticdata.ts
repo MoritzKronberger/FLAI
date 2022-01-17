@@ -57,7 +57,7 @@ const methods = {
     console.log(userStatistic)
   },
   changeTrends(
-    trendsData: { status: number; data: any },
+    trendsData: { status: number; data: { rows: TrendsRow[] } },
     endDay: Moment,
     dateFormat = 'YYYY-MM-DD'
   ) {
@@ -70,14 +70,14 @@ const methods = {
 
     // convert the fetched rows into the TrendsDataset type and match the date formatting
     if (trendsData.data.rows) {
-      const trendsDataDataset: TrendsDataset = (
-        trendsData.data.rows as TrendsRow[]
-      ).map((entry) => {
-        return {
-          x: moment(entry.day).format(dateFormat).toString(),
-          y: moment.duration(entry.time_learnt).asMinutes(),
-        } as TrendsEntry
-      })
+      const trendsDataDataset: TrendsDataset = trendsData.data.rows.map(
+        (entry) => {
+          return {
+            x: moment(entry.day).format(dateFormat).toString(),
+            y: moment.duration(entry.time_learnt).asMinutes(),
+          } as TrendsEntry
+        }
+      )
 
       // find the entries where the day matches the database row and replace them with the row
       // from https://stackoverflow.com/a/37585362/14906871
