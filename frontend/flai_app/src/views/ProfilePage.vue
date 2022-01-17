@@ -29,7 +29,7 @@ const options = ref<Options>({
   username: { label: 'Name', value: '' },
   email: { label: 'E-Mail', value: '' },
   password: { label: 'Passwort', value: passwordReplacement },
-  right_handed: { label: 'Rechtshänder', value: true },
+  right_handed: { label: 'Händigkeit', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
 })
 
@@ -95,7 +95,9 @@ onMounted(() => {
       <div v-if="!displayForm" class="information">
         <div v-for="(item, key) in options" :key="key">
           <div v-if="key !== 'id'" class="body-medium">
-            <li class="item">
+            <li v-if="item.value == true" class="item">Links</li>
+            <li v-else-if="item.value == false" class="item">Rechts</li>
+            <li v-else class="item">
               {{ item.value }}
             </li>
           </div>
@@ -127,12 +129,15 @@ onMounted(() => {
             element-class="default_input_field"
             custom-type="password"
           />
-          <custom-checkbox
-            v-model="options.right_handed.value"
-            element-class="checkbox-primary"
-            component-class=""
-            checkmark-class="checkmark"
-          />
+          <div class="checkbox">
+            <div>Rechts</div>
+            <custom-checkbox
+              v-model="options.right_handed.value"
+              element-class="checkbox-primary"
+              component-class=""
+              checkmark-class="checkmark"
+            />
+          </div>
           <text-input-field
             v-model="options.target_learning_time.value"
             placeholder="00:20:00"
@@ -148,7 +153,7 @@ onMounted(() => {
         />
         <custom-button
           label="Verwerfen"
-          btnclass="prim_small_button_orange"
+          btnclass="sec_small_button_blue"
           @button-click="discardChanges"
         />
       </div>
