@@ -1,3 +1,9 @@
+
+$padding: 1% 2%;
+$margin-left: 2vh;
+$margin-bottom: 5vh;
+$height: 40px;
+
 .profile-page {
     background-color: $background-blue;
     height: 100vh;
@@ -5,21 +11,21 @@
         width: 100%;
         padding-top: 10%;
         display: inline-flex;
-        border-radius: 5px;
+        border-radius: $border-radius;
         .property {
             width: 40%;
             min-width: 40%;
-            margin-right: 2vh;
+            margin-right: $margin-left;
             display: flex;
             flex-direction: column;
-            .flex {
+            .body-medium {
                 list-style-type: none;
-                margin-bottom: 5vh;
+                margin-bottom: $margin-bottom;
                 .key {
                     text-align: end;
                     color: $main-blue;
-                    line-height: 40px;
-                    height: 40px;
+                    line-height: $height;
+                    height: $height;
                     width: 100%;
                 }
             }
@@ -27,35 +33,35 @@
 
         .information {
             width: 60%;
-            margin-left: 2vh;
-            .flex {
+            margin-left: $margin-left;
+            .body-medium {
                 list-style-type: none;
-                margin-bottom: 5vh;
+                margin-bottom: $margin-bottom;
                 .item {
                     width: 50%;
                     background-color: white;
-                    padding: 1% 2%;
-                    border-radius: 5px;
+                    padding: $padding;
+                    border-radius: $border-radius;
                 }
             }
         }
 
         .profile-form-container {
-            margin-left: 2vh;
+            margin-left: $margin-left;
             width: 60%;
             .form-items {
                 width: 100%;
                 display: flex;
-                column-gap: 10%;
-                row-gap: 5vh;
+                row-gap: $margin-bottom;
                 flex-direction: column;
-                margin-bottom: 5vh;
+                margin-bottom: $margin-bottom;
             }
 
             input {
                 font-size: $medium;
                 height: 40px;
                 width: 50%;
+                padding: $padding;
             }
 
             .input-form-primary,
