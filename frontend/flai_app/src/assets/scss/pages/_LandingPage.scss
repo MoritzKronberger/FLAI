@@ -1,23 +1,61 @@
-
 .main {
     display: flex;
-    flex-flow: column wrap;
+    flex-direction: row;
     width: 100%;
-    margin: 3% auto;
-    text-align: center;
-    align-items: center;
-    background-color: aqua;
+    padding: 2% 10% 2% 10%;
+    align-items: flex-end;
+    gap: 2%;
+}
+
+.main-left {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2% 10% 2% 10%;
+    align-items: flex-start;
+    text-align: left;
 
     .flai-logo {
-        width: auto;
+        float: left;
+        width: 30%;
     }
-    .heading-large {
-    margin-bottom: 50px;
-    color: $main-blue;
-    }
-
-    #login {
-        cursor: pointer;
-        color: $main-blue;
-      }
 }
+
+.main-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2% 10% 2% 10%;
+    align-items: flex-end;
+    text-align: right;
+}
+
+:is(.main-left, .main-right) .heading-large {
+    color: $main-blue;
+    width: 50%;
+}
+
+:is(.main-left, .main-right) .text {
+    color: $dark-grey;
+    width: 45%;
+    padding-top: 1.5%;
+}
+
+.bg-white {
+    width: 100%;
+    background-color: $main-white;
+}
+
+.bg-blue {
+    width: 100%;
+    background-color: $background-blue;
+}
+
+#orange {
+    color: $main-orange;
+}
+
+#login {
+    cursor: pointer;
+    color: $main-blue;
+  }

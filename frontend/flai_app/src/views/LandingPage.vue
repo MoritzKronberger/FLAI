@@ -20,29 +20,52 @@ function openModalRegister() {
 </script>
 
 <template>
-  <div class="main">
-    <IconLoader
-      path="/assets/logos/logo.svg"
-      alt="FLAI Icon"
-      element-class="flai-logo"
-    />
-    <h1>Ha</h1>
-    <div class="register">
-      <custom-button
-        label="Konto erstellen"
-        btnclass="prim_small_button_blue"
-        @button-click="showRegister = true"
+  <div class="bg-white">
+    <div class="main-left">
+      <IconLoader
+        path="/assets/logos/logo.svg"
+        alt="FLAI Icon"
+        element-class="flai-logo"
       />
     </div>
-    <div v-show="showRegister" class="modal" @click="showRegister = false">
-      <Register @open-login="openModalLogin" @click.stop />
+  </div>
+
+  <div class="bg-blue">
+    <div class="main-left">
+      <div class="heading-large">
+        Lerne die deutsche Gebärdensprache mit Hilfe von live Feedback
+      </div>
+      <div class="text body-medium">
+        mithilfe der künstlichen Intelligenz von <span id="orange">FLAI </span>.
+        <br />
+        Bekomme direktes Feedback über die Kameraausgabe und lerne so effizient
+        die DGB.
+      </div>
     </div>
-    <div class="login">
-      Du hast bereits ein Konto?
-      <span id="login" @click="showLogin = true">Login</span>
-    </div>
-    <div v-show="showLogin" class="modal" @click="showLogin = false">
-      <LoginPage @open-register="openModalRegister" @click.stop />
+  </div>
+
+  <div class="bg-white">
+    <div class="main">
+      <div class="login">
+        <custom-button
+          label="Login"
+          btnclass="sec_medium_button_blue"
+          @button-click="showLogin = true"
+        />
+      </div>
+      <div v-show="showLogin" class="modal" @click="showLogin = false">
+        <LoginPage @open-register="openModalRegister" @click.stop />
+      </div>
+      <div class="register">
+        <custom-button
+          label="Registrieren"
+          btnclass="prim_medium_button_blue"
+          @button-click="showRegister = true"
+        />
+      </div>
+      <div v-show="showRegister" class="modal" @click="showRegister = false">
+        <Register @open-login="openModalLogin" @click.stop />
+      </div>
     </div>
   </div>
 </template>
