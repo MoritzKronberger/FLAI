@@ -99,7 +99,7 @@ onMounted(() => {
               {{ item.value }}
             </li>
           </div>
-          <div v-else-if="key == 'right_handed'" class="body-medium">
+          <div v-else-if="key == 'right_handed'">
             <li v-if="item.value == true" class="item">Rechts</li>
             <li v-else-if="item.value == false" class="item">Links</li>
           </div>
@@ -112,7 +112,7 @@ onMounted(() => {
         />
       </div>
       <div v-if="displayForm" class="profile-form-container">
-        <form class="form-items body-medium">
+        <form class="form-items">
           <text-input-field
             v-model="options.username.value"
             placeholder="username"
