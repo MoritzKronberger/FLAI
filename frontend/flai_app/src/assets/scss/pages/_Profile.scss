@@ -50,6 +50,11 @@ $height: 6vh;
         .profile-form-container {
             margin-left: $margin-width;
             width: 60%;
+
+            .body-small {
+                color: $main-red;
+            }
+
             .form-items {
                 width: 100%;
                 display: flex;
@@ -61,10 +66,8 @@ $height: 6vh;
                     display: flex;
                     column-gap: 20px;
                     align-items: center;
-                    padding: $padding;
                     width: 50%;
                     height: $height;
-                    background-color: white;
                     border-radius: $border-radius;
                     flex-direction: row;
                     .checkbox-primary {
