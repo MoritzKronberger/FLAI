@@ -9,43 +9,38 @@
   max-height: 100%;
   padding: $padding-height $padding-width;
   display: grid;
-   grid-template-columns: repeat(5, auto);
+  grid-template-columns: 1fr minmax(20vw, 50vw) 1fr minmax(20vw, 50vw) 1fr;
   grid-auto-flow: column;
-  grid-template-rows: 1fr 1fr minmax(50vh, 70vh) 1fr 1fr;
+  grid-template-rows: 1fr 1fr minmax(50vh, 90vh);
   grid-template-areas: 
-  ". heading . . . "
-  ". signs . . ."
-  ". video . webcam ."
-  ". . . status ."
-  ". controls . buttons .";
+  ". heading  . . . "
+  ". signs  . status ."
+  ". video . webcam .";
 
-  column-gap: minmax($padding-width, 50vw);
+  column-gap: $padding-width;
   row-gap: $padding-height;
 
+  //left column
   h2 {
     grid-area: heading;
   }
-  
   .sign-controls {
     grid-area: signs;
   }
-  
-  .video {
+  .video-column {
     grid-area: video; 
   }
-  .video-controls {
-    grid-area: controls;
-  }
   
-
-  .webcam-container {
-      grid-area: webcam;
-      background-color: red;
+  //right column
+  .webcam-column {
+    grid-area: webcam;
+    
+    .exercise-controls {
+        margin-left: auto;
+    }
   }
   .status {
-      grid-area: status;
-  }
-  .exercise-controls {
-      grid-area: buttons;
+    grid-area: status;
+    text-align: center;
   }
 }
