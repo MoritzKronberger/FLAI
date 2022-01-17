@@ -29,58 +29,68 @@
 .home-page {
   background-color: $background-blue;
   .dashboard {
-    margin: 0px 30px 0px 30px;
-    padding: 50px;
+    margin: 0 auto;
+    height: 100vh;
+    padding: 2.75%;
     display: grid;
     justify-content: center;
     gap: 1rem;
-    grid-template-columns: repeat(5, 190px);
-    grid-template-rows: repeat(3, 190px);
+    grid-template-columns: repeat(5, 12vw);
+    grid-template-rows: repeat(4, 21vh);
     .start-panel {
-      background-color: $subtle-yellow;
+      background-color: $main-blue;
       grid-column: span 2;
+      grid-row: span 2;
     }
     .level-panel {
-      background-color: $main-blue;
-      grid-column: span 1;
+      border: 5px solid $main-orange;
+      background-color: $main-white;
+      grid-column: span 2;
+      grid-row: span 2;
       border-radius: 10px;
       @include flex-box(column, center, center);
-      color: $main-white;
+      color: $dark-grey;
+
       .level-icon {
-        height: 65%;
+        height: 50%;
         padding-left: 4%;
-        filter: invert(100);
+        filter: opacity(70%);
       }
     }
     .stats-small-panel {
-      grid-column: span 3;
+      grid-column: 3;
+      grid-row: 1 / 5;
     }
     .stats-large-panel {
       grid-row: 1 / 5;
       grid-column: 4 / 6;
     }
-    @media (max-width: 1200px) {
+    @media (max-width:768px) {
       grid-template-columns: repeat(2, 100px);
       grid-template-rows: repeat(4, 200px);
       .start-panel {
         grid-column: span 3;
+        grid-row: 1;
       }
 
       .level-panel {
         grid-column: span 3;
+        grid-row: span 1;
       }
 
       .stats-small-panel {
-        grid-row: 3 / 4;
+        grid-column: span 3;
+        grid-row: span 3;
+        align-items: center;
       }
       .stats-large-panel {
         grid-column: span 3;
-        grid-row: 5 / 6;
+        grid-row: span 3;
       }
     }
     @media (min-width: 2450px) {
       grid-template-columns: repeat(5, 400px);
-      grid-template-rows: repeat(3, 400px);
+      grid-template-rows: repeat(8, 400px);
     }
   }
 }
