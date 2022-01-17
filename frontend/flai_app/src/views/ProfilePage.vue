@@ -83,56 +83,68 @@ onMounted(() => {
 <template>
   <div class="profile-page">
     <div class="profile">
-      <div class="information">
+      <div class="property">
         <div v-for="(item, key) in options" :key="key">
           <div class="body-medium">
             <div v-if="key !== 'id'" class="flex">
               <li class="key">
                 {{ item.label }}
               </li>
-              <li v-if="!displayForm" class="item">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="!displayForm" class="information">
+        <div v-for="(item, key) in options" :key="key">
+          <div class="body-medium">
+            <div v-if="key !== 'id'" class="flex">
+              <li class="item">
                 {{ item.value }}
               </li>
             </div>
           </div>
         </div>
+        <custom-button
+          v-if="!displayForm"
+          label="Bearbeiten"
+          btnclass="prim_small_button_blue"
+          @button-click="openChangeForm"
+        />
       </div>
       <div v-if="displayForm" class="profile-form-container">
         <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
         <p v-if="errorMessage" class="body-small">{{ errorMessage }}</p>
-        <div>
-          <form class="form-items">
-            <text-input-field
-              v-model="options.username.value"
-              placeholder="username"
-              element-class="default_input_field"
-            />
-            <text-input-field
-              v-model="options.email.value"
-              placeholder="x.y@email.com"
-              element-class="default_input_field"
-            />
-            <text-input-field
-              v-model="options.password.value"
-              placeholder="passwort"
-              element-class="default_input_field"
-              custom-type="password"
-            />
-            <custom-checkbox
-              v-model="options.right_handed.value"
-              element-class="checkbox-primary"
-              component-class=""
-              checkmark-class="checkmark"
-            />
-            <text-input-field
-              v-model="options.target_learning_time.value"
-              placeholder="00:20:00"
-              element-class="default_input_field"
-              custom-type="time"
-              :time-step="1"
-            />
-          </form>
-        </div>
+        <form class="form-items">
+          <text-input-field
+            v-model="options.username.value"
+            placeholder="username"
+            element-class="default_input_field"
+          />
+          <text-input-field
+            v-model="options.email.value"
+            placeholder="x.y@email.com"
+            element-class="default_input_field"
+          />
+          <text-input-field
+            v-model="options.password.value"
+            placeholder="passwort"
+            element-class="default_input_field"
+            custom-type="password"
+          />
+          <custom-checkbox
+            v-model="options.right_handed.value"
+            element-class="checkbox-primary"
+            component-class=""
+            checkmark-class="checkmark"
+          />
+          <text-input-field
+            v-model="options.target_learning_time.value"
+            placeholder="00:20:00"
+            element-class="default_input_field"
+            custom-type="time"
+            :time-step="1"
+          />
+        </form>
         <custom-button
           label="Bestätigen"
           btnclass="prim_small_button_blue"
@@ -144,12 +156,6 @@ onMounted(() => {
           @button-click="discardChanges"
         />
       </div>
-      <custom-button
-        v-if="!displayForm"
-        label="Bearbeiten"
-        btnclass="prim_small_button_blue"
-        @button-click="openChangeForm"
-      />
     </div>
   </div>
 </template>
