@@ -2,34 +2,29 @@
   <!--div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word">
-    <div class="column1">
-      <h2 class="heading-large align-left">Einprägen</h2>
-      <SignControls :signs="signs" @new-index="onNewIndex" />
-      <Video
-        :signs="signs"
-        :index="index"
-        :show-sign="showSign"
-        :class="feedbackClass"
-        @use-hint="showSign = true"
+    <h2 class="heading-large align-left">Einprägen</h2>
+    <SignControls :signs="signs" @new-index="onNewIndex" />
+    <Video
+      :signs="signs"
+      :index="index"
+      :show-sign="showSign"
+      :class="feedbackClass"
+      @use-hint="showSign = true"
+    />
+    <Webcam />
+    <p class="status body-medium">{{ status }}</p>
+    <div class="exercise-controls">
+      <CustomButton
+        label="Home"
+        btnclass="exit sec_small_button_blue"
+        @click="router.push({ name: 'HomePage' })"
       />
-    </div>
-    <div class="column2">
-      <h2 class="heading-large align-left"></h2>
-      <Webcam />
-      <p class="status body-medium">{{ status }}</p>
-      <div class="exercise-controls">
-        <CustomButton
-          label="Home"
-          btnclass="exit sec_small_button_blue"
-          @click="router.push({ name: 'HomePage' })"
-        />
-        <CustomButton
-          id="next"
-          label="weiter"
-          btnclass="prim_small_button_blue"
-          @click="emit('next')"
-        />
-      </div>
+      <CustomButton
+        id="next"
+        label="weiter"
+        btnclass="prim_small_button_blue"
+        @click="emit('next')"
+      />
     </div>
   </div>
   <!--/div>
