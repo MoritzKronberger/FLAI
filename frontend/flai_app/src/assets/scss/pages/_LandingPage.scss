@@ -1,10 +1,15 @@
-.main {
+.buttons {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    padding: 2% 10% 2% 10%;
-    align-items: flex-end;
+    width: fit-content;
+    height: calc(60px + 25vh);
+    padding: 2% 5% 2% 10%;
     gap: 2%;
+    background-color: aqua;
+    @media (max-width:768px) {
+        padding: 2%;
+        height: fit-content;
+    }
 }
 
 .main-left {
@@ -34,7 +39,7 @@
 }
 
 :is(.main-left, .main-right) .heading-large {
-    color: $main-blue;
+    color: $dark-blue;
     width: 50%;
     @media (max-width:768px) {
         width: 100%;
@@ -54,12 +59,30 @@
 
 .bg-white {
     width: 100%;
-    background-color: $main-white;
+    max-height: 500px;
+    background-color: green;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media (max-width:768px) {
+        margin-top: 2vh;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .bg-blue {
     width: 100%;
+    min-height: 300px;
     background-color: $background-blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media (max-width:768px) {
+        margin-top: 2vh;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 #orange {
@@ -70,3 +93,19 @@
     cursor: pointer;
     color: $main-blue;
   }
+
+   
+:is(.bg-blue, .bg-white) .img {
+    position: relative;
+    top: -20vh;
+    right: 0%;
+    width: 45%;
+    height: 100%;
+    @media (max-width:768px) {
+        position: relative;
+        height: 500%;
+        top: 2vh;
+        right: -30vw;
+    }
+
+}

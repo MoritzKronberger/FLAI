@@ -45,7 +45,7 @@ function openModalRegister() {
   </div>
 
   <div class="bg-white">
-    <div class="main">
+    <div class="buttons">
       <div class="login">
         <custom-button
           label="Login"
@@ -66,6 +66,16 @@ function openModalRegister() {
       <div v-show="showRegister" class="modal" @click="showRegister = false">
         <Register @open-login="openModalLogin" @click.stop />
       </div>
+    </div>
+    <IconLoader
+      path="/assets/landingPage/one.png"
+      alt="FLAI woman sign language"
+      element-class="img"
+    />
+  </div>
+  <div class="bg-blue">
+    <div class="main-right">
+      <div class="heading-large">Durch direktes Feedback</div>
     </div>
   </div>
 </template>
