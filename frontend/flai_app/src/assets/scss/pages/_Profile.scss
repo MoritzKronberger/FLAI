@@ -4,49 +4,58 @@
     .profile {
         width: 100%;
         padding-top: 10%;
-        display: flex;
-        justify-content: center;
-        column-gap: 5%;
+        display: inline-flex;
         border-radius: 5px;
-        .information {
-            width: 50%;
+        .property {
+            width: 40%;
+            min-width: 40%;
+            margin-right: 2vh;
+            display: flex;
+            flex-direction: column;
             .flex {
-                display: flex;
-                column-gap: 10%;
-                flex-direction: row;
-                align-items: baseline;
                 list-style-type: none;
                 margin-bottom: 5vh;
                 .key {
                     text-align: end;
                     color: $main-blue;
+                    line-height: 40px;
                     height: 40px;
                     width: 100%;
                 }
+            }
+        }
+
+        .information {
+            width: 60%;
+            margin-left: 2vh;
+            .flex {
+                list-style-type: none;
+                margin-bottom: 5vh;
                 .item {
-                    width: 100%;
+                    width: 50%;
                     background-color: white;
                     padding: 1% 2%;
                     border-radius: 5px;
                 }
             }
         }
+
         .profile-form-container {
-            width: 72%;
+            margin-left: 2vh;
+            width: 60%;
             .form-items {
                 width: 100%;
                 display: flex;
                 column-gap: 10%;
-                row-gap: 4.5vh;
+                row-gap: 5vh;
                 flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 8vh;
+                margin-bottom: 5vh;
             }
 
             input {
                 font-size: $medium;
                 height: 40px;
-                width: 100%;
+                width: 50%;
             }
 
             .input-form-primary,
