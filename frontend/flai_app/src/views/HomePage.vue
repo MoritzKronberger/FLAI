@@ -37,13 +37,6 @@ function openModalRegister() {
       <div class="heading-medium">
         Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
       </div>
-      <!--<div class="register">
-        <custom-button
-          label="Konto erstellen"
-          btnclass="prim_small_button_blue"
-          @button-click="redirect('RegisterPage')"
-        />
-      </div>-->
       <div class="register">
         <custom-button
           label="Konto erstellen"
