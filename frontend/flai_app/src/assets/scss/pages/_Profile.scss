@@ -26,7 +26,7 @@ $height: 6vh;
                     line-height: $height;
                     height: $height;
                     width: 100%;
-                    padding: $padding;
+                    padding-right: 2%;
                 }
             }
         }
@@ -40,8 +40,9 @@ $height: 6vh;
                 .item {
                     width: 50%;
                     height: $height;
+                    line-height: $height;
+                    padding-left: 2%;
                     background-color: white;
-                    padding: $padding;
                     border-radius: $border-radius;
                 }
             }
@@ -61,7 +62,6 @@ $height: 6vh;
                 row-gap: $margin-bottom;
                 flex-direction: column;
                 margin-bottom: $margin-bottom;
-
                 .checkbox {
                     display: flex;
                     column-gap: 20px;
@@ -76,12 +76,10 @@ $height: 6vh;
                 }
             }
 
-
             input {
                 font-size: $medium;
                 height: $height;
                 width: 50%;
-                padding: $padding;
             }
 
             .input-form-primary,
