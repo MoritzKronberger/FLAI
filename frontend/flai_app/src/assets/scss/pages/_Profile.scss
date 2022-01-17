@@ -1,6 +1,5 @@
-
 $padding: 1% 2%;
-$margin-left: 2vh;
+$margin-width: 2vh;
 $margin-bottom: 5vh;
 $height: 40px;
 
@@ -15,7 +14,7 @@ $height: 40px;
         .property {
             width: 40%;
             min-width: 40%;
-            margin-right: $margin-left;
+            margin-right: $margin-width;
             display: flex;
             flex-direction: column;
             .body-medium {
@@ -27,13 +26,14 @@ $height: 40px;
                     line-height: $height;
                     height: $height;
                     width: 100%;
+                    padding: $padding;
                 }
             }
         }
 
         .information {
             width: 60%;
-            margin-left: $margin-left;
+            margin-left: $margin-width;
             .body-medium {
                 list-style-type: none;
                 margin-bottom: $margin-bottom;
@@ -47,7 +47,7 @@ $height: 40px;
         }
 
         .profile-form-container {
-            margin-left: $margin-left;
+            margin-left: $margin-width;
             width: 60%;
             .form-items {
                 width: 100%;
@@ -55,7 +55,20 @@ $height: 40px;
                 row-gap: $margin-bottom;
                 flex-direction: column;
                 margin-bottom: $margin-bottom;
+                float: left;
+
+                .checkbox {
+                    display: flex;
+                    column-gap: 10px;
+                    align-items: center;
+                    width: 100%;
+                    flex-direction: row;
+                    .checkbox-primary {
+                        width: 150%;
+                    }
+                }
             }
+
 
             input {
                 font-size: $medium;
