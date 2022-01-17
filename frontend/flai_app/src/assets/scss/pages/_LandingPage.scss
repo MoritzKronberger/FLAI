@@ -1,0 +1,23 @@
+
+.main {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    margin: 3% auto;
+    text-align: center;
+    align-items: center;
+    background-color: aqua;
+
+    .flai-logo {
+        width: auto;
+    }
+    .heading-large {
+    margin-bottom: 50px;
+    color: $main-blue;
+    }
+
+    #login {
+        cursor: pointer;
+        color: $main-blue;
+      }
+}
