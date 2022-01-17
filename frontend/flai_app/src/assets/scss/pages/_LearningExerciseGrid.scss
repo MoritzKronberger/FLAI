@@ -9,17 +9,17 @@
   max-height: 100%;
   padding: $padding-height $padding-width;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+   grid-template-columns: repeat(5, auto);
   grid-auto-flow: column;
   grid-template-rows: 1fr 1fr minmax(50vh, 70vh) 1fr 1fr;
   grid-template-areas: 
-  'heading . '
-  'signs .'
-  'video webcam'
-  '. status'
-  'controls buttons';
+  ". heading . . . "
+  ". signs . . ."
+  ". video . webcam ."
+  ". . . status ."
+  ". controls . buttons .";
 
-  column-gap: $padding-width;
+  column-gap: minmax($padding-width, 50vw);
   row-gap: $padding-height;
 
   h2 {
