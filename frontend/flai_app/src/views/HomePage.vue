@@ -6,8 +6,7 @@ import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import { useRouter } from 'vue-router'
 import store from '../store'
-import Register from './RegisterPage.vue'
-import LoginPage from './LoginPage.vue'
+import LandingPage from './LandingPage.vue'
 const router = useRouter()
 
 const user = computed(() => store.userdata.user)
@@ -15,25 +14,12 @@ const auth = computed(() => store.authdata.auth)
 
 const redirect = (viewName: string) => router.push({ name: viewName })
 const level = ref(1)
-
-const showRegister = ref(false)
-const showLogin = ref(false)
-
-function openModalLogin() {
-  showLogin.value = true
-  showRegister.value = false
-}
-
-function openModalRegister() {
-  showLogin.value = false
-  showRegister.value = true
-}
 </script>
 
 <template>
   <div v-if="!auth.isAuth" class="landing-page">
-    <div class="main">
-      <div class="heading-large">Wilkommen bei FLAI!</div>
+    <LandingPage />
+    <!-- <div class="heading-large">Wilkommen bei FLAI!</div>
       <div class="heading-medium">
         Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
       </div>
@@ -53,8 +39,7 @@ function openModalRegister() {
       </div>
       <div v-show="showLogin" class="modal" @click="showLogin = false">
         <LoginPage @open-register="openModalRegister" @click.stop />
-      </div>
-    </div>
+      </div>-->
   </div>
   <div v-if="auth.isAuth" class="home-page">
     <div class="dashboard">
@@ -99,9 +84,4 @@ function openModalRegister() {
 <style lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/components/startpanel';
-
-#login {
-  cursor: pointer;
-  color: $main-blue;
-}
 </style>
