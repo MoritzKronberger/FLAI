@@ -38,7 +38,7 @@ function openModalRegister() {
       <div class="text body-medium">
         mithilfe der künstlichen Intelligenz von <span id="orange">FLAI </span>.
         <br />
-        Bekomme direktes Feedback über die Kameraausgabe und lerne so effizient
+        Bekomme direktes Feedback über die Kamera-Ausgabe und lerne so effizient
         die DGB.
       </div>
     </div>
@@ -70,12 +70,38 @@ function openModalRegister() {
     <IconLoader
       path="/assets/landingPage/one.png"
       alt="FLAI woman sign language"
-      element-class="img"
+      element-class="img-right"
     />
   </div>
   <div class="bg-blue">
-    <div class="main-right">
+    <div class="main-right bottom">
       <div class="heading-large">Durch direktes Feedback</div>
+    </div>
+  </div>
+  <div class="bg-white">
+    <div class="main-right top">
+      <div class="text body-medium">
+        Mithilfe von Farbe und Symbolik,<br />
+        erfährst du direkt ob du die Gebärde richtig machst.
+        <br />
+        Vergiss hierbei nicht, das zu einer Gebärde<br />
+        auch das richtige Mundbild gehört.
+        <br />
+        Sprich also gerne laut mit wenn du übst.
+      </div>
+    </div>
+    <IconLoader
+      path="/assets/landingPage/second.png"
+      alt="FLAI man sign language"
+      element-class="img-left"
+    />
+  </div>
+  <div id="rect"></div>
+  <div class="bg-blue">
+    <div class="main-left bottom">
+      <div class="heading-large">
+        Lernfortschritt wird automatisch an dein Tempo angepasst
+      </div>
     </div>
   </div>
 </template>
