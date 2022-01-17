@@ -85,23 +85,19 @@ onMounted(() => {
     <div class="profile">
       <div class="property">
         <div v-for="(item, key) in options" :key="key">
-          <div class="body-medium">
-            <div v-if="key !== 'id'" class="flex">
-              <li class="key">
-                {{ item.label }}
-              </li>
-            </div>
+          <div v-if="key !== 'id'" class="body-medium">
+            <li class="key">
+              {{ item.label }}
+            </li>
           </div>
         </div>
       </div>
       <div v-if="!displayForm" class="information">
         <div v-for="(item, key) in options" :key="key">
-          <div class="body-medium">
-            <div v-if="key !== 'id'" class="flex">
-              <li class="item">
-                {{ item.value }}
-              </li>
-            </div>
+          <div v-if="key !== 'id'" class="body-medium">
+            <li class="item">
+              {{ item.value }}
+            </li>
           </div>
         </div>
         <custom-button
