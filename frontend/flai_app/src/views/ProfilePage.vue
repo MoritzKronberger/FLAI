@@ -20,8 +20,8 @@ interface Options {
   username: { label: string; value: string }
   email: { label: string; value: string }
   password: { label: string; value: string }
-  right_handed: { label: string; value: boolean }
   target_learning_time: { label: string; value: number }
+  right_handed: { label: string; value: boolean }
 }
 
 const options = ref<Options>({
@@ -29,8 +29,8 @@ const options = ref<Options>({
   username: { label: 'Name', value: '' },
   email: { label: 'E-Mail', value: '' },
   password: { label: 'Passwort', value: passwordReplacement },
-  right_handed: { label: 'Händigkeit', value: true },
   target_learning_time: { label: 'Lernzeit', value: 0 },
+  right_handed: { label: 'Händigkeit', value: true },
 })
 
 const displayForm = ref(false)
@@ -129,6 +129,13 @@ onMounted(() => {
             element-class="default_input_field"
             custom-type="password"
           />
+          <text-input-field
+            v-model="options.target_learning_time.value"
+            placeholder="00:20:00"
+            element-class="default_input_field"
+            custom-type="time"
+            :time-step="1"
+          />
           <div class="checkbox">
             <div class="body-medium">Rechts</div>
             <custom-checkbox
@@ -138,13 +145,6 @@ onMounted(() => {
               checkmark-class="checkmark"
             />
           </div>
-          <text-input-field
-            v-model="options.target_learning_time.value"
-            placeholder="00:20:00"
-            element-class="default_input_field"
-            custom-type="time"
-            :time-step="1"
-          />
         </form>
         <custom-button
           label="Bestätigen"
