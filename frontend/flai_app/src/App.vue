@@ -32,7 +32,7 @@ const classState = computed(() => switchClass())
     <aside :class="classState.aside">
       <router-link :to="{ name: 'HomePage' }">
         <IconLoader
-          path="/assets/logos/faces.svg"
+          path="/assets/logos/logo.svg"
           alt="FLAI Icon"
           element-class="flai-header-icon"
         />
@@ -40,7 +40,7 @@ const classState = computed(() => switchClass())
       <SidebarMenu />
       <custom-button
         label="Logout"
-        btnclass="sec_small_button_blue"
+        btnclass="sec_small_button_orange"
         @button-click="logoutUser"
       />
     </aside>

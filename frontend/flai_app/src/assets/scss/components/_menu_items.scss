@@ -15,7 +15,7 @@
         margin-left: 0.5vw;
       }
       .sidebar-flyout {
-        font-size: 12px;
+        font-size: 15px;
       }
       @media (max-width: 768px) {
         .icon {
@@ -28,7 +28,7 @@
     }
   }
   a {
-    color: black;
+    color: $dark-grey;
     text-decoration: none;
   }
 }

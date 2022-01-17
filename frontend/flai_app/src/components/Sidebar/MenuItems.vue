@@ -21,7 +21,7 @@ defineProps<{
               element-class="sidebar-icon"
             />
           </div>
-          <span class="sidebar-flyout">{{ flyoutText }}</span>
+          <span class="sidebar-flyout body-medium">{{ flyoutText }}</span>
         </div>
       </router-link>
     </div>
