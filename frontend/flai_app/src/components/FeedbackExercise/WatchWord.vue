@@ -11,20 +11,22 @@
       :class="feedbackClass"
       @use-hint="showSign = true"
     />
-    <Webcam />
     <p class="status body-medium">{{ status }}</p>
-    <div class="exercise-controls">
-      <CustomButton
-        label="Home"
-        btnclass="exit sec_small_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
-      <CustomButton
-        id="next"
-        label="weiter"
-        btnclass="prim_small_button_blue"
-        @click="emit('next')"
-      />
+    <div class="webcam-column">
+      <Webcam />
+      <div class="exercise-controls">
+        <CustomButton
+          label="Home"
+          btnclass="exit sec_small_button_blue"
+          @click="router.push({ name: 'HomePage' })"
+        />
+        <CustomButton
+          id="next"
+          label="weiter"
+          btnclass="prim_small_button_blue"
+          @click="emit('next')"
+        />
+      </div>
     </div>
   </div>
   <!--/div>
