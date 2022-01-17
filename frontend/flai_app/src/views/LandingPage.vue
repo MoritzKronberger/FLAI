@@ -21,10 +21,12 @@ function openModalRegister() {
 
 <template>
   <div class="main">
-    <div class="heading-large">Wilkommen bei FLAI!</div>
-    <div class="heading-medium">
-      Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
-    </div>
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo"
+    />
+    <h1>Ha</h1>
     <div class="register">
       <custom-button
         label="Konto erstellen"
@@ -47,10 +49,4 @@ function openModalRegister() {
 
 <style lang="scss">
 @import '../assets/scss/main.scss';
-@import '../assets/scss/components/startpanel';
-
-#login {
-  cursor: pointer;
-  color: $main-blue;
-}
 </style>

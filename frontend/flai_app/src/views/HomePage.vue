@@ -17,7 +17,7 @@ const level = ref(1)
 </script>
 
 <template>
-  <div v-if="!auth.isAuth" class="landing-page">
+  <div v-if="!auth.isAuth">
     <LandingPage />
     <!-- <div class="heading-large">Wilkommen bei FLAI!</div>
       <div class="heading-medium">
