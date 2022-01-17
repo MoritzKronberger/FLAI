@@ -1,6 +1,7 @@
 import express from 'express'
 import { request } from './request.js'
 import { authToken } from '../util/auth.js'
+import { getTrends } from '../db/trends.js'
 const statistic = express.Router()
 
 statistic.get(
@@ -80,6 +81,31 @@ statistic.get(
       ids: req.query,
       res: res,
     })
+  }
+)
+
+statistic.get(
+  '/trends',
+  (req, res, next) => {
+    authToken(req, res, next, req.query.user_id)
+  },
+  async (req, res) => {
+    try {
+      const result = await getTrends(
+        req.query.end_day,
+        req.query.days,
+        req.query.user_id
+      )
+      console.log(result)
+      if (result.rows.length > 0) {
+        res.status(200).json({ rows: result.rows })
+      } else {
+        res.status(404).json({ message: 'trends exist' })
+      }
+    } catch (err) {
+      console.log(err)
+      res.status(500)
+    }
   }
 )
 
