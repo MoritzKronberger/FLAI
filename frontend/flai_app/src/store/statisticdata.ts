@@ -58,14 +58,13 @@ const methods = {
   },
   changeTrends(
     trendsData: { status: number; data: any },
-    endDay: string,
+    endDay: Moment,
     dateFormat = 'YYYY-MM-DD'
   ) {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0
-    const endDate = moment(endDay)
     const baseDataset: TrendsDataset = []
     for (let i = 0; i < trends.days; i++) {
-      const x = endDate.subtract(1, 'days').format(dateFormat).toString()
+      const x = endDay.subtract(1, 'days').format(dateFormat).toString()
       baseDataset.push({ x: x, y: 0 })
     }
 
@@ -99,7 +98,7 @@ const actions = {
   async getUserStatistic() {
     const userId = userdata.user.id
     const exerciseId = exerciseData.exercises[0].id
-    const today = moment().format('YYYY-MM-DD')
+    const today = moment()
 
     const activeStreakData = await jsonAction({
       method: 'get',
@@ -124,14 +123,14 @@ const actions = {
     const timeLearntTodayData = await jsonAction({
       method: 'get',
       url: 'statistic/time_learnt_by_day',
-      data: { user_id: userId, day: today.toString() },
+      data: { user_id: userId, day: today.format('YYYY-MM-DD').toString() },
     })
     const trendsData = await jsonAction({
       method: 'get',
       url: 'statistic/trends',
       data: {
         user_id: userId,
-        end_day: trends.end_day ?? today.toString(),
+        end_day: trends.end_day ?? today.format('YYYY-MM-DD').toString(),
         days: trends.days,
       },
     })
