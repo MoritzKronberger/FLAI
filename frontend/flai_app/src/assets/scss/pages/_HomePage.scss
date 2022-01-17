@@ -29,8 +29,9 @@
 .home-page {
   background-color: $background-blue;
   .dashboard {
-    margin: auto;
-    padding: 50px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 2.75%;
     display: grid;
     justify-content: center;
     gap: 1rem;
