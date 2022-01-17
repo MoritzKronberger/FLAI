@@ -19,6 +19,13 @@ const tryReAuthentication = async () => {
   await authenticateFromSessionStorage()
 }
 
+// fetch statistic on every HomePage enter to be updated with i.e. the current learning time
+const fetchStatistic = async () => {
+  if (store.authdata.auth.isAuth) {
+    await store.statisticdata.actions.getUserStatistic()
+  }
+}
+
 async function startSession() {
   // try re-autheticating
   const authenticated = await authenticateFromSessionStorage()
@@ -36,7 +43,7 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage,
-    beforeEnter: [tryReAuthentication],
+    beforeEnter: [tryReAuthentication, fetchStatistic],
   },
   {
     path: '/components',

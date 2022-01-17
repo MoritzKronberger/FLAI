@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CardSmall from './CardSmall.vue'
 const date = new Date(Date.now())
 </script>
 
@@ -13,11 +12,7 @@ const date = new Date(Date.now())
         date.toLocaleString('default', { year: 'numeric' })
       }}</span>
     </div>
-    <CardSmall
-      placeholder-path="/assets/statisticPlaceholders/diagram.svg"
-      link-target="ComingSoon"
-      alt-text="Lernzeit Trend Diagramm"
-    />
+    <img src="/assets/statisticPlaceholders/diagram.svg" alt="Trend Diagram" />
   </div>
 </template>
 
