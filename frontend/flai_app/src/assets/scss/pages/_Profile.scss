@@ -1,7 +1,7 @@
 $padding: 1% 2%;
 $margin-width: 2vh;
 $margin-bottom: 5vh;
-$height: 40px;
+$height: 6vh;
 
 .profile-page {
     background-color: $background-blue;
@@ -39,6 +39,7 @@ $height: 40px;
                 margin-bottom: $margin-bottom;
                 .item {
                     width: 50%;
+                    height: $height;
                     background-color: white;
                     padding: $padding;
                     border-radius: $border-radius;
@@ -55,13 +56,16 @@ $height: 40px;
                 row-gap: $margin-bottom;
                 flex-direction: column;
                 margin-bottom: $margin-bottom;
-                float: left;
 
                 .checkbox {
                     display: flex;
-                    column-gap: 10px;
+                    column-gap: 20px;
                     align-items: center;
-                    width: 100%;
+                    padding: $padding;
+                    width: 50%;
+                    height: $height;
+                    background-color: white;
+                    border-radius: $border-radius;
                     flex-direction: row;
                     .checkbox-primary {
                         width: 150%;
@@ -72,7 +76,7 @@ $height: 40px;
 
             input {
                 font-size: $medium;
-                height: 40px;
+                height: $height;
                 width: 50%;
                 padding: $padding;
             }
