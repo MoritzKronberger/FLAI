@@ -18,6 +18,9 @@
     .flai-logo {
         float: left;
         width: 30%;
+        @media (max-width:768px) {
+            width: 70%;
+        }
     }
 }
 
@@ -33,12 +36,20 @@
 :is(.main-left, .main-right) .heading-large {
     color: $main-blue;
     width: 50%;
+    @media (max-width:768px) {
+        width: 100%;
+        font-size: 200%;
+    }
 }
 
 :is(.main-left, .main-right) .text {
     color: $dark-grey;
     width: 45%;
     padding-top: 1.5%;
+    @media (max-width:768px) {
+        width: 100%;
+        font-size: 100%;
+    }
 }
 
 .bg-white {
