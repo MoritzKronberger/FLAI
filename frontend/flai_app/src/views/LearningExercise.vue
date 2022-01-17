@@ -1,6 +1,5 @@
 <template>
   <div class="learning-exercise">
-    <h2 class="heading-large">Übung</h2>
     <!-- hiding must be done via css and not v-if so that components still render -->
     <div
       :class="[
@@ -8,19 +7,14 @@
         currentlyWatchWord ? 'watch-word' : 'show-word',
       ]"
     >
-      <div class="column1">
-        <FeedbackExercise
-          :key="signIds"
-          @watch-word="watchWord()"
-          @show-word="showWord()"
-          @correct="feedbackClass = 'correct'"
-          @wrong="feedbackClass = 'wrong'"
-        />
-      </div>
+      <FeedbackExercise
+        :key="signIds"
+        @watch-word="watchWord()"
+        @show-word="showWord()"
+        @correct="feedbackClass = 'correct'"
+        @wrong="feedbackClass = 'wrong'"
+      />
 
-      <div class="column2" :class="feedbackClass">
-        <webcam />
-      </div>
       <!-- TODO: replace text with or add loading icon/ animation -->
     </div>
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
@@ -42,11 +36,6 @@
       />
       <div v-else class="loading-circle" />
     </div>
-    <CustomButton
-      label="Home"
-      btnclass="exit sec_small_button_blue"
-      @click="router.push({ name: 'HomePage' })"
-    />
   </div>
 </template>
 
@@ -54,7 +43,6 @@
 import { computed, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
-import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'

@@ -1,10 +1,7 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
-      <p class="instruction">
-        Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
-      </p>
-      <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
+  <div class="test-class">
+    <h2 class="heading-large">Übung</h2>
+    <div class="column1">
       <Video
         id="video"
         :show-sign="showSign"
@@ -13,6 +10,16 @@
         :class="feedbackClass"
         @use-hint="showSign = true"
       />
+    </div>
+    <div class="column2" :class="feedbackClass">
+      <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
+      <webcam />
+      <p>{{ status }}</p>
+      <Button
+        label="Home"
+        btnclass="exit sec_small_button_blue"
+        @click="router.push({ name: 'HomePage' })"
+      />
       <Button
         v-if="wordComplete"
         id="next"
@@ -20,7 +27,6 @@
         btnclass="controls"
         @button-click="emit('new-word')"
       />
-      <p>{{ status }}</p>
     </div>
   </div>
 </template>
@@ -36,7 +42,10 @@ import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
 import { FlaiNetResults } from '../../store/flainetdata'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
 import SignsWithIcons from './SignsWithIcons.vue'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
+import webcam from '../Webcam.vue'
 
+const router = useRouter()
 const inputAccepted = ref(true)
 const index = ref(0)
 
