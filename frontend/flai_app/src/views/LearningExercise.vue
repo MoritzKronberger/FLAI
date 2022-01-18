@@ -11,6 +11,7 @@
       <div class="column1">
         <FeedbackExercise
           :key="signIds"
+          :started="hidden ? false : true"
           @watch-word="watchWord()"
           @show-word="showWord()"
           @correct="feedbackClass = 'correct'"
