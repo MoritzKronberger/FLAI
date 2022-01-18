@@ -9,13 +9,13 @@
   max-height: 100%;
   padding: $padding-height $padding-width;
   display: grid;
-  grid-template-columns: 1fr minmax(20vw, 50vw) 1fr minmax(20vw, 50vw) 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
   grid-template-rows: 1fr 1fr minmax(50vh, 90vh);
   grid-template-areas: 
-  ". heading  . . . "
-  ". signs  . status ."
-  ". video . webcam .";
+  "heading ."
+  "signs status"
+  "video webcam";
 
   column-gap: $padding-width;
   row-gap: $padding-height;
@@ -28,7 +28,7 @@
     grid-area: signs;
   }
   .video-column {
-    grid-area: video; 
+    grid-area: video;
   }
   
   //right column
