@@ -96,7 +96,6 @@ statistic.get(
         req.query.days,
         req.query.user_id
       )
-      console.log(result)
       if (result.rows.length > 0) {
         res.status(200).json({ rows: result.rows })
       } else {
