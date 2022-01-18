@@ -1,47 +1,86 @@
+$padding: 1% 2%;
+$margin-width: 2vh;
+$margin-bottom: 5vh;
+$height: 6vh;
+
 .profile-page {
     background-color: $background-blue;
-    position: fixed;
-    height: 100%;
-    width: 100%;
+    list-style-type: none;
+    position: relative;
+    height: 100vh;
     .profile {
-        margin: 50px 30px 0px 30px;
-        padding: 40px 50px;
-        display: flex;
-        background-color: white;
-        border-radius: 5px;
-        height: 85%;
-        width: 80%;
+        width: 100%;
+        padding-top: 10%;
+        display: inline-flex;
+        .property {
+            width: 40%;
+            min-width: 40%;
+            margin-right: $margin-width;
+            display: flex;
+            flex-direction: column;
+            .key {
+                text-align: end;
+                color: $main-blue;
+                line-height: $height;
+                height: $height;
+                width: 100%;
+                padding-right: 2%;
+                margin-bottom: $margin-bottom;
+            }
+        }
+
         .information {
-            .flex {
+            width: 60%;
+            margin-left: $margin-width;
+            .item {
+                width: 50%;
+                height: $height;
+                line-height: $height;
+                padding-left: 2%;
+                background-color: white;
+                margin-bottom: $margin-bottom;
+                border-radius: $border-radius;
+            }
+        }
+
+        .profile-form-container {
+            margin-left: $margin-width;
+            width: 60%;
+            .body-small {
+                color: $main-red;
+                margin-bottom: 1vh;
+            }
+
+            .form-items {
+                width: 100%;
                 display: flex;
-                .title {
-                    width: 16vw;
-                    color: $main-blue;
-                }
-                li {
-                    margin-bottom: 9.5vh;
-                    list-style-type: none;
+                row-gap: $margin-bottom;
+                flex-direction: column;
+                margin-bottom: $margin-bottom;
+                .primary-checkbox {
+                    width: 50%;
+                    label {
+                        height: $height;
+                        div {
+                            input {
+                                padding: 7px 5px;
+                            }
+                        }
+                    }
                 }
             }
         }
-        .profile-form-container {
-            display: flex;
-            align-items: start;
-            flex-direction: column;
-            .form-items {
-                width: 16vw;
-                margin-right: 5vw;
-               
-            }
-            
-            input {
-                margin-bottom: 9.5vh;
-            }
 
-            .input-form-primary,
-            .button-form-primary {
-                width: 100%;
-            }
+        input {
+            font-size: $medium;
+            height: $height;
+            width: 50%;
+            border-radius: $border-radius;
+        }
+
+        .input-form-primary,
+        .button-form-primary {
+            width: 100%;
         }
     }
 }
