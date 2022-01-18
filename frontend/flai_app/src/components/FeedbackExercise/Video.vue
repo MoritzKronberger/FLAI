@@ -1,6 +1,6 @@
 <template>
-  <div v-if="showSign" class="sign-video">
-    <div class="video">
+  <div class="video-column">
+    <div v-if="showSign" class="video">
       <video
         ref="videoPlayer"
         :src="videoSource"
@@ -9,9 +9,8 @@
         loop
       />
     </div>
-    <p class="status body-medium"></p>
-    <div class="video-controls">
-      <div class="perspective-buttons">
+    <div v-if="showSign" class="video-controls">
+      <div v-if="showSign" class="perspective-buttons">
         <CustomButton
           label="Front"
           btnclass="sec_small_button_blue"
@@ -23,7 +22,7 @@
           @click="sidePerspective()"
         />
       </div>
-      <div class="speed-buttons">
+      <div v-if="showSign" class="speed-buttons">
         <CustomButton
           label="Start"
           btnclass="sec_small_button_blue"
@@ -31,13 +30,13 @@
         />
       </div>
     </div>
+    <CustomButton
+      v-else
+      label="Hinweis"
+      btnclass="sec_small_button_blue"
+      @click="emit('useHint')"
+    />
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="sec_small_button_blue"
-    @click="emit('useHint')"
-  />
 </template>
 
 <script setup lang="ts">
