@@ -64,7 +64,10 @@ const methods = {
     const baseDataset: TrendsDataset = []
     const endDay = trends.end_day.clone()
     for (let i = 0; i < trends.days; i++) {
-      const x = endDay.subtract(1, 'days').format(dateFormat).toString()
+      const x = endDay
+        .subtract(i === 0 ? 0 : 1, 'days')
+        .format(dateFormat)
+        .toString()
       baseDataset.push({ x: x, y: 0 })
     }
 
@@ -87,7 +90,6 @@ const methods = {
 
       trends.dataset = dataset
       console.log(trends.dataset)
-      console.log(trends.end_day)
     }
   },
   changeTrendsEndDay(endDay: Moment) {
