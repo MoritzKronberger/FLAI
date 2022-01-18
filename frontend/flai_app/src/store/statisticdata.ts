@@ -32,7 +32,7 @@ export interface TrendsRow {
 export type TrendsDataset = TrendsEntry[]
 
 export interface Trends {
-  end_day: Moment | undefined
+  end_day: Moment
   days: number
   dataset: TrendsDataset | undefined
 }
@@ -46,7 +46,7 @@ const userStatistic: UserStatistic = reactive({
 })
 
 const trends: Trends = {
-  end_day: undefined,
+  end_day: moment(),
   days: 7,
   dataset: undefined,
 }
@@ -58,11 +58,11 @@ const methods = {
   },
   changeTrends(
     trendsData: { status: number; data: { rows: TrendsRow[] } },
-    endDay: Moment,
     dateFormat = 'YYYY-MM-DD'
   ) {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0
     const baseDataset: TrendsDataset = []
+    const endDay = trends.end_day.clone()
     for (let i = 0; i < trends.days; i++) {
       const x = endDay.subtract(1, 'days').format(dateFormat).toString()
       baseDataset.push({ x: x, y: 0 })
@@ -87,6 +87,7 @@ const methods = {
 
       trends.dataset = dataset
       console.log(trends.dataset)
+      console.log(trends.end_day)
     }
   },
   changeTrendsEndDay(endDay: Moment) {
@@ -125,15 +126,6 @@ const actions = {
       url: 'statistic/time_learnt_by_day',
       data: { user_id: userId, day: today.format('YYYY-MM-DD').toString() },
     })
-    const trendsData = await jsonAction({
-      method: 'get',
-      url: 'statistic/trends',
-      data: {
-        user_id: userId,
-        end_day: trends.end_day ?? today.format('YYYY-MM-DD').toString(),
-        days: trends.days,
-      },
-    })
 
     const newUserStatistic: UserStatistic = {
       activeStreak: activeStreakData.data.rows?.[0].streak,
@@ -145,7 +137,22 @@ const actions = {
     }
 
     methods.changeUserStatistic(newUserStatistic)
-    methods.changeTrends(trendsData, today)
+    await this.updateTrendsData()
+  },
+  async updateTrendsData() {
+    const userId = userdata.user.id
+
+    const trendsData = await jsonAction({
+      method: 'get',
+      url: 'statistic/trends',
+      data: {
+        user_id: userId,
+        end_day: trends.end_day.format('YYYY-MM-DD').toString(),
+        days: trends.days,
+      },
+    })
+
+    methods.changeTrends(trendsData)
   },
 }
 
