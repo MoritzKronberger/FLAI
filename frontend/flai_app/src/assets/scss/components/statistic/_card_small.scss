@@ -1,3 +1,47 @@
-img {
+a {
+  text-decoration: none;
+  color: $main-black;
   width: 100%;
+}
+
+.card-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: $main-white;
+  border-radius:  $border-radius;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.statistic-circle {
+  position: relative;
+  width: 70%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid $subtle-blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// TODO: update progress bar styling to be responsive
+.progress-bar {
+  width: 125%;
+  position: absolute;
+}
+
+.statistic-value {
+  color: $dark-blue;
+}
+
+.statistic-text {
+  width: 100%;
+  text-align: center;
+  margin-top: 12%;
+  @include font(GothamSSm, book);
+  // TODO: choose defined font-size
+  font-size: 14px;
+  line-height: 1.5;
 }

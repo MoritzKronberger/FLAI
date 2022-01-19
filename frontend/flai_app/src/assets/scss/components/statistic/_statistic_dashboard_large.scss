@@ -2,20 +2,18 @@
   background-color: $main-white;
   border-radius: 10px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   .flex-cards {
     @include flex-box(column, space-between, center, 10px);
   }
   padding: 35px 25px 35px 25px;
 
-  hr {
-    width: 85%;
-    margin: 35px 0px 35px 0px;
-    color: $light-grey;
-    opacity: 25%;
-  }
-
   .hot-streak {
     @include flex-box(row, center, center);
+    margin-top: 5%;
   }
 
   .hot-streak-item {
@@ -31,7 +29,21 @@
     color: $dark-grey;
   }
 
-  .month {
-    color: $main-blue;
+  .counter {
+    color: $dark-grey;
+    margin-top: 2%;
+
+    #days {
+      display: flex;
+      justify-content: center;
+      margin-top: 2%;
+    }
   }
+
+  #month {
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+
+
 }
