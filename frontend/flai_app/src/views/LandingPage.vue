@@ -20,33 +20,8 @@ function openModalRegister() {
 </script>
 
 <template>
-  <div class="bg-white">
-    <div class="main-left">
-      <IconLoader
-        path="/assets/logos/logo.svg"
-        alt="FLAI Icon"
-        element-class="flai-logo"
-      />
-    </div>
-  </div>
-
-  <div class="bg-blue">
-    <div class="main-left">
-      <div class="heading-large">
-        Lerne die deutsche Gebärdensprache mit Hilfe von live Feedback
-      </div>
-      <br />
-      <div class="text body-medium">
-        Mithilfe der künstlichen Intelligenz von <span id="orange">FLAI </span>.
-        <br />
-        Bekomme direktes Feedback über die Kamera-Ausgabe und lerne so effizient
-        die DGB.
-      </div>
-    </div>
-  </div>
-
-  <div class="bg-white">
-    <div class="buttons">
+  <header id="stick">
+    <div id="buttons" class="bg-blue">
       <div class="login">
         <custom-button
           label="Login"
@@ -68,6 +43,33 @@ function openModalRegister() {
         <Register @open-login="openModalLogin" @click.stop />
       </div>
     </div>
+  </header>
+  <div class="main-left">
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo-1"
+    />
+  </div>
+
+  <div class="bg-blue">
+    <div class="main-left">
+      <div class="heading-large">
+        Lerne die deutsche Gebärdensprache mithilfe von Live-Feedback
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white">
+    <div class="main-left">
+      <div class="text body-medium">
+        Nutze die künstlichen Intelligenz von <span id="orange">FLAI </span>
+        und bekomme direktes Feedback über die Kameraausgabe. Lerne so effizient
+        und selbstbewusst die deutsche Gebärdensprache.
+      </div>
+      <a class="prim_large_button_blue skip-to" href="#skip">Mehr erfahren</a>
+    </div>
+
     <IconLoader
       path="/assets/landingPage/one.png"
       alt="FLAI woman sign language"
@@ -75,7 +77,7 @@ function openModalRegister() {
     />
   </div>
 
-  <div class="bg-blue">
+  <div id="skip" class="bg-blue spacing-two">
     <div class="main-right bottom">
       <div class="heading-large">Durch direktes Feedback</div>
     </div>
@@ -84,11 +86,9 @@ function openModalRegister() {
   <div class="bg-white">
     <div class="main-right">
       <div class="short-text body-medium">
-        Mithilfe von Farbe und Symbolik, erfährst du direkt ob du die Gebärde
-        richtig machst.
-        <br />
-        Vergiss hierbei nicht, das zu einer Gebärde auch das richtige Mundbild
-        gehört.
+        Mithilfe von Farbe und Symbolik, erfährst du direkt<br />
+        ob du die Gebärde richtig machst. Vergiss hierbei nicht,<br />
+        das zu einer Gebärde auch das richtige Mundbild gehört.
         <br />
         Sprich also gerne laut mit wenn du übst.
       </div>
@@ -99,8 +99,6 @@ function openModalRegister() {
       element-class="img-left"
     />
   </div>
-
-  <div id="rect"></div>
 
   <div id="spacing-one">
     <div class="bg-blue">
@@ -136,33 +134,35 @@ function openModalRegister() {
     />
   </div>
 
-  <div id="spacing-two">
-    <div class="bg-blue">
-      <div class="main">
-        <IconLoader
-          path="/assets/logos/logo.svg"
-          alt="FLAI Icon"
-          element-class="flai-logo"
-        />
-        <div class="heading-large">FLAI ist ein Studentenprojekt</div>
-      </div>
+  <div class="main-left spacing-two">
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo-2"
+    />
+  </div>
+
+  <div class="bg-blue">
+    <div class="main-right">
+      <div class="heading-large">FLAI ist ein Studentenprojekt</div>
     </div>
   </div>
 
   <div class="bg-white">
     <div class="main-right">
       <div class="long-text body-medium">
-        Das Team FLAI besteht aus 7 Studenten des Studiengangs Interaktive
-        Medien der Hochschule Augsburg.
+        Das Team FLAI besteht aus 7 Studenten des Studiengangs<br />
+        <span class="body-emphasised">Interaktive Medien</span> der Hochschule
+        Augsburg.
         <br />
         Im Rahmen unseres Projekt-Semester haben wir uns zum Ziel gemacht eine
         Lernapplikation<br />
-        zu entwicklen, die einem die deutsche Gebärdensprache beibringen soll.
+        zu entwickeln, die einem die deutsche Gebärdensprache beibringen soll.
         <br />
         Dieses Projekt umfasste die Konzeption, Planung und Umsetzung von Design
         und Programmierung.
         <br />
-        Mithilfe von Neuralen Netzten haben wir uns darauf konzentriert direktes
+        Mithilfe von Neuralen Netzen haben wir uns darauf konzentriert, direktes
         Feedback<br />
         an den Lernenden zu übermitteln um somit
         <span class="body-emphasised">einfacheres</span> und
@@ -171,6 +171,14 @@ function openModalRegister() {
       </div>
     </div>
   </div>
+
+  <hr id="line" />
+  <footer id="footer">
+    <div class="divider-line"></div>
+    <a href="">Kontakt</a>
+    <a href="https://www.hs-augsburg.de/Service/Impressum.html">Impressum</a>
+    <span>© Hochschule Augsburg</span>
+  </footer>
 </template>
 
 <style lang="scss">
