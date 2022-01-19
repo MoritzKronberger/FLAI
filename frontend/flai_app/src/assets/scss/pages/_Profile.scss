@@ -58,18 +58,17 @@ $height: 6vh;
                 flex-direction: column;
                 margin-bottom: $margin-bottom;
                 .checkbox-container {
-                    display: inline-flex;
                     .primary-checkbox {
-                        width: 25%;
-                        label {
-                            line-height: $height;
-                            height: $height;
-                            div {
-                                input {
-                                    padding: 7px 5px;
-                                }
-                            }
-                        }
+                        margin: 0;
+                    }
+                    display: flex;
+                    height: $height;
+                    line-height: $height;
+                    align-items: center;
+                    gap: 10%;
+                    input {
+                        width: 22px;
+                        height: 22px;
                     }
                 }
             }
