@@ -61,6 +61,15 @@
       @include flex-box(column, center, center);
       color: $dark-blue;
 
+      .heading-medium {
+        @media (min-width: $S) and (max-width: $M) {
+          font-size: $h3;
+        }
+        @media (max-width: $L) {
+          font-size: $h4;
+        }
+      }
+
       .level-icon {
         height: 50%;
         padding-left: 4%;
