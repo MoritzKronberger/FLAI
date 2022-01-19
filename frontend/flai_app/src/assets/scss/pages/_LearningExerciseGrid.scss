@@ -29,11 +29,19 @@
   }
   .video-column {
     grid-area: video;
+
+    .video {
+      height: 100%;
+    }
   }
   
   //right column
   .webcam-column {
     grid-area: webcam;
+
+    .webcam-container {
+      height: 100%;
+    }
     
     .exercise-controls {
         margin-left: auto;
