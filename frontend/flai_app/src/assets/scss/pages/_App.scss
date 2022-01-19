@@ -1,0 +1,43 @@
+
+//sidebar width
+$sidebar-width: calc($button-Sec-width-Small + $padding-width * 2);
+
+.display-aside {
+  width: $sidebar-width;
+  height: 100%;
+  background-color: white;
+  position: fixed;
+  padding-left: $padding-width;
+  padding-right: $padding-width;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.main-login-register-lection {
+  width: 100%;
+}
+
+.main-home-profile {
+  float: right;
+  width: calc(100% - $sidebar-width);
+  height: 100%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  height: 100%;
+}
+a {
+  text-decoration: none;
+}
