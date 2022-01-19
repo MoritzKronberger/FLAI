@@ -40,8 +40,11 @@ a {
   width: 100%;
   text-align: center;
   margin-top: 12%;
-  @include font(GothamSSm, book);
-  // TODO: choose defined font-size
-  font-size: 14px;
-  line-height: 1.5;
+
+  @media (min-width: 770px) and (max-width: 1200px) {
+    font-size: 11px;
+  }
+  @media (max-width: 1720px) {
+    font-size: 14px;
+  }
 }

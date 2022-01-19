@@ -44,7 +44,7 @@ watchEffect(() => renderProgress(progress?.value ?? 0))
         ></div>
         <div class="body-large statistic-value">{{ statisticValue }}</div>
       </div>
-      <div class="statistic-text">{{ statisticText }}</div>
+      <div class="statistic-text body-medium">{{ statisticText }}</div>
     </div>
   </router-link>
 </template>
