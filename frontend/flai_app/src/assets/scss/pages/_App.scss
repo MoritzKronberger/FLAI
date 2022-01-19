@@ -41,3 +41,8 @@ $sidebar-width: calc($button-Sec-width-Small + $padding-width * 2);
 a {
   text-decoration: none;
 }
+.logout {
+  position: absolute;
+  left: $padding-width;
+  bottom: $margin-height;
+}

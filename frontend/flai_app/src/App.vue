@@ -40,7 +40,7 @@ const classState = computed(() => switchClass())
       <SidebarMenu />
       <custom-button
         label="Logout"
-        btnclass="sec_small_button_orange"
+        btnclass="sec_small_button_orange logout"
         @button-click="logoutUser"
       />
     </aside>
