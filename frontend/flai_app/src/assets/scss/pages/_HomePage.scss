@@ -31,12 +31,12 @@
   .dashboard {
     margin: 0 auto;
     height: 100vh;
-    padding: 2.75%;
+    padding: $margin-height $margin-width;
     display: grid;
     justify-content: center;
     gap: 1rem;
-    grid-template-columns: repeat(5, 12vw);
-    grid-template-rows: repeat(4, 21vh);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     .start-panel {
       background-color: $main-blue;
       grid-column: span 2;
