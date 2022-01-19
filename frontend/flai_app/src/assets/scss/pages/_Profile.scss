@@ -8,6 +8,7 @@ $height: 6vh;
     list-style-type: none;
     position: relative;
     height: 100vh;
+    max-height: 100vh;
     .profile {
         width: 100%;
         padding-top: 10%;
@@ -58,6 +59,7 @@ $height: 6vh;
                 flex-direction: column;
                 margin-bottom: $margin-bottom;
                 .checkbox-container {
+                    width: 50%;
                     .primary-checkbox {
                         margin: 0;
                     }
