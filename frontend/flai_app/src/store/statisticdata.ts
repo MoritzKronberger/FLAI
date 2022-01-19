@@ -3,7 +3,8 @@ import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
 import userdata from './userdata'
-
+import 'moment/dist/locale/de'
+moment.locale()
 export interface UserStatistic {
   activeStreak: number | undefined
   longestStreak:
@@ -29,7 +30,10 @@ export interface TrendsRow {
   time_learnt: object
 }
 
-export type TrendsDataset = TrendsEntry[]
+export interface TrendsDataset {
+  labels: string[]
+  values: number[]
+}
 
 export interface Trends {
   end_day: Moment
@@ -61,7 +65,7 @@ const methods = {
     dateFormat = 'YYYY-MM-DD'
   ) {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0
-    const baseDataset: TrendsDataset = []
+    const baseDataset: TrendsEntry[] = []
     const endDay = trends.end_day.clone()
     for (let i = 0; i < trends.days; i++) {
       const x = endDay
@@ -73,7 +77,7 @@ const methods = {
 
     // convert the fetched rows into the TrendsDataset type and match the date formatting
     if (trendsData.data.rows) {
-      const trendsDataDataset: TrendsDataset = trendsData.data.rows.map(
+      const trendsDataDataset: TrendsEntry[] = trendsData.data.rows.map(
         (entry) => {
           return {
             x: moment(entry.day).format(dateFormat).toString(),
@@ -87,9 +91,13 @@ const methods = {
       const dataset = baseDataset.map(
         (entry) => trendsDataDataset.find((e) => e.x === entry.x) || entry
       )
-
-      trends.dataset = dataset
-      console.log(trends.dataset)
+      const labels = dataset.map((entry) => moment(entry.x).format('dd'))
+      const values = dataset.map((entry) => entry.y)
+      console.log(moment(labels[0]))
+      trends.dataset = {
+        labels,
+        values,
+      }
     }
   },
   changeTrendsEndDay(endDay: Moment) {
@@ -160,6 +168,7 @@ const actions = {
 
 const statisticdata = {
   userStatistic: readonly(userStatistic) as UserStatistic,
+  trends: readonly(trends) as Trends,
   methods,
   actions,
 }
