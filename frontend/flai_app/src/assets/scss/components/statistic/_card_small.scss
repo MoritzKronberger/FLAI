@@ -41,10 +41,10 @@ a {
   text-align: center;
   margin-top: 12%;
 
-  @media (min-width: 770px) and (max-width: 1200px) {
+  @media (min-width: $S) and (max-width: $M) {
     font-size: 11px;
   }
-  @media (max-width: 1720px) {
+  @media (max-width: $L) {
     font-size: 14px;
   }
 }
