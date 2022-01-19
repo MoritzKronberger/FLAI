@@ -42,7 +42,9 @@ a {
   text-decoration: none;
 }
 .logout {
+  margin-bottom: 0;
+  margin-right: 0;
   position: absolute;
   left: $padding-width;
-  bottom: $margin-height;
+  bottom: $homepage-margin-height;
 }

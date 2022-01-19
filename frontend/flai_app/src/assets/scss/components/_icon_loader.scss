@@ -4,7 +4,7 @@ img {
   width: 100%;
 }
 .flai-header-icon {
-  margin-top: 5vh;
+  margin-top: $homepage-margin-height;
   width: $button-Sec-width-Small;
 }
 @media (max-width: 768px) {
