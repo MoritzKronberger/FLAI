@@ -158,7 +158,7 @@
 .img-left {
     position: absolute;
     margin-top: -30vh;
-    left: 0%;
+    left: 5vw;
     width: 45%;
     @media (max-width:768px) {
         position: relative;
@@ -233,6 +233,7 @@ a.prim_large_button_blue {
     @include font(GothamSSm, medium);
 
     a:link, a:visited, a:link:active, a:visited:active {
+        width: fit-content;
         text-decoration: none;
         cursor: pointer;
         color: $light-grey;

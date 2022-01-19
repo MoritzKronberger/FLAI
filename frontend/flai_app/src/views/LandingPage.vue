@@ -77,7 +77,8 @@ function openModalRegister() {
     />
   </div>
 
-  <div id="skip" class="bg-blue spacing-two">
+  <div id="skip"></div>
+  <div class="bg-blue spacing-two">
     <div class="main-right bottom">
       <div class="heading-large">Durch direktes Feedback</div>
     </div>
@@ -174,7 +175,6 @@ function openModalRegister() {
 
   <hr id="line" />
   <footer id="footer">
-    <div class="divider-line"></div>
     <a href="">Kontakt</a>
     <a href="https://www.hs-augsburg.de/Service/Impressum.html">Impressum</a>
     <span>© Hochschule Augsburg</span>
