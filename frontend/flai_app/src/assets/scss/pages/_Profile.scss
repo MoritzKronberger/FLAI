@@ -57,13 +57,17 @@ $height: 6vh;
                 row-gap: $margin-bottom;
                 flex-direction: column;
                 margin-bottom: $margin-bottom;
-                .primary-checkbox {
-                    width: 50%;
-                    label {
-                        height: $height;
-                        div {
-                            input {
-                                padding: 7px 5px;
+                .checkbox-container {
+                    display: inline-flex;
+                    .primary-checkbox {
+                        width: 25%;
+                        label {
+                            line-height: $height;
+                            height: $height;
+                            div {
+                                input {
+                                    padding: 7px 5px;
+                                }
                             }
                         }
                     }
