@@ -174,7 +174,7 @@ onMounted(() => {
             <custom-checkbox
               v-model="rightHanded"
               label-name="Rechts"
-              element-class="checkbox-primary"
+              element-class="primary-checkbox"
               component-class="primary-checkbox"
               checkmark-class="checkmark"
               @change="switchHand('rightHand')"
