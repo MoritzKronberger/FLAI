@@ -27,12 +27,14 @@
     "dotenv": "^10.0.0",
     "fast-levenshtein": "^3.0.0",
     "moment": "^2.29.1",
+    "progressbar.js": "^1.1.0",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@types/fast-levenshtein": "^0.0.2",
     "@types/jest": "^27.0.2",
+    "@types/progressbar.js": "^1.1.2",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-vue": "^1.9.3",

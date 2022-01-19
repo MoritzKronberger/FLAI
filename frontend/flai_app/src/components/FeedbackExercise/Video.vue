@@ -1,42 +1,42 @@
 <template>
-  <div v-if="showSign">
-    <video
-      ref="videoPlayer"
-      :src="videoSource"
-      type="video/webm"
-      autoplay
-      loop
-    />
-    <div class="video-controls">
-      <div class="perspective-buttons">
+  <div class="video-column">
+    <div v-if="showSign" class="video">
+      <video
+        ref="videoPlayer"
+        :src="videoSource"
+        type="video/webm"
+        autoplay
+        loop
+      />
+    </div>
+    <div v-if="showSign" class="video-controls">
+      <div v-if="showSign" class="perspective-buttons">
         <CustomButton
           label="Front"
-          btnclass="video_controls_button_blue"
+          btnclass="sec_small_button_blue"
           @click="frontPerspective()"
         />
         <CustomButton
           label="Seite"
-          btnclass="video_controls_button_blue"
+          btnclass="sec_small_button_blue"
           @click="sidePerspective()"
         />
       </div>
-      <div class="speed-buttons">
+      <div v-if="showSign" class="speed-buttons">
         <CustomButton
-          v-for="item in speedItems"
-          :key="item.label"
-          :label="item.label"
-          btnclass="video_controls_button_blue"
-          @click="changeSpeed(item.value)"
+          label="Start"
+          btnclass="sec_small_button_blue"
+          @click="console.log('click start, not working sorry')"
         />
       </div>
     </div>
+    <CustomButton
+      v-else
+      label="Hinweis"
+      btnclass="sec_small_button_blue"
+      @click="emit('useHint')"
+    />
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="sec_small_button_blue"
-    @click="emit('useHint')"
-  />
 </template>
 
 <script setup lang="ts">
