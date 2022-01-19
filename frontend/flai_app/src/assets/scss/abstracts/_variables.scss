@@ -161,7 +161,8 @@ $large: $font-size-base*1.25;
 $medium: $font-size-base;
 
 
-
+//height of sign control elements
+$sign-div-height: calc($margin-height + $h2);
 
 
 // Main Colors

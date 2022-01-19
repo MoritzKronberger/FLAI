@@ -1,24 +1,13 @@
 <template>
   <div class="learning-exercise">
-    <h2 class="heading-large">Übung</h2>
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <div
-      :class="[
-        hidden ? 'hidden' : '',
-        currentlyWatchWord ? 'watch-word' : 'show-word',
-      ]"
-    >
-      <div class="column1">
-        <FeedbackExercise
-          :key="signIds"
-          @watch-word="watchWord()"
-          @show-word="showWord()"
-          @correct="feedbackClass = 'correct'"
-          @wrong="feedbackClass = 'wrong'"
-        />
-      </div>
-      <!-- TODO: replace text with or add loading icon/ animation -->
-    </div>
+    <h2 :class="[hidden ? '' : 'hidden', 'heading-large']">Übung</h2>
+    <FeedbackExercise
+      :key="signIds"
+      :class="[hidden ? 'hidden' : '']"
+      @watch-word="currentlyWatchWord = true"
+      @show-word="currentlyWatchWord = false"
+    />
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
       <p class="body-large">
         Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
@@ -37,12 +26,12 @@
         @button-click="hidden = false"
       />
       <div v-else class="loading-circle" />
+      <CustomButton
+        label="Home"
+        btnclass="exit sec_small_button_blue"
+        @click="router.push({ name: 'HomePage' })"
+      />
     </div>
-    <CustomButton
-      label="Home"
-      btnclass="exit sec_small_button_blue"
-      @click="router.push({ name: 'HomePage' })"
-    />
   </div>
 </template>
 
@@ -50,11 +39,9 @@
 import { computed, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
-import webcam from '../components/Webcam.vue'
 import CustomButton from '../components/CustomButton.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'
-import IconLoader from '../components/IconLoader.vue'
 
 const router = useRouter()
 
@@ -65,7 +52,7 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
-const feedbackClass = ref('waiting')
+
 const hidden = ref(true)
 
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
@@ -77,16 +64,6 @@ const webcamReady = ref(false)
 
 const setflaiNetReady = (): void => {
   flaiNetReady.value = true
-}
-
-function watchWord() {
-  console.log('watchWord')
-  currentlyWatchWord.value = true
-}
-
-function showWord() {
-  console.log('showWord')
-  currentlyWatchWord.value = false
 }
 
 onBeforeRouteLeave(async () => {

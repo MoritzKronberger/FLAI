@@ -1,47 +1,48 @@
 
 .sign-controls {
-  position: absolute;
-  top: calc($padding-height * 3);
-  left: 0;
-  width: calc(50% - $padding-width);
-  margin-top: $margin-height;
-
+  width: 100%;
+  height: $sign-div-height;
   display: flex;
   align-items: center;
 
   .lastLetter {
-    position: absolute;
+    position: relative; //absolute
     left: 40%;
-    font-size: 20px;
+    font-size: $h3;
+    transform: translate(-50%, 0);
   }
   .currentLetter {
-    position: absolute;
+    position: relative; //absolute
     left: 50%;
     font-weight: 800;
-    font-size: 40px;
+    font-size: $h2;
+    transform: translate(-50%, 0);
   }
   .nextLetter {
-    position: absolute;
+    position: relative; //absolute
     left: 60%;
-    font-size: 20px;
+    font-size: $h3;
+    transform: translate(-50%, 0);
   }
 
   .back-button {
-    position: absolute;
+    position: relative; //absolute
     left: 30%;
     color: $main-blue;
     font-size: x-large;
     background-color: inherit;
     border: none;
     cursor: pointer;
+    transform: translate(-50%, 0);
   }
   .next-button {
-    position: absolute;
+    position: relative; //absolute
     left: 70%;
     color: $main-blue;
     font-size: x-large;
     background-color: inherit;
     border: none;
     cursor: pointer;
+    transform: translate(-50%, 0);
   }
 }
