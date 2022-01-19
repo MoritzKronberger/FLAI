@@ -86,16 +86,18 @@ const submitChanges = async (): Promise<void> => {
         changes[prop] = options.value[prop].value
     }
   }
-  const result = await actions.patchValues(changes)
-  if (result?.status === 200) {
-    successMessage.value = 'Profil wurde erfolgreich geändert'
-    options.value['password'].value = passwordReplacement
-    displayForm.value = false
-  } else {
-    errorMessage.value = result?.data.message
-    loadCurrentUser()
-    options.value['password'].value = passwordReplacement
-  }
+  if (changes.length) {
+    const result = await actions.patchValues(changes)
+    if (result?.status === 200) {
+      successMessage.value = 'Profil wurde erfolgreich geändert'
+      options.value['password'].value = passwordReplacement
+      displayForm.value = false
+    } else {
+      errorMessage.value = result?.data.message
+      loadCurrentUser()
+      options.value['password'].value = passwordReplacement
+    }
+  } else displayForm.value = false
 }
 onMounted(() => {
   loadCurrentUser()
