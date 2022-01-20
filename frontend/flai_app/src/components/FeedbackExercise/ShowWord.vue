@@ -2,17 +2,19 @@
   <!--div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="show-word">
-    <div class="column1">
-      <h2 class="heading-large align-left">Üben</h2>
-      <p class="status">{{ status }}</p>
-      <Video
-        id="video"
-        :show-sign="showSign"
-        :signs="signs"
-        :index="index"
-        :class="feedbackClass"
-        @use-hint="showSign = true"
-      />
+    <div class="flex">
+      <div class="column1">
+        <h2 class="heading-large align-left">Üben</h2>
+        <p class="status">{{ status }}</p>
+        <Video
+          id="video"
+          :show-sign="showSign"
+          :signs="signs"
+          :index="index"
+          :class="feedbackClass"
+          @use-hint="showSign = true"
+        />
+      </div>
     </div>
     <div class="column2" :class="feedbackClass">
       <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
