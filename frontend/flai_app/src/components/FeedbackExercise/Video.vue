@@ -61,15 +61,17 @@ function getSource() {
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
 
+const play = ref(true)
+
 function frontPerspective() {
+  play.value = true
   perspective.value = 'front'
 }
 
 function sidePerspective() {
+  play.value = true
   perspective.value = 'side'
 }
-
-const play = ref(true)
 
 function togglePlay() {
   const videoHtml = unref(videoPlayer)
