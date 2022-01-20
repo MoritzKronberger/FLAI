@@ -3,6 +3,7 @@
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="show-word">
     <div class="column1">
+      <h2 class="heading-large align-left">Üben</h2>
       <p>{{ status }}</p>
       <Video
         id="video"
