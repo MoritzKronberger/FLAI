@@ -1,10 +1,9 @@
 <template>
-  <div class="content" vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
-      <p class="instruction">
-        Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
-      </p>
-      <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
+  <!--div class="content" vFocus tabindex="0" @keydown.c="correct">
+    <div vFocus tabindex="0" @keydown.w="wrong"-->
+  <div class="show-word">
+    <div class="column1">
+      <p>{{ status }}</p>
       <Video
         id="video"
         :show-sign="showSign"
@@ -13,6 +12,10 @@
         :class="feedbackClass"
         @use-hint="showSign = true"
       />
+    </div>
+    <div class="column2" :class="feedbackClass">
+      <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
+      <webcam />
       <Button
         v-if="wordComplete"
         id="next"
@@ -20,12 +23,10 @@
         btnclass="controls"
         @button-click="emit('new-word')"
       />
-      <p>{{ status }}</p>
-      <div class="column2" :class="feedbackClass">
-        <webcam />
-      </div>
     </div>
   </div>
+  <!--/div>
+  </div-->
 </template>
 
 <script setup lang="ts">
