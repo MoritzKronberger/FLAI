@@ -3,6 +3,7 @@
     <div v-if="showSign" class="video">
       <video
         ref="videoPlayer"
+        :class="rightHanded ? 'mirrored' : ''"
         :src="videoSource"
         type="video/webm"
         autoplay
@@ -44,12 +45,14 @@ import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
 import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
-import DropDownMenu from '../DropDownMenu.vue'
+import store from '../../store'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
 const perspective = ref('front')
 const videoPlayer = ref()
+
+const rightHanded = computed(() => store.userdata.user.right_handed)
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
