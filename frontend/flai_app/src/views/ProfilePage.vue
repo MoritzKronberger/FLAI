@@ -86,7 +86,7 @@ const submitChanges = async (): Promise<void> => {
         changes[prop] = options.value[prop].value
     }
   }
-  if (changes.length) {
+  if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
     if (result?.status === 200) {
       successMessage.value = 'Profil wurde erfolgreich geändert'
