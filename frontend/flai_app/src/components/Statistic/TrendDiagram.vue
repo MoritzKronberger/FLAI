@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import CardSmall from './CardSmall.vue'
 const date = new Date(Date.now())
 </script>
 
 <template>
   <div>
-    <div>
-      <span class="heading-medium month">{{
+    <div id="month">
+      <span class="heading-small month">{{
         date.toLocaleString('default', { month: 'long' }) + ' '
       }}</span>
-      <span class="heading-medium">{{
+      <span class="heading-small">{{
         date.toLocaleString('default', { year: 'numeric' })
       }}</span>
     </div>
-    <br />
-    <CardSmall
-      placeholder-path="/assets/statisticPlaceholders/diagram.svg"
-      link-target="ComingSoon"
-      alt-text="Lernzeit Trend Diagramm"
-    />
+    <img src="/assets/statisticPlaceholders/diagram.svg" alt="Trend Diagram" />
   </div>
 </template>
 
