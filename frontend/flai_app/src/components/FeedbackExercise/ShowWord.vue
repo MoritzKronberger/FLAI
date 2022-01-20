@@ -4,7 +4,7 @@
   <div class="show-word">
     <div class="column1">
       <h2 class="heading-large align-left">Üben</h2>
-      <p>{{ status }}</p>
+      <p class="status">{{ status }}</p>
       <Video
         id="video"
         :show-sign="showSign"
