@@ -4,6 +4,7 @@
     <h2 :class="[hidden ? '' : 'hidden', 'heading-large']">Übung</h2>
     <FeedbackExercise
       :key="signIds"
+      :started="hidden ? false : true"
       :class="[hidden ? 'hidden' : '']"
       @watch-word="currentlyWatchWord = true"
       @show-word="currentlyWatchWord = false"
