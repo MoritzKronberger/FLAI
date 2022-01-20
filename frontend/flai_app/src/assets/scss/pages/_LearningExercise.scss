@@ -175,16 +175,15 @@
       padding-right: $padding-width;
       //heading as padding
       padding-top: calc($h2 * 1.3 + 2 * $padding-height);
-    }
-
-    .webcam-container {
-      height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
 
       .sign-with-icon {
         width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
       }
-    }
 
+      .webcam-container {
+        height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+      }
+    }
   }
 }
 
