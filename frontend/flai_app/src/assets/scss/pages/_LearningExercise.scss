@@ -96,7 +96,7 @@
           width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
         }
 
-        .sign-video {
+        .video-column {
           margin-right: 0;
           margin-left: auto;
           height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height);
@@ -117,15 +117,19 @@
         height: 100vh;
         padding-right: $padding-width;
 
-        .webcam-container {
-          margin-top: $sign-div-height;
-          height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-        }
-
         .status {
+          margin-top: calc($h2 * 1.3 + 2 * $padding-height);
+          height: $sign-div-height;
+          align-items: center;
+          display: flex;
+          justify-content: end;
           text-align: right;
           //width same as height of video
           width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+        }
+
+        .webcam-container {
+          height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
         }
 
         .exercise-controls {
