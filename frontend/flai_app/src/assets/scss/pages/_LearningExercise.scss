@@ -141,5 +141,28 @@
       }
     }
   }
+
+  .show-word {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+    h2 {
+      text-align: left;
+      margin-right: 0;
+      margin-left: auto;
+      padding-left: 0; //overwrite padding
+      padding-right: 0; //overwrite padding
+    }
+
+    .column1 {
+      flex: 30%;
+    }
+
+    .column2 {
+      flex: 70%;
+    }
+
+  }
 }
 
