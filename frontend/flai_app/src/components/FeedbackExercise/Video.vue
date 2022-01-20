@@ -1,26 +1,28 @@
 <template>
-  <div v-if="showSign">
-    <video
-      ref="videoPlayer"
-      :src="videoSource"
-      type="video/webm"
-      autoplay
-      loop
-    />
-    <div class="video-controls">
-      <div class="perspective-buttons">
+  <div class="video-column">
+    <div v-if="showSign" class="video">
+      <video
+        ref="videoPlayer"
+        :src="videoSource"
+        type="video/webm"
+        autoplay
+        loop
+      />
+    </div>
+    <div v-if="showSign" class="video-controls">
+      <div v-if="showSign" class="perspective-buttons">
         <CustomButton
           label="Front"
-          btnclass="video_controls_button_blue"
+          btnclass="sec_small_button_blue"
           @click="frontPerspective()"
         />
         <CustomButton
           label="Seite"
-          btnclass="video_controls_button_blue"
+          btnclass="sec_small_button_blue"
           @click="sidePerspective()"
         />
       </div>
-      <div class="play-button">
+      <div v-if="showSign" class="play-button">
         <CustomButton
           :label="play ? '||' : '&#9658;'"
           btnclass="video_controls_button_blue"
@@ -28,13 +30,13 @@
         />
       </div>
     </div>
+    <CustomButton
+      v-else
+      label="Hinweis"
+      btnclass="sec_small_button_blue"
+      @click="emit('useHint')"
+    />
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="sec_small_button_blue"
-    @click="emit('useHint')"
-  />
 </template>
 
 <script setup lang="ts">
