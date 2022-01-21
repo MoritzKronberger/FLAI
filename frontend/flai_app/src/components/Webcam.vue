@@ -7,9 +7,14 @@ const webcamContainer = ref<HTMLDivElement>()
 
 const initWebcam = () => {
   if (webcamFeed.value) {
-    webcamFeed.value.autoplay = true
-    webcamFeed.value.id = 'webcam-feed'
-    webcamContainer.value?.appendChild(webcamFeed.value)
+    const webcamFeedCopy = Object.assign(webcamFeed.value)
+    console.log(webcamFeedCopy)
+    webcamFeedCopy.autoplay = true
+    webcamFeedCopy.loop = true
+    webcamFeedCopy.id = 'webcam-feed'
+    webcamContainer.value?.appendChild(webcamFeedCopy)
+    // needed since autoplay does not always work after mount
+    webcamFeedCopy.play()
   }
 }
 
