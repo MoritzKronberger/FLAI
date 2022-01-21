@@ -36,7 +36,7 @@ export interface TrendsDataset {
 }
 
 export interface Trends {
-  end_day: Moment
+  end_day: string
   days: number
   dataset: TrendsDataset | undefined
 }
@@ -50,7 +50,7 @@ const userStatistic: UserStatistic = reactive({
 })
 
 const trends: Trends = reactive({
-  end_day: moment(),
+  end_day: moment().toString(),
   days: 7,
   dataset: undefined,
 })
@@ -66,7 +66,7 @@ const methods = {
   ) {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0
     const baseDataset: TrendsEntry[] = []
-    const endDay = trends.end_day.clone()
+    const endDay = moment(trends.end_day)
     for (let i = 0; i < trends.days; i++) {
       const x = endDay
         .subtract(i === 0 ? 0 : 1, 'days')
@@ -95,13 +95,13 @@ const methods = {
       const values = dataset.map((entry) => entry.y)
       console.log(moment(labels[0]))
       trends.dataset = {
-        labels,
-        values,
+        labels: labels,
+        values: values,
       }
     }
   },
   changeTrendsEndDay(endDay: Moment) {
-    trends.end_day = endDay
+    trends.end_day = endDay.toString()
   },
 
   changeTrendsEndDayByInterval(
@@ -110,9 +110,13 @@ const methods = {
     intervaltype: DurationInputArg2
   ) {
     if (method.toLowerCase() === 'add')
-      trends.end_day = trends.end_day.add(interval, intervaltype)
-    else if (method.toLowerCase() === 'substract')
-      trends.end_day = trends.end_day.subtract(interval, intervaltype)
+      trends.end_day = moment(trends.end_day)
+        .add(interval, intervaltype)
+        .toString()
+    else if (method.toLowerCase() === 'subtract')
+      trends.end_day = moment(trends.end_day)
+        .subtract(interval, intervaltype)
+        .toString()
     console.log('end day ' + trends.end_day)
   },
 }
@@ -169,7 +173,7 @@ const actions = {
       url: 'statistic/trends',
       data: {
         user_id: userId,
-        end_day: trends.end_day.format('YYYY-MM-DD').toString(),
+        end_day: moment(trends.end_day).format('YYYY-MM-DD').toString(),
         days: trends.days,
       },
     })

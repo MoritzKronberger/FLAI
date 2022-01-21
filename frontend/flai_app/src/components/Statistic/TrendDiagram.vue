@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { BarChart } from 'vue-chart-3'
 import '../../common/plugins/chart.ts'
-import { ref, computed, onMounted, reactive } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import store from '../../store'
 import {
   Chart,
@@ -11,6 +11,7 @@ import {
   BarElement,
 } from 'chart.js'
 import { DurationInputArg1, DurationInputArg2 } from 'moment'
+import moment from 'moment'
 
 const barChart = ref()
 
@@ -20,16 +21,17 @@ const trends = computed(() => store.statisticdata.trends)
 const dailyTarget = computed(() => store.userdata.user.target_learning_time)
 
 const date = computed(() => store.statisticdata.trends.end_day)
+const testdata = computed(() => store.statisticdata.trends.dataset)
 
 const changeDay = store.statisticdata.methods.changeTrendsEndDayByInterval
 
-const changeWeek = (
+const changeWeek = async (
   method: string,
   interval: DurationInputArg1,
   intervaltype: DurationInputArg2
 ) => {
   changeDay(method, interval, intervaltype)
-  store.statisticdata.actions.updateTrendsData()
+  await store.statisticdata.actions.updateTrendsData()
   console.log('test ' + date.value)
 }
 
@@ -39,7 +41,7 @@ const timeToMinutes = () => {
   return Number(timeObj[0]) * 60 + Number(timeObj[1]) + Number(timeObj[2]) / 60
 }
 
-onMounted(() => console.log('date: ' + date.value.format('DD-MM')))
+onMounted(() => console.log('date: ' + moment(date.value).format('DD-MM')))
 
 const data = computed(() => ({
   labels: trends.value.dataset?.labels,
@@ -98,18 +100,22 @@ const options = ref({
 
 <template>
   <div>
-    <div>{{ date }}</div>
+    <div>{{ testdata }}</div>
     <button @click="changeWeek('subtract', 1, 'weeks')">Backwards</button>
     <button @click="changeWeek('add', 1, 'weeks')">Forward</button>
     <div id="month">
-      <span class="heading-small month">{{ date.format('MMMM') + ' ' }}</span>
-      <span class="heading-small">{{ date.format('YYYY') }}</span>
+      <span class="heading-small month">{{
+        moment(date).format('MMMM') + ' '
+      }}</span>
+      <span class="heading-small">{{ moment(date).format('YYYY') }}</span>
     </div>
     <div id="week">
       <span class="body-small month">{{
-        date.startOf('week').format('DD.MM') + ' - '
+        moment(date).startOf('week').format('DD.MM') + ' - '
       }}</span>
-      <span class="body-small">{{ date.endOf('week').format('DD.MM') }}</span>
+      <span class="body-small">{{
+        moment(date).endOf('week').format('DD.MM')
+      }}</span>
     </div>
     <BarChart
       ref="barChart"
