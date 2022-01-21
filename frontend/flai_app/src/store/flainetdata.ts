@@ -114,8 +114,13 @@ const methods = {
 }
 
 const actions = {
-  async loadFlaiNet(callback: () => unknown) {
-    flaiNet.model = await loadLayersModel(flaiNetOptions.path.toString())
+  async loadFlaiNet(
+    callback: () => unknown,
+    progressCallback: (progress: number) => unknown
+  ) {
+    flaiNet.model = await loadLayersModel(flaiNetOptions.path.toString(), {
+      onProgress: progressCallback,
+    })
     callback()
   },
 }
