@@ -30,9 +30,9 @@ const data = computed(() => ({
 }))
 
 const options = ref({
-  responsive: true,
   scales: {
     x: {
+      reverse: true,
       grid: {
         display: false,
       },
@@ -45,7 +45,7 @@ const options = ref({
     },
     y: {
       ticks: {
-        stepSize: 15,
+        stepSize: 30,
         font: {
           size: 10,
           family: 'Gotham SSm',
@@ -57,10 +57,10 @@ const options = ref({
     autocolors: false,
     annotation: {
       annotations: {
-        line_estimated_learning_time: {
+        estimated_learning_time: {
           type: 'line',
-          yMin: 60,
-          yMax: 60,
+          yMin: 32,
+          yMax: 32,
           borderColor: 'rgb(74, 123, 264)',
           borderWidth: 2,
           borderDash: [5, 5],
