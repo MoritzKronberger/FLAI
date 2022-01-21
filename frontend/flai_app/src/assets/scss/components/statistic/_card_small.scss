@@ -39,7 +39,7 @@ a {
 .statistic-text {
   width: 100%;
   text-align: center;
-  margin-top: 12%;
+  margin-top: $padding-height;
   @include font(GothamSSm, book);
   // TODO: choose defined font-size
   font-size: 14px;
