@@ -108,10 +108,6 @@
         grid-row: span 3;
       }
     }
-    @media (min-width: 2450px) {
-      grid-template-columns: repeat(5, 400px);
-      grid-template-rows: repeat(8, 400px);
-    }
   }
 }
 
