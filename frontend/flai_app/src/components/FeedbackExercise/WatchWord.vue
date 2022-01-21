@@ -13,7 +13,7 @@
     />
     <p class="status body-medium">{{ status }}</p>
     <div class="webcam-column">
-      <Webcam />
+      <Webcam :class="feedbackClass" />
       <div class="exercise-controls">
         <CustomButton
           label="Home"
@@ -62,12 +62,12 @@ const vFocus = {
   },
 }
 
-const emit = defineEmits(['next', 'correct', 'wrong', 'rendered'])
+const emit = defineEmits(['next', 'correct', 'wrong', 'waiting', 'rendered'])
 
 function correct() {
   console.log('correct')
   isCorrect.value = true
-  feedbackClass.value = 'right'
+  feedbackClass.value = 'correct'
   emit('correct')
 }
 function wrong() {
@@ -75,6 +75,10 @@ function wrong() {
   isCorrect.value = false
   feedbackClass.value = 'wrong'
   emit('wrong')
+}
+function reset() {
+  console.log('waiting')
+  emit('waiting')
 }
 
 // TODO: progress property not really needed?
@@ -112,7 +116,8 @@ watchEffect(
       resultBuffer.value,
       props.signs[index.value].name,
       correct,
-      wrong
+      wrong,
+      reset
     ))
 )
 

@@ -10,6 +10,7 @@
       @next="onNextStep"
       @correct="feedbackClass = 'correct'"
       @wrong="feedbackClass = 'wrong'"
+      @waiting="feedbackClass = 'waiting'"
       @rendered="emit('watch-word')"
     />
     <ShowWord
@@ -19,6 +20,7 @@
       @new-word="newWord"
       @correct="feedbackClass = 'correct'"
       @wrong="feedbackClass = 'wrong'"
+      @waiting="feedbackClass = 'waiting'"
       @rendered="emit('show-word')"
     />
   </div>
