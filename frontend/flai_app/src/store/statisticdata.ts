@@ -75,6 +75,8 @@ const methods = {
       baseDataset.push({ x: x, y: 0 })
     }
 
+    let dataset = baseDataset
+
     // convert the fetched rows into the TrendsDataset type and match the date formatting
     if (trendsData.data.rows) {
       const trendsDataDataset: TrendsEntry[] = trendsData.data.rows.map(
@@ -85,19 +87,17 @@ const methods = {
           } as TrendsEntry
         }
       )
-
       // find the entries where the day matches the database row and replace them with the row
       // from https://stackoverflow.com/a/37585362/14906871
-      const dataset = baseDataset.map(
+      dataset = baseDataset.map(
         (entry) => trendsDataDataset.find((e) => e.x === entry.x) || entry
       )
-      const labels = dataset.map((entry) => moment(entry.x).format('dd'))
-      const values = dataset.map((entry) => entry.y)
-      console.log(moment(labels[0]))
-      trends.dataset = {
-        labels: labels,
-        values: values,
-      }
+    }
+    const labels = dataset.map((entry) => moment(entry.x).format('dd'))
+    const values = dataset.map((entry) => entry.y)
+    trends.dataset = {
+      labels: labels,
+      values: values,
     }
   },
   changeTrendsEndDay(endDay: Moment) {
@@ -117,7 +117,6 @@ const methods = {
       trends.end_day = moment(trends.end_day)
         .subtract(interval, intervaltype)
         .toString()
-    console.log('end day ' + trends.end_day)
   },
 }
 
