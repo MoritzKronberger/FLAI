@@ -26,8 +26,6 @@ const renderProgress = (pg: number) => {
     )
   }
   if (progressCircle.value) progressCircle.value.animate(pg)
-  console.log(progressCircle.value)
-  console.log(`${props.statisticText}: ${progress?.value}`)
 }
 
 watchEffect(() => renderProgress(progress?.value ?? 0))
