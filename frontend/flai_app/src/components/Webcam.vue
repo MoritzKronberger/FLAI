@@ -2,6 +2,8 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import store from '../store'
 
+const props = defineProps<{ borderclass: string }>()
+
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
 const webcamContainer = ref<HTMLDivElement>()
 
@@ -25,7 +27,11 @@ watch(webcamFeed, () => initWebcam())
 </script>
 
 <template>
-  <div ref="webcamContainer" class="webcam-container"></div>
+  <div
+    ref="webcamContainer"
+    class="webcam-container"
+    :class="borderclass"
+  ></div>
 </template>
 
 <style lang="css">
