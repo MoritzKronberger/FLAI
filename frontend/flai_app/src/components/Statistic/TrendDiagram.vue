@@ -21,15 +21,51 @@ const data = computed(() => ({
   labels: trends.value.dataset?.labels,
   datasets: [
     {
-      label: 'Minuten gelernt',
       data: trends.value.dataset?.values ?? [0],
+      backgroundColor: ['rgb(74, 123, 264)'],
+      borderWidth: 1,
+      borderRadius: 5,
     },
   ],
 }))
+
 const options = ref({
+  responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        font: {
+          size: 12,
+          family: 'Gotham SSm',
+        },
+      },
+    },
+    y: {
+      ticks: {
+        stepSize: 15,
+        font: {
+          size: 10,
+          family: 'Gotham SSm',
+        },
+      },
+    },
+  },
   plugins: {
-    legend: {
-      position: 'bottom',
+    autocolors: false,
+    annotation: {
+      annotations: {
+        line_estimated_learning_time: {
+          type: 'line',
+          yMin: 60,
+          yMax: 60,
+          borderColor: 'rgb(74, 123, 264)',
+          borderWidth: 2,
+          borderDash: [5, 5],
+        },
+      },
     },
   },
 })
