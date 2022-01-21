@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment'
+import moment, { DurationInputArg1, DurationInputArg2, Moment } from 'moment'
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
@@ -49,11 +49,11 @@ const userStatistic: UserStatistic = reactive({
   timeLearntToday: undefined,
 })
 
-const trends: Trends = {
+const trends: Trends = reactive({
   end_day: moment(),
   days: 7,
   dataset: undefined,
-}
+})
 
 const methods = {
   changeUserStatistic(newStatistic: UserStatistic) {
@@ -102,6 +102,18 @@ const methods = {
   },
   changeTrendsEndDay(endDay: Moment) {
     trends.end_day = endDay
+  },
+
+  changeTrendsEndDayByInterval(
+    method: string,
+    interval: DurationInputArg1,
+    intervaltype: DurationInputArg2
+  ) {
+    if (method.toLowerCase() === 'add')
+      trends.end_day = trends.end_day.add(interval, intervaltype)
+    else if (method.toLowerCase() === 'substract')
+      trends.end_day = trends.end_day.subtract(interval, intervaltype)
+    console.log('end day ' + trends.end_day)
   },
 }
 
