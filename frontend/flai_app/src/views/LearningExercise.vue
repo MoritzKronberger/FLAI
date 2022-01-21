@@ -26,7 +26,18 @@
         btnclass="start prim_small_button_blue"
         @button-click="hidden = false"
       />
-      <div v-else class="loading-circle" />
+      <div v-else>
+        <div class="loading-status">
+          {{
+            !webcamReady
+              ? 'Warte auf Webcam'
+              : !flaiNetReady
+              ? `Lade FLAI-KI ${flaiNetLoadingProgress * 100}%`
+              : 'Starte KI-Feedback'
+          }}
+        </div>
+        <div class="loading-circle" />
+      </div>
       <CustomButton
         label="Home"
         btnclass="exit sec_small_button_blue"
@@ -62,6 +73,7 @@ const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
 const flaiNetReady = ref(false)
 const handposeReady = ref(false)
 const webcamReady = ref(false)
+const flaiNetLoadingProgress = ref(0)
 
 const setflaiNetReady = (): void => {
   flaiNetReady.value = true
@@ -89,13 +101,15 @@ function onResults(handposeResults: Results) {
 }
 
 async function webcamStarted() {
-  store.handposedata.methods.loadMediapipeHands(onResults)
-  await store.flainetdata.actions.loadFlaiNet(setflaiNetReady)
   store.webcamdata.methods.setWebcamFeed(document.createElement('video'))
-  if (webcamFeed.value) {
+  webcamReady.value = true
+  await store.flainetdata.actions.loadFlaiNet(
+    setflaiNetReady,
+    (p) => (flaiNetLoadingProgress.value = p)
+  )
+  store.handposedata.methods.loadMediapipeHands(onResults)
+  if (webcamFeed.value)
     store.handposedata.methods.startMediapipeCamera(webcamFeed.value)
-    webcamReady.value = true
-  }
 }
 
 onMounted(async () => {
