@@ -182,15 +182,3 @@ const onBufferUpdate = (buffer: FlaiNetResults) => {
 
 watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
-
-<style>
-div:focus {
-  outline: none;
-}
-.controls {
-  color: blue;
-}
-.waiting {
-  color: grey;
-}
-</style>

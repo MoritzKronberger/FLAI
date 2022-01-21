@@ -123,28 +123,3 @@ watchEffect(
 
 onBeforeMount(() => emit('rendered'))
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div:focus {
-  outline: none;
-}
-h3 {
-  margin: 40px 0 0;
-}
-video {
-  width: 40%;
-}
-.controls {
-  background: lightblue;
-}
-.waiting {
-  color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
-}
-</style>
