@@ -1,13 +1,18 @@
 <template>
   <div class="learning-exercise">
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <h2 :class="[hidden ? '' : 'hidden', 'heading-large']">Übung</h2>
+    <h2 class="heading-large">{{ h2 }}</h2>
+    <CustomButton
+      label="Home"
+      btnclass="exit sec_small_button_blue"
+      @click="router.push({ name: 'HomePage' })"
+    />
     <FeedbackExercise
       :key="signIds"
       :started="hidden ? false : true"
       :class="[hidden ? 'hidden' : '']"
-      @watch-word="currentlyWatchWord = true"
-      @show-word="currentlyWatchWord = false"
+      @watch-word="startWatchWord()"
+      @show-word="startShowWord()"
     />
     <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
       <p class="body-large">
@@ -27,11 +32,6 @@
         @button-click="hidden = false"
       />
       <div v-else class="loading-circle" />
-      <CustomButton
-        label="Home"
-        btnclass="exit sec_small_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
     </div>
   </div>
 </template>
@@ -53,6 +53,7 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
+const h2 = ref('Übung')
 
 const hidden = ref(true)
 
@@ -65,6 +66,16 @@ const webcamReady = ref(false)
 
 const setflaiNetReady = (): void => {
   flaiNetReady.value = true
+}
+
+function startWatchWord() {
+  currentlyWatchWord.value = true
+  h2.value = 'Einprägen'
+}
+
+function startShowWord() {
+  currentlyWatchWord.value = false
+  h2.value = 'Üben'
 }
 
 onBeforeRouteLeave(async () => {

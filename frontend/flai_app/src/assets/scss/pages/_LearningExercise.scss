@@ -9,19 +9,27 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
 
 .learning-exercise {
   background-color: $main-white;
-  margin: 0 $margin-width;
+  //margin: 0 $margin-width;
   padding: 0;
   height: 100vh;
 
   h2 {
-    text-align: center;
     color: $main-blue;
-    padding: $padding-height $padding-width;
-    
+    padding-left: $margin-width;   
+    width: 100vw;
+    background-color: $background-blue; 
+    min-height: calc($button-Sec-height-Small + $button-margin * 2);
   }
 
   .align-left {
     text-align: left;
+  }
+
+  .exit {
+    position: absolute;
+    top: 0;
+    right: $margin-width;
+    cursor: pointer;
   }
 
   .status {
@@ -48,13 +56,6 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
       text-align: center;
       list-style-position: inside;
     }
-
-    .exit {
-      position: absolute;
-      bottom: $margin-height;
-      left: $margin-width;
-      cursor: pointer;
-    }
   }
   
   // In many iterations with grid, flexbox and float I decided to hardcode the heights with calculations and variables, otherwise the video will always be too big or the buttons not fit to video width. The calculations are long but pretty flexible, because the only hardcoded value is the line-height right now.
@@ -67,20 +68,6 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
       .status:after {
         content: "";
         display:inline-block;
-      }
-
-      h2 {
-        text-align: left;
-        //width same as height of video
-        width: $webcam-height;
-        margin-right: 0;
-        margin-left: auto;
-        padding-left: 0; //overwrite padding
-        padding-right: 0; //overwrite padding
-      }
-      h2:after {
-        content: "";
-        display: inline-block;
       }
 
       .column1 {
@@ -173,10 +160,6 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
         flex: $left-column-width;
         width: $left-column-width;
         height: 100vh;
-        
-        h2 {
-          width: $left-column-width;
-        }
 
         .video-column {
           width: $left-column-width;
