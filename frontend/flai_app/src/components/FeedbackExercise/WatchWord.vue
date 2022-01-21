@@ -54,8 +54,7 @@ const showSign = ref(true)
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const status = ref('Loading')
 
-const props =
-  defineProps<{ signs: Sign[]; exerciseId: string; started: boolean }>()
+const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
 const vFocus = {
   inserted: (el: any) => {
@@ -98,14 +97,12 @@ async function checkProgress(sign: Sign) {
   } else {
     showSign.value = true
   }
-  if (props.started) {
-    await store.signdata.actions.patchProgress(
-      props.exerciseId,
-      props.signs[index.value].id,
-      props.signs[index.value].progress,
-      true
-    )
-  }
+  await store.signdata.actions.patchProgress(
+    props.exerciseId,
+    props.signs[index.value].id,
+    props.signs[index.value].progress,
+    true
+  )
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
 
