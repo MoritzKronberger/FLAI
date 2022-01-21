@@ -18,6 +18,10 @@ video {
   border-radius: $border-radius;
 }
 
+.mirrored {
+  transform: rotateY(180deg);
+}
+
 .video-controls {
   display: flex;
   justify-content: space-between;
