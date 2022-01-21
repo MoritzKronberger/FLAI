@@ -1,15 +1,14 @@
 <template>
   <div class="learning-exercise">
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <h2 :class="[hidden ? '' : 'hidden', 'heading-large']">Übung</h2>
+    <h2 v-if="!started" class="heading-large">Übung</h2>
     <FeedbackExercise
+      v-if="started"
       :key="signIds"
-      :started="hidden ? false : true"
-      :class="[hidden ? 'hidden' : '']"
       @watch-word="currentlyWatchWord = true"
       @show-word="currentlyWatchWord = false"
     />
-    <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
+    <div v-else class="loading-screen">
       <p class="body-large">
         Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
         Phasen Lernmethodik.
@@ -24,7 +23,7 @@
         v-if="flaiNetReady && handposeReady"
         label="Start"
         btnclass="start prim_small_button_blue"
-        @button-click="hidden = false"
+        @button-click="started = true"
       />
       <div v-else>
         <div class="loading-status">
@@ -65,7 +64,7 @@ const signIds = computed(() => {
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
 
-const hidden = ref(true)
+const started = ref(false)
 
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
 //FLAI-NET
