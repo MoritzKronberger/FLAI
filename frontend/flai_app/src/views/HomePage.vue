@@ -81,7 +81,7 @@ function openModalRegister() {
         />
       </div>
       <div class="level-panel">
-        <div class="heading-small">Lernfortschritt</div>
+        <div class="heading-medium">Lernfortschritt</div>
         <IconLoader
           :path="`/assets/icons/levels/level_${level}.svg`"
           alt="Level Icon"
