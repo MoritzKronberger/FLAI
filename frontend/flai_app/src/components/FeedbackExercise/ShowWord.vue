@@ -4,7 +4,6 @@
   <div class="show-word">
     <div class="flex">
       <div class="column1">
-        <h2 class="heading-large align-left">Üben</h2>
         <p class="status">{{ status }}</p>
         <Video
           id="video"

@@ -13,12 +13,14 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
   padding: 0;
   height: 100vh;
 
+  $heading-height: calc($button-Sec-height-Small + $button-margin * 2);
+
   h2 {
     color: $main-blue;
     padding-left: $margin-width;   
     width: 100vw;
     background-color: $background-blue; 
-    min-height: calc($button-Sec-height-Small + $button-margin * 2);
+    height: $heading-height;
   }
 
   .align-left {
@@ -63,7 +65,7 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
     .watch-word {
       display: flex;
       flex-direction: row;
-      height: 100vh;
+      height: calc(100vh - $heading-height);
       
       .status:after {
         content: "";
@@ -72,7 +74,7 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
 
       .column1 {
         flex: 50%;
-        height: 100vh;
+        height: calc(100vh - $heading-height);
         padding-right: $padding-width;      
 
         .status {
@@ -91,7 +93,7 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
         .video-column {
           margin-right: 0;
           margin-left: auto;
-          height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height);
+          height: calc(100vh - $heading-height - $sign-div-height - $padding-height);
           //width same as height of video
           width: $webcam-height;
 
@@ -106,11 +108,10 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
 
       .column2 {
         flex: 50%;
-        height: 100vh;
+        height: calc(100vh - $heading-height);
         padding-right: $padding-width;
 
         .status {
-          margin-top: calc($h2 * 1.3 + 2 * $padding-height);
           height: $sign-div-height;
           align-items: center;
           display: flex;
@@ -137,7 +138,7 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
   .show-word {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: calc(100vh - $heading-height);
     //manually center because column 2 fills the screen no matter its flexsize/width 
     padding: 0 calc((100vw - $left-column-width -  $padding-width * 2 - $webcam-height) / 2);
     gap: $padding-width;
@@ -159,7 +160,7 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
       .column1 {
         flex: $left-column-width;
         width: $left-column-width;
-        height: 100vh;
+        height: calc(100vh - $heading-height);
 
         .video-column {
           width: $left-column-width;
@@ -183,9 +184,7 @@ $webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-heigh
 
     .column2 {
       flex: $webcam-height;
-      height: 100vh;
-      //heading as padding
-      padding-top: calc($h2 * 1.3 + 2 * $padding-height);
+      height: calc(100vh - $heading-height);
       width: $webcam-height;
 
       .sign-with-icon {

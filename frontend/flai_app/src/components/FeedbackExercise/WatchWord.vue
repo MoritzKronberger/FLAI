@@ -3,7 +3,6 @@
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word">
     <div class="column1">
-      <h2 class="heading-large align-left">Einprägen</h2>
       <SignControls :signs="signs" @new-index="onNewIndex" />
       <Video
         :signs="signs"
