@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+
+$left-column-width: calc($button-Sec-width-Small * 2);
+$right-column-width: calc(100vw - $left-column-width);
+$webcam-height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+
 .learning-exercise {
   background-color: $main-white;
   margin: 0 $margin-width;
@@ -67,7 +72,7 @@
       h2 {
         text-align: left;
         //width same as height of video
-        width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+        width: $webcam-height;
         margin-right: 0;
         margin-left: auto;
         padding-left: 0; //overwrite padding
@@ -93,7 +98,7 @@
           margin-right: 0;
           margin-left: auto;
           //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+          width: $webcam-height;
         }
 
         .video-column {
@@ -101,13 +106,13 @@
           margin-left: auto;
           height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height);
           //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+          width: $webcam-height;
 
           .video {
             margin-right: 0;
             margin-left: auto;
             //height minus all other elements, their margins and paddings. will not work without calculated height
-            height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+            height: $webcam-height;
           }
         }
       }
@@ -125,16 +130,16 @@
           justify-content: end;
           text-align: right;
           //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+          width: $webcam-height;
         }
 
         .webcam-container {
-          height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+          height: $webcam-height;
         }
 
         .exercise-controls {
           //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+          width: $webcam-height;
           display: flex;
           justify-content: end;
         }
@@ -142,13 +147,13 @@
     }
   }
 
-  $left-column-width: 30vw;
-  $right-column-width: 70vw;
-
   .show-word {
     display: flex;
     flex-direction: row;
     height: 100vh;
+    //manually center because column 2 fills the screen no matter its flexsize/width 
+    padding: 0 calc((100vw - $left-column-width -  $padding-width * 2 - $webcam-height) / 2);
+    gap: $padding-width;
 
     h2 {
       text-align: left;
@@ -160,38 +165,53 @@
     }
 
     .flex {
+      flex: $left-column-width;
+      width: $left-column-width;
       display: flex;
 
       .column1 {
-        flex: auto;
+        flex: $left-column-width;
         width: $left-column-width;
         height: 100vh;
-        padding-right: $padding-width;   
+        
+        h2 {
+          width: $left-column-width;
+        }
 
+        .video-column {
+          width: $left-column-width;
+        }
         .status {
           height: $sign-div-height;
+          width: $left-column-width;
           align-items: center;
           display: flex;
           text-align: right;
+        }
+
+        .video {
+          width: $left-column-width;
+        }
+        .video-controls {
+          width: $left-column-width;
         }
       }
     }
 
     .column2 {
-      flex: auto;
+      flex: $webcam-height;
       height: 100vh;
-      padding-right: $padding-width;
       //heading as padding
       padding-top: calc($h2 * 1.3 + 2 * $padding-height);
-      width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+      width: $webcam-height;
 
       .sign-with-icon {
-        width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+        width: $webcam-height;
       }
 
       .webcam-container {
-        height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-        width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+        height: $webcam-height;
+        width: $webcam-height;
       }
     }
   }
