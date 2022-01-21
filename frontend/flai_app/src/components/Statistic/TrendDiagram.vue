@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import customButton from '../../components/CustomButton.vue'
 import { BarChart } from 'vue-chart-3'
 import '../../common/plugins/chart.ts'
 import { ref, computed, onMounted } from 'vue'
@@ -100,8 +101,16 @@ const options = ref({
 
 <template>
   <div>
-    <button @click="changeWeek('subtract', 1, 'weeks')">Backwards</button>
-    <button @click="changeWeek('add', 1, 'weeks')">Forward</button>
+    <custom-button
+      label="<"
+      btnclass="week_trends_button"
+      @button-click="changeWeek('subtract', 1, 'weeks')"
+    />
+    <custom-button
+      label=">"
+      btnclass="week_trends_button"
+      @button-click="changeWeek('add', 1, 'weeks')"
+    />
     <div id="week">
       <span class="body-small month">{{
         moment(date)
@@ -120,6 +129,7 @@ const options = ref({
   </div>
 </template>
 
-<style scoped>
-/** here place for import scss */
+<style scoped lang="scss">
+@import '../../assets/scss/main.scss';
+@import '../../assets/scss/components/buttonMixins';
 </style>
