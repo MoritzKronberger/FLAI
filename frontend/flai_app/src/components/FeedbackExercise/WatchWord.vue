@@ -8,12 +8,11 @@
       :signs="signs"
       :index="index"
       :show-sign="showSign"
-      :class="feedbackClass"
       @use-hint="showSign = true"
     />
     <p class="status body-medium">{{ status }}</p>
     <div class="webcam-column">
-      <Webcam :class="feedbackClass" />
+      <Webcam :borderclass="feedbackClass" />
       <div class="exercise-controls">
         <CustomButton
           label="Home"
@@ -78,6 +77,7 @@ function wrong() {
 }
 function reset() {
   console.log('waiting')
+  feedbackClass.value = 'waiting'
   emit('waiting')
 }
 
