@@ -3,8 +3,10 @@ $button-Prim-width-Large: 154px;
 $button-Prim-height-Large: 64px;
 $button-Prim-width-Medium: 115px;
 $button-Prim-height-Medium: 52px;
-$button-Prim-width-Small: 90px;
+$button-Prim-width-Small: 109px;
 $button-Prim-height-Small: 40px;
+$button-Prim-width-start: 93px;
+
 
 // TODO: make smaller buttons
 //mini button, under video
@@ -131,6 +133,17 @@ $button-margin: 5px;
     $button-Prim-width-Small,
     $button-Prim-height-Small,
     $font-size-Small,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+.prim_medium_start_orange {
+  @include import-button(
+    $button-Prim-width-start,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
     $main-white,
     $main-orange,
     $main-orange
