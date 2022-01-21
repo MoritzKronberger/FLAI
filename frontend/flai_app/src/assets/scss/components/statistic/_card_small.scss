@@ -2,10 +2,12 @@ a {
   text-decoration: none;
   color: $main-black;
   width: 100%;
+  height: 100%;
 }
 
 .card-container {
   width: 100%;
+  height: 100%;
   aspect-ratio: 1 / 1;
   background-color: $main-white;
   border-radius:  $border-radius;
@@ -17,7 +19,7 @@ a {
 
 .statistic-circle {
   position: relative;
-  width: 70%;
+  flex-basis: 45%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: 2px solid $subtle-blue;
