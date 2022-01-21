@@ -21,7 +21,6 @@ const trends = computed(() => store.statisticdata.trends)
 const dailyTarget = computed(() => store.userdata.user.target_learning_time)
 
 const date = computed(() => store.statisticdata.trends.end_day)
-const testdata = computed(() => store.statisticdata.trends.dataset)
 
 const changeDay = store.statisticdata.methods.changeTrendsEndDayByInterval
 
@@ -95,27 +94,22 @@ const options = ref({
       },
     },
   },
+  responsive: true,
 })
 </script>
 
 <template>
   <div>
-    <div>{{ testdata }}</div>
     <button @click="changeWeek('subtract', 1, 'weeks')">Backwards</button>
     <button @click="changeWeek('add', 1, 'weeks')">Forward</button>
-    <div id="month">
-      <span class="heading-small month">{{
-        moment(date).format('MMMM') + ' '
-      }}</span>
-      <span class="heading-small">{{ moment(date).format('YYYY') }}</span>
-    </div>
     <div id="week">
       <span class="body-small month">{{
-        moment(date).startOf('week').format('DD.MM') + ' - '
+        moment(date)
+          .clone()
+          .subtract(trends.days - 1, 'days')
+          .format('dddd DD.MM') + ' bis '
       }}</span>
-      <span class="body-small">{{
-        moment(date).endOf('week').format('DD.MM')
-      }}</span>
+      <span class="body-small">{{ moment(date).format('dddd DD.MM') }}</span>
     </div>
     <BarChart
       ref="barChart"
