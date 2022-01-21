@@ -10,7 +10,6 @@
         :show-sign="showSign"
         :signs="signs"
         :index="index"
-        :class="feedbackClass"
         @use-hint="showSign = true"
       />
       <Button
@@ -21,8 +20,8 @@
         @button-click="emit('new-word')"
       />
       <p>{{ status }}</p>
-      <div class="column2" :class="feedbackClass">
-        <webcam />
+      <div class="column2">
+        <webcam :borderclass="feedbackClass" />
       </div>
     </div>
   </div>
@@ -164,6 +163,7 @@ async function wrong() {
   emit('wrong')
 }
 function reset() {
+  feedbackClass.value = 'waiting'
   emit('waiting')
 }
 
