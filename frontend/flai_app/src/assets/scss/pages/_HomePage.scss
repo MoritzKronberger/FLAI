@@ -34,7 +34,7 @@
     padding: 2.75%;
     display: grid;
     justify-content: center;
-    gap: 1rem;
+    gap: $inner-dashboard-padding;
     grid-template-columns: repeat(5, 12vw);
     grid-template-rows: repeat(4, 21vh);
     .start-panel {
