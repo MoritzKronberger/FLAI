@@ -7,9 +7,10 @@
       v-if="stepOneWatch && newSigns.length > 0"
       :signs="newSigns"
       :exercise-id="exerciseId"
+      :started="started"
       @next="onNextStep"
-      @correct="emit('correct')"
-      @wrong="emit('wrong')"
+      @correct="feedbackClass = 'correct'"
+      @wrong="feedbackClass = 'wrong'"
       @rendered="emit('watch-word')"
     />
     <ShowWord
@@ -17,8 +18,8 @@
       :signs="signsFromWord"
       :exercise-id="exerciseId"
       @new-word="newWord"
-      @correct="emit('correct')"
-      @wrong="emit('wrong')"
+      @correct="feedbackClass = 'correct'"
+      @wrong="feedbackClass = 'wrong'"
       @rendered="emit('show-word')"
     />
   </div>
@@ -56,6 +57,9 @@ const exerciseId: ComputedRef<string> = computed(
   () => store.exercisedata.exercises[0].id
 )
 const wordSet = ref(true)
+
+const props = defineProps<{ started: boolean }>()
+const feedbackClass = ref('waiting')
 
 const emit = defineEmits(['watch-word', 'show-word', 'correct', 'wrong'])
 

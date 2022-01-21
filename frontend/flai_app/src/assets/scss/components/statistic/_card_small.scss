@@ -39,7 +39,7 @@ a {
 .statistic-text {
   width: 100%;
   text-align: center;
-  margin-top: 12%;
+  margin-top: $padding-height;
 
   @media (min-width: $S) and (max-width: $M) {
     font-size: 11px;

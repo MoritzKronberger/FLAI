@@ -1,50 +1,48 @@
 <template>
-  <div v-if="showSign">
-    <video
-      ref="videoPlayer"
-      :src="videoSource"
-      type="video/webm"
-      autoplay
-      loop
-    />
-    <div class="video-controls">
-      <div class="perspective-buttons">
+  <div class="video-column">
+    <div v-if="showSign" class="video">
+      <video
+        ref="videoPlayer"
+        :src="videoSource"
+        type="video/webm"
+        autoplay
+        loop
+      />
+    </div>
+    <div v-if="showSign" class="video-controls">
+      <div v-if="showSign" class="perspective-buttons">
         <CustomButton
           label="Front"
-          btnclass="video_controls_button_blue"
+          btnclass="sec_small_button_blue"
           @click="frontPerspective()"
         />
         <CustomButton
           label="Seite"
-          btnclass="video_controls_button_blue"
+          btnclass="sec_small_button_blue"
           @click="sidePerspective()"
         />
       </div>
-      <div class="speed-buttons">
+      <div v-if="showSign" class="play-button">
         <CustomButton
-          v-for="item in speedItems"
-          :key="item.label"
-          :label="item.label"
+          :label="play ? '||' : '&#9658;'"
           btnclass="video_controls_button_blue"
-          @click="changeSpeed(item.value)"
+          @click="togglePlay()"
         />
       </div>
     </div>
+    <CustomButton
+      v-else
+      label="Hinweis"
+      btnclass="sec_small_button_blue"
+      @click="emit('useHint')"
+    />
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="sec_small_button_blue"
-    @click="emit('useHint')"
-  />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
-import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
-import DropDownMenu from '../DropDownMenu.vue'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
@@ -63,31 +61,34 @@ function getSource() {
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
 
+const play = ref(true)
+
 function frontPerspective() {
+  play.value = true
   perspective.value = 'front'
 }
 
 function sidePerspective() {
+  play.value = true
   perspective.value = 'side'
 }
 
-const speedItems: DropDown[] = [
-  { label: '1x', value: 1 },
-  { label: '0.5x', value: 0.5 },
-  { label: '0.25x', value: 0.25 },
-]
-
-function changeSpeed(newSpeed: any) {
+function togglePlay() {
   const videoHtml = unref(videoPlayer)
   if (videoHtml) {
-    videoHtml.playbackRate = newSpeed
+    if (play.value) {
+      play.value = false
+      videoHtml.pause()
+    } else {
+      play.value = true
+      videoHtml.play()
+    }
   }
 }
 
 const emit = defineEmits(['useHint'])
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 @import '../../assets/scss/main.scss';
 </style>

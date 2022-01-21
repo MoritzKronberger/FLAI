@@ -23,23 +23,45 @@ interface Options {
   target_learning_time: { label: string; value: number }
   right_handed: { label: string; value: boolean }
 }
-
 const options = ref<Options>({
   id: { label: 'id', value: '' },
   username: { label: 'Name', value: '' },
   email: { label: 'E-Mail', value: '' },
   password: { label: 'Passwort', value: passwordReplacement },
   target_learning_time: { label: 'Lernzeit', value: 0 },
-  right_handed: { label: 'Händigkeit', value: true },
+  right_handed: { label: 'Händigkeit', value: false },
 })
 
 const displayForm = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
 
+const rightHanded = ref(false)
+const leftHanded = ref(false)
+
 const loadCurrentUser = (): void => {
   for (const prop in user) {
     options.value[prop].value = user[prop]
+  }
+}
+
+const switchHand = (hand: string): void => {
+  if (hand === 'rightHand') {
+    if (rightHanded.value === false) {
+      leftHanded.value = true
+      options.value.right_handed.value = false
+    } else {
+      options.value.right_handed.value = true
+      leftHanded.value = false
+    }
+  } else if (hand === 'leftHand') {
+    if (leftHanded.value === false) {
+      rightHanded.value = true
+      options.value.right_handed.value = true
+    } else {
+      options.value.right_handed.value = false
+      rightHanded.value = false
+    }
   }
 }
 
@@ -64,19 +86,23 @@ const submitChanges = async (): Promise<void> => {
         changes[prop] = options.value[prop].value
     }
   }
-  const result = await actions.patchValues(changes)
-  if (result?.status === 200) {
-    successMessage.value = 'Profil wurde erfolgreich geändert'
-    options.value['password'].value = passwordReplacement
-    displayForm.value = false
-  } else {
-    errorMessage.value = result?.data.message
-    loadCurrentUser()
-    options.value['password'].value = passwordReplacement
-  }
+  if (changes.length !== 0) {
+    const result = await actions.patchValues(changes)
+    if (result?.status === 200) {
+      successMessage.value = 'Profil wurde erfolgreich geändert'
+      options.value['password'].value = passwordReplacement
+      displayForm.value = false
+    } else {
+      errorMessage.value = result?.data.message
+      loadCurrentUser()
+      options.value['password'].value = passwordReplacement
+    }
+  } else displayForm.value = false
 }
 onMounted(() => {
   loadCurrentUser()
+  rightHanded.value = options.value.right_handed.value
+  leftHanded.value = !rightHanded.value
 })
 </script>
 
@@ -136,13 +162,24 @@ onMounted(() => {
             custom-type="time"
             :time-step="1"
           />
-          <custom-checkbox
-            v-model="options.right_handed.value"
-            label-name="Rechts"
-            element-class="checkbox-primary"
-            component-class="primary-checkbox"
-            checkmark-class="checkmark"
-          />
+          <div class="checkbox-container">
+            <custom-checkbox
+              v-model="leftHanded"
+              label-name="Links"
+              element-class="checkbox-primary"
+              component-class="primary-checkbox"
+              checkmark-class="checkmark"
+              @change="switchHand('leftHand')"
+            />
+            <custom-checkbox
+              v-model="rightHanded"
+              label-name="Rechts"
+              element-class="primary-checkbox"
+              component-class="primary-checkbox"
+              checkmark-class="checkmark"
+              @change="switchHand('rightHand')"
+            />
+          </div>
         </form>
         <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
         <p v-if="errorMessage" class="body-small">

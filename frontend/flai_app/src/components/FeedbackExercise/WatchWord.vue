@@ -1,36 +1,50 @@
 <template>
-  <div vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
-      <p class="instruction">
-        Präge dir die Gebärden ein. Klicke weiter, sobald du bereit bist!
-      </p>
-      <SignControls :signs="signs" @new-index="onNewIndex" />
-      <Video
-        :signs="signs"
-        :index="index"
-        :show-sign="showSign"
-        :class="feedbackClass"
-        @use-hint="showSign = true"
-      />
-      <CustomButton
-        id="next"
-        label="weiter"
-        btnclass="prim_small_button_blue"
-        @click="emit('next')"
-      />
-      <p>{{ status }}</p>
+  <!--div vFocus tabindex="0" @keydown.c="correct">
+    <div vFocus tabindex="0" @keydown.w="wrong"-->
+  <div class="watch-word">
+    <h2 class="heading-large align-left">Einprägen</h2>
+    <SignControls :signs="signs" @new-index="onNewIndex" />
+    <Video
+      :signs="signs"
+      :index="index"
+      :show-sign="showSign"
+      :class="feedbackClass"
+      @use-hint="showSign = true"
+    />
+    <p class="status body-medium">{{ status }}</p>
+    <div class="webcam-column">
+      <Webcam />
+      <div class="exercise-controls">
+        <CustomButton
+          label="Home"
+          btnclass="exit sec_small_button_blue"
+          @click="router.push({ name: 'HomePage' })"
+        />
+        <CustomButton
+          id="next"
+          label="weiter"
+          btnclass="prim_small_button_blue"
+          @click="emit('next')"
+        />
+      </div>
     </div>
   </div>
+  <!--/div>
+  </div-->
 </template>
 
 <script setup lang="ts">
 import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
+import { useRouter } from 'vue-router'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
+import Webcam from '../Webcam.vue'
 import SignControls from './SignControls.vue'
 import store from '../../store'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
+
+const router = useRouter()
 
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
@@ -40,7 +54,8 @@ const showSign = ref(true)
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const status = ref('Loading')
 
-const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
+const props =
+  defineProps<{ signs: Sign[]; exerciseId: string; started: boolean }>()
 
 const vFocus = {
   inserted: (el: any) => {
@@ -83,12 +98,14 @@ async function checkProgress(sign: Sign) {
   } else {
     showSign.value = true
   }
-  await store.signdata.actions.patchProgress(
-    props.exerciseId,
-    props.signs[index.value].id,
-    props.signs[index.value].progress,
-    true
-  )
+  if (props.started) {
+    await store.signdata.actions.patchProgress(
+      props.exerciseId,
+      props.signs[index.value].id,
+      props.signs[index.value].progress,
+      true
+    )
+  }
 }
 watchEffect(() => checkProgress(props.signs[index.value]))
 
