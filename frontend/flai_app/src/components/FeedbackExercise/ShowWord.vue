@@ -19,13 +19,15 @@
     <div class="column2" :class="feedbackClass">
       <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
       <webcam />
-      <Button
-        v-if="wordComplete"
-        id="next"
-        label="weiter"
-        btnclass="controls"
-        @button-click="emit('new-word')"
-      />
+      <div class="exercise-controls">
+        <Button
+          v-if="wordComplete"
+          id="next"
+          label="weiter"
+          btnclass="sec_small_button_blue"
+          @button-click="emit('new-word')"
+        />
+      </div>
     </div>
   </div>
   <!--/div>
