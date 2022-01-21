@@ -77,7 +77,7 @@ function openModalRegister() {
         <custom-button
           label="Start"
           btnclass="prim_small_button_orange"
-          @button-click="redirect('ComingSoon')"
+          @button-click="redirect('LearningExercise')"
         />
       </div>
       <div class="level-panel">
