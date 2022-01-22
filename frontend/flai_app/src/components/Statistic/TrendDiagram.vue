@@ -10,6 +10,8 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  TooltipItem,
+  ChartType,
 } from 'chart.js'
 import { DurationInputArg1, DurationInputArg2 } from 'moment'
 import moment from 'moment'
@@ -33,9 +35,7 @@ const changeWeek = async (
 }
 
 const timeToMinutes = () => {
-  const timeString = dailyTarget.value.toString()
-  const timeObj = timeString.split(':')
-  return Number(timeObj[0]) * 60 + Number(timeObj[1]) + Number(timeObj[2]) / 60
+  return moment.duration(dailyTarget.value).asMinutes()
 }
 
 const data = computed(() => ({
@@ -80,6 +80,15 @@ const options = computed(() => ({
   },
   plugins: {
     autocolors: false,
+    tooltip: {
+      callbacks: {
+        label(tooltipItems: TooltipItem<ChartType>) {
+          return `${tooltipItems.formattedValue} min`
+        },
+      },
+      title: ' min',
+      titleAlign: 'right',
+    },
     annotation: {
       annotations: {
         daily_target: {
