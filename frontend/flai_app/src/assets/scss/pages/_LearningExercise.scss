@@ -139,3 +139,13 @@
   }
 }
 
+.correct {
+  #webcam-feed {
+    border: 4px solid $main-green;
+  }
+}
+.wrong {
+  #webcam-feed {
+    border: 4px solid $main-red;
+  }
+}

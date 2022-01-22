@@ -1,14 +1,14 @@
 <template>
   <div class="learning-exercise">
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <h2 :class="[hidden ? '' : 'hidden', 'heading-large']">Übung</h2>
+    <h2 v-if="!started" class="heading-large">Übung</h2>
     <FeedbackExercise
+      v-if="started"
       :key="signIds"
-      :class="[hidden ? 'hidden' : '']"
       @watch-word="currentlyWatchWord = true"
       @show-word="currentlyWatchWord = false"
     />
-    <div :class="[hidden ? '' : 'hidden', 'loading-screen']">
+    <div v-else class="loading-screen">
       <p class="body-large">
         Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
         Phasen Lernmethodik.
@@ -23,9 +23,20 @@
         v-if="flaiNetReady && handposeReady"
         label="Start"
         btnclass="start prim_small_button_blue"
-        @button-click="hidden = false"
+        @button-click="started = true"
       />
-      <div v-else class="loading-circle" />
+      <div v-else>
+        <div class="loading-status">
+          {{
+            !webcamReady
+              ? 'Warte auf Webcam'
+              : !flaiNetReady
+              ? `Lade FLAI-KI ${flaiNetLoadingProgress * 100}%`
+              : 'Starte KI-Feedback'
+          }}
+        </div>
+        <div class="loading-circle" />
+      </div>
       <CustomButton
         label="Home"
         btnclass="exit sec_small_button_blue"
@@ -53,7 +64,7 @@ const signIds = computed(() => {
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
 
-const hidden = ref(true)
+const started = ref(false)
 
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
 //FLAI-NET
@@ -61,6 +72,7 @@ const flaiNetOptions = computed(() => store.flainetdata.flaiNetOptions)
 const flaiNetReady = ref(false)
 const handposeReady = ref(false)
 const webcamReady = ref(false)
+const flaiNetLoadingProgress = ref(0)
 
 const setflaiNetReady = (): void => {
   flaiNetReady.value = true
@@ -88,13 +100,15 @@ function onResults(handposeResults: Results) {
 }
 
 async function webcamStarted() {
-  store.handposedata.methods.loadMediapipeHands(onResults)
-  await store.flainetdata.actions.loadFlaiNet(setflaiNetReady)
   store.webcamdata.methods.setWebcamFeed(document.createElement('video'))
-  if (webcamFeed.value) {
+  webcamReady.value = true
+  await store.flainetdata.actions.loadFlaiNet(
+    setflaiNetReady,
+    (p) => (flaiNetLoadingProgress.value = p)
+  )
+  store.handposedata.methods.loadMediapipeHands(onResults)
+  if (webcamFeed.value)
     store.handposedata.methods.startMediapipeCamera(webcamFeed.value)
-    webcamReady.value = true
-  }
 }
 
 onMounted(async () => {

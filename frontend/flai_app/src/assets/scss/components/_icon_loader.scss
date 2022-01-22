@@ -1,14 +1,14 @@
+@import './buttonMixins';
+
 img {
   width: 100%;
 }
 .flai-header-icon {
-  margin-top: 5vh;
-  width: 10vw;
+  margin-top: $homepage-margin-height;
+  width: $button-Sec-width-Small;
 }
 @media (max-width: 768px) {
   .flai-header-icon {
-    margin-top: 5vh;
-    width: 100vw;
     padding: 10vw;
   }
 }

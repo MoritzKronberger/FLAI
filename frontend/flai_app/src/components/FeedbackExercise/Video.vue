@@ -3,6 +3,7 @@
     <div v-if="showSign" class="video">
       <video
         ref="videoPlayer"
+        :class="rightHanded ? 'mirrored' : ''"
         :src="videoSource"
         type="video/webm"
         autoplay
@@ -22,11 +23,11 @@
           @click="sidePerspective()"
         />
       </div>
-      <div v-if="showSign" class="speed-buttons">
+      <div v-if="showSign" class="play-button">
         <CustomButton
-          label="Start"
-          btnclass="sec_small_button_blue"
-          @click="console.log('click start, not working sorry')"
+          :label="play ? '||' : '&#9658;'"
+          btnclass="video_controls_button_blue"
+          @click="togglePlay()"
         />
       </div>
     </div>
@@ -42,14 +43,15 @@
 <script setup lang="ts">
 import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
-import { DropDown } from '../../ressources/ts/interfaces'
 import CustomButton from '../CustomButton.vue'
-import DropDownMenu from '../DropDownMenu.vue'
+import store from '../../store'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
 
 const perspective = ref('front')
 const videoPlayer = ref()
+
+const rightHanded = computed(() => store.userdata.user.right_handed)
 
 function getSource() {
   const rec = props.signs[props.index].recordings.find(
@@ -63,31 +65,34 @@ function getSource() {
 }
 const videoSource: ComputedRef<string> = computed(() => getSource())
 
+const play = ref(true)
+
 function frontPerspective() {
+  play.value = true
   perspective.value = 'front'
 }
 
 function sidePerspective() {
+  play.value = true
   perspective.value = 'side'
 }
 
-const speedItems: DropDown[] = [
-  { label: '1x', value: 1 },
-  { label: '0.5x', value: 0.5 },
-  { label: '0.25x', value: 0.25 },
-]
-
-function changeSpeed(newSpeed: any) {
+function togglePlay() {
   const videoHtml = unref(videoPlayer)
   if (videoHtml) {
-    videoHtml.playbackRate = newSpeed
+    if (play.value) {
+      play.value = false
+      videoHtml.pause()
+    } else {
+      play.value = true
+      videoHtml.play()
+    }
   }
 }
 
 const emit = defineEmits(['useHint'])
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 @import '../../assets/scss/main.scss';
 </style>

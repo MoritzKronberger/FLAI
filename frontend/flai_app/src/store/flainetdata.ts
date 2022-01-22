@@ -114,8 +114,23 @@ const methods = {
 }
 
 const actions = {
-  async loadFlaiNet(callback: () => unknown) {
-    flaiNet.model = await loadLayersModel(flaiNetOptions.path.toString())
+  // try loading the model from the browser's indexedDB
+  // if it doesn't exist load it from the frontend server and save it to the indexedDB
+  // (needs to be saved to the indexedDB since the model is to big for local storage)
+  async loadFlaiNet(
+    callback: () => unknown,
+    progressCallback: (progress: number) => unknown
+  ) {
+    try {
+      flaiNet.model = await loadLayersModel('indexeddb://flai_net_model', {
+        onProgress: progressCallback,
+      })
+    } catch {
+      flaiNet.model = await loadLayersModel(flaiNetOptions.path.toString(), {
+        onProgress: progressCallback,
+      })
+      await flaiNet.model.save('indexeddb://flai_net_model')
+    }
     callback()
   },
 }
