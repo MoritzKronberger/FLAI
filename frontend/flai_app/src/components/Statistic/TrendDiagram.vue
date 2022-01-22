@@ -54,7 +54,7 @@ const data = computed(() => ({
   ],
 }))
 
-const options = ref({
+const options = computed(() => ({
   scales: {
     x: {
       reverse: true,
@@ -94,7 +94,7 @@ const options = ref({
     },
   },
   responsive: true,
-})
+}))
 </script>
 
 <template>
