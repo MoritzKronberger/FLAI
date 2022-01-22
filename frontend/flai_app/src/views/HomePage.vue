@@ -33,9 +33,9 @@ function openModalRegister() {
 <template>
   <div v-if="!auth.isAuth" class="landing-page">
     <div class="main">
-      <div class="heading-large">Wilkommen bei FLAI!</div>
+      <div class="heading-large">Willkommen bei FLAI!</div>
       <div class="heading-medium">
-        Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
+        Lerne mithilfe unserer KI die Grundlagen der deutschen Gebärdensprache.
       </div>
       <!--<div class="register">
         <custom-button
