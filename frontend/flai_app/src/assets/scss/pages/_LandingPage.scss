@@ -78,12 +78,17 @@
 }
 
 :is(.bg-blue, .bg-white) {
+     @media (max-width:1400px) {
+        padding: 0vh;
+        margin: 5vh 0 5vh 0;
+    }
     @media (max-width:768px) {
-        margin-top: 2vh;
+        margin-top: 1vh;
         flex-direction: column;
         align-items: center;
         min-height: 100px;
-        row-gap: 1vh;
+        row-gap: 2vh;
+        padding: 1vh;
     }
 }
 
