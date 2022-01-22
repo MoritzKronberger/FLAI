@@ -2,7 +2,7 @@
 import customButton from '../../components/CustomButton.vue'
 import { BarChart } from 'vue-chart-3'
 import '../../common/plugins/chart.ts'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import store from '../../store'
 import {
   Chart,
@@ -14,13 +14,12 @@ import {
 import { DurationInputArg1, DurationInputArg2 } from 'moment'
 import moment from 'moment'
 
-const barChart = ref()
-
 Chart.register(BarController, CategoryScale, LinearScale, BarElement)
 
 const trends = computed(() => store.statisticdata.trends)
 const dailyTarget = computed(() => store.userdata.user.target_learning_time)
 const date = computed(() => store.statisticdata.trends.end_day)
+const barChart = ref()
 
 const changeDay = store.statisticdata.methods.changeTrendsEndDayByInterval
 
@@ -38,8 +37,6 @@ const timeToMinutes = () => {
   const timeObj = timeString.split(':')
   return Number(timeObj[0]) * 60 + Number(timeObj[1]) + Number(timeObj[2]) / 60
 }
-
-onMounted(() => console.log('date: ' + moment(date.value).format('DD-MM')))
 
 const data = computed(() => ({
   labels: trends.value.dataset?.labels,
