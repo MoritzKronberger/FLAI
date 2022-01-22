@@ -20,7 +20,6 @@ Chart.register(BarController, CategoryScale, LinearScale, BarElement)
 
 const trends = computed(() => store.statisticdata.trends)
 const dailyTarget = computed(() => store.userdata.user.target_learning_time)
-
 const date = computed(() => store.statisticdata.trends.end_day)
 
 const changeDay = store.statisticdata.methods.changeTrendsEndDayByInterval
@@ -32,7 +31,6 @@ const changeWeek = async (
 ) => {
   changeDay(method, interval, intervaltype)
   await store.statisticdata.actions.updateTrendsData()
-  console.log('test ' + date.value)
 }
 
 const timeToMinutes = () => {
@@ -101,24 +99,28 @@ const options = ref({
 
 <template>
   <div>
-    <custom-button
-      label="<"
-      btnclass="week_trends_button"
-      @button-click="changeWeek('subtract', 1, 'weeks')"
-    />
-    <custom-button
-      label=">"
-      btnclass="week_trends_button"
-      @button-click="changeWeek('add', 1, 'weeks')"
-    />
     <div id="week">
-      <span class="body-small month">{{
-        moment(date)
-          .clone()
-          .subtract(trends.days - 1, 'days')
-          .format('dddd DD.MM') + ' bis '
-      }}</span>
-      <span class="body-small">{{ moment(date).format('dddd DD.MM') }}</span>
+      <span class="body-small month"
+        >{{
+          moment(date)
+            .clone()
+            .subtract(trends.days - 1, 'days')
+            .format('DD.MM.YYYY') + ' bis '
+        }}
+      </span>
+      <span class="body-small">{{ moment(date).format('DD.MM.YYYY') }}</span>
+      <span class="buttons">
+        <custom-button
+          label="<"
+          btnclass="week_trends_button"
+          @button-click="changeWeek('subtract', 1, 'weeks')"
+        />
+        <custom-button
+          label=">"
+          btnclass="week_trends_button"
+          @button-click="changeWeek('add', 1, 'weeks')"
+        />
+      </span>
     </div>
     <BarChart
       ref="barChart"
@@ -132,4 +134,5 @@ const options = ref({
 <style scoped lang="scss">
 @import '../../assets/scss/main.scss';
 @import '../../assets/scss/components/buttonMixins';
+@import '../../assets/scss/components/statistic/trend_diagram';
 </style>
