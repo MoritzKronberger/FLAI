@@ -34,7 +34,7 @@ const changeWeek = async (
   await store.statisticdata.actions.updateTrendsData()
 }
 
-const timeToMinutes = () => {
+const timeAsMinutes = () => {
   return moment.duration(dailyTarget.value).asMinutes()
 }
 
@@ -93,8 +93,8 @@ const options = computed(() => ({
       annotations: {
         daily_target: {
           type: 'line',
-          yMin: timeToMinutes(),
-          yMax: timeToMinutes(),
+          yMin: timeAsMinutes(),
+          yMax: timeAsMinutes(),
           borderColor: 'rgb(74, 123, 264)',
           borderWidth: 2,
           borderDash: [5, 5],
