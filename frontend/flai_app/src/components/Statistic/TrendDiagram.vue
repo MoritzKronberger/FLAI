@@ -83,7 +83,8 @@ const options = computed(() => ({
     tooltip: {
       callbacks: {
         label(tooltipItems: TooltipItem<ChartType>) {
-          return `${tooltipItems.formattedValue} min`
+          const value = Number(tooltipItems.formattedValue)
+          return `${Math.floor(value)} min`
         },
       },
       title: ' min',
