@@ -108,6 +108,11 @@ function reEnableInput() {
   inputAccepted.value = true
 }
 
+function reset() {
+  feedbackClass.value = 'waiting'
+  emit('waiting')
+}
+
 async function correct() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
@@ -132,6 +137,7 @@ async function correct() {
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
     wordComplete.value = true
+    setTimeout(reset, newInputTimeout.value)
   }
   emit('correct')
 }
@@ -159,12 +165,9 @@ async function wrong() {
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
     wordComplete.value = true
+    setTimeout(reset, newInputTimeout.value)
   }
   emit('wrong')
-}
-function reset() {
-  feedbackClass.value = 'waiting'
-  emit('waiting')
 }
 
 // TODO: Add adjustable timeout to inputAccepted reenable?
