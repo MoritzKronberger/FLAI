@@ -2,7 +2,21 @@
     position: sticky;
     top: 0;
     height: fit-content;
+    width: 100%;
     z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh 6vh 1vh 6vh;
+    background-color: rgba(255, 255, 255, .8);
+
+    @media (max-width:768px) {
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 4vh 1vh 1vh 1vh;
+        row-gap: 4vw;
+    }
 }
 
 #buttons {
@@ -10,13 +24,15 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin: 0;
-    padding: 1vh 5% 1vh 1vh;
-    gap: 2%;
+    column-gap: 1vw;
+    @media (max-width:768px) {
+        justify-content: center;
+        column-gap: 1vw;
+    }
 }
 
-#orange {
-    color: $main-orange;
+#blue {
+    color: $main-blue;
 }
 
 #login {
@@ -24,165 +40,122 @@
     color: $main-blue;
 }
 
+.header-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    .flai-logo-1 {
+        height: 50px;
+        @media (max-width:768px) {
+            height: 90px;
+        }
+
+    }
+}
+
 .bg-white {
     width: 100%;
-    max-height: 500px;
+    padding: 5vh 0 5vh 0;
+    height: 90vh;
     background-color: $main-white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 10vh;
-    @media (max-width:768px) {
-        margin-top: 2vh;
-        flex-direction: column;
-        align-items: center;
-    }
+    align-items: center;
 }
 
 .bg-blue {
     width: 100%;
+    padding: 5vh 0 5vh 0;
+    height: 90vh;
     background-color: $background-blue;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+
+:is(.bg-blue, .bg-white) {
     @media (max-width:768px) {
         margin-top: 2vh;
         flex-direction: column;
         align-items: center;
         min-height: 100px;
+        row-gap: 1vh;
     }
 }
 
 .main-left {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 1% 10% 1% 10%;
+    width: 50%;
     align-items: flex-start;
     text-align: left;
-    //justify-content: flex-end;
-
-    .text {
-        color: $dark-grey;
-        width: 40%;
-        line-height: 1.9;
-        @media (max-width:768px) {
-            width: 100%;
-            font-size: 100%;
-            text-align: start;
-        }
-    }
+    justify-content: space-between;
+    row-gap: 3vh;
+    padding-left: 10vw;
 }
 
 .main-right {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 1% 10% 1% 10%;
-    align-items: flex-end;
-    text-align: right;
-
-    .long-text {
-        margin: 0%;
-        color: $dark-grey;
-        width: 80%;
-        line-height: 1.9;
-        @media (max-width:768px) {
-            width: 100%;
-            font-size: 100%;
-            text-align: start;
-        }
-    }
-
-    .short-text {
-        color: $dark-grey;
-        width: 50%;
-        line-height: 1.9;
-        @media (max-width:768px) {
-            width: 100%;
-            font-size: 100%;
-            text-align: start;
-        }
-    }  
+    width: 50%;
+    align-items: flex-start;
+    text-align: left;
+    justify-content: space-between;
+    row-gap: 3vh;
+    padding-right: 10vw;
+    padding-left: 4vw;
 }
 
-.bottom {
-    justify-content: flex-end;
+:is(.main-left, .main-right) {
+    @media (max-width:768px) {
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+        padding: 1vh 3vw 1vh 3vw;
+        row-gap: 1vh;
+    }
 }
 
 :is(.main-left, .main-right) .heading-large {
     color: $dark-blue;
-    width: 50%;
+    width: 90%;
     @media (max-width:768px) {
         width: 100%;
         font-size: 200%;
     }
 }
 
-:is(.main-left, .main-right) .flai-logo-1 {
-    align-items: flex-start;
-    width: 40%;
-    margin-bottom: 1.5vh;
-    margin-top: 2vh;
+:is(.main-left, .main-right) .text {
+    color: $dark-grey;
+    width: 85%;
+    line-height: 1.9;
     @media (max-width:768px) {
-        width: 70%;
+        width: 100%;
+        font-size: 100%;
+        text-align: start;
     }
 }
 
-:is(.main-left, .main-right) .flai-logo-2 {
-    align-items: flex-start;
-    width: 40%;
-    margin-bottom: 1.5vh;
+.main-right .img {
+    align-items: center;
+    width: 35vw;
+    height: auto;
     @media (max-width:768px) {
-        width: 70%;
-    }
-}
-   
-:is(.bg-blue, .bg-white) .img-right {
-    position: absolute;
-    margin-top: -13vh;
-    right: 0%;
-    width: 45vw;
-    @media (max-width: 1400px) {
-        margin-top: -25vh;
-    }
-    @media (max-width:768px) {
-        position: relative;
-        height: 100%;
-        top: 4vh;
-        margin-top: 1vh;
-        right: -27vw;
+        width: 60vw;
     }
 }
 
-.img-left {
-    position: absolute;
-    margin-top: -30vh;
-    left: 5vw;
-    width: 45%;
+.main-left .img {
+    padding-left: 6vw;
+    align-items: center;
+    width: 32vw;
+    height: auto;
     @media (max-width:768px) {
-        position: relative;
-        height: 100%;
-        top: 4vh;
-        margin-top: 1vh;
-        left: -27vw;
-    }
-}
-
-.img-right-large {
-    position: absolute;
-    margin-top: -50vh;
-    right: 0%;
-    width: 53vw;
-    @media (max-width: 1400px) {
-        margin-top: -25vh;
-    }
-    @media (max-width:768px) {
-        position: relative;
-        height: 100%;
-        top: 4vh;
-        margin-top: 1vh;
-        right: -27vw;
+        width: 60vw;
     }
 }
 
@@ -190,29 +163,8 @@ a.prim_large_button_blue {
     width: 200px;
     display: flex;
     text-decoration:none;
-    margin-top: 6vh;
     justify-content: center;
     align-items: center;
-}
-
-
-#spacing-one {
-    min-height: fit-content;
-    margin-top: 40vw;
-    @media (max-width: 1200px) {
-        margin-top: 15vh;
-    }
-    @media (max-width: 768px) {
-        margin-top: 1vh;
-    }
-}
-
-.spacing-two {
-    min-height: fit-content;
-    margin-top: 30vw;
-    @media (max-width: 768px) {
-        margin-top: 4vh;
-    }
 }
 
 #line {
