@@ -1,7 +1,12 @@
 <template>
   <div class="learning-exercise">
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <h2 v-if="!started" class="heading-large">Lektion - Buchstabieren</h2>
+    <h2 class="heading-large">{{ h2 }}</h2>
+    <CustomButton
+      label="Home"
+      btnclass="exit sec_small_button_blue"
+      @click="router.push({ name: 'HomePage' })"
+    />
     <FeedbackExercise
       v-if="started"
       :key="signIds"
@@ -41,11 +46,6 @@
           <div class="loading-circle" />
         </div>
       </div>
-      <CustomButton
-        label="Home"
-        btnclass="exit sec_small_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
     </div>
   </div>
 </template>
@@ -67,6 +67,7 @@ const signIds = computed(() => {
 
 const exerciseId = computed(() => store.exercisedata.exercises[0].id)
 const currentlyWatchWord = ref(true)
+const h2 = ref('Übung')
 
 const started = ref(false)
 
@@ -80,6 +81,16 @@ const flaiNetLoadingProgress = ref(0)
 
 const setflaiNetReady = (): void => {
   flaiNetReady.value = true
+}
+
+function startWatchWord() {
+  currentlyWatchWord.value = true
+  h2.value = 'Einprägen'
+}
+
+function startShowWord() {
+  currentlyWatchWord.value = false
+  h2.value = 'Üben'
 }
 
 onBeforeRouteLeave(async () => {

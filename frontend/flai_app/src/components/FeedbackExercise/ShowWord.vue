@@ -1,27 +1,35 @@
 <template>
-  <div class="content" vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
+  <!--div class="content" vFocus tabindex="0" @keydown.c="correct">
+    <div vFocus tabindex="0" @keydown.w="wrong"-->
+  <div class="show-word">
+    <div class="flex">
+      <div class="column1">
+        <p class="status">{{ status }}</p>
+        <Video
+          id="video"
+          :show-sign="showSign"
+          :signs="signs"
+          :index="index"
+          @use-hint="showSign = true"
+        />
+      </div>
+    </div>
+    <div class="column2">
       <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
-      <Video
-        id="video"
-        :show-sign="showSign"
-        :signs="signs"
-        :index="index"
-        @use-hint="showSign = true"
-      />
-      <Button
-        v-if="wordComplete"
-        id="next"
-        label="weiter"
-        btnclass="controls"
-        @button-click="emit('new-word')"
-      />
-      <p>{{ status }}</p>
-      <div class="column2">
-        <webcam :borderclass="feedbackClass" />
+      <webcam :borderclass="feedbackClass" />
+      <div class="exercise-controls">
+        <Button
+          v-if="wordComplete"
+          id="next"
+          label="weiter"
+          btnclass="sec_small_button_blue"
+          @button-click="emit('new-word')"
+        />
       </div>
     </div>
   </div>
+  <!--/div>
+  </div-->
 </template>
 
 <script setup lang="ts">

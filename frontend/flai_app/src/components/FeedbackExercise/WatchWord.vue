@@ -2,16 +2,18 @@
   <!--div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word">
-    <h2 class="heading-large align-left">Einprägen</h2>
-    <SignControls :signs="signs" @new-index="onNewIndex" />
-    <Video
-      :signs="signs"
-      :index="index"
-      :show-sign="showSign"
-      @use-hint="showSign = true"
-    />
-    <p class="status body-medium">{{ status }}</p>
-    <div class="webcam-column">
+    <div class="column1">
+      <SignControls :signs="signs" @new-index="onNewIndex" />
+      <Video
+        :signs="signs"
+        :index="index"
+        :show-sign="showSign"
+        :class="feedbackClass"
+        @use-hint="showSign = true"
+      />
+    </div>
+    <div class="webcam-column column2">
+      <p class="status body-medium">{{ status }}</p>
       <Webcam :borderclass="feedbackClass" />
       <div class="exercise-controls">
         <CustomButton
