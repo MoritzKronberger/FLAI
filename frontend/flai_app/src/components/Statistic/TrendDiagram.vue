@@ -100,6 +100,11 @@ const options = computed(() => ({
 <template>
   <div>
     <div id="week">
+      <custom-button
+        label="<"
+        btnclass="week_trends_button"
+        @button-click="changeWeek('subtract', 1, 'weeks')"
+      />
       <span class="body-small month"
         >{{
           moment(date)
@@ -109,18 +114,11 @@ const options = computed(() => ({
         }}
       </span>
       <span class="body-small">{{ moment(date).format('DD.MM.YYYY') }}</span>
-      <span class="buttons">
-        <custom-button
-          label="<"
-          btnclass="week_trends_button"
-          @button-click="changeWeek('subtract', 1, 'weeks')"
-        />
-        <custom-button
-          label=">"
-          btnclass="week_trends_button"
-          @button-click="changeWeek('add', 1, 'weeks')"
-        />
-      </span>
+      <custom-button
+        label=">"
+        btnclass="week_trends_button"
+        @button-click="changeWeek('add', 1, 'weeks')"
+      />
     </div>
     <BarChart
       ref="barChart"
