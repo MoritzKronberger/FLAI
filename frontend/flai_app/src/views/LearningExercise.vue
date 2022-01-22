@@ -16,8 +16,8 @@
         </p>
         <br />
         <ol class="body-large">
-          <li>Phase 1: Einprägen</li>
-          <li>Phase 2: Üben</li>
+          <li>Phase: Einprägen</li>
+          <li>Phase: Üben</li>
         </ol>
         <p class="body-emphasised camera-notif">
           Ab hier benötigst du deine Kamera.
