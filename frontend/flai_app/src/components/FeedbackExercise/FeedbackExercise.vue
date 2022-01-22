@@ -24,7 +24,7 @@
   </div>
   <div v-else>
     <!-- TODO: second loading needed? -->
-    <p>Generating word...</p>
+    <p>Generiere Wort...</p>
   </div>
 </template>
 
