@@ -11,7 +11,7 @@
     <div v-else class="loading-screen">
       <p class="body-large">
         Lerne das Alphabet der deutschen Gebärdensprache mithilfe unserer
-        Zwei-Phasen-Lernmethodik.
+        Zwei-Phasen-Lernmethodik:
       </p>
       <br />
       <ol class="body-large">
