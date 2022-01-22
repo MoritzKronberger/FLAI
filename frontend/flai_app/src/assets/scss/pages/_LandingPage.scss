@@ -133,8 +133,10 @@
     color: $dark-grey;
     width: 85%;
     line-height: 1.9;
-    @media (max-width:768px) {
+    @media (max-width:1200px) {
         width: 100%;
+    }
+    @media (max-width:768px) {
         font-size: 100%;
         text-align: start;
     }
