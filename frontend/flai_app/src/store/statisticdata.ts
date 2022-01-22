@@ -1,10 +1,9 @@
-import moment, { DurationInputArg1, DurationInputArg2, Moment } from 'moment'
+import moment, { Moment } from 'moment'
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
 import userdata from './userdata'
-import 'moment/dist/locale/de'
-moment.locale()
+
 export interface UserStatistic {
   activeStreak: number | undefined
   longestStreak:
@@ -30,13 +29,10 @@ export interface TrendsRow {
   time_learnt: object
 }
 
-export interface TrendsDataset {
-  labels: string[]
-  values: number[]
-}
+export type TrendsDataset = TrendsEntry[]
 
 export interface Trends {
-  end_day: string
+  end_day: Moment
   days: number
   dataset: TrendsDataset | undefined
 }
@@ -49,11 +45,11 @@ const userStatistic: UserStatistic = reactive({
   timeLearntToday: undefined,
 })
 
-const trends: Trends = reactive({
-  end_day: moment().toString(),
+const trends: Trends = {
+  end_day: moment(),
   days: 7,
   dataset: undefined,
-})
+}
 
 const methods = {
   changeUserStatistic(newStatistic: UserStatistic) {
@@ -65,8 +61,8 @@ const methods = {
     dateFormat = 'YYYY-MM-DD'
   ) {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0
-    const baseDataset: TrendsEntry[] = []
-    const endDay = moment(trends.end_day)
+    const baseDataset: TrendsDataset = []
+    const endDay = trends.end_day.clone()
     for (let i = 0; i < trends.days; i++) {
       const x = endDay
         .subtract(i === 0 ? 0 : 1, 'days')
@@ -75,11 +71,9 @@ const methods = {
       baseDataset.push({ x: x, y: 0 })
     }
 
-    let dataset = baseDataset
-
     // convert the fetched rows into the TrendsDataset type and match the date formatting
     if (trendsData.data.rows) {
-      const trendsDataDataset: TrendsEntry[] = trendsData.data.rows.map(
+      const trendsDataDataset: TrendsDataset = trendsData.data.rows.map(
         (entry) => {
           return {
             x: moment(entry.day).format(dateFormat).toString(),
@@ -87,36 +81,19 @@ const methods = {
           } as TrendsEntry
         }
       )
+
       // find the entries where the day matches the database row and replace them with the row
       // from https://stackoverflow.com/a/37585362/14906871
-      dataset = baseDataset.map(
+      const dataset = baseDataset.map(
         (entry) => trendsDataDataset.find((e) => e.x === entry.x) || entry
       )
-    }
-    const labels = dataset.map((entry) => moment(entry.x).format('dd'))
-    const values = dataset.map((entry) => entry.y)
-    trends.dataset = {
-      labels: labels,
-      values: values,
+
+      trends.dataset = dataset
+      console.log(trends.dataset)
     }
   },
   changeTrendsEndDay(endDay: Moment) {
-    trends.end_day = endDay.toString()
-  },
-
-  changeTrendsEndDayByInterval(
-    method: string,
-    interval: DurationInputArg1,
-    intervaltype: DurationInputArg2
-  ) {
-    if (method.toLowerCase() === 'add')
-      trends.end_day = moment(trends.end_day)
-        .add(interval, intervaltype)
-        .toString()
-    else if (method.toLowerCase() === 'subtract')
-      trends.end_day = moment(trends.end_day)
-        .subtract(interval, intervaltype)
-        .toString()
+    trends.end_day = endDay
   },
 }
 
@@ -172,7 +149,7 @@ const actions = {
       url: 'statistic/trends',
       data: {
         user_id: userId,
-        end_day: moment(trends.end_day).format('YYYY-MM-DD').toString(),
+        end_day: trends.end_day.format('YYYY-MM-DD').toString(),
         days: trends.days,
       },
     })
@@ -183,7 +160,6 @@ const actions = {
 
 const statisticdata = {
   userStatistic: readonly(userStatistic) as UserStatistic,
-  trends: readonly(trends) as Trends,
   methods,
   actions,
 }
