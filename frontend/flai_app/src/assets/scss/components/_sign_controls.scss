@@ -7,32 +7,32 @@
 
   .lastLetter {
     position: relative; //absolute
-    left: 40%;
+    left: 30%;
     font-size: $h3;
     transform: translate(-50%, 0);
   }
   .currentLetter {
     position: relative; //absolute
-    left: 50%;
+    left: 40%;
     font-weight: 800;
     font-size: $h2;
     transform: translate(-50%, 0);
   }
   .nextLetter {
     position: relative; //absolute
-    left: 60%;
+    left: 50%;
     font-size: $h3;
     transform: translate(-50%, 0);
   }
 
   .back-button {
     position: relative; //absolute
-    left: 30%;
+    left: 20%;
     transform: translate(-50%, 0);
   }
   .next-button {
     position: relative; //absolute
-    left: 70%;
+    left: 60%;
     transform: translate(-50%, 0);
   }
   .prim_small_button_blue {
