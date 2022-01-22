@@ -1,7 +1,7 @@
 <template>
   <div class="learning-exercise">
     <!-- hiding must be done via css and not v-if so that components still render -->
-    <h2 v-if="!started" class="heading-large">Übung</h2>
+    <h2 v-if="!started" class="heading-large">Lektion - Buchstabieren</h2>
     <FeedbackExercise
       v-if="started"
       :key="signIds"
@@ -11,16 +11,16 @@
     <div v-else class="loading-screen">
       <div class="loading-screen-container">
         <p class="body-large">
-          Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
-          Phasen Lernmethodik.
+          Lerne das Alphabet der deutschen Gebärdensprache mithilfe unserer
+          Zwei-Phasen-Lernmethodik:
         </p>
         <br />
         <ol class="body-large">
-          <li>Phase: Einprägen</li>
-          <li>Phase: Üben</li>
+          <li>Phase 1: Einprägen</li>
+          <li>Phase 2: Üben</li>
         </ol>
         <p class="body-emphasised camera-notif">
-          Ab hier verwenden wir deine Kamera.
+          Ab hier benötigst du deine Kamera.
         </p>
         <CustomButton
           v-if="flaiNetReady && handposeReady"
@@ -121,7 +121,7 @@ onMounted(async () => {
   } catch (error) {
     console.log(error)
     window.alert(
-      'Es steht keine Webcam zur Verfügung. Bitte schließen Sie ein Gerät an und versuchen Sie es erneut.'
+      'Es steht keine Webcam zur Verfügung. Bitte schließe ein Gerät an und versuche es erneut.'
     )
   }
 })
