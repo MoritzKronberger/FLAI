@@ -22,27 +22,7 @@ div {
     padding: $padding-height $padding-width;
   }
 
-  .loading-screen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: $main-blue;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    p {
-      text-align: center;
-      padding: $padding-height $padding-width;
-    }
-
-    ol {
-      text-align: center;
-      list-style-position: inside;
-    }
-  }
+  @import '../components/loading_screen';
 
   .watch-word {
     padding-top: $padding-height;
