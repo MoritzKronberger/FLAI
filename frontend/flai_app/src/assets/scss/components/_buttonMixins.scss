@@ -12,7 +12,7 @@ $video-controls-button-width:  3em;
 $video-controls-button-height:  2em;
 
 // week trends buttons
-$button-trends-week: 30px;
+$button-trends-week: 25px;
 
 //variables secondary
 $button-Sec-width-Large: 231px;
@@ -226,4 +226,11 @@ $button-margin: 5px;
       $main-white,
       $main-blue
     );
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    &:hover {
+     box-shadow: none;
+     color: $subtle-blue;
+    }
   }
