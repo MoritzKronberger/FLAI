@@ -9,33 +9,37 @@
       @show-word="currentlyWatchWord = false"
     />
     <div v-else class="loading-screen">
-      <p class="body-large">
-        Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
-        Phasen Lernmethodik.
-      </p>
-      <br />
-      <ol class="body-large">
-        <li>Phase: Einprägen</li>
-        <li>Phase: Üben</li>
-      </ol>
-      <p class="body-medium">Ab hier verwenden wir deine Kamera.</p>
-      <CustomButton
-        v-if="flaiNetReady && handposeReady"
-        label="Start"
-        btnclass="start prim_small_button_blue"
-        @button-click="started = true"
-      />
-      <div v-else>
-        <div class="loading-status">
-          {{
-            !webcamReady
-              ? 'Warte auf Webcam'
-              : !flaiNetReady
-              ? `Lade FLAI-KI ${flaiNetLoadingProgress * 100}%`
-              : 'Starte KI-Feedback'
-          }}
+      <div class="loading-screen-container">
+        <p class="body-large">
+          Lerne neue Buchstaben der deutschen Gebärdensprache mithilfe unserer 2
+          Phasen Lernmethodik.
+        </p>
+        <br />
+        <ol class="body-large">
+          <li>Phase: Einprägen</li>
+          <li>Phase: Üben</li>
+        </ol>
+        <p class="body-emphasised camera-notif">
+          Ab hier verwenden wir deine Kamera.
+        </p>
+        <CustomButton
+          v-if="flaiNetReady && handposeReady"
+          label="Start"
+          btnclass="start prim_small_button_blue"
+          @button-click="started = true"
+        />
+        <div v-else>
+          <div class="loading-status body-medium">
+            {{
+              !webcamReady
+                ? 'Warte auf Webcam'
+                : !flaiNetReady
+                ? `Lade FLAI-KI ${flaiNetLoadingProgress * 100}%`
+                : 'Starte KI-Feedback'
+            }}
+          </div>
+          <div class="loading-circle" />
         </div>
-        <div class="loading-circle" />
       </div>
       <CustomButton
         label="Home"
