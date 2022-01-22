@@ -34,11 +34,11 @@ const level = ref(1)
         <custom-button
           label="Start"
           btnclass="prim_small_button_orange"
-          @button-click="redirect('ComingSoon')"
+          @button-click="redirect('LearningExercise')"
         />
       </div>
       <div class="level-panel">
-        <div class="heading-small">Lernfortschritt</div>
+        <div class="heading-medium">Lernfortschritt</div>
         <IconLoader
           :path="`/assets/icons/levels/level_${level}.svg`"
           alt="Level Icon"
