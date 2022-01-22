@@ -74,6 +74,7 @@ function openModalRegister() {
 
     <div class="bg-white">
       <div class="main-left">
+        <div id="skip"></div>
         <IconLoader
           path="/assets/landingPage/second.png"
           alt="FLAI woman sign language"
@@ -81,7 +82,6 @@ function openModalRegister() {
         />
       </div>
       <div class="main-right">
-        <div id="skip"></div>
         <div class="heading-large">Selbstbewusst durch direktes Feedback</div>
         <div class="text body-medium">
           Mithilfe von Farbe und Symbolik, erfährst du direkt ob du die Gebärde
