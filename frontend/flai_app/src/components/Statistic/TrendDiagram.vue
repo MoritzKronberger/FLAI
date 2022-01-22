@@ -69,7 +69,7 @@ const options = computed(() => ({
       ticks: {
         stepSize: 30,
         callback: function (value: number) {
-          return value + ' min.'
+          return value + ' min'
         },
         font: {
           size: 10,
