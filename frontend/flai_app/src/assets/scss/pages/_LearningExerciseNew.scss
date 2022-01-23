@@ -48,7 +48,7 @@
   .status {
     grid-area: status;
   }
-  .home {
+  .home-button {
       grid-area: home;
   }
   .webcam-container {
@@ -64,5 +64,11 @@
   }
   .next-button {
     grid-area: next;
+  }
+
+  .next-button, .home-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 }
