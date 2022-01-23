@@ -8,12 +8,11 @@
       :signs="signs"
       :index="index"
       :show-sign="showSign"
-      :class="feedbackClass"
       @use-hint="showSign = true"
     />
     <p class="status body-medium">{{ status }}</p>
     <div class="webcam-column">
-      <Webcam />
+      <Webcam :borderclass="feedbackClass" />
       <div class="exercise-controls">
         <CustomButton
           label="Home"
@@ -62,12 +61,12 @@ const vFocus = {
   },
 }
 
-const emit = defineEmits(['next', 'correct', 'wrong', 'rendered'])
+const emit = defineEmits(['next', 'correct', 'wrong', 'waiting', 'rendered'])
 
 function correct() {
   console.log('correct')
   isCorrect.value = true
-  feedbackClass.value = 'right'
+  feedbackClass.value = 'correct'
   emit('correct')
 }
 function wrong() {
@@ -75,6 +74,11 @@ function wrong() {
   isCorrect.value = false
   feedbackClass.value = 'wrong'
   emit('wrong')
+}
+function reset() {
+  console.log('waiting')
+  feedbackClass.value = 'waiting'
+  emit('waiting')
 }
 
 // TODO: progress property not really needed?
@@ -112,34 +116,10 @@ watchEffect(
       resultBuffer.value,
       props.signs[index.value].name,
       correct,
-      wrong
+      wrong,
+      reset
     ))
 )
 
 onBeforeMount(() => emit('rendered'))
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div:focus {
-  outline: none;
-}
-h3 {
-  margin: 40px 0 0;
-}
-video {
-  width: 40%;
-}
-.controls {
-  background: lightblue;
-}
-.waiting {
-  color: grey;
-}
-.right {
-  color: green;
-}
-.wrong {
-  color: red;
-}
-</style>

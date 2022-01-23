@@ -12,6 +12,7 @@
     text-align: center;
     color: $main-blue;
     padding: $padding-height $padding-width;
+    
   }
 
   .align-left {
@@ -22,34 +23,7 @@
     padding: $padding-height 0;
   }
 
-  .loading-screen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: $main-blue;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    p {
-      text-align: center;
-      padding: $padding-height $padding-width;
-    }
-
-    ol {
-      text-align: center;
-      list-style-position: inside;
-    }
-
-    .exit {
-      position: absolute;
-      bottom: $margin-height;
-      left: $margin-width;
-      cursor: pointer;
-    }
-  }
+  @import '../components/loading_screen';
   
   // In many iterations with grid, flexbox and float I decided to hardcode the heights with calculations and variables, otherwise the video will always be too big or the buttons not fit to video width. The calculations are long but pretty flexible, because the only hardcoded value is the line-height right now.
   @media (min-width: $S) {
@@ -138,3 +112,13 @@
   }
 }
 
+.correct {
+  #webcam-feed {
+    border: 4px solid $main-green;
+  }
+}
+.wrong {
+  #webcam-feed {
+    border: 4px solid $main-red;
+  }
+}

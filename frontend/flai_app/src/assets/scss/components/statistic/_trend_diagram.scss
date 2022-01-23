@@ -1,0 +1,13 @@
+#week {
+    display: flex;
+    column-gap: 5px;
+    justify-content: center;
+    align-items: center;
+    .buttons {
+        margin-left: 5px;
+    }
+  
+}
+.chart-container {
+    height: 40vh;
+}

@@ -18,8 +18,8 @@ const onInput = (e: Event): void => {
 
 <template>
   <div :class="componentClass">
-    <label :for="labelName">
-      {{ labelName }}
+    <label :for="labelName" class="body-medium">
+      <div class="label">{{ labelName }}</div>
       <input
         :value="modelValue"
         :type="customType ? customType : 'text'"
@@ -40,5 +40,10 @@ const onInput = (e: Event): void => {
 }
 .input {
   margin-bottom: 10px;
+}
+
+.label {
+  float: left;
+  padding-left: 8px;
 }
 </style>

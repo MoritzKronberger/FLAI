@@ -2,6 +2,8 @@
   display: none !important;
 }
 
+@import '../components/loading_screen';
+
 .watch-word {
   width: 100vw;
   height: 100vh;
@@ -29,11 +31,19 @@
   }
   .video-column {
     grid-area: video;
+
+    .video {
+      height: 100%;
+    }
   }
   
   //right column
   .webcam-column {
     grid-area: webcam;
+
+    .webcam-container {
+      height: 100%;
+    }
     
     .exercise-controls {
         margin-left: auto;
@@ -42,5 +52,16 @@
   .status {
     grid-area: status;
     text-align: center;
+  }
+}
+
+.correct {
+  #webcam-feed {
+    border: 4px solid $main-green;
+  }
+}
+.wrong {
+  #webcam-feed {
+    border: 4px solid $main-red;
   }
 }

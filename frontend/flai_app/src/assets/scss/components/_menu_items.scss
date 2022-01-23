@@ -1,10 +1,6 @@
 .container {
   .router-link-exact-active {
-    border-left: 0.2vw solid #4a7bf6;
     filter: invert(49%) sepia(33%) saturate(5835%) hue-rotate(208deg) brightness(97%) contrast(99%);
-    @media (max-width: 768px) {
-      border-left: 1vw solid #4a7bf6;
-    }
   }
   .item {
     display: inline-flex;
@@ -12,10 +8,9 @@
       @include flex-box(row, start, center, 0vh 1vw);
       .icon {
         width: 2.5vw;
-        margin-left: 0.5vw;
       }
       .sidebar-flyout {
-        font-size: 12px;
+        font-size: 15px;
       }
       @media (max-width: 768px) {
         .icon {
@@ -28,7 +23,7 @@
     }
   }
   a {
-    color: black;
+    color: $dark-grey;
     text-decoration: none;
   }
 }

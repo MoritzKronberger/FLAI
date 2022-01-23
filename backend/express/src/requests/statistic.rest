@@ -22,3 +22,8 @@ GET http://localhost:5000/api/statistic/time_learnt_by_day/?user_id=0968cdda-c00
 Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
 
 ###
+
+GET http://localhost:5000/api/statistic/trends/?user_id=a752d274-a89e-4e55-8c67-f7dca579006f&&end_day=2022-01-16&&days=2
+Authorization: eyJhbGciOiJIUzI1NiJ9.YTc1MmQyNzQtYTg5ZS00ZTU1LThjNjctZjdkY2E1NzkwMDZm.evH5JK4ShAEmZPdel40U0-aIZXvT7bmuaE_VDSvZKu8
+
+###

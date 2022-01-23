@@ -1,14 +1,14 @@
+@import './buttonMixins';
+
 img {
   width: 100%;
 }
 .flai-header-icon {
-  margin-top: 5vh;
-  width: 10vw;
+  margin-top: $homepage-margin-height;
+  width: $button-Sec-width-Small;
 }
 @media (max-width: 768px) {
   .flai-header-icon {
-    margin-top: 5vh;
-    width: 100vw;
     padding: 10vw;
   }
 }
@@ -26,9 +26,9 @@ img.feedback-icon {
   border-radius: 50%;
   background-color: inherit;
   border-left: 5px solid $main-white; //no inherit possible
-  border-top: 5px solid $main-orange;
-  border-bottom: 5px solid $main-orange;
-  border-right: 5px solid $main-orange;
+  border-top: 5px solid $main-blue;
+  border-bottom: 5px solid $main-blue;
+  border-right: 5px solid $main-blue;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }

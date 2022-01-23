@@ -2,7 +2,7 @@
 import textInputField from '../components/TextInputField.vue'
 import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { LoginUser } from '../store/authdata'
 import store from '../store'
 import { useRouter } from 'vue-router'
@@ -24,6 +24,13 @@ onMounted(() => {
   user.value.email = userData.value.email
 })
 
+//onMounted will not work on modal view
+function updateUser(mail: string) {
+  user.value.email = mail
+}
+
+watchEffect(() => updateUser(userData.value.email))
+
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await authActions.loginUser(submitUser)
@@ -34,18 +41,27 @@ const submit = async (): Promise<void> => {
     errorMessage.value = result?.data.message
   }
 }
+
+const emit = defineEmits(['openRegister'])
+
+function onclick() {
+  // emit is placed in method so that validation for input value can be added
+  emit('openRegister')
+}
 </script>
 
 <template>
   <div class="login-form-container">
-    <router-link :to="{ name: 'HomePage' }">
+    <div class="form-item">
       <IconLoader
-        path="/assets/logos/faces.svg"
+        path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-icon"
+        element-class="flai-logo"
       />
-    </router-link>
-    <div class="form-items">
+      <div class="center-text body-small">
+        Melde dich an, um die deutsche Gebärdensprache zu erlernen.
+      </div>
+      <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
@@ -68,9 +84,9 @@ const submit = async (): Promise<void> => {
         />
       </form>
       <div class="divider-line"></div>
-      <div class="bottom-paragraph center-text body-normal">
+      <div class="bottom-paragraph center-text body-small">
         Du hast noch keinen Account?
-        <router-link to="/register">Registrieren</router-link>
+        <span id="registrieren" @click="onclick">Registrieren</span>
       </div>
     </div>
   </div>
@@ -78,4 +94,21 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
+
+.body-small {
+  font-size: $font-size-base * 0.75;
+  @include font(GothamSSm, medium);
+  color: $dark-grey;
+  line-height: 1.7;
+}
+
+#registrieren {
+  cursor: pointer;
+  color: $main-blue;
+}
+
+.flai-logo {
+  width: 60%;
+  margin-bottom: 16px;
+}
 </style>

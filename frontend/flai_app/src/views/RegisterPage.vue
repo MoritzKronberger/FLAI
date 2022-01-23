@@ -6,9 +6,9 @@ import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
 import { ref } from 'vue'
 import { RegisterUser } from '../store/userdata'
-import { useRouter } from 'vue-router'
+//import { useRouter } from 'vue-router'
 
-const router = useRouter()
+//const router = useRouter()
 
 const defaultTargetTime = '00:20:00'
 
@@ -25,12 +25,19 @@ const errorMessage = ref('')
 const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
 
+const emit = defineEmits(['openLogin'])
+
+function onclick() {
+  // emit is placed in method so that validation for input value can be added
+  emit('openLogin')
+}
+
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await userActions.postNewUser(submitUser)
   if (result?.status === 200) {
     userMethods.changeEmail(submitUser.email)
-    router.push({ name: 'LoginPage' })
+    emit('openLogin')
   } else {
     errorMessage.value = result?.data.message
   }
@@ -39,44 +46,36 @@ const submit = async (): Promise<void> => {
 
 <template>
   <div class="register-form-container">
-    <router-link :to="{ name: 'HomePage' }">
+    <div class="form-item">
       <IconLoader
-        path="/assets/logos/faces.svg"
+        path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-icon"
+        element-class="flai-logo"
       />
-    </router-link>
-    <div class="form-items">
-      <div class="lead-paragraph center-text body-small">
+      <div class="center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
+      <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
           v-model="user.username"
           label-name="Benutzername"
-          placeholder="Benutzername"
+          placeholder="MaxMuster"
           element-class="default_input_field input-form-primary"
         />
         <text-input-field
           v-model="user.email"
           label-name="E-Mail-Adresse"
-          placeholder="E-Mail-Adresse"
+          placeholder="maxmusterman@flai.de"
           element-class="default_input_field input-form-primary"
         />
         <text-input-field
           v-model="user.password"
           label-name="Passwort"
-          placeholder="Passwort"
+          placeholder="********"
           element-class="default_input_field input-form-primary"
           custom-type="password"
-        />
-        <custom-checkbox
-          v-model="user.right_handed"
-          label-name="Rechtshänder:in?"
-          element-class="primary-checkbox"
-          component-class="primary-checkbox"
-          checkmark-class="checkmark"
         />
         <text-input-field
           v-model="user.target_learning_time"
@@ -86,6 +85,14 @@ const submit = async (): Promise<void> => {
           custom-type="time"
           :time-step="1"
         />
+        <custom-checkbox
+          v-model="user.right_handed"
+          label-name="Rechtshänder:in?"
+          element-class="primary-checkbox"
+          component-class="primary-checkbox body-small"
+          checkmark-class="checkmark"
+        />
+        <br />
         <custom-button
           label="Registrieren"
           btnclass="button-form-primary prim_small_button_blue"
@@ -93,8 +100,9 @@ const submit = async (): Promise<void> => {
         />
       </form>
       <div class="divider-line"></div>
-      <div class="bottom-paragraph center-text body-normal">
-        Du hast ein Konto? <router-link to="/login">Melde dich an</router-link>
+      <div class="bottom-paragraph center-text body-small">
+        Du hast ein Konto?
+        <span id="anmelden" @click="onclick">Melde dich an</span>
       </div>
     </div>
   </div>
@@ -102,4 +110,20 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
+
+.body-small {
+  font-size: $font-size-base * 0.75;
+  @include font(GothamSSm, medium);
+  color: $dark-grey;
+  line-height: 1.7;
+}
+
+#anmelden {
+  cursor: pointer;
+  color: $main-blue;
+}
+.flai-logo {
+  width: 60%;
+  margin-bottom: 16px;
+}
 </style>

@@ -32,7 +32,7 @@ const classState = computed(() => switchClass())
     <aside :class="classState.aside">
       <router-link :to="{ name: 'HomePage' }">
         <IconLoader
-          path="/assets/logos/faces.svg"
+          path="/assets/logos/logo.svg"
           alt="FLAI Icon"
           element-class="flai-header-icon"
         />
@@ -40,7 +40,7 @@ const classState = computed(() => switchClass())
       <SidebarMenu />
       <custom-button
         label="Logout"
-        btnclass="sec_small_button_blue"
+        btnclass="sec_small_button_orange logout"
         @button-click="logoutUser"
       />
     </aside>
@@ -51,42 +51,5 @@ const classState = computed(() => switchClass())
 </template>
 
 <style scoped lang="scss">
-.display-aside {
-  width: 15%;
-  height: 100%;
-  background-color: white;
-  position: fixed;
-  padding-left: 2%;
-  padding-right: 2%;
-  @media (max-width: 768px) {
-    width: 100%;
-    position: relative;
-  }
-}
-
-.hidden {
-  display: none;
-}
-
-.main-login-register-lection {
-  width: 100%;
-}
-
-.main-home-profile {
-  float: right;
-  width: 85%;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-a {
-  text-decoration: none;
-}
+@import './assets/scss/main.scss';
 </style>
