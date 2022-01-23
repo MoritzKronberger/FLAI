@@ -2,6 +2,7 @@
   <div
     v-if="word !== undefined && word.length > 0 && wordSet"
     :key="startSession"
+    class="exercise-container"
   >
     <WatchWord
       v-if="stepOneWatch && newSigns.length > 0"

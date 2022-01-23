@@ -1,0 +1,67 @@
+.exercise-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.watch-word {
+  display: grid;
+  grid-template-areas:
+    'heading home'
+    'signs status'
+    'video webcam'
+    'video-controls next';
+
+  grid-auto-columns: 1fr;
+  grid-template-rows: 1fr, 1fr, 10px, 1fr;
+  grid-auto-flow: column;
+
+  column-gap: $padding-width;
+  row-gap: $padding-height;
+
+  width: 100%;
+  height: 100vh;
+
+  //left column
+  h2 {
+    grid-area: heading;
+  }
+  .sign-controls {
+    grid-area: signs;
+  }
+  .video {
+    grid-area: video;
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .video-controls {
+    grid-area: video-controls;
+  }
+
+  //right column
+  .status {
+    grid-area: status;
+  }
+  .home {
+      grid-area: home;
+  }
+  .webcam-container {
+    grid-area: webcam;
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .next-button {
+    grid-area: next;
+  }
+}
