@@ -53,7 +53,7 @@ function openModalRegister() {
   </header>
 
   <body>
-    <div class="bg-blue">
+    <div id="first" class="bg-blue">
       <div class="main-left">
         <div class="heading-large">Lerne die deutsche Gebärdensprache</div>
         <div class="text body-medium">
@@ -85,11 +85,8 @@ function openModalRegister() {
         <div class="heading-large">Selbstbewusst durch direktes Feedback</div>
         <div class="text body-medium">
           Mithilfe von Farbe und Symbolik, erfährst du direkt ob du die Gebärde
-          richtig machst.
-          <br />
-          Vergiss hierbei nicht, das zu einer Gebärde auch das richtige Mundbild
-          gehört.<br />
-          Sprich also gerne laut mit wenn du übst.
+          richtig machst. Vergiss hierbei nicht, das zu einer Gebärde auch das
+          richtige Mundbild gehört. Sprich also gerne laut mit wenn du übst.
         </div>
       </div>
     </div>
@@ -102,13 +99,11 @@ function openModalRegister() {
         <div class="text body-medium">
           Wir haben in unserer Software ein
           <span class="body-emphasised">Levelsystem</span> eingebaut das sich an
-          deinen Lernfortschritt anpasst.
-          <br />
-          Je öfter eine Gebärde richtig gemacht wurde, desto höher ist der
+          deinen Lernfortschritt anpasst. Je öfter eine Gebärde richtig gemacht
+          wurde, desto höher ist der
           <span class="body-emphasised">Fortschritt</span> und die Lernmethode
-          wird daran angepasst.
-          <br />
-          So ist das Lernen automatisch an dein Tempo angepasst.
+          wird daran angepasst. So ist das Lernen automatisch an dein Tempo
+          angepasst.
         </div>
       </div>
       <div class="main-right">
@@ -127,15 +122,10 @@ function openModalRegister() {
         <div class="text body-medium">
           Das Team FLAI besteht aus 7 Studenten des Studiengangs
           <span class="body-emphasised">Interaktive Medien</span> der Hochschule
-          Augsburg.
-          <br />
-          Im Rahmen unseres Projekt-Semester haben wir uns zum Ziel gemacht eine
-          Lernapplikation zu entwickeln, die einem die deutsche Gebärdensprache
-          beibringen soll.
-          <br />
-          Dieses Projekt umfasste die Konzeption, Planung und Umsetzung von
-          Design und Programmierung.
-          <br />
+          Augsburg. Im Rahmen unseres Projekt-Semester haben wir uns zum Ziel
+          gemacht eine Lernapplikation zu entwickeln, die einem die deutsche
+          Gebärdensprache beibringen soll. Dieses Projekt umfasste die
+          Konzeption, Planung und Umsetzung von Design und Programmierung.
           Mithilfe von Neuralen Netzen haben wir uns darauf konzentriert,
           direktes Feedback an den Lernenden zu übermitteln um somit
           <span class="body-emphasised">einfacheres</span> und

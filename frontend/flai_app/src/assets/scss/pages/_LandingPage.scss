@@ -1,3 +1,10 @@
+body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1vh;
+}
+
+
 #stick {
     position: sticky;
     top: 0;
@@ -57,8 +64,7 @@
 
 .bg-white {
     width: 100%;
-    padding: 5vh 0 5vh 0;
-    height: 90vh;
+    height: 100vh;
     background-color: $main-white;
     display: flex;
     flex-direction: row;
@@ -68,8 +74,7 @@
 
 .bg-blue {
     width: 100%;
-    padding: 5vh 0 5vh 0;
-    height: 90vh;
+    height: 100vh;
     background-color: $background-blue;
     display: flex;
     flex-direction: row;
@@ -78,7 +83,10 @@
 }
 
 :is(.bg-blue, .bg-white) {
-     @media (max-width:1400px) {
+    margin: 5vh 0 5vh 0;
+    padding: 5vh 0 5vh 0;
+
+    @media (max-width:1400px) {
         padding: 0vh;
         margin: 5vh 0 5vh 0;
     }
@@ -172,6 +180,9 @@ a.prim_large_button_blue {
     text-decoration:none;
     justify-content: center;
     align-items: center;
+}
+#first {
+    margin-top: 0;
 }
 
 #line {
