@@ -49,7 +49,7 @@
     grid-area: status;
   }
   .home-button {
-      grid-area: home;
+    grid-area: home;
   }
   .webcam-container {
     grid-area: webcam;
@@ -66,9 +66,21 @@
     grid-area: next;
   }
 
-  .next-button, .home-button {
+  .next-button,
+  .home-button {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+  }
+}
+
+.correct {
+  #webcam-feed {
+    border: 4px solid $main-green;
+  }
+}
+.wrong {
+  #webcam-feed {
+    border: 4px solid $main-red;
   }
 }
