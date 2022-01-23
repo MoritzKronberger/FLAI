@@ -15,12 +15,12 @@
   grid-template-rows: 1fr 1fr 65% 1fr;
   grid-auto-flow: column;
 
-  column-gap: $padding-width;
+  column-gap: $padding-width * 2;
   row-gap: $padding-height;
 
   width: 100%;
-  height: 100vh;
-  padding: $padding-height $padding-width;
+  height: 100%;
+  padding: $padding-height $padding-width * 2;
 
   //left column
   h2 {
@@ -48,8 +48,8 @@
   .status {
     grid-area: status;
   }
-  .home {
-      grid-area: home;
+  .home-button {
+    grid-area: home;
   }
   .webcam-container {
     grid-area: webcam;
@@ -64,5 +64,23 @@
   }
   .next-button {
     grid-area: next;
+  }
+
+  .next-button,
+  .home-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.correct {
+  #webcam-feed {
+    border: 4px solid $main-green;
+  }
+}
+.wrong {
+  #webcam-feed {
+    border: 4px solid $main-red;
   }
 }
