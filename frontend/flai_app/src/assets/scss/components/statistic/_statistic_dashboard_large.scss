@@ -27,13 +27,14 @@
 
   .day-text {
     color: $dark-grey;
+    font-size: $large;
   }
 
   .counter {
     color: $dark-grey;
     margin-top: 2%;
 
-    #days {
+    .days {
       display: flex;
       justify-content: center;
       margin-top: 2%;

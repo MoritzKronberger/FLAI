@@ -31,7 +31,7 @@ const longestStreak = computed(
   </div>
   <div v-if="longestStreak" class="body-medium counter">
     Längste Folge am Stück:
-    <div id="days">
+    <div class="days body-emphasised">
       {{ `${longestStreak} Tag${(longestStreak ?? 0) === 1 ? '' : 'e'}` }}
     </div>
   </div>
