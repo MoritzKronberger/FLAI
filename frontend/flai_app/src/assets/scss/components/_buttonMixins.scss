@@ -76,23 +76,7 @@ $border-radius: 5px;
   }
 }
 
-//specific
-.prim_medium_start_orange {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-white,
-    $main-orange,
-    $main-orange
-  );
-}
-
-.sec_medium_home_blue {
-  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-blue, $main-white, $main-blue);
-}
-
-//prim
+//primary button classes
 .prim_large_button_blue {
   @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-white, $main-blue, $main-blue);
 }
