@@ -2,6 +2,8 @@
   display: none !important;
 }
 
+@import '../components/loading_screen';
+
 .watch-word {
   width: 100vw;
   height: 100vh;
@@ -50,5 +52,16 @@
   .status {
     grid-area: status;
     text-align: center;
+  }
+}
+
+.correct {
+  #webcam-feed {
+    border: 4px solid $main-green;
+  }
+}
+.wrong {
+  #webcam-feed {
+    border: 4px solid $main-red;
   }
 }

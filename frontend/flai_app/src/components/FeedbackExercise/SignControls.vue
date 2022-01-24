@@ -1,9 +1,12 @@
 <template>
   <div class="sign-controls">
     <CustomButton
-      v-if="index > 0"
       label="<"
-      btnclass="back-button"
+      :btnclass="[
+        'back-button',
+        'prim_small_button_blue',
+        index > 0 ? '' : 'inactive-button',
+      ]"
       @click="decreaseIndex"
     />
     <span v-if="index > 0" class="lastLetter">{{
@@ -14,9 +17,12 @@
       signs[index + 1].name.toUpperCase()
     }}</span>
     <CustomButton
-      v-if="index + 1 < signs.length"
       label=">"
-      btnclass="next-button"
+      :btnclass="[
+        'next-button',
+        'prim_small_button_blue',
+        index + 1 < signs.length ? '' : 'inactive-button',
+      ]"
       @click="increaseIndex"
     />
   </div>

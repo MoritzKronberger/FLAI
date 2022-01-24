@@ -16,6 +16,9 @@ $button-Prim-height-Medium: 52px;
 $button-Prim-width-Small: 109px;
 $button-Prim-height-Small: 40px;
 
+// week trends buttons
+$button-trends-week: 25px;
+
 //variables secondary
 $button-Sec-width-Large: 184px;
 $button-Sec-height-Large: 64px;
@@ -275,3 +278,21 @@ $border-radius: 5px;
   min-width: fit-content;
   padding: 2px;
 }
+
+  .week_trends_button {
+    @include import-button(
+      $button-trends-week,
+      $button-trends-week,
+      $font-size-Small,
+      $main-blue,
+      $main-white,
+      $main-blue
+    );
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    &:hover {
+     box-shadow: none;
+     color: $subtle-blue;
+    }
+  }

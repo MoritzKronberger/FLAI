@@ -34,27 +34,47 @@
     padding: $homepage-margin-height $homepage-margin-width;
     display: grid;
     justify-content: center;
-    gap: 1rem;
+    gap: $inner-dashboard-padding;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
+    
     .start-panel {
       background-color: $main-blue;
       grid-column: span 2;
       grid-row: span 2;
+
+      .start-panel-text {
+        .heading-medium {
+          @media (min-width: $S) and (max-width: $M) {
+            font-size: $h3;
+          }
+          @media (max-width: $L) {
+            font-size: $h4;
+          }
+        }
+      }
     }
     .level-panel {
-      border: 5px solid $main-orange;
-      background-color: $main-white;
+      background-color: $subtle-orange;
       grid-column: span 2;
       grid-row: span 2;
       border-radius: 10px;
       @include flex-box(column, center, center);
-      color: $dark-grey;
+      color: $dark-blue;
+
+      .heading-medium {
+        @media (min-width: $S) and (max-width: $M) {
+          font-size: $h3;
+        }
+        @media (max-width: $L) {
+          font-size: $h4;
+        }
+      }
 
       .level-icon {
         height: 50%;
         padding-left: 4%;
-        filter: opacity(70%);
+        filter: $dark-blue-svg;
       }
     }
     .stats-small-panel {
@@ -87,10 +107,6 @@
         grid-column: span 3;
         grid-row: span 3;
       }
-    }
-    @media (min-width: 2450px) {
-      grid-template-columns: repeat(5, 400px);
-      grid-template-rows: repeat(8, 400px);
     }
   }
 }

@@ -33,9 +33,9 @@ function openModalRegister() {
 <template>
   <div v-if="!auth.isAuth" class="landing-page">
     <div class="main">
-      <div class="heading-large">Wilkommen bei FLAI!</div>
+      <div class="heading-large">Willkommen bei FLAI!</div>
       <div class="heading-medium">
-        Lerne mithilfe unserer AI die Grundlagen deutscher Gebärdensprache.
+        Lerne mithilfe unserer KI die Grundlagen der deutschen Gebärdensprache.
       </div>
       <!--<div class="register">
         <custom-button
@@ -77,11 +77,11 @@ function openModalRegister() {
         <custom-button
           label="Start"
           btnclass="prim_small_button_orange"
-          @button-click="redirect('ComingSoon')"
+          @button-click="redirect('LearningExercise')"
         />
       </div>
       <div class="level-panel">
-        <div class="heading-small">Lernfortschritt</div>
+        <div class="heading-medium">Lernfortschritt</div>
         <IconLoader
           :path="`/assets/icons/levels/level_${level}.svg`"
           alt="Level Icon"

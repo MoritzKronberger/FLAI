@@ -6,7 +6,8 @@ export function getFlaiNetResults(
   bufferResults: FlaiNetResults,
   currentSign: string,
   correct: () => void,
-  wrong: () => void
+  wrong: () => void,
+  reset: () => void
 ) {
   const results = store.flainetdata.methods.evaluateResultBuffer(bufferResults)
 
@@ -21,9 +22,11 @@ export function getFlaiNetResults(
         return FeedbackStatus.Wrong
       }
     } else {
+      reset()
       return FeedbackStatus.Detecting
     }
   } else {
+    reset()
     return FeedbackStatus.NoHandDetected
   }
 }

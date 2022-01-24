@@ -1,16 +1,12 @@
 <template>
   <div class="content" vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong">
-      <p class="instruction">
-        Zeige die Gebärde des jeweiligen Buchstabens in die Kamera
-      </p>
       <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
       <Video
         id="video"
         :show-sign="showSign"
         :signs="signs"
         :index="index"
-        :class="feedbackClass"
         @use-hint="showSign = true"
       />
       <Button
@@ -21,8 +17,8 @@
         @button-click="emit('new-word')"
       />
       <p>{{ status }}</p>
-      <div class="column2" :class="feedbackClass">
-        <webcam />
+      <div class="column2">
+        <webcam :borderclass="feedbackClass" />
       </div>
     </div>
   </div>
@@ -63,7 +59,13 @@ const newInputTimeout = computed(
 const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
-const emit = defineEmits(['new-word', 'correct', 'wrong', 'rendered'])
+const emit = defineEmits([
+  'new-word',
+  'correct',
+  'wrong',
+  'waiting',
+  'rendered',
+])
 
 function checkProgress(sign: Sign) {
   if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
@@ -103,6 +105,11 @@ function reEnableInput() {
   inputAccepted.value = true
 }
 
+function reset() {
+  feedbackClass.value = 'waiting'
+  emit('waiting')
+}
+
 async function correct() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
@@ -116,7 +123,7 @@ async function correct() {
       progress
     )
   }
-  feedbackClass.value = 'right'
+  feedbackClass.value = 'correct'
   if (index.value < props.signs.length - 1) {
     index.value++
     console.log('index', index.value)
@@ -127,6 +134,7 @@ async function correct() {
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
     wordComplete.value = true
+    setTimeout(reset, newInputTimeout.value)
   }
   emit('correct')
 }
@@ -154,6 +162,7 @@ async function wrong() {
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
     wordComplete.value = true
+    setTimeout(reset, newInputTimeout.value)
   }
   emit('wrong')
 }
@@ -165,22 +174,11 @@ const onBufferUpdate = (buffer: FlaiNetResults) => {
       buffer,
       props.signs[index.value].name,
       correct,
-      wrong
+      wrong,
+      reset
     )
   }
 }
 
 watchEffect(() => onBufferUpdate(resultBuffer.value))
 </script>
-
-<style>
-div:focus {
-  outline: none;
-}
-.controls {
-  color: blue;
-}
-.waiting {
-  color: grey;
-}
-</style>

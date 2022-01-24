@@ -26,8 +26,6 @@ const renderProgress = (pg: number) => {
     )
   }
   if (progressCircle.value) progressCircle.value.animate(pg)
-  console.log(progressCircle.value)
-  console.log(`${props.statisticText}: ${progress?.value}`)
 }
 
 watchEffect(() => renderProgress(progress?.value ?? 0))
@@ -44,7 +42,7 @@ watchEffect(() => renderProgress(progress?.value ?? 0))
         ></div>
         <div class="body-large statistic-value">{{ statisticValue }}</div>
       </div>
-      <div class="statistic-text">{{ statisticText }}</div>
+      <div class="statistic-text body-medium">{{ statisticText }}</div>
     </div>
   </router-link>
 </template>
