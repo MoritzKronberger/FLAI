@@ -4,7 +4,7 @@
       label="<"
       :btnclass="[
         'back-button',
-        'prim_small_button_blue',
+        'prim_extra_small_button_blue',
         index > 0 ? '' : 'inactive-button',
       ]"
       @click="decreaseIndex"
@@ -20,7 +20,7 @@
       label=">"
       :btnclass="[
         'next-button',
-        'prim_small_button_blue',
+        'prim_extra_small_button_blue',
         index + 1 < signs.length ? '' : 'inactive-button',
       ]"
       @click="increaseIndex"
