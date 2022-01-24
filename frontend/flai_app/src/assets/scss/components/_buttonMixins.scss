@@ -5,7 +5,7 @@ $button-Prim-width-Medium: 115px;
 $button-Prim-height-Medium: 52px;
 $button-Prim-width-Small: 109px;
 $button-Prim-height-Small: 40px;
-$button-Prim-width-start: 93px;
+$button-Prim-width-Start: 93px;
 
 
 // TODO: make smaller buttons
@@ -141,7 +141,7 @@ $button-margin: 5px;
 
 .prim_medium_start_orange {
   @include import-button(
-    $button-Prim-width-start,
+    $button-Prim-width-Start,
     $button-Prim-height-Medium,
     $font-size-Medium,
     $main-white,
