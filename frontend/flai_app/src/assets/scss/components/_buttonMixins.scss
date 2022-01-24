@@ -76,7 +76,7 @@ $border-radius: 5px;
   }
 }
 
-//primary button classes
+//primary-button classes
 .prim_large_button_blue {
   @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-white, $main-blue, $main-blue);
 }
@@ -126,7 +126,7 @@ $border-radius: 5px;
   );
 }
 
-//sec
+//secondary-button classes
 .sec_large_button_blue {
   @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-blue, $main-white, $main-blue);
 }
