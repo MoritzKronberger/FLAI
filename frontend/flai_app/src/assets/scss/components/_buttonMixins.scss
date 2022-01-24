@@ -1,41 +1,56 @@
-//specific var
-$button-Start-width-Medium: 93px;
-$button-Home-width-Medium: 90px;
-$button-Frontside-width-Medium: 81px;
-$button-Hinweis-width-Medium: 103px;
-
-//mini button, under video
-$video-controls-button-width: 3em;
-$video-controls-button-height: 2em;
-
-//variables primary
-$button-Prim-width-Large: 184px;
-$button-Prim-height-Large: 64px;
-$button-Prim-width-Medium: 115px;
-$button-Prim-height-Medium: 52px;
-$button-Prim-width-Small: 109px;
-$button-Prim-height-Small: 40px;
-
-// week trends buttons
-$button-trends-week: 25px;
-
-//variables secondary
-$button-Sec-width-Large: 184px;
-$button-Sec-height-Large: 64px;
-$button-Sec-width-Medium: 142px;
-$button-Sec-height-Medium: 52px;
-$button-Sec-width-Small: 109px;
-$button-Sec-height-Small: 40px;
-
 //font size
 $font-size-Large: 22px;
 $font-size-Medium: 18px;
 $font-size-Small: 14px;
-$button-padding-Large: 10px;
-$button-padding-Medium: 8px;
-$button-padding-Small: 5px;
 $trans-duration: 0.5s;
 $border-radius: 5px;
+
+//$button-padding-Large: 10px;
+//$button-padding-Medium: 8px;
+//$button-padding-Small: 5px;
+
+
+@function buttonWidth($size) {
+  $extra-small-width: 0.4;
+  $base: 100px;
+  $medium-width: 1.2;
+  $large-width: 1.8;
+
+  @if $size == "xs" {
+    @return $base * $extra-small-width;
+  }
+  @if $size == "s" {
+    @return $base;
+  }
+  @if $size == "m" {
+    @return $base * $medium-width;
+  }
+  @if $size == "l" {
+    @return $base * $large-width;
+  }
+}
+
+@function buttonHeight($size) {
+  $extra-small-width: 0.7;
+  $base: 40px;
+  $medium-height: 1.3;
+  $large-height: 1.6;
+
+  @if $size == "xs" {
+    @return $base * $extra-small-width;
+  }
+  @if $size == "s" {
+    @return $base;
+  }
+  @if $size == "m" {
+    @return $base * $medium-height;
+  }
+  @if $size == "l" {
+    @return $base * $large-height;
+  }
+}
+
+
 
 @mixin import-button(
   $width,
@@ -78,8 +93,8 @@ $border-radius: 5px;
 //specific
 .prim_medium_start_orange {
   @include import-button(
-    $button-Start-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-white,
     $main-orange,
@@ -89,8 +104,8 @@ $border-radius: 5px;
 
 .sec_medium_home_blue {
   @include import-button(
-    $button-Home-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-blue,
     $main-white,
@@ -100,8 +115,8 @@ $border-radius: 5px;
 
 .prim_medium_frontside_blue {
   @include import-button(
-    $button-Frontside-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-white,
     $main-blue,
@@ -111,8 +126,8 @@ $border-radius: 5px;
 
 .sec_medium_frontside_blue {
   @include import-button(
-    $button-Frontside-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-blue,
     $main-white,
@@ -122,8 +137,8 @@ $border-radius: 5px;
 
 .sec_medium_hinweis_blue {
   @include import-button(
-    $button-Hinweis-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-blue,
     $main-white,
@@ -134,8 +149,8 @@ $border-radius: 5px;
 //prim
 .prim_large_button_blue {
   @include import-button(
-    $button-Prim-width-Large,
-    $button-Prim-height-Large,
+    buttonWidth("l"),
+    buttonHeight("l"),
     $font-size-Large,
     $main-white,
     $main-blue,
@@ -145,8 +160,8 @@ $border-radius: 5px;
 
 .prim_large_button_orange {
   @include import-button(
-    $button-Prim-width-Large,
-    $button-Prim-height-Large,
+    buttonWidth("l"),
+    buttonHeight("l"),
     $font-size-Large,
     $main-white,
     $main-orange,
@@ -156,8 +171,8 @@ $border-radius: 5px;
 
 .prim_medium_button_blue {
   @include import-button(
-    $button-Prim-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-white,
     $main-blue,
@@ -167,8 +182,8 @@ $border-radius: 5px;
 
 .prim_medium_button_orange {
   @include import-button(
-    $button-Prim-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-white,
     $main-orange,
@@ -178,8 +193,19 @@ $border-radius: 5px;
 
 .prim_small_button_blue {
   @include import-button(
-    $button-Prim-width-Small,
-    $button-Prim-height-Small,
+    buttonWidth("s"),
+    buttonHeight("s"),
+    $font-size-Small,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
+}
+
+.prim_extra_small_button_blue {
+  @include import-button(
+    buttonWidth("xs"),
+    buttonHeight("xs"),
     $font-size-Small,
     $main-white,
     $main-blue,
@@ -189,8 +215,8 @@ $border-radius: 5px;
 
 .prim_small_button_orange {
   @include import-button(
-    $button-Prim-width-Small,
-    $button-Prim-height-Small,
+    buttonWidth("s"),
+    buttonHeight("s"),
     $font-size-Small,
     $main-white,
     $main-orange,
@@ -201,8 +227,8 @@ $border-radius: 5px;
 //sec
 .sec_large_button_blue {
   @include import-button(
-    $button-Sec-width-Large,
-    $button-Sec-height-Large,
+    buttonWidth("l"),
+    buttonHeight("l"),
     $font-size-Large,
     $main-blue,
     $main-white,
@@ -212,8 +238,8 @@ $border-radius: 5px;
 
 .sec_large_button_orange {
   @include import-button(
-    $button-Sec-width-Large,
-    $button-Sec-height-Large,
+    buttonWidth("l"),
+    buttonHeight("l"),
     $font-size-Large,
     $main-orange,
     $main-white,
@@ -223,8 +249,8 @@ $border-radius: 5px;
 
 .sec_medium_button_blue {
   @include import-button(
-    $button-Sec-width-Medium,
-    $button-Sec-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-blue,
     $main-white,
@@ -234,8 +260,8 @@ $border-radius: 5px;
 
 .sec_medium_button_orange {
   @include import-button(
-    $button-Sec-width-Medium,
-    $button-Sec-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-orange,
     $main-white,
@@ -245,8 +271,8 @@ $border-radius: 5px;
 
 .sec_small_button_blue {
   @include import-button(
-    $button-Sec-width-Small,
-    $button-Sec-height-Small,
+    buttonWidth("s"),
+    buttonHeight("s"),
     $font-size-Small,
     $main-blue,
     $main-white,
@@ -256,8 +282,8 @@ $border-radius: 5px;
 
 .sec_small_button_orange {
   @include import-button(
-    $button-Sec-width-Small,
-    $button-Sec-height-Small,
+    buttonWidth("s"),
+    buttonHeight("s"),
     $font-size-Small,
     $main-orange,
     $main-white,
@@ -268,8 +294,8 @@ $border-radius: 5px;
 //TODO fix button
 .video_controls_button_blue {
   @include import-button(
-    $video-controls-button-width,
-    $video-controls-button-height,
+    buttonWidth("xs"),
+    buttonHeight("xs"),
     $font-size-Small,
     $main-blue,
     $main-white,
@@ -281,8 +307,8 @@ $border-radius: 5px;
 
   .week_trends_button {
     @include import-button(
-      $button-trends-week,
-      $button-trends-week,
+      buttonWidth("xs"),
+      buttonHeight("xs"),
       $font-size-Small,
       $main-blue,
       $main-white,
