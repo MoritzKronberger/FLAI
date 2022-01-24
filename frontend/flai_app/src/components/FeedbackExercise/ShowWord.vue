@@ -1,25 +1,35 @@
 <template>
-  <div class="content" vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong">
-      <SignsWithIcons :signs="signs" :index="index" :path="pathToIcon" />
-      <Video
-        id="video"
-        :show-sign="showSign"
-        :signs="signs"
-        :index="index"
-        @use-hint="showSign = true"
+  <div class="show-word">
+    <h2 class="heading-large align-left">Üben</h2>
+    <SignsWithIcons
+      class="current-word"
+      :signs="signs"
+      :index="index"
+      :path="pathToIcon"
+    />
+    <Video
+      :show-sign="showSign"
+      :signs="signs"
+      :index="index"
+      @use-hint="showSign = true"
+    />
+    <p v-if="!wordComplete" class="status body-medium">{{ status }}</p>
+    <webcam :borderclass="feedbackClass" />
+    <div class="home-button">
+      <Button
+        label="Home"
+        btnclass="exit sec_small_button_blue"
+        @click="router.push({ name: 'HomePage' })"
       />
+    </div>
+    <div class="next-button">
       <Button
         v-if="wordComplete"
         id="next"
         label="weiter"
-        btnclass="controls"
+        btnclass="prim_small_button_blue"
         @button-click="emit('new-word')"
       />
-      <p>{{ status }}</p>
-      <div class="column2">
-        <webcam :borderclass="feedbackClass" />
-      </div>
     </div>
   </div>
 </template>
@@ -36,6 +46,9 @@ import { FlaiNetResults } from '../../store/flainetdata'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
 import SignsWithIcons from './SignsWithIcons.vue'
 import Webcam from '../Webcam.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const inputAccepted = ref(true)
 const index = ref(0)
