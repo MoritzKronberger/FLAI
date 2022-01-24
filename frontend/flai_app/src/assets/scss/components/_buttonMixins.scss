@@ -31,9 +31,6 @@ $button-padding-Small: 5px;
 $trans-duration: 0.5s;
 $border-radius: 5px;
 
-//button margins
-$button-margin: 5px;
-
 @mixin import-button(
   $width,
   $height,
@@ -44,7 +41,6 @@ $button-margin: 5px;
 ) {
   width: $width;
   height: $height;
-  margin: $button-margin $button-margin $button-margin 0px;
 
   //text
   @include font(GothamSSm, bold);
