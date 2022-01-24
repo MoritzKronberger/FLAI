@@ -69,10 +69,11 @@
     'heading home'
     'signs status'
     'video webcam'
+    'video webcam'
     'video-controls next';
 
   grid-auto-columns: 1fr;
-  grid-template-rows: 1fr 1fr 65% 1fr;
+  grid-template-rows: auto auto 60% 1fr auto;
 
   .sign-controls {
     grid-area: signs;
