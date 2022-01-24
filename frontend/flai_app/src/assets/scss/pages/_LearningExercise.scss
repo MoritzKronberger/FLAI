@@ -151,6 +151,40 @@
   }
 }
 
+.loading-screen {
+  display: grid;
+  grid-template-areas:
+    'heading home'
+    'loading-screen loading-screen';
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  grid-auto-flow: column;
+
+  column-gap: $padding-width * 2;
+  row-gap: $padding-height;
+
+  width: 100%;
+  height: 100%;
+  padding: $padding-height $padding-width * 2;
+
+  h2 {
+    grid-area: heading;
+  }
+  .loading-screen-wrapper {
+    grid-area: loading-screen;
+  }
+  .home-button {
+    grid-area: home;
+  }
+
+  .home-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
 .correct {
   #webcam-feed {
     border: 4px solid $main-green;
