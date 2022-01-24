@@ -26,7 +26,7 @@
       <div v-if="showSign" class="play-button">
         <CustomButton
           :label="play ? '||' : '&#9658;'"
-          btnclass="video_controls_button_blue"
+          btnclass="prim_extra_small_button_blue"
           @click="togglePlay()"
         />
       </div>
