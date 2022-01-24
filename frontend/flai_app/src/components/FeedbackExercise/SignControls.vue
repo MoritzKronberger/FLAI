@@ -2,11 +2,9 @@
   <div class="sign-controls">
     <CustomButton
       label="<"
-      :btnclass="[
-        'back-button',
-        'prim_small_button_blue',
-        index > 0 ? '' : 'inactive-button',
-      ]"
+      :btnclass="
+        'prim_small_button_blue' + ' ' + (index > 0 ? '' : 'inactive-button')
+      "
       @click="decreaseIndex"
     />
     <span class="letter lastLetter">{{
@@ -20,11 +18,11 @@
     }}</span>
     <CustomButton
       label=">"
-      :btnclass="[
-        'next-button',
-        'prim_small_button_blue',
-        index + 1 < signs.length ? '' : 'inactive-button',
-      ]"
+      :btnclass="
+        'prim_small_button_blue' +
+        ' ' +
+        (index + 1 < signs.length ? '' : 'inactive-button')
+      "
       @click="increaseIndex"
     />
   </div>
