@@ -115,7 +115,7 @@ const options = computed(() => ({
         btnclass="prim_extra_small_button_blue"
         @button-click="changeWeek('subtract', 1, 'weeks')"
       />
-      <span class="body-small month"
+      <span class="body-medium month"
         >{{
           moment(date)
             .clone()
@@ -123,7 +123,7 @@ const options = computed(() => ({
             .format('DD.MM.YYYY') + ' bis '
         }}
       </span>
-      <span class="body-small">{{ moment(date).format('DD.MM.YYYY') }}</span>
+      <span class="body-medium">{{ moment(date).format('DD.MM.YYYY') }}</span>
       <custom-button
         label=">"
         btnclass="prim_extra_small_button_blue"

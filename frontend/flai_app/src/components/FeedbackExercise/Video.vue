@@ -1,43 +1,41 @@
 <template>
-  <div class="video-column">
-    <div v-if="showSign" class="video">
-      <video
-        ref="videoPlayer"
-        :class="rightHanded ? 'mirrored' : ''"
-        :src="videoSource"
-        type="video/webm"
-        autoplay
-        loop
-      />
-    </div>
-    <div v-if="showSign" class="video-controls">
-      <div v-if="showSign" class="perspective-buttons">
-        <CustomButton
-          label="Front"
-          btnclass="sec_small_button_blue"
-          @click="frontPerspective()"
-        />
-        <CustomButton
-          label="Seite"
-          btnclass="sec_small_button_blue"
-          @click="sidePerspective()"
-        />
-      </div>
-      <div v-if="showSign" class="play-button">
-        <CustomButton
-          :label="play ? '||' : '&#9658;'"
-          btnclass="prim_extra_small_button_blue"
-          @click="togglePlay()"
-        />
-      </div>
-    </div>
-    <CustomButton
-      v-else
-      label="Hinweis"
-      btnclass="sec_small_button_blue"
-      @click="emit('useHint')"
+  <div v-if="showSign" class="video">
+    <video
+      ref="videoPlayer"
+      :class="rightHanded ? 'mirrored' : ''"
+      :src="videoSource"
+      type="video/webm"
+      autoplay
+      loop
     />
   </div>
+  <div v-if="showSign" class="video-controls">
+    <div v-if="showSign" class="perspective-buttons">
+      <CustomButton
+        label="Front"
+        btnclass="sec_small_button_blue"
+        @click="frontPerspective()"
+      />
+      <CustomButton
+        label="Seite"
+        btnclass="sec_small_button_blue"
+        @click="sidePerspective()"
+      />
+    </div>
+    <div v-if="showSign" class="play-button">
+      <CustomButton
+        :label="play ? '||' : '&#9658;'"
+        btnclass="video_controls_button_blue"
+        @click="togglePlay()"
+      />
+    </div>
+  </div>
+  <CustomButton
+    v-else
+    label="Hinweis"
+    btnclass="sec_small_button_blue"
+    @click="emit('useHint')"
+  />
 </template>
 
 <script setup lang="ts">
