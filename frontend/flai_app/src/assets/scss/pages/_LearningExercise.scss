@@ -76,6 +76,78 @@
   }
 }
 
+.show-word {
+  display: grid;
+  grid-template-areas:
+    'heading home'
+    '. current-word'
+    'video webcam'
+    'video-controls webcam'
+    '. status-next';
+
+  grid-template-columns: 1fr 60%;
+  grid-template-rows: auto auto 50% 1fr auto;
+  grid-auto-flow: column;
+
+  column-gap: $padding-width * 2;
+  row-gap: $padding-height;
+
+  width: 100%;
+  height: 100%;
+  padding: $padding-height $padding-width * 2;
+
+  //left column
+  h2 {
+    grid-area: heading;
+  }
+  .current-word {
+    grid-area: current-word;
+  }
+  .video {
+    grid-area: video;
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .video-controls {
+    grid-area: video-controls;
+  }
+
+  //right column
+  .status {
+    grid-area: status-next;
+  }
+  .home-button {
+    grid-area: home;
+  }
+  .webcam-container {
+    grid-area: webcam;
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .next-button {
+    grid-area: status-next;
+  }
+
+  .next-button,
+  .home-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
 .correct {
   #webcam-feed {
     border: 4px solid $main-green;
