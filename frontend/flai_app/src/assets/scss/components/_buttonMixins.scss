@@ -5,11 +5,6 @@ $font-size-Small: 14px;
 $trans-duration: 0.5s;
 $border-radius: 5px;
 
-//$button-padding-Large: 10px;
-//$button-padding-Medium: 8px;
-//$button-padding-Small: 5px;
-
-
 @function buttonWidth($size) {
   $extra-small-width: 0.4;
   $base: 100px;
