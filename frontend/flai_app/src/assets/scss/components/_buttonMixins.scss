@@ -45,16 +45,7 @@ $border-radius: 5px;
   }
 }
 
-
-
-@mixin import-button(
-  $width,
-  $height,
-  $font-size,
-  $color-text,
-  $color-background,
-  $border-color
-) {
+@mixin import-button($width, $height, $font-size, $color-text, $color-background, $border-color) {
   width: $width;
   height: $height;
 
@@ -98,59 +89,12 @@ $border-radius: 5px;
 }
 
 .sec_medium_home_blue {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
-}
-
-.prim_medium_frontside_blue {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-white,
-    $main-blue,
-    $main-blue
-    );
-}
-
-.sec_medium_frontside_blue {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-blue,
-    $main-white,
-    $main-blue
-    );
-}
-
-.sec_medium_hinweis_blue {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
+  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-blue, $main-white, $main-blue);
 }
 
 //prim
 .prim_large_button_blue {
-  @include import-button(
-    buttonWidth("l"),
-    buttonHeight("l"),
-    $font-size-Large,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-white, $main-blue, $main-blue);
 }
 
 .prim_large_button_orange {
@@ -165,14 +109,7 @@ $border-radius: 5px;
 }
 
 .prim_medium_button_blue {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-white, $main-blue, $main-blue);
 }
 
 .prim_medium_button_orange {
@@ -187,25 +124,11 @@ $border-radius: 5px;
 }
 
 .prim_small_button_blue {
-  @include import-button(
-    buttonWidth("s"),
-    buttonHeight("s"),
-    $font-size-Small,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-white, $main-blue, $main-blue);
 }
 
 .prim_extra_small_button_blue {
-  @include import-button(
-    buttonWidth("xs"),
-    buttonHeight("xs"),
-    $font-size-Small,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("xs"), buttonHeight("xs"), $font-size-Small, $main-white, $main-blue, $main-blue);
 }
 
 .prim_small_button_orange {
@@ -221,14 +144,7 @@ $border-radius: 5px;
 
 //sec
 .sec_large_button_blue {
-  @include import-button(
-    buttonWidth("l"),
-    buttonHeight("l"),
-    $font-size-Large,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
+  @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-blue, $main-white, $main-blue);
 }
 
 .sec_large_button_orange {
@@ -243,14 +159,7 @@ $border-radius: 5px;
 }
 
 .sec_medium_button_blue {
-  @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
+  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-blue, $main-white, $main-blue);
 }
 
 .sec_medium_button_orange {
@@ -265,14 +174,7 @@ $border-radius: 5px;
 }
 
 .sec_small_button_blue {
-  @include import-button(
-    buttonWidth("s"),
-    buttonHeight("s"),
-    $font-size-Small,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
+  @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-blue, $main-white, $main-blue);
 }
 
 .sec_small_button_orange {
@@ -285,35 +187,3 @@ $border-radius: 5px;
     $main-orange
   );
 }
-
-//TODO fix button
-.video_controls_button_blue {
-  @include import-button(
-    buttonWidth("xs"),
-    buttonHeight("xs"),
-    $font-size-Small,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
-  min-width: fit-content;
-  padding: 2px;
-}
-
-  .week_trends_button {
-    @include import-button(
-      buttonWidth("xs"),
-      buttonHeight("xs"),
-      $font-size-Small,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-    margin: 0px;
-    padding: 0px;
-    border: none;
-    &:hover {
-     box-shadow: none;
-     color: $subtle-blue;
-    }
-  }
