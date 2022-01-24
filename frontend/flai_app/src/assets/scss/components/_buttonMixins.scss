@@ -1,3 +1,13 @@
+//specific var
+$button-Start-width-Medium: 93px;
+$button-Home-width-Medium: 90px;
+$button-Frontside-width-Medium: 81px;
+$button-Hinweis-width-Medium: 103px;
+
+//mini button, under video
+$video-controls-button-width: 3em;
+$video-controls-button-height: 2em;
+
 //variables primary
 $button-Prim-width-Large: 154px;
 $button-Prim-height-Large: 64px;
@@ -5,13 +15,6 @@ $button-Prim-width-Medium: 115px;
 $button-Prim-height-Medium: 52px;
 $button-Prim-width-Small: 109px;
 $button-Prim-height-Small: 40px;
-$button-Prim-width-Start: 93px;
-
-
-// TODO: make smaller buttons
-//mini button, under video
-$video-controls-button-width:  3em;
-$video-controls-button-height:  2em;
 
 //variables secondary
 $button-Sec-width-Large: 184px;
@@ -69,6 +72,63 @@ $border-radius: 5px;
   }
 }
 
+//specific
+.prim_medium_start_orange {
+  @include import-button(
+    $button-Start-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+.sec_medium_home_blue {
+  @include import-button(
+    $button-Home-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
+}
+
+.prim_medium_frontside_blue {
+  @include import-button(
+    $button-Frontside-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-white,
+    $main-blue,
+    $main-blue
+    );
+}
+
+.sec_medium_frontside_blue {
+  @include import-button(
+    $button-Frontside-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-blue,
+    $main-white,
+    $main-blue
+    );
+}
+
+.sec_medium_hinweis_blue {
+  @include import-button(
+    $button-Hinweis-width-Medium,
+    $button-Prim-height-Medium,
+    $font-size-Medium,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
+}
+
+//prim
 .prim_large_button_blue {
   @include import-button(
     $button-Prim-width-Large,
@@ -135,18 +195,72 @@ $border-radius: 5px;
   );
 }
 
-.prim_medium_start_orange {
+//sec
+.sec_large_button_blue {
   @include import-button(
-    $button-Prim-width-Start,
-    $button-Prim-height-Medium,
-    $font-size-Medium,
+    $button-Sec-width-Large,
+    $button-Sec-height-Large,
+    $font-size-Large,
+    $main-blue,
     $main-white,
+    $main-blue
+  );
+}
+
+.sec_large_button_orange {
+  @include import-button(
+    $button-Sec-width-Large,
+    $button-Sec-height-Large,
+    $font-size-Large,
     $main-orange,
+    $main-white,
     $main-orange
   );
 }
 
+.sec_medium_button_blue {
+  @include import-button(
+    $button-Sec-width-Medium,
+    $button-Sec-height-Medium,
+    $font-size-Medium,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
+}
 
+.sec_medium_button_orange {
+  @include import-button(
+    $button-Sec-width-Medium,
+    $button-Sec-height-Medium,
+    $font-size-Medium,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}
+
+.sec_small_button_blue {
+  @include import-button(
+    $button-Sec-width-Small,
+    $button-Sec-height-Small,
+    $font-size-Small,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
+}
+
+.sec_small_button_orange {
+  @include import-button(
+    $button-Sec-width-Small,
+    $button-Sec-height-Small,
+    $font-size-Small,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}
 
 //TODO fix button
 .video_controls_button_blue {
@@ -161,66 +275,3 @@ $border-radius: 5px;
   min-width: fit-content;
   padding: 2px;
 }
-
-.sec_large_button_blue {
-    @include import-button(
-      $button-Sec-width-Large,
-      $button-Sec-height-Large,
-      $font-size-Large,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-  }
-  .sec_large_button_orange {
-    @include import-button(
-      $button-Sec-width-Large,
-      $button-Sec-height-Large,
-      $font-size-Large,
-      $main-orange,
-      $main-white,
-      $main-orange
-    );
-  }
-
-  .sec_medium_button_blue {
-    @include import-button(
-      $button-Sec-width-Medium,
-      $button-Sec-height-Medium,
-      $font-size-Medium,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-  }
-  .sec_medium_button_orange {
-    @include import-button(
-      $button-Sec-width-Medium,
-      $button-Sec-height-Medium,
-      $font-size-Medium,
-      $main-orange,
-      $main-white,
-      $main-orange
-    );
-  }
-
-  .sec_small_button_blue {
-    @include import-button(
-      $button-Sec-width-Small,
-      $button-Sec-height-Small,
-      $font-size-Small,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-  }
-  .sec_small_button_orange {
-    @include import-button(
-      $button-Sec-width-Small,
-      $button-Sec-height-Small,
-      $font-size-Small,
-      $main-orange,
-      $main-white,
-      $main-orange
-    );
-  }
