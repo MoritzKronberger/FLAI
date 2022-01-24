@@ -53,7 +53,7 @@ function openModalRegister() {
   </header>
 
   <body>
-    <div id="first" class="bg-blue">
+    <div class="first-section">
       <div class="main-left">
         <div class="heading-large">Lerne die deutsche Gebärdensprache</div>
         <div class="text body-medium">
@@ -72,7 +72,7 @@ function openModalRegister() {
       </div>
     </div>
 
-    <div class="bg-white">
+    <div class="second-section">
       <div class="main-left">
         <div id="skip"></div>
         <IconLoader
@@ -91,11 +91,9 @@ function openModalRegister() {
       </div>
     </div>
 
-    <div class="bg-blue">
+    <div class="third-section">
       <div class="main-left">
-        <div class="heading-large">
-          Lernfortschritt wird automatisch an dein Tempo angepasst
-        </div>
+        <div class="heading-large">Automatisches Lerntempo</div>
         <div class="text body-medium">
           Wir haben in unserer Software ein
           <span class="body-emphasised">Levelsystem</span> eingebaut das sich an
@@ -115,8 +113,14 @@ function openModalRegister() {
       </div>
     </div>
 
-    <div class="bg-white">
-      <div class="main-left"></div>
+    <div class="end-section">
+      <div class="main-left">
+        <IconLoader
+          path="/assets/landingPage/second.png"
+          alt="FLAI woman sign language"
+          element-class="img"
+        />
+      </div>
       <div class="main-right">
         <div class="heading-large">FLAI ist ein Studentenprojekt</div>
         <div class="text body-medium">
