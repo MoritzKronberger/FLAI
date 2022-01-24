@@ -30,12 +30,13 @@
       />
     </div>
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="sec_small_button_blue"
-    @click="emit('useHint')"
-  />
+  <div v-else class="hint-container">
+    <CustomButton
+      label="Hinweis"
+      btnclass="sec_small_button_blue"
+      @click="emit('useHint')"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">

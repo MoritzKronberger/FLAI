@@ -114,6 +114,9 @@
       height: 100%;
     }
   }
+  .hint-container {
+    grid-area: video;
+  }
   .video-controls {
     grid-area: video-controls;
   }
