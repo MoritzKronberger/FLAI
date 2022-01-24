@@ -5,32 +5,31 @@
   height: 100vh;
 }
 
-.watch-word {
+.exercise-grid {
   display: grid;
-  grid-template-areas:
-    'heading home'
-    'signs status'
-    'video webcam'
-    'video-controls next';
-
-  grid-auto-columns: 1fr;
-  grid-template-rows: 1fr 1fr 65% 1fr;
   grid-auto-flow: column;
 
   column-gap: $padding-width * 2;
   row-gap: $padding-height;
-
   width: 100%;
   height: 100%;
   padding: $padding-height $padding-width * 2;
 
-  //left column
   h2 {
     grid-area: heading;
   }
-  .sign-controls {
-    grid-area: signs;
+  .home-button {
+    grid-area: home;
   }
+  .home-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.watch-word,
+.show-word {
   .video {
     grid-area: video;
     width: 100%;
@@ -46,13 +45,6 @@
     grid-area: video-controls;
   }
 
-  //right column
-  .status {
-    grid-area: status;
-  }
-  .home-button {
-    grid-area: home;
-  }
   .webcam-container {
     grid-area: webcam;
     width: 100%;
@@ -64,20 +56,38 @@
       height: 100%;
     }
   }
-  .next-button {
-    grid-area: next;
-  }
 
-  .next-button,
-  .home-button {
+  .next-button {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
   }
 }
 
+.watch-word {
+  grid-template-areas:
+    'heading home'
+    'signs status'
+    'video webcam'
+    'video-controls next';
+
+  grid-auto-columns: 1fr;
+  grid-template-rows: 1fr 1fr 65% 1fr;
+
+  .sign-controls {
+    grid-area: signs;
+  }
+
+  .status {
+    grid-area: status;
+  }
+
+  .next-button {
+    grid-area: next;
+  }
+}
+
 .show-word {
-  display: grid;
   grid-template-areas:
     'heading home'
     '. current-word'
@@ -87,101 +97,31 @@
 
   grid-template-columns: 1fr 60%;
   grid-template-rows: auto auto 50% 1fr auto;
-  grid-auto-flow: column;
 
-  column-gap: $padding-width * 2;
-  row-gap: $padding-height;
-
-  width: 100%;
-  height: 100%;
-  padding: $padding-height $padding-width * 2;
-
-  //left column
-  h2 {
-    grid-area: heading;
-  }
   .current-word {
     grid-area: current-word;
-  }
-  .video {
-    grid-area: video;
-    width: 100%;
-    height: 100%;
-
-    video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-    }
   }
   .hint-container {
     grid-area: video;
   }
-  .video-controls {
-    grid-area: video-controls;
-  }
-
-  //right column
   .status {
     grid-area: status-next;
-  }
-  .home-button {
-    grid-area: home;
-  }
-  .webcam-container {
-    grid-area: webcam;
-    width: 100%;
-    height: 100%;
-
-    video {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-    }
   }
   .next-button {
     grid-area: status-next;
   }
-
-  .next-button,
-  .home-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
 }
 
 .loading-screen {
-  display: grid;
   grid-template-areas:
     'heading home'
     'loading-screen loading-screen';
 
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
-  grid-auto-flow: column;
 
-  column-gap: $padding-width * 2;
-  row-gap: $padding-height;
-
-  width: 100%;
-  height: 100%;
-  padding: $padding-height $padding-width * 2;
-
-  h2 {
-    grid-area: heading;
-  }
   .loading-screen-wrapper {
     grid-area: loading-screen;
-  }
-  .home-button {
-    grid-area: home;
-  }
-
-  .home-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="show-word">
+  <div class="show-word exercise-grid">
     <h2 class="heading-large align-left">Üben</h2>
     <SignsWithIcons
       class="current-word"

@@ -6,7 +6,7 @@
       @watch-word="currentlyWatchWord = true"
       @show-word="currentlyWatchWord = false"
     />
-    <div v-else class="loading-screen">
+    <div v-else class="loading-screen exercise-grid">
       <h2 class="heading-large">Lektion - Buchstabieren</h2>
       <div class="loading-screen-wrapper">
         <div class="loading-screen-container">
