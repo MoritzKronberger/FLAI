@@ -6,13 +6,17 @@ $trans-duration: 0.5s;
 $border-radius: 5px;
 
 @function buttonWidth($size) {
-  $extra-small-width: 0.4;
+  $xxs-small-width: 0.3;
+  $xs-small-width: 0.4;
   $base: 100px;
   $medium-width: 1.2;
   $large-width: 1.8;
 
+  @if $size == "xxs" {
+    @return $base * $xxs-small-width;
+  }
   @if $size == "xs" {
-    @return $base * $extra-small-width;
+    @return $base * $xs-small-width;
   }
   @if $size == "s" {
     @return $base;
@@ -26,13 +30,17 @@ $border-radius: 5px;
 }
 
 @function buttonHeight($size) {
-  $extra-small-width: 0.7;
+  $xxs-small-height: 0.5;
+  $xs-small-height: 0.7;
   $base: 40px;
   $medium-height: 1.3;
   $large-height: 1.6;
 
+  @if $size == "xxs" {
+    @return $base * $xxs-small-height;
+  }
   @if $size == "xs" {
-    @return $base * $extra-small-width;
+    @return $base * $xs-small-height;
   }
   @if $size == "s" {
     @return $base;
@@ -111,8 +119,12 @@ $border-radius: 5px;
   @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-white, $main-blue, $main-blue);
 }
 
-.prim_extra_small_button_blue {
+.prim_xs_small_button_blue {
   @include import-button(buttonWidth("xs"), buttonHeight("xs"), $font-size-Small, $main-white, $main-blue, $main-blue);
+}
+
+.prim_xxs_small_button_blue {
+  @include import-button(buttonWidth("xxs"), buttonHeight("xxs"), $font-size-Small, $main-white, $main-blue, $main-blue);
 }
 
 .prim_small_button_orange {
