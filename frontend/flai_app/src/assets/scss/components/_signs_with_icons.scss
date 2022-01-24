@@ -2,34 +2,37 @@ $left-column-width: 35%;
 $right-column-width: calc(0.8 * (100vh - 2 * $margin-width));
 
 .sign-with-icon {
-    padding: 1em 0;
-    position: absolute;
-    background-color: $transparent-white;
-    left: $left-column-width;
-    width: $right-column-width;
-    overflow: visible;
-    z-index: 1;
-    border-radius: $border-radius $border-radius 0px 0px;
+  display: flex;
+  justify-content: center;
+
+  .sign-with-icon-container {
+    width: 70%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 
     .item {
+      flex-basis: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
 
       .feedback-icon {
         filter: $main-black-svg;
+        width: 35%;
+        height: auto;
+        aspect-ratio: 1/1;
+        margin-left: -25%;
+      }
+    }
+
+    .current-letter {
+      .feedback-icon {
+        width: 60%;
       }
 
-      span {
-        margin: 0 0.5em;
-        color: $main-black;
-      }
-
-      .currentLetter {
-        font-weight: 800;
-        font-size: 40px;
+      div {
+        font-weight: bold;
       }
     }
   }
+}
