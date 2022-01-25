@@ -32,7 +32,7 @@ function openModalRegister() {
       <div class="login">
         <custom-button
           label="Login"
-          btnclass="sec_medium_button_blue"
+          btnclass="sec_large_button_blue"
           @button-click="showLogin = true"
         />
       </div>
@@ -42,7 +42,7 @@ function openModalRegister() {
       <div class="register">
         <custom-button
           label="Registrieren"
-          btnclass="prim_medium_button_blue"
+          btnclass="prim_large_button_blue"
           @button-click="showRegister = true"
         />
       </div>
