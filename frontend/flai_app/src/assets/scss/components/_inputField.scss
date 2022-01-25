@@ -1,31 +1,25 @@
-@mixin import_inputField($status, $color) {
-  width: $input-button-width-m;
-  height: $input-button-height-m;
-  border-color: $color;
-  border-style: solid;
-  border-radius: 5px;
-  padding-left: 5px;
-  font-size: $font-size-m;
-  outline: none;
-
-  &:hover {
-    border-color: $main-blue;
+.default-labeled-input {
+  .label {
+    margin-bottom: $padding-s;
+    line-height: 1rem;
   }
-
-  &:active {
+  .default_input_field {
+    min-width: $input-button-width-m;
+    min-height: $input-button-height-m;
     border-color: $main-blue;
-    color: $main-black;
+    border-style: solid;
+    border-radius: $border-radius-s;
+    padding: $padding-s;
+    font-size: $font-size-m;
+    outline: none;
+  
+    &:hover {
+      border-color: $main-blue;
+    }
+  
+    &:active {
+      border-color: $main-blue;
+      color: $main-black;
+    }
   }
-}
-
-.default_input_field {
-  @include import_inputField(default, $light-grey);
-}
-
-.success_input_field {
-  @include import_inputField(success, $main-green);
-}
-
-.error_input_field {
-  @include import_inputField(error, $main-red);
 }
