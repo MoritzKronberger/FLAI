@@ -1,8 +1,8 @@
 $trans-duration: 0.5s;
 
-@mixin import-button($width, $height, $font-size, $color-text, $color-background, $border-color) {
-  width: $width;
-  height: $height;
+@mixin import-button($width, $height, $padding, $font-size, $color-text, $color-background, $border-color) {
+  min-width: $width;
+  min-height: $height;
 
   //text
   @include font(GothamSSm, bold);
@@ -13,8 +13,10 @@ $trans-duration: 0.5s;
   //border
   border-radius: $border-radius-s;
   border-style: solid;
-  border-width: 3px;
+  border-width: $line-width-m;
   border-color: $border-color;
+
+  padding: $padding;
 
   //mouse cursor changes to a pointy finger
   cursor: pointer;
@@ -33,14 +35,23 @@ $trans-duration: 0.5s;
 
 //primary-button classes
 .prim_large_button_blue {
-  @include import-button($input-button-width-l, $input-button-height-l, $font-size-base, $main-white, $main-blue, $main-blue);
+  @include import-button(
+    $input-button-width-l,
+    $input-button-height-l,
+    $padding-s,
+    $font-size-m,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
 }
 
 .prim_large_button_orange {
   @include import-button(
     $input-button-width-l,
     $input-button-height-l,
-    $font-size-base,
+    $padding-s,
+    $font-size-m,
     $main-white,
     $main-orange,
     $main-orange
@@ -48,14 +59,23 @@ $trans-duration: 0.5s;
 }
 
 .prim_medium_button_blue {
-  @include import-button($input-button-width-m, $input-button-width-m, $font-size-base, $main-white, $main-blue, $main-blue);
+  @include import-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-s,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
 }
 
 .prim_medium_button_orange {
   @include import-button(
     $input-button-width-m,
     $input-button-height-m,
-    $font-size-base,
+    $padding-s,
+    $font-size-s,
     $main-white,
     $main-orange,
     $main-orange
@@ -63,14 +83,23 @@ $trans-duration: 0.5s;
 }
 
 .prim_small_button_blue {
-  @include import-button($input-button-width-s, $input-button-height-s, $font-size-base, $main-white, $main-blue, $main-blue);
+  @include import-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
 }
 
 .prim_small_button_orange {
   @include import-button(
     $input-button-width-s,
     $input-button-height-s,
-    $font-size-base,
+    $padding-s,
+    $font-size-s,
     $main-white,
     $main-orange,
     $main-orange
@@ -79,13 +108,22 @@ $trans-duration: 0.5s;
 
 //secondary-button classes
 .sec_large_button_blue {
-  @include import-button($input-button-width-l, $input-button-height-l, $font-size-base, $main-blue, $main-white, $main-blue);
+  @include import-button(
+    $input-button-width-l,
+    $input-button-height-l,
+    $padding-s,
+    $font-size-base,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
 }
 
 .sec_large_button_orange {
   @include import-button(
     $input-button-width-l,
     $input-button-height-l,
+    $padding-s,
     $font-size-base,
     $main-orange,
     $main-white,
@@ -94,14 +132,23 @@ $trans-duration: 0.5s;
 }
 
 .sec_medium_button_blue {
-  @include import-button($input-button-width-m, $input-button-height-m, $font-size-base, $main-blue, $main-white, $main-blue);
+  @include import-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-s,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
 }
 
 .sec_medium_button_orange {
   @include import-button(
     $input-button-width-m,
     $input-button-height-m,
-    $font-size-base,
+    $padding-s,
+    $font-size-s,
     $main-orange,
     $main-white,
     $main-orange
@@ -109,14 +156,23 @@ $trans-duration: 0.5s;
 }
 
 .sec_small_button_blue {
-  @include import-button($input-button-width-s, $input-button-height-s, $font-size-base, $main-blue, $main-white, $main-blue);
+  @include import-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
 }
 
 .sec_small_button_orange {
   @include import-button(
     $input-button-width-s,
     $input-button-height-s,
-    $font-size-base,
+    $padding-s,
+    $font-size-s,
     $main-orange,
     $main-white,
     $main-orange

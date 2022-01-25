@@ -23,12 +23,12 @@ const buttonClick = (): void => {
   <div>
     <h1>Buttons</h1>
     <custom-button
-      label="Prim S"
+      label=""
       btnclass="prim_small_button_blue"
       @button-click="buttonClick"
     />
     <custom-button
-      label="Prim S"
+      label=""
       btnclass="prim_small_button_orange"
       @button-click="buttonClick"
     />
@@ -38,7 +38,7 @@ const buttonClick = (): void => {
       @button-click="buttonClick"
     />
     <custom-button
-      label="Prim M"
+      label="Prim L"
       btnclass="prim_medium_button_orange"
       @button-click="buttonClick"
     />
@@ -54,12 +54,12 @@ const buttonClick = (): void => {
     />
     <div>Test Button click count is: {{ clickCount }}</div>
     <custom-button
-      label="Sec S"
+      label=""
       btnclass="sec_small_button_blue"
       @button-click="buttonClick"
     />
     <custom-button
-      label="Sec S"
+      label=""
       btnclass="sec_small_button_orange"
       @button-click="buttonClick"
     />
