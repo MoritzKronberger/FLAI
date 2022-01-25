@@ -61,7 +61,6 @@ function openModalRegister() {
           und bekomme direktes Feedback über die Kameraausgabe. Lerne so
           effizient und selbstbewusst die deutsche Gebärdensprache.
         </div>
-        <a class="prim_large_button_blue skip-to" href="#skip">Mehr erfahren</a>
       </div>
       <div class="main-right">
         <IconLoader
