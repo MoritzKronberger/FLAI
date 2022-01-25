@@ -17,8 +17,8 @@ const onInput = (e: Event): void => {
 </script>
 
 <template>
-  <div :class="componentClass">
-    <label :for="labelName" class="body-medium">
+  <div :class="componentClass ?? 'default-labeled-input'">
+    <label v-if="labelName" :for="labelName" class="body-medium">
       <div class="label">{{ labelName }}</div>
       <input
         :value="modelValue"
