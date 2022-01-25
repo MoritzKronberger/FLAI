@@ -107,16 +107,7 @@ body {
     }
 }
 
-.main-right .img {
-    width: 100%;
-    height: auto;
-    @include media-query("S") {
-        width: 80%;
-        height: auto;
-    }
-}
-
-.main-left .img {
+:is(.main-left, .main-right)  .img {
     width: 100%;
     height: auto;
     @include media-query("S") {
@@ -137,7 +128,7 @@ body {
     padding: $padding-m $padding-l;
     color: $light-grey;
     font-size: $font-size-s;
-    
+
     a {
         width: fit-content;
         color: $light-grey;
