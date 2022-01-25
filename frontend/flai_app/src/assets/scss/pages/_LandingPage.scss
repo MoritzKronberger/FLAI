@@ -10,7 +10,7 @@ body {
     padding: $padding-m;
     background-color: rgba(255, 255, 255, 0.8);
 
-    @include media-query('S') {
+    @include media-query("S") {
         flex-direction: column;
         justify-content: space-between;
         padding: $padding-m;
@@ -20,7 +20,7 @@ body {
     #buttons {
         height: fit-content;
         @include flex-box(row, flex-end, center, 0vh 1vw);
-        @include media-query('S') {
+        @include media-query("S") {
             justify-content: center;
         }
     }
@@ -68,8 +68,8 @@ body {
 .end-section {
     @include flex-box(row, center, center, 0 $margin-l);
     width: 100%;
-    @include media-query('S') {
-        flex-flow: column;
+    @include media-query("S") {
+        flex-direction: column;
         gap: $margin-m 0;
         height: 100%;
         padding: $padding-m 0;
@@ -85,7 +85,7 @@ body {
 
 .main-left,
 .main-right {
-    @include media-query('S') {
+    @include media-query("S") {
         width: 70%;
         padding: $padding-m;
         row-gap: $margin-s;
@@ -102,7 +102,7 @@ body {
     color: $dark-grey;
     width: 100%;
     line-height: 1.9;
-    @include media-query('S') {
+    @include media-query("S") {
         text-align: justify;
     }
 }
@@ -110,7 +110,7 @@ body {
 .main-right .img {
     width: 100%;
     height: auto;
-    @include media-query('S') {
+    @include media-query("S") {
         width: 80%;
         height: auto;
     }
@@ -119,12 +119,11 @@ body {
 .main-left .img {
     width: 100%;
     height: auto;
-    @include media-query('S') {
+    @include media-query("S") {
         width: 80%;
         height: auto;
     }
 }
-
 
 #line {
     width: 100%;
@@ -133,21 +132,16 @@ body {
 }
 
 #footer {
-    padding: $padding-m $padding-l;
     @include flex-box(row, flex-end, center, 0 $margin-l);
-
+    @include font(GothamSSm, medium);
+    padding: $padding-m $padding-l;
     color: $light-grey;
     font-size: $font-size-s;
-    @include font(GothamSSm, medium);
-
-    a:link,
-    a:visited,
-    a:link:active,
-    a:visited:active {
+    
+    a {
         width: fit-content;
+        color: $light-grey;
         text-decoration: none;
         cursor: pointer;
-        color: $light-grey;
-        @include font(GothamSSm, medium);
     }
 }
