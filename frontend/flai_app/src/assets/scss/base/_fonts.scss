@@ -40,3 +40,9 @@
   font-size: $font-size-m;
   line-height: 1.5;
 }
+
+.body-small {
+  font-size: $font-size-s;
+  @include font(GothamSSm, book);
+  line-height: 1.7;
+}

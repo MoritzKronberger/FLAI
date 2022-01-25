@@ -52,16 +52,15 @@ function onclick() {
 
 <template>
   <div class="login-form-container">
-    <div class="form-item">
-      <IconLoader
-        path="/assets/logos/logo.svg"
-        alt="FLAI Icon"
-        element-class="flai-logo"
-      />
-      <div class="center-text body-small">
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo"
+    />
+    <div class="form-items">
+      <div class="lead-paragraph center-text body-small">
         Melde dich an, um die deutsche Gebärdensprache zu erlernen.
       </div>
-      <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
@@ -77,16 +76,18 @@ function onclick() {
           element-class="default_input_field input-form-primary"
           custom-type="password"
         />
-        <custom-button
-          label="Login"
-          btnclass="button-form-primary prim_small_button_blue"
-          @button-click="submit"
-        />
+        <div class="button-container">
+          <custom-button
+            label="Login"
+            btnclass="button-form-primary prim_small_button_blue"
+            @button-click="submit"
+          />
+        </div>
       </form>
       <div class="divider-line"></div>
       <div class="bottom-paragraph center-text body-small">
         Du hast noch keinen Account?
-        <span id="registrieren" @click="onclick">Registrieren</span>
+        <span class="link" @click="onclick">Registrieren</span>
       </div>
     </div>
   </div>
@@ -94,21 +95,4 @@ function onclick() {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
-
-.body-small {
-  font-size: $font-size-base * 0.75;
-  @include font(GothamSSm, medium);
-  color: $dark-grey;
-  line-height: 1.7;
-}
-
-#registrieren {
-  cursor: pointer;
-  color: $main-blue;
-}
-
-.flai-logo {
-  width: 60%;
-  margin-bottom: 16px;
-}
 </style>

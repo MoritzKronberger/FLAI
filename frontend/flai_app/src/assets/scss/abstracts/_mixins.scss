@@ -1,5 +1,4 @@
 // media queries
-
 @mixin media-query($canvas) {
   @if $canvas == S {
     @media only screen and (max-width: $S) {
@@ -61,7 +60,6 @@
 }
 
 // font import mixin
-
 @mixin import-fonts($font-stack: $base-font-stack) {
   @each $group, $variations in $used-fonts {
     @each $variant in $variations {
@@ -100,7 +98,6 @@
 }
 
 // creating font face rule
-
 @mixin font-face(
   $font-family,
   $file-path,
@@ -118,7 +115,6 @@
 }
 
 // creating flex-box mixin
-
 @mixin flex-box(
   $flex-flow: column wrap,
   $justify-content: flex-start,
@@ -133,24 +129,40 @@
 }
 
 // creating form mixin
-
-@mixin form-layout($container-name, $bottom) {
+@mixin form-layout($container-name) {
   .#{$container-name} {
-    .flai-icon {
-      margin-bottom: $bottom * 2;
-    }
+    width: 20%;
+    max-height: 100%;
+    overflow: auto;
+    padding: $padding-l 0;
+    border-radius: $border-radius-m;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $main-white;
 
     .form-items {
-      width: 12%;
+      width: 100%;
+      padding: 0 $padding-l;
+    }
+
+    .flai-logo {
+      width: 40%;
+      margin-bottom: $margin-m;
     }
 
     .lead-paragraph {
-      margin-bottom: $bottom;
+      margin-bottom: $margin-l;
     }
 
-    .bottom-paragraph a {
+    .bottom-paragraph {
+      line-height: 1;
+    }
+
+    .bottom-paragraph .link {
       color: $main-blue;
-      text-decoration: none;
+      cursor: pointer;
     }
 
     .center-text {
@@ -159,41 +171,38 @@
 
     .error-message {
       color: $main-red;
-      margin-bottom: $bottom;
+      margin-bottom: $margin-m;
     }
 
     input, .primary-checkbox {
-      margin-bottom: $bottom;
+      margin-bottom: $margin-m;
     }
 
-    .input-form-primary,
-    .button-form-primary {
+    .input-form-primary {
       width: 100%;
     }
 
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+
     .divider-line {
-      margin-top: $bottom * 1.2;
-      margin-bottom: $bottom * 1.2;
+      margin: $margin-m 0;
       line-height: 0;
-      border-bottom: solid $light-grey 1.2px;
+      border-bottom: solid $light-grey $line-width-s;
     }
 
     @include media-query(L) {
-      .form-items {
-        width: 25%;
-      }
+      width: 30%;
     }
 
     @include media-query(M) {
-      .form-items {
-        width: 30%;
-      }
+      width: 40%;
     }
 
     @include media-query(S) {
-      .form-items {
-        width: 65%;
-      }
+      width: 90%;
     }
   }
 }

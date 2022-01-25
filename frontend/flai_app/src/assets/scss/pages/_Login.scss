@@ -1,18 +1,1 @@
-.login-form-container {
-  width: 400px;
-  height: 600px;
-  border-radius: 10px;
-  margin: auto;
-  padding: 0px;
-  background-color: $main-white;
-
-  .form-item {
-    padding: 12%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-}
-
-@include form-layout($container-name: 'login-form-container', $bottom: $margin-m);
+@include form-layout($container-name: 'login-form-container');
