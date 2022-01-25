@@ -12,6 +12,11 @@
 
   .form-item {
     padding: 25% 12% 30% 12%;
+    padding: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }
 

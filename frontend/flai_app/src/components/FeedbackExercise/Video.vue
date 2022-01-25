@@ -25,17 +25,18 @@
     <div v-if="showSign" class="play-button">
       <CustomButton
         :label="play ? '||' : '&#9658;'"
-        btnclass="video_controls_button_blue"
+        btnclass="prim_xs_small_button_blue"
         @click="togglePlay()"
       />
     </div>
   </div>
-  <CustomButton
-    v-else
-    label="Hinweis"
-    btnclass="sec_small_button_blue"
-    @click="emit('useHint')"
-  />
+  <div v-else class="hint-container">
+    <CustomButton
+      label="Hinweis"
+      btnclass="sec_small_button_blue"
+      @click="emit('useHint')"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">

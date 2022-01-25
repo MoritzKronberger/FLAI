@@ -3,7 +3,7 @@
     <CustomButton
       label="<"
       :btnclass="
-        'prim_small_button_blue' + ' ' + (index > 0 ? '' : 'inactive-button')
+        'prim_xs_small_button_blue' + ' ' + (index > 0 ? '' : 'inactive-button')
       "
       @click="decreaseIndex"
     />
@@ -19,7 +19,7 @@
     <CustomButton
       label=">"
       :btnclass="
-        'prim_small_button_blue' +
+        'prim_xs_small_button_blue' +
         ' ' +
         (index + 1 < signs.length ? '' : 'inactive-button')
       "
