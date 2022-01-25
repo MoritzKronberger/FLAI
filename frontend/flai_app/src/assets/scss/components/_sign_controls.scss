@@ -4,43 +4,24 @@
   height: $sign-div-height;
   display: flex;
   align-items: center;
-  justify-content: center;
-  column-gap: 20%;
+  justify-content: space-evenly;
 
-  .letters{
-    width: 100px;
+  .letter {
+    width: 1em;
+    text-align: center;
   }
 
   .lastLetter {
-    left: 50%;
     font-size: $h3;
-    position: relative; //absolute
-    left: 0%;
   }
   .currentLetter {
     font-weight: 800;
     font-size: $h2;
-    transform: translate(-50%, 0);
-    position: relative; //absolute
-    left: 50%;
   }
   .nextLetter {
-    position: relative; //absolute
-    left: 60%;
     font-size: $h3;
-    transform: translate(-50%, 0);
   }
-
-  .back-button {
-    position: relative; //absolute
-    left: 30%;
-    transform: translate(-50%, 0);
-  }
-  .next-button {
-    position: relative; //absolute
-    left: 70%;
-    transform: translate(-50%, 0);
-  }
+  
   .inactive-button {
     background-color: $subtle-grey;
     border-color: $subtle-grey;
