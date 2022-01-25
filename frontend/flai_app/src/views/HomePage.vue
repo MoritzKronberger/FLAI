@@ -33,7 +33,7 @@ const level = ref(1)
         </div>
         <custom-button
           label="Start"
-          btnclass="prim_small_button_orange"
+          btnclass="prim_medium_button_orange"
           @button-click="redirect('LearningExercise')"
         />
       </div>
