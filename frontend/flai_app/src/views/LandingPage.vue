@@ -25,7 +25,7 @@ function openModalRegister() {
       <IconLoader
         path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-logo-1"
+        element-class="flai-logo"
       />
     </div>
     <div id="buttons">

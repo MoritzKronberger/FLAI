@@ -37,7 +37,7 @@ body {
 
 .header-left {
     @include flex-box(row, flex-start, center);
-    .flai-logo-1 {
+    .flai-logo {
         height: $input-button-height-l;
     }
 }
