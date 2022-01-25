@@ -133,7 +133,7 @@ onMounted(() => {
         <custom-button
           v-if="!displayForm"
           label="Bearbeiten"
-          btnclass="prim_small_button_blue"
+          btnclass="prim_large_button_blue"
           @button-click="openChangeForm"
         />
       </div>
@@ -187,12 +187,12 @@ onMounted(() => {
         </p>
         <custom-button
           label="Bestätigen"
-          btnclass="prim_small_button_blue"
+          btnclass="prim_medium_button_blue"
           @button-click="submitChanges"
         />
         <custom-button
           label="Verwerfen"
-          btnclass="sec_small_button_blue"
+          btnclass="sec_medium_button_blue"
           @button-click="discardChanges"
         />
       </div>
