@@ -1,30 +1,36 @@
 <template>
   <div class="sign-controls">
-    <CustomButton
-      label="<"
-      :btnclass="[
-        'back-button',
-        'prim_small_button_blue',
-        index > 0 ? '' : 'inactive-button',
-      ]"
-      @click="decreaseIndex"
-    />
-    <span v-if="index > 0" class="lastLetter">{{
-      signs[index - 1].name.toUpperCase()
-    }}</span>
-    <span class="currentLetter">{{ signs[index].name.toUpperCase() }}</span>
-    <span v-if="index + 1 < signs.length" class="nextLetter">{{
-      signs[index + 1].name.toUpperCase()
-    }}</span>
-    <CustomButton
-      label=">"
-      :btnclass="[
-        'next-button',
-        'prim_small_button_blue',
-        index + 1 < signs.length ? '' : 'inactive-button',
-      ]"
-      @click="increaseIndex"
-    />
+    <div>
+      <CustomButton
+        label="<"
+        :btnclass="[
+          'back-button',
+          'prim_xs_small_button_blue',
+          index > 0 ? '' : 'inactive-button',
+        ]"
+        @click="decreaseIndex"
+      />
+    </div>
+    <div class="letters">
+      <span v-if="index > 0" class="lastLetter">{{
+        signs[index - 1].name.toUpperCase()
+      }}</span>
+      <span class="currentLetter">{{ signs[index].name.toUpperCase() }}</span>
+      <span v-if="index + 1 < signs.length" class="nextLetter">{{
+        signs[index + 1].name.toUpperCase()
+      }}</span>
+    </div>
+    <div>
+      <CustomButton
+        label=">"
+        :btnclass="[
+          'next-button',
+          'prim_xs_small_button_blue',
+          index + 1 < signs.length ? '' : 'inactive-button',
+        ]"
+        @click="increaseIndex"
+      />
+    </div>
   </div>
 </template>
 

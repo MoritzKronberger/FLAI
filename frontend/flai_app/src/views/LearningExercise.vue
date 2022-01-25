@@ -1,51 +1,54 @@
 <template>
   <div class="learning-exercise">
-    <!-- hiding must be done via css and not v-if so that components still render -->
-    <h2 v-if="!started" class="heading-large">Lektion - Buchstabieren</h2>
     <FeedbackExercise
       v-if="started"
       :key="signIds"
       @watch-word="currentlyWatchWord = true"
       @show-word="currentlyWatchWord = false"
     />
-    <div v-else class="loading-screen">
-      <div class="loading-screen-container">
-        <p class="body-large">
-          Lerne das Alphabet der deutschen Gebärdensprache mithilfe unserer
-          Zwei-Phasen-Lernmethodik:
-        </p>
-        <br />
-        <ol class="body-large">
-          <li>Phase: Einprägen</li>
-          <li>Phase: Üben</li>
-        </ol>
-        <p class="body-emphasised camera-notif">
-          Ab hier benötigst du deine Kamera.
-        </p>
-        <CustomButton
-          v-if="flaiNetReady && handposeReady"
-          label="Start"
-          btnclass="start prim_small_button_blue"
-          @button-click="started = true"
-        />
-        <div v-else>
-          <div class="loading-status body-medium">
-            {{
-              !webcamReady
-                ? 'Warte auf Webcam'
-                : !flaiNetReady
-                ? `Lade FLAI-KI ${flaiNetLoadingProgress * 100}%`
-                : 'Starte KI-Feedback'
-            }}
+    <div v-else class="loading-screen exercise-grid">
+      <h2 class="heading-large">Lektion - Buchstabieren</h2>
+      <div class="loading-screen-wrapper">
+        <div class="loading-screen-container">
+          <p class="body-large">
+            Lerne das Alphabet der deutschen Gebärdensprache mithilfe unserer
+            Zwei-Phasen-Lernmethodik:
+          </p>
+          <br />
+          <ol class="body-large">
+            <li>Phase: Einprägen</li>
+            <li>Phase: Üben</li>
+          </ol>
+          <p class="body-emphasised camera-notif">
+            Ab hier benötigst du deine Kamera.
+          </p>
+          <CustomButton
+            v-if="flaiNetReady && handposeReady"
+            label="Start"
+            btnclass="start prim_small_button_blue"
+            @button-click="started = true"
+          />
+          <div v-else>
+            <div class="loading-status body-medium">
+              {{
+                !webcamReady
+                  ? 'Warte auf Webcam'
+                  : !flaiNetReady
+                  ? `Lade FLAI-KI ${flaiNetLoadingProgress * 100}%`
+                  : 'Starte KI-Feedback'
+              }}
+            </div>
+            <div class="loading-circle" />
           </div>
-          <div class="loading-circle" />
         </div>
       </div>
-      <CustomButton
-        label="Home"
-        btnclass="exit sec_small_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
+      <div class="home-button">
+        <CustomButton
+          label="Home"
+          btnclass="exit sec_small_button_blue"
+          @click="router.push({ name: 'HomePage' })"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -129,4 +132,5 @@ onMounted(async () => {
 
 <style lang="scss">
 @import '../assets/scss/main.scss';
+@import '../assets/scss/components/video.scss';
 </style>

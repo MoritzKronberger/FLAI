@@ -1,114 +1,128 @@
-.hidden {
-  display: none !important;
+@import '../components/loading_screen';
+
+.exercise-container {
+  width: 100%;
+  height: 100vh;
 }
 
-.learning-exercise {
-  background-color: $main-white;
-  margin: 0 $margin-width;
-  padding: 0;
-  height: 100vh;
+.exercise-grid {
+  display: grid;
+  grid-auto-flow: column;
+
+  column-gap: $padding-width * 2;
+  row-gap: $padding-height;
+  width: 100%;
+  height: 100%;
+  padding: $padding-height $padding-width * 2;
 
   h2 {
-    text-align: center;
-    color: $main-blue;
-    padding: $padding-height $padding-width;
-    
+    grid-area: heading;
+  }
+  .home-button {
+    grid-area: home;
+  }
+  .home-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.watch-word,
+.show-word {
+  .video {
+    grid-area: video;
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .video-controls {
+    grid-area: video-controls;
   }
 
-  .align-left {
-    text-align: left;
+  .webcam-container {
+    grid-area: webcam;
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .next-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.watch-word {
+  grid-template-areas:
+    'heading home'
+    'signs status'
+    'video webcam'
+    'video webcam'
+    'video-controls next';
+
+  grid-auto-columns: 1fr;
+  grid-template-rows: auto auto 60% 1fr auto;
+
+  .sign-controls {
+    grid-area: signs;
   }
 
   .status {
-    padding: $padding-height 0;
+    grid-area: status;
   }
 
-  @import '../components/loading_screen';
-  
-  // In many iterations with grid, flexbox and float I decided to hardcode the heights with calculations and variables, otherwise the video will always be too big or the buttons not fit to video width. The calculations are long but pretty flexible, because the only hardcoded value is the line-height right now.
-  @media (min-width: $S) {
-    .watch-word {
-      display: flex;
-      flex-direction: row;
-      height: 100vh;
-      
-      .status:after {
-        content: "";
-        display:inline-block;
-      }
+  .next-button {
+    grid-area: next;
+  }
+}
 
-      h2 {
-        text-align: left;
-        //width same as height of video
-        width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-        margin-right: 0;
-        margin-left: auto;
-        padding-left: 0; //overwrite padding
-        padding-right: 0; //overwrite padding
-      }
-      h2:after {
-        content: "";
-        display: inline-block;
-      }
+.show-word {
+  grid-template-areas:
+    'heading home'
+    '. current-word'
+    'video webcam'
+    'video-controls webcam'
+    '. status-next';
 
-      .column1 {
-        flex: 50%;
-        height: 100vh;
-        padding-right: $padding-width;      
+  grid-template-columns: 1fr 60%;
+  grid-template-rows: auto auto 50% 1fr auto;
 
-        .status {
-          text-align: left;
-          margin-right: 0;
-          margin-left: auto;
-        }
+  .current-word {
+    grid-area: current-word;
+  }
+  .hint-container {
+    grid-area: video;
+  }
+  .status {
+    grid-area: status-next;
+  }
+  .next-button {
+    grid-area: status-next;
+  }
+}
 
-        .sign-controls {
-          margin-right: 0;
-          margin-left: auto;
-          //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-        }
+.loading-screen {
+  grid-template-areas:
+    'heading home'
+    'loading-screen loading-screen';
 
-        .sign-video {
-          margin-right: 0;
-          margin-left: auto;
-          height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height);
-          //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
 
-          .video {
-            margin-right: 0;
-            margin-left: auto;
-            //height minus all other elements, their margins and paddings. will not work without calculated height
-            height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-          }
-        }
-      }
-
-      .column2 {
-        flex: 50%;
-        height: 100vh;
-        padding-right: $padding-width;
-
-        .webcam-container {
-          margin-top: $sign-div-height;
-          height: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-        }
-
-        .status {
-          text-align: right;
-          //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-        }
-
-        .exercise-controls {
-          //width same as height of video
-          width: calc(100vh - ($h2 * 1.3 + 2 * $padding-height) - $sign-div-height - $padding-height - ($medium * 1.5 + 2 * $padding-height) - ($button-Prim-height-Small + 2 * $button-margin));
-          display: flex;
-          justify-content: end;
-        }
-      }
-    }
+  .loading-screen-wrapper {
+    grid-area: loading-screen;
   }
 }
 

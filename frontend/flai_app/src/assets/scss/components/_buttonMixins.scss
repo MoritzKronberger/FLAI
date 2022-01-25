@@ -1,51 +1,61 @@
-//variables primary
-$button-Prim-width-Large: 193px;
-$button-Prim-height-Large: 70px;
-$button-Prim-width-Medium: 154px;
-$button-Prim-height-Medium: 64px;
-$button-Prim-width-Small: 115px;
-$button-Prim-height-Small: 52px;
-
-// TODO: make smaller buttons
-//mini button, under video
-$video-controls-button-width:  3em;
-$video-controls-button-height:  2em;
-
-// week trends buttons
-$button-trends-week: 25px;
-
-//variables secondary
-$button-Sec-width-Large: 231px;
-$button-Sec-height-Large: 70px;
-$button-Sec-width-Medium: 184px;
-$button-Sec-height-Medium: 64px;
-$button-Sec-width-Small: 142px;
-$button-Sec-height-Small: 52px;
-
 //font size
-$font-size-Large: 25px;
-$font-size-Medium: 20px;
-$font-size-Small: 18px;
-$button-padding-Large: 10px;
-$button-padding-Medium: 8px;
-$button-padding-Small: 5px;
+$font-size-Large: 22px;
+$font-size-Medium: 18px;
+$font-size-Small: 14px;
 $trans-duration: 0.5s;
 $border-radius: 5px;
 
-//button margins
-$button-margin: 5px;
+@function buttonWidth($size) {
+  $xxs-small-width: 0.3;
+  $xs-small-width: 0.4;
+  $base: 100px;
+  $medium-width: 1.2;
+  $large-width: 1.8;
 
-@mixin import-button(
-  $width,
-  $height,
-  $font-size,
-  $color-text,
-  $color-background,
-  $border-color
-) {
+  @if $size == "xxs" {
+    @return $base * $xxs-small-width;
+  }
+  @if $size == "xs" {
+    @return $base * $xs-small-width;
+  }
+  @if $size == "s" {
+    @return $base;
+  }
+  @if $size == "m" {
+    @return $base * $medium-width;
+  }
+  @if $size == "l" {
+    @return $base * $large-width;
+  }
+}
+
+@function buttonHeight($size) {
+  $xxs-small-height: 0.5;
+  $xs-small-height: 0.7;
+  $base: 40px;
+  $medium-height: 1.3;
+  $large-height: 1.6;
+
+  @if $size == "xxs" {
+    @return $base * $xxs-small-height;
+  }
+  @if $size == "xs" {
+    @return $base * $xs-small-height;
+  }
+  @if $size == "s" {
+    @return $base;
+  }
+  @if $size == "m" {
+    @return $base * $medium-height;
+  }
+  @if $size == "l" {
+    @return $base * $large-height;
+  }
+}
+
+@mixin import-button($width, $height, $font-size, $color-text, $color-background, $border-color) {
   width: $width;
   height: $height;
-  margin: $button-margin $button-margin $button-margin 0px;
 
   //text
   @include font(GothamSSm, bold);
@@ -74,21 +84,15 @@ $button-margin: 5px;
   }
 }
 
+//primary-button classes
 .prim_large_button_blue {
-  @include import-button(
-    $button-Prim-width-Large,
-    $button-Prim-height-Large,
-    $font-size-Large,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-white, $main-blue, $main-blue);
 }
 
 .prim_large_button_orange {
   @include import-button(
-    $button-Prim-width-Large,
-    $button-Prim-height-Large,
+    buttonWidth("l"),
+    buttonHeight("l"),
     $font-size-Large,
     $main-white,
     $main-orange,
@@ -97,20 +101,13 @@ $button-margin: 5px;
 }
 
 .prim_medium_button_blue {
-  @include import-button(
-    $button-Prim-width-Medium,
-    $button-Prim-height-Medium,
-    $font-size-Medium,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-white, $main-blue, $main-blue);
 }
 
 .prim_medium_button_orange {
   @include import-button(
-    $button-Prim-width-Medium,
-    $button-Prim-height-Medium,
+    buttonWidth("m"),
+    buttonHeight("m"),
     $font-size-Medium,
     $main-white,
     $main-orange,
@@ -119,20 +116,21 @@ $button-margin: 5px;
 }
 
 .prim_small_button_blue {
-  @include import-button(
-    $button-Prim-width-Small,
-    $button-Prim-height-Small,
-    $font-size-Small,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
+  @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-white, $main-blue, $main-blue);
+}
+
+.prim_xs_small_button_blue {
+  @include import-button(buttonWidth("xs"), buttonHeight("xs"), $font-size-Small, $main-white, $main-blue, $main-blue);
+}
+
+.prim_xxs_small_button_blue {
+  @include import-button(buttonWidth("xxs"), buttonHeight("xxs"), $font-size-Small, $main-white, $main-blue, $main-blue);
 }
 
 .prim_small_button_orange {
   @include import-button(
-    $button-Prim-width-Small,
-    $button-Prim-height-Small,
+    buttonWidth("s"),
+    buttonHeight("s"),
     $font-size-Small,
     $main-white,
     $main-orange,
@@ -140,97 +138,48 @@ $button-margin: 5px;
   );
 }
 
-//TODO fix button
-.video_controls_button_blue {
-  @include import-button(
-    $video-controls-button-width,
-    $video-controls-button-height,
-    $font-size-Small,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
-  min-width: fit-content;
-  padding: 2px;
+//secondary-button classes
+.sec_large_button_blue {
+  @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-blue, $main-white, $main-blue);
 }
 
-.sec_large_button_blue {
-    @include import-button(
-      $button-Sec-width-Large,
-      $button-Sec-height-Large,
-      $font-size-Large,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-  }
-  .sec_large_button_orange {
-    @include import-button(
-      $button-Sec-width-Large,
-      $button-Sec-height-Large,
-      $font-size-Large,
-      $main-orange,
-      $main-white,
-      $main-orange
-    );
-  }
+.sec_large_button_orange {
+  @include import-button(
+    buttonWidth("l"),
+    buttonHeight("l"),
+    $font-size-Large,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}
 
-  .sec_medium_button_blue {
-    @include import-button(
-      $button-Sec-width-Medium,
-      $button-Sec-height-Medium,
-      $font-size-Medium,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-  }
-  .sec_medium_button_orange {
-    @include import-button(
-      $button-Sec-width-Medium,
-      $button-Sec-height-Medium,
-      $font-size-Medium,
-      $main-orange,
-      $main-white,
-      $main-orange
-    );
-  }
+.sec_medium_button_blue {
+  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-blue, $main-white, $main-blue);
+}
 
-  .sec_small_button_blue {
-    @include import-button(
-      $button-Sec-width-Small,
-      $button-Sec-height-Small,
-      $font-size-Small,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-  }
-  .sec_small_button_orange {
-    @include import-button(
-      $button-Sec-width-Small,
-      $button-Sec-height-Small,
-      $font-size-Small,
-      $main-orange,
-      $main-white,
-      $main-orange
-    );
-  }
+.sec_medium_button_orange {
+  @include import-button(
+    buttonWidth("m"),
+    buttonHeight("m"),
+    $font-size-Medium,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}
 
-  .week_trends_button {
-    @include import-button(
-      $button-trends-week,
-      $button-trends-week,
-      $font-size-Small,
-      $main-blue,
-      $main-white,
-      $main-blue
-    );
-    margin: 0px;
-    padding: 0px;
-    border: none;
-    &:hover {
-     box-shadow: none;
-     color: $subtle-blue;
-    }
-  }
+.sec_small_button_blue {
+  @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-blue, $main-white, $main-blue);
+}
+
+.sec_small_button_orange {
+  @include import-button(
+    buttonWidth("s"),
+    buttonHeight("s"),
+    $font-size-Small,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}

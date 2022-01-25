@@ -4,19 +4,25 @@
   height: $sign-div-height;
   display: flex;
   align-items: center;
+  justify-content: center;
+  column-gap: 20%;
+
+  .letters{
+    width: 100px;
+  }
 
   .lastLetter {
-    position: relative; //absolute
-    left: 40%;
+    left: 50%;
     font-size: $h3;
-    transform: translate(-50%, 0);
+    position: relative; //absolute
+    left: 0%;
   }
   .currentLetter {
-    position: relative; //absolute
-    left: 50%;
     font-weight: 800;
     font-size: $h2;
     transform: translate(-50%, 0);
+    position: relative; //absolute
+    left: 50%;
   }
   .nextLetter {
     position: relative; //absolute
@@ -34,9 +40,6 @@
     position: relative; //absolute
     left: 70%;
     transform: translate(-50%, 0);
-  }
-  .prim_small_button_blue {
-    width: $button-Prim-height-Small;
   }
   .inactive-button {
     background-color: $subtle-grey;
