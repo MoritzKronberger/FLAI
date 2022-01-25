@@ -4,7 +4,7 @@ img {
   width: 100%;
 }
 .flai-header-icon {
-  margin-top: $homepage-margin-height;
+  margin-top: $margin-m;
   width: buttonWidth('s');
 }
 @media (max-width: 768px) {
@@ -14,7 +14,7 @@ img {
 }
 
 .loading-circle {
-  margin: $margin-height $margin-width;
+  margin: $margin-m;
   width: 10vh;
   height: 10vh;
   border-radius: 50%;

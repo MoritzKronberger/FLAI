@@ -31,10 +31,10 @@
   .dashboard {
     margin: 0 auto;
     height: 100vh;
-    padding: $homepage-margin-height $homepage-margin-width;
+    padding: $padding-m;
     display: grid;
     justify-content: center;
-    gap: $inner-dashboard-padding;
+    gap: $padding-m;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
     
@@ -46,10 +46,10 @@
       .start-panel-text {
         .heading-medium {
           @media (min-width: $S) and (max-width: $M) {
-            font-size: $h3;
+            font-size: $font-size-h3;
           }
           @media (max-width: $L) {
-            font-size: $h4;
+            font-size: $font-size-h4;
           }
         }
       }
@@ -64,10 +64,10 @@
 
       .heading-medium {
         @media (min-width: $S) and (max-width: $M) {
-          font-size: $h3;
+          font-size: $font-size-h3;
         }
         @media (max-width: $L) {
-          font-size: $h4;
+          font-size: $font-size-h4;
         }
       }
 

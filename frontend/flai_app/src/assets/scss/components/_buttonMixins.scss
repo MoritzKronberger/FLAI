@@ -1,57 +1,4 @@
-//font size
-$font-size-Large: 22px;
-$font-size-Medium: 18px;
-$font-size-Small: 14px;
 $trans-duration: 0.5s;
-$border-radius: 5px;
-
-@function buttonWidth($size) {
-  $xxs-small-width: 0.3;
-  $xs-small-width: 0.4;
-  $base: 100px;
-  $medium-width: 1.2;
-  $large-width: 1.8;
-
-  @if $size == "xxs" {
-    @return $base * $xxs-small-width;
-  }
-  @if $size == "xs" {
-    @return $base * $xs-small-width;
-  }
-  @if $size == "s" {
-    @return $base;
-  }
-  @if $size == "m" {
-    @return $base * $medium-width;
-  }
-  @if $size == "l" {
-    @return $base * $large-width;
-  }
-}
-
-@function buttonHeight($size) {
-  $xxs-small-height: 0.5;
-  $xs-small-height: 0.7;
-  $base: 40px;
-  $medium-height: 1.3;
-  $large-height: 1.6;
-
-  @if $size == "xxs" {
-    @return $base * $xxs-small-height;
-  }
-  @if $size == "xs" {
-    @return $base * $xs-small-height;
-  }
-  @if $size == "s" {
-    @return $base;
-  }
-  @if $size == "m" {
-    @return $base * $medium-height;
-  }
-  @if $size == "l" {
-    @return $base * $large-height;
-  }
-}
 
 @mixin import-button($width, $height, $font-size, $color-text, $color-background, $border-color) {
   width: $width;
@@ -64,7 +11,7 @@ $border-radius: 5px;
   color: $color-text;
 
   //border
-  border-radius: $border-radius;
+  border-radius: $border-radius-s;
   border-style: solid;
   border-width: 3px;
   border-color: $border-color;
@@ -86,14 +33,14 @@ $border-radius: 5px;
 
 //primary-button classes
 .prim_large_button_blue {
-  @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-white, $main-blue, $main-blue);
+  @include import-button($input-button-width-l, $input-button-height-l, $font-size-base, $main-white, $main-blue, $main-blue);
 }
 
 .prim_large_button_orange {
   @include import-button(
-    buttonWidth("l"),
-    buttonHeight("l"),
-    $font-size-Large,
+    $input-button-width-l,
+    $input-button-height-l,
+    $font-size-base,
     $main-white,
     $main-orange,
     $main-orange
@@ -101,14 +48,14 @@ $border-radius: 5px;
 }
 
 .prim_medium_button_blue {
-  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-white, $main-blue, $main-blue);
+  @include import-button($input-button-width-m, $input-button-width-m, $font-size-base, $main-white, $main-blue, $main-blue);
 }
 
 .prim_medium_button_orange {
   @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
+    $input-button-width-m,
+    $input-button-height-m,
+    $font-size-base,
     $main-white,
     $main-orange,
     $main-orange
@@ -116,22 +63,14 @@ $border-radius: 5px;
 }
 
 .prim_small_button_blue {
-  @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-white, $main-blue, $main-blue);
-}
-
-.prim_xs_small_button_blue {
-  @include import-button(buttonWidth("xs"), buttonHeight("xs"), $font-size-Small, $main-white, $main-blue, $main-blue);
-}
-
-.prim_xxs_small_button_blue {
-  @include import-button(buttonWidth("xxs"), buttonHeight("xxs"), $font-size-Small, $main-white, $main-blue, $main-blue);
+  @include import-button($input-button-width-s, $input-button-height-s, $font-size-base, $main-white, $main-blue, $main-blue);
 }
 
 .prim_small_button_orange {
   @include import-button(
-    buttonWidth("s"),
-    buttonHeight("s"),
-    $font-size-Small,
+    $input-button-width-s,
+    $input-button-height-s,
+    $font-size-base,
     $main-white,
     $main-orange,
     $main-orange
@@ -140,14 +79,14 @@ $border-radius: 5px;
 
 //secondary-button classes
 .sec_large_button_blue {
-  @include import-button(buttonWidth("l"), buttonHeight("l"), $font-size-Large, $main-blue, $main-white, $main-blue);
+  @include import-button($input-button-width-l, $input-button-height-l, $font-size-base, $main-blue, $main-white, $main-blue);
 }
 
 .sec_large_button_orange {
   @include import-button(
-    buttonWidth("l"),
-    buttonHeight("l"),
-    $font-size-Large,
+    $input-button-width-l,
+    $input-button-height-l,
+    $font-size-base,
     $main-orange,
     $main-white,
     $main-orange
@@ -155,14 +94,14 @@ $border-radius: 5px;
 }
 
 .sec_medium_button_blue {
-  @include import-button(buttonWidth("m"), buttonHeight("m"), $font-size-Medium, $main-blue, $main-white, $main-blue);
+  @include import-button($input-button-width-m, $input-button-height-m, $font-size-base, $main-blue, $main-white, $main-blue);
 }
 
 .sec_medium_button_orange {
   @include import-button(
-    buttonWidth("m"),
-    buttonHeight("m"),
-    $font-size-Medium,
+    $input-button-width-m,
+    $input-button-height-m,
+    $font-size-base,
     $main-orange,
     $main-white,
     $main-orange
@@ -170,14 +109,14 @@ $border-radius: 5px;
 }
 
 .sec_small_button_blue {
-  @include import-button(buttonWidth("s"), buttonHeight("s"), $font-size-Small, $main-blue, $main-white, $main-blue);
+  @include import-button($input-button-width-s, $input-button-height-s, $font-size-base, $main-blue, $main-white, $main-blue);
 }
 
 .sec_small_button_orange {
   @include import-button(
-    buttonWidth("s"),
-    buttonHeight("s"),
-    $font-size-Small,
+    $input-button-width-s,
+    $input-button-height-s,
+    $font-size-base,
     $main-orange,
     $main-white,
     $main-orange

@@ -1,14 +1,14 @@
 
 //sidebar width
-$sidebar-width: calc(buttonWidth('s') + $padding-width * 2);
+$sidebar-width: calc($input-button-width-m + $padding-m * 2);
 
 .display-aside {
   width: $sidebar-width;
   height: 100%;
   background-color: white;
   position: fixed;
-  padding-left: $padding-width;
-  padding-right: $padding-width;
+  padding-left: $padding-m;
+  padding-right: $padding-m;
   @media (max-width: 768px) {
     width: 100%;
     position: relative;
@@ -45,6 +45,6 @@ a {
   margin-bottom: 0;
   margin-right: 0;
   position: absolute;
-  left: $padding-width;
-  bottom: $homepage-margin-height;
+  left: $padding-m;
+  bottom: $margin-m;
 }

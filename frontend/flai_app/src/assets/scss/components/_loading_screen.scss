@@ -16,7 +16,7 @@
 
     p {
       text-align: center;
-      padding: $padding-height $padding-width;
+      padding: $padding-m;
     }
 
     ol {
@@ -24,12 +24,12 @@
     }
 
     .camera-notif {
-      margin: $margin-height * 1.2 0;
+      margin: $margin-m 0;
     }
 
     .loading-status {
       text-align: center;
-      margin-top: $margin-height * 1.8;
+      margin-top: $margin-m;
     }
   }
 }

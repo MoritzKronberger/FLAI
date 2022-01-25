@@ -1,16 +1,11 @@
-//variables
-$field-width: 220px;
-$field-height: 25px;
-$input-test-size: 13px;
-
 @mixin import_inputField($status, $color) {
-  width: $field-width;
-  height: $field-height;
+  width: $input-button-width-m;
+  height: $input-button-height-m;
   border-color: $color;
   border-style: solid;
   border-radius: 5px;
   padding-left: 5px;
-  font-size: $input-test-size;
+  font-size: $font-size-m;
   outline: none;
 
   &:hover {

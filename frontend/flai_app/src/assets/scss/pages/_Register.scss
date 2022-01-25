@@ -20,4 +20,4 @@
   }
 }
 
-@include form-layout($container-name: 'register-form-container', $bottom: $gutter-vertical);
+@include form-layout($container-name: 'register-form-container', $bottom: $margin-m);

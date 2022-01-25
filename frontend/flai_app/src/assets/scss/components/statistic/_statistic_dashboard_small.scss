@@ -7,11 +7,10 @@
   }
   .grid-cards {
    height: 100%;
-   //display: grid;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
-   gap: $inner-dashboard-padding;
+   gap: $padding-m;
 
     .child-card {
       width: 100%;

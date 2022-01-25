@@ -15,4 +15,4 @@
   }
 }
 
-@include form-layout($container-name: 'login-form-container', $bottom: $gutter-vertical);
+@include form-layout($container-name: 'login-form-container', $bottom: $margin-m);

@@ -1,7 +1,7 @@
 
 .sign-controls {
   width: 100%;
-  height: $sign-div-height;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,13 +13,13 @@
 
   .lastLetter {
     left: 50%;
-    font-size: $h3;
+    font-size: $font-size-h3;
     position: relative; //absolute
     left: 0%;
   }
   .currentLetter {
     font-weight: 800;
-    font-size: $h2;
+    font-size: $font-size-h2;
     transform: translate(-50%, 0);
     position: relative; //absolute
     left: 50%;
@@ -27,7 +27,7 @@
   .nextLetter {
     position: relative; //absolute
     left: 60%;
-    font-size: $h3;
+    font-size: $font-size-h3;
     transform: translate(-50%, 0);
   }
 

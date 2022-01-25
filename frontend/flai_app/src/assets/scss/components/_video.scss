@@ -8,7 +8,7 @@
 }
 
 video {
-  border-radius: $border-radius;
+  border-radius: $border-radius-m;
 }
 
 .mirrored {
@@ -27,6 +27,6 @@ video {
   justify-content: center;
   align-items: center;
 
-  border-radius: $border-radius;
+  border-radius: $border-radius-m;
   border: 3px solid $main-blue;
 }

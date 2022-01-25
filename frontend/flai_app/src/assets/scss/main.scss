@@ -4,10 +4,10 @@
 @import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins';
 
 // 2. Base and Helpers
-@import 'base/base', 'base/fonts', 'base/helpers', 'base/grid';
+@import 'base/base', 'base/fonts';
 
 // 4. Layout-related sections
-@import 'layout/header', 'layout/sidebar', 'layout/footer';
+@import 'layout/header', 'layout/sidebar';
 
 // 5. Components
 @import 'components/statistic/statistic_dashboard_small',
@@ -19,4 +19,4 @@
 
 @include import-fonts();
 
-@import "pages/HelloWorld", "pages/HomePage", "pages/Register", "pages/Login", "pages/Profile", "pages/LearningExercise", "pages/App", "pages/LandingPage";
+@import "pages/HomePage", "pages/Register", "pages/Login", "pages/Profile", "pages/LearningExercise", "pages/App", "pages/LandingPage";
