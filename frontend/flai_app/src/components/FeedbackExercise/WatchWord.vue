@@ -1,7 +1,7 @@
 <template>
   <!--div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
-  <div class="watch-word">
+  <div class="watch-word exercise-grid">
     <h2 class="heading-large align-left">Einprägen</h2>
     <SignControls :signs="signs" @new-index="onNewIndex" />
     <Video
