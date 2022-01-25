@@ -19,7 +19,7 @@ body {
 
     #buttons {
         height: fit-content;
-        @include flex-box(row, flex-end, center, 0vh 1vw);
+        @include flex-box(row, flex-end, center, 0 $margin-s);
         @include media-query("S") {
             justify-content: center;
         }
