@@ -5,7 +5,7 @@ img {
 }
 .flai-header-icon {
   margin-top: $homepage-margin-height;
-  width: $button-Sec-width-Small;
+  width: buttonWidth('s');
 }
 @media (max-width: 768px) {
   .flai-header-icon {

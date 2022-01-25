@@ -1,6 +1,6 @@
 
 //sidebar width
-$sidebar-width: calc($button-Sec-width-Small + $padding-width * 2);
+$sidebar-width: calc(buttonWidth('s') + $padding-width * 2);
 
 .display-aside {
   width: $sidebar-width;
