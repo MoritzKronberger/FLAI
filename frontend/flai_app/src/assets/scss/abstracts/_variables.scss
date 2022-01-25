@@ -2,24 +2,51 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-// Grid Variables
-$grid-width: max-width;
-$gutter-vertical: 25px;
-/*$gutter-horizontal: 25px;*/
-
 //Spacing variables
-$padding-height: 1.5vh;
-$padding-width: 3vw;
-$margin-height: 2.5vh;
-$margin-width: 5vw;
-$homepage-margin-height: 6vh;
-$homepage-margin-width: 6vw;
-$border-radius: 10px;
+$margin-base: 1rem;
+$margin-l: $margin-base * 2;
+$margin-m: $margin-base;
+$margin-s: $margin-base * 0.5;
 
-$inner-dashboard-padding: 1vw;
+$padding-base: 1rem;
+$padding-l: $padding-base * 2;
+$padding-m: $padding-base;
+$padding-s: $padding-base * 0.5;
+
+// border variables
+$border-radius-base: 0.53rem;
+$border-radius-l: $border-radius-base * 2;
+$border-radius-m: $border-radius-base;
+$border-radius-s: $border-radius-base * 0.5;
+
+$line-width-base: 0.16rem;
+$line-width-l: $line-width-base * 2;
+$line-width-m: $line-width-base;
+$line-width-s: $line-width-base * 0.5;
+
+//font sizes
+$font-size-base: 1rem;
+
+$font-size-h1: $font-size-base*3.05;
+$font-size-h2: $font-size-base*2.44;
+$font-size-h3: $font-size-base*1.95;
+$font-size-h4: $font-size-base*1.57;
+
+$font-size-l: $font-size-base*1.25;
+$font-size-m: $font-size-base;
+
+// input / button sizes
+$input-button-width-base: 5.26rem;
+$input-button-width-l: $input-button-width-base * 1.2;
+$input-button-width-m: $input-button-width-base;
+$input-button-width-s: $input-button-width-base * 0.4;
+
+$input-button-height-base: 2.1rem;
+$input-button-height-l: $input-button-height-base * 1.3;
+$input-button-height-m: $input-button-height-base;
+$input-button-height-s: $input-button-height-base * 0.7;
 
 // breakpoints
-
 $S: 768px;
 $M: 1024px;
 $L: 1600px;
@@ -153,24 +180,7 @@ $base-font-stack:(
   ),
 );
 
-//font sizes
-$font-size-base: 19px;
-
-$h1: $font-size-base*3.05;
-$h2: $font-size-base*2.44;
-$h3: $font-size-base*1.95;
-$h4: $font-size-base*1.57;
-
-$large: $font-size-base*1.25;
-$medium: $font-size-base;
-
-
-//height of sign control elements
-$sign-div-height: calc($margin-height + $h2);
-
-
 // Main Colors
-
 $main-blue: #4a7bf6;
 $dark-blue: #355bbc;
 $light-blue: #7aa0ff;
@@ -178,7 +188,6 @@ $subtle-blue: #c5dcff;
 $background-blue: #ebf1fb;
 
 // Secondary Colors
-
 $main-yellow: #fff21c;
 $dark-yellow: #e9e20b;
 $light-yellow: #ffff60;
@@ -190,7 +199,6 @@ $light-orange: #ffb855;
 $subtle-orange: #ffcd86;
 
 // Status Colors
-
 $main-red: #ff0000;
 $dark-red: #cc0000;
 $light-red: #ff6565;
@@ -202,7 +210,6 @@ $light-green: #70cd84;
 $subtle-green: #bbf3c7;
 
 // Greyscale
-
 $main-black: #000000;
 $dark-grey: #525252;
 $light-grey: #959595;
@@ -210,13 +217,11 @@ $subtle-grey: #cecece;
 $main-white: #ffffff;
 
 //svg colors
-
 $main-black-svg: invert(0%) sepia(96%) saturate(0%) hue-rotate(266deg) brightness(97%) contrast(101%);
 $main-white-svg: invert(94%) sepia(100%) saturate(23%) hue-rotate(21deg)
   brightness(104%) contrast(106%);
 $dark-blue-svg: invert(35%) sepia(58%) saturate(762%) hue-rotate(186deg) brightness(90%) contrast(100%);
 
 // Low opacity
-
 $transparent-black: rgba(0, 0, 0, 0.5);
 $transparent-white: rgba(255, 255, 255, 0.5);
