@@ -120,10 +120,12 @@ const options = computed(() => ({
           moment(date)
             .clone()
             .subtract(trends.days - 1, 'days')
-            .format('DD.MM.YYYY') + ' bis '
+            .format('DD.&#8201;MM.&#8201;YY') + ' bis '
         }}
       </span>
-      <span class="body-medium">{{ moment(date).format('DD.MM.YYYY') }}</span>
+      <span class="body-medium">{{
+        moment(date).format('DD.&#8201;MM.&#8201;YY')
+      }}</span>
       <custom-button
         label=">"
         btnclass="prim_xxs_small_button_blue"
