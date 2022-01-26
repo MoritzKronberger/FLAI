@@ -22,12 +22,3 @@
 a {
   text-decoration: none;
 }
-.logout {
-  @media (min-width: $S) {
-    margin-bottom: 0;
-    margin-right: 0;
-    position: absolute;
-    left: $padding-m;
-    bottom: $padding-l;
-  }
-}

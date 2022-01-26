@@ -1,12 +1,18 @@
 aside {
   width: fit-content;
-  height: 100%;
+  height: 100vh;
   background-color: white;
-  padding-left: $padding-l;
-  padding-right: $padding-l;
+  padding: $padding-l;
   @include media-query("S") {
     width: 100%;
     padding: $padding-l;
     @include flex-box(column, center, center)
+  }
+
+  .sidebar-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
