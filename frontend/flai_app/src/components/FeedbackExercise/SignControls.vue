@@ -8,14 +8,16 @@
       @click="decreaseIndex"
     />
     <div class="letters">
-      <div v-if="index > 0" class="lastLetter heading-medium">
-        {{ signs[index - 1].name.toUpperCase() }}
+      <div class="lastLetter heading-medium">
+        {{ index > 0 ? signs[index - 1].name.toUpperCase() : '' }}
       </div>
       <div class="currentLetter heading-medium">
         {{ signs[index].name.toUpperCase() }}
       </div>
-      <div v-if="index + 1 < signs.length" class="nextLetter heading-medium">
-        {{ signs[index + 1].name.toUpperCase() }}
+      <div class="nextLetter heading-medium">
+        {{
+          index + 1 < signs.length ? signs[index + 1].name.toUpperCase() : ''
+        }}
       </div>
     </div>
     <CustomButton
