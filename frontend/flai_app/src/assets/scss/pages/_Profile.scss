@@ -4,47 +4,47 @@
     position: relative;
     height: 100vh;
     max-height: 100vh;
+    @include flex-box(row, center, center);
     .profile {
         width: 100%;
-        padding-top: 10%;
-        display: inline-flex;
+        @include flex-box(row, center, flex-start, 0 $margin-s);
         .property {
-            width: 40%;
-            min-width: 40%;
-            margin-right: $margin-m;
             display: flex;
             flex-direction: column;
             .key {
+                width: 100%;
                 text-align: end;
                 color: $main-blue;
                 line-height: $input-button-height-m;
                 height: $input-button-height-m;
-                width: 100%;
-                padding-right: 2%;
                 margin-bottom: $margin-m;
             }
         }
 
         .information {
-            width: 60%;
             margin-left: $margin-m;
+            width: 30%;
             .item {
-                width: 50%;
+                background-color: white;
+                width: 100%;
                 height: $input-button-height-m;
                 line-height: $input-button-height-m;
-                padding-left: 2%;
-                background-color: white;
+                padding: 0 $padding-s;
                 margin-bottom: $margin-m;
                 border-radius: $border-radius-m;
+            }
+
+            #edit-button {
+                margin-top: $margin-l;
             }
         }
 
         .profile-form-container {
             margin-left: $margin-m;
-            width: 60%;
+            width: 30%;
             .body-small {
                 color: $main-red;
-                margin-bottom: 1vh;
+                margin-bottom: $margin-l;
             }
 
             .form-items {
@@ -53,6 +53,7 @@
                 row-gap: $margin-m;
                 flex-direction: column;
                 margin-bottom: $margin-m;
+
                 .checkbox-container {
                     width: 50%;
                     .primary-checkbox {
@@ -62,19 +63,24 @@
                     height: $input-button-height-m;
                     line-height: $input-button-height-m;
                     align-items: center;
-                    gap: 10%;
+                    gap: $margin-m;
                     input {
                         width: 22px;
                         height: 22px;
                     }
                 }
             }
+
+            .form-buttons {
+                margin-top: $margin-l;
+                @include flex-box(row, flex-start, center, 0 $margin-s)
+            }
         }
 
         input {
             font-size: $font-size-m;
             height: $input-button-height-m;
-            width: 50%;
+            width: 100%;
             border-radius: $border-radius-m;
         }
 
