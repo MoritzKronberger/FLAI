@@ -9,8 +9,8 @@
   display: grid;
   grid-auto-flow: column;
 
-  column-gap: $padding-l;
-  row-gap: $padding-m;
+  column-gap: $margin-m;
+  row-gap: $margin-m;
   width: 100%;
   height: 100%;
   padding: $padding-m $padding-l;
@@ -73,7 +73,7 @@
     'video-controls next';
 
   grid-auto-columns: 1fr;
-  grid-template-rows: auto auto 60% 1fr auto;
+  grid-template-rows: auto auto 50% 1fr auto;
 
   .sign-controls {
     grid-area: signs;
