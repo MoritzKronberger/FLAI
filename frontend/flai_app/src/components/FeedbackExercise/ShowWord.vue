@@ -18,7 +18,7 @@
     <div class="home-button">
       <Button
         label="Home"
-        btnclass="exit sec_small_button_blue"
+        btnclass="exit sec_medium_button_blue"
         @click="router.push({ name: 'HomePage' })"
       />
     </div>
@@ -27,7 +27,7 @@
         v-if="wordComplete"
         id="next"
         label="weiter"
-        btnclass="prim_small_button_blue"
+        btnclass="prim_medium_button_blue"
         @button-click="emit('new-word')"
       />
     </div>

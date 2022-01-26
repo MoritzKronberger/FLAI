@@ -25,7 +25,7 @@
           <CustomButton
             v-if="flaiNetReady && handposeReady"
             label="Start"
-            btnclass="start prim_small_button_blue"
+            btnclass="start prim_medium_button_blue"
             @button-click="started = true"
           />
           <div v-else>
@@ -45,7 +45,7 @@
       <div class="home-button">
         <CustomButton
           label="Home"
-          btnclass="exit sec_small_button_blue"
+          btnclass="exit sec_medium_button_blue"
           @click="router.push({ name: 'HomePage' })"
         />
       </div>
