@@ -42,10 +42,10 @@ a {
   text-align: center;
   margin-top: $padding-m;
 
-  @media (min-width: $S) and (max-width: $M) {
+  @media (min-width: $S) {
     font-size: $font-size-s;
   }
-  @media (max-width: $L) {
+  @media (min-width: $L) {
     font-size: $font-size-m;
   }
 }
