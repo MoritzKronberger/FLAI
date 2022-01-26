@@ -34,30 +34,6 @@ $trans-duration: 0.5s;
 }
 
 //primary-button classes
-.prim_large_button_blue {
-  @include import-button(
-    $input-button-width-l,
-    $input-button-height-l,
-    $padding-s,
-    $font-size-m,
-    $main-white,
-    $main-blue,
-    $main-blue
-  );
-}
-
-.prim_large_button_orange {
-  @include import-button(
-    $input-button-width-l,
-    $input-button-height-l,
-    $padding-s,
-    $font-size-m,
-    $main-white,
-    $main-orange,
-    $main-orange
-  );
-}
-
 .prim_medium_button_blue {
   @include import-button(
     $input-button-width-m,
@@ -107,30 +83,6 @@ $trans-duration: 0.5s;
 }
 
 //secondary-button classes
-.sec_large_button_blue {
-  @include import-button(
-    $input-button-width-l,
-    $input-button-height-l,
-    $padding-s,
-    $font-size-base,
-    $main-blue,
-    $main-white,
-    $main-blue
-  );
-}
-
-.sec_large_button_orange {
-  @include import-button(
-    $input-button-width-l,
-    $input-button-height-l,
-    $padding-s,
-    $font-size-base,
-    $main-orange,
-    $main-white,
-    $main-orange
-  );
-}
-
 .sec_medium_button_blue {
   @include import-button(
     $input-button-width-m,
