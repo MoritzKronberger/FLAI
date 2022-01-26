@@ -55,11 +55,11 @@ function openModalRegister() {
   <body>
     <div class="first-section">
       <div class="main-left">
-        <div class="heading-large">Lerne die deutsche Gebärdensprache</div>
+        <div class="heading-large">Lerne Deutsche Gebärdensprache</div>
         <div class="text body-medium">
-          Nutze die künstlichen Intelligenz von <span id="blue">FLAI </span>
-          und bekomme direktes Feedback über die Kameraausgabe. Lerne so
-          effizient und selbstbewusst die deutsche Gebärdensprache.
+          <span class="body-emphasised">FLAI</span> ist die erste KI-basierte
+          Lernanwendung für Deutsche Gebärdensprache, die dich aktiv beim Üben
+          unterstützt und sich deinem individuellen Lern-Rhythmus anpasst.
         </div>
         <a class="prim_large_button_blue skip-to" href="#skip">Mehr erfahren</a>
       </div>
@@ -82,26 +82,24 @@ function openModalRegister() {
         />
       </div>
       <div class="main-right">
-        <div class="heading-large">Selbstbewusst durch direktes Feedback</div>
+        <div class="heading-large">Selbstbewusst gebärden</div>
         <div class="text body-medium">
-          Mithilfe von Farbe und Symbolik, erfährst du direkt ob du die Gebärde
-          richtig machst. Vergiss hierbei nicht, das zu einer Gebärde auch das
-          richtige Mundbild gehört. Sprich also gerne laut mit wenn du übst.
+          Neues Wissen souverän anwenden: Mit dem Echtzeit-Feedback von FLAI
+          erhältst du von Anfang an Rückmeldung zu deiner Fingersprache. So
+          gewinnst du spielerisch die Sicherheit, die du brauchst, um
+          selbstbewusst zu gebärden.
         </div>
       </div>
     </div>
 
     <div class="third-section">
       <div class="main-left">
-        <div class="heading-large">Automatisches Lerntempo</div>
+        <div class="heading-large">Lernlust statt Lernfrust</div>
         <div class="text body-medium">
-          Wir haben in unserer Software ein
-          <span class="body-emphasised">Levelsystem</span> eingebaut das sich an
-          deinen Lernfortschritt anpasst. Je öfter eine Gebärde richtig gemacht
-          wurde, desto höher ist der
-          <span class="body-emphasised">Fortschritt</span> und die Lernmethode
-          wird daran angepasst. So ist das Lernen automatisch an dein Tempo
-          angepasst.
+          Mit FLAIs Levelsystem nach dem Karteikasten-Prinzip ist Langeweile
+          ausgeschlossen. Lerneinheiten und Übungsaufgaben passen sich deinem
+          Rhythmus an, während deine individuelle Lernstatistik alle
+          Fortschritte dokumentiert und dich motiviert ans Ziel bringt.
         </div>
       </div>
       <div class="main-right">
@@ -126,8 +124,8 @@ function openModalRegister() {
         <div class="text body-medium">
           Das Team FLAI besteht aus 7 Studenten des Studiengangs
           <span class="body-emphasised">Interaktive Medien</span> der Hochschule
-          Augsburg. Im Rahmen unseres Projekt-Semester haben wir uns zum Ziel
-          gemacht eine Lernapplikation zu entwickeln, die einem die deutsche
+          Augsburg. Im Rahmen unseres Projekt-Semester haben wir uns das Ziel
+          gesetzt, eine Lernapplikation zu entwickeln, die einem die deutsche
           Gebärdensprache beibringen soll. Dieses Projekt umfasste die
           Konzeption, Planung und Umsetzung von Design und Programmierung.
           Mithilfe von Neuralen Netzen haben wir uns darauf konzentriert,
