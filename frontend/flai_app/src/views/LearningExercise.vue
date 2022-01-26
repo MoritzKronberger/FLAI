@@ -7,7 +7,14 @@
       @show-word="currentlyWatchWord = false"
     />
     <div v-else class="loading-screen exercise-grid">
-      <h2 class="heading-large">Lektion - Buchstabieren</h2>
+      <header class="exercise-header">
+        <h2 class="heading-large">Lektion - Buchstabieren</h2>
+        <CustomButton
+          label="Home"
+          btnclass="exit sec_medium_button_blue"
+          @click="router.push({ name: 'HomePage' })"
+        />
+      </header>
       <div class="loading-screen-wrapper">
         <div class="loading-screen-container">
           <p class="body-large">
@@ -41,13 +48,6 @@
             <div class="loading-circle" />
           </div>
         </div>
-      </div>
-      <div class="home-button">
-        <CustomButton
-          label="Home"
-          btnclass="exit sec_medium_button_blue"
-          @click="router.push({ name: 'HomePage' })"
-        />
       </div>
     </div>
   </div>

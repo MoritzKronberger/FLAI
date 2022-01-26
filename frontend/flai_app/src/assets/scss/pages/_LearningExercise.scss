@@ -15,16 +15,10 @@
   height: 100%;
   padding: $padding-m $padding-l;
 
-  h2 {
+  .exercise-header {
     grid-area: heading;
-  }
-  .home-button {
-    grid-area: home;
-  }
-  .home-button {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 }
 
@@ -66,7 +60,7 @@
 
 .watch-word {
   grid-template-areas:
-    'heading home'
+    'heading heading'
     'signs status'
     'video webcam'
     'video webcam'
@@ -90,7 +84,7 @@
 
 .show-word {
   grid-template-areas:
-    'heading home'
+    'heading heading'
     '. current-word'
     'video webcam'
     'video-controls webcam'
@@ -116,9 +110,9 @@
 .loading-screen {
   width: 100%;
   height: 100vh;
-  
+
   grid-template-areas:
-    'heading home'
+    'heading heading'
     'loading-screen loading-screen';
 
   grid-template-columns: 1fr;

@@ -2,7 +2,14 @@
   <!--div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word exercise-grid">
-    <h2 class="heading-large align-left">Einprägen</h2>
+    <header class="exercise-header">
+      <h2 class="heading-large align-left">Einprägen</h2>
+      <CustomButton
+        label="Home"
+        btnclass="exit sec_medium_button_blue"
+        @click="router.push({ name: 'HomePage' })"
+      />
+    </header>
     <SignControls :signs="signs" @new-index="onNewIndex" />
     <Video
       :signs="signs"
@@ -12,13 +19,6 @@
     />
     <p class="status body-medium">{{ status }}</p>
     <Webcam :borderclass="feedbackClass" />
-    <div class="home-button">
-      <CustomButton
-        label="Home"
-        btnclass="exit sec_medium_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
-    </div>
     <div class="next-button">
       <CustomButton
         id="next"

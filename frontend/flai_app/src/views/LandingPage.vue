@@ -20,7 +20,7 @@ function openModalRegister() {
 </script>
 
 <template>
-  <header id="stick">
+  <header id="stick" class="main-header">
     <div class="header-left">
       <IconLoader
         path="/assets/logos/logo.svg"
