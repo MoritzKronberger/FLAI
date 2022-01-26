@@ -6,8 +6,7 @@
   .default_input_field {
     min-width: $input-button-width-m;
     min-height: $input-button-height-m;
-    border-color: $main-blue;
-    border-style: solid;
+    border: $line-width-s solid $main-blue;
     border-radius: $border-radius-s;
     padding: $padding-s;
     font-size: $font-size-m;
