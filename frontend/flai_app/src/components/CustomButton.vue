@@ -16,7 +16,6 @@ function onclick() {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
-@import '../assets/scss/components/_buttonMixins.scss';
 .button-logout {
   width: 70%;
   margin-top: 40vh;
