@@ -120,7 +120,7 @@ const options = computed(() => ({
           moment(date)
             .clone()
             .subtract(trends.days - 1, 'days')
-            .format('DD.&#8201;MM.&#8201;YY') + ' bis '
+            .format('DD.&#8201;MM.&#8201;YY') + ' – '
         }}
       </span>
       <span class="body-medium">{{
