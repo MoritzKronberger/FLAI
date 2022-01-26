@@ -2,7 +2,7 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-//Spacing variables
+// spacing variables
 $margin-base: 1rem;
 $margin-l: $margin-base * 2;
 $margin-m: $margin-base;
@@ -222,6 +222,8 @@ $main-black-svg: invert(0%) sepia(96%) saturate(0%) hue-rotate(266deg) brightnes
 $main-white-svg: invert(94%) sepia(100%) saturate(23%) hue-rotate(21deg)
   brightness(104%) contrast(106%);
 $dark-blue-svg: invert(35%) sepia(58%) saturate(762%) hue-rotate(186deg) brightness(90%) contrast(100%);
+// using opacity on black
+$light-grey-svg: 0.42;
 
 // Low opacity
 $transparent-black: rgba(0, 0, 0, 0.5);
