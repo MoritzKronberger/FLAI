@@ -12,7 +12,7 @@
   float: right;
   width: calc(100% - $sidebar-width);
   height: 100%;
-  @media (max-width: 768px) {
+  @media (max-width: $S) {
     width: 100%;
   }
 }
@@ -27,9 +27,11 @@ a {
   text-decoration: none;
 }
 .logout {
-  margin-bottom: 0;
-  margin-right: 0;
-  position: absolute;
-  left: $padding-m;
-  bottom: $margin-m;
+  @media (min-width: $S) {
+    margin-bottom: 0;
+    margin-right: 0;
+    position: absolute;
+    left: $padding-m;
+    bottom: $padding-l;
+  }
 }

@@ -59,4 +59,5 @@ const level = ref(1)
 <style lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/components/startpanel';
+@import '../assets/scss/components/levelpanel';
 </style>

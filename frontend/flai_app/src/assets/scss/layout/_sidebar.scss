@@ -1,5 +1,5 @@
 //sidebar width
-$sidebar-width: calc($input-button-width-m + $padding-m * 2);
+$sidebar-width: calc($input-button-width-l + $margin-l);
 
 .display-aside {
   width: $sidebar-width;
@@ -8,8 +8,10 @@ $sidebar-width: calc($input-button-width-m + $padding-m * 2);
   position: fixed;
   padding-left: $padding-m;
   padding-right: $padding-m;
-  @media (max-width: $S) {
+  @include media-query("S") {
     width: 100%;
     position: relative;
+    padding: $padding-l;
+    @include flex-box(column, center, center)
   }
 }

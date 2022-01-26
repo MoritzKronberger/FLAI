@@ -1,9 +1,4 @@
 // Typography
-.heading-xlarge {
- @include font(GothamSSm, light);
- font-size: $font-size-h1;
- line-height: 1.3;
-}
 
 .heading-large {
   @include font(GothamSSm, light);
@@ -31,12 +26,6 @@
 
 .body-medium {
   @include font(GothamSSm, book);
-  font-size: $font-size-m;
-  line-height: 1.5;
-}
-
-.body-emphasised {
-  @include font(GothamSSm, bold);
   font-size: $font-size-m;
   line-height: 1.5;
 }
