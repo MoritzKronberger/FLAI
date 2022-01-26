@@ -5,11 +5,11 @@ img {
 }
 .flai-header-icon {
   margin-top: $margin-m;
-  width: buttonWidth('s');
-}
-@media (max-width: 768px) {
-  .flai-header-icon {
-    padding: 10vw;
+  width: $input-button-width-m;
+
+  @media (max-width: $S) {
+    width: 100%;
+    padding: $padding-m;
   }
 }
 
