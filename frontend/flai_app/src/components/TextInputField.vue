@@ -17,9 +17,9 @@ const onInput = (e: Event): void => {
 </script>
 
 <template>
-  <div :class="componentClass">
+  <div :class="componentClass ?? 'default-labeled-input'">
     <label :for="labelName" class="body-medium">
-      <div class="label">{{ labelName }}</div>
+      <div v-if="labelName" class="label">{{ labelName }}</div>
       <input
         :value="modelValue"
         :type="customType ? customType : 'text'"
@@ -35,15 +35,4 @@ const onInput = (e: Event): void => {
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/components/_inputField.scss';
-.email {
-  width: 300px;
-}
-.input {
-  margin-bottom: 10px;
-}
-
-.label {
-  float: left;
-  padding-left: 8px;
-}
 </style>

@@ -20,12 +20,12 @@ function openModalRegister() {
 </script>
 
 <template>
-  <header id="stick">
+  <header id="stick" class="main-header">
     <div class="header-left">
       <IconLoader
         path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-logo-1"
+        element-class="flai-logo"
       />
     </div>
     <div id="buttons">
@@ -61,7 +61,6 @@ function openModalRegister() {
           und bekomme direktes Feedback über die Kameraausgabe. Lerne so
           effizient und selbstbewusst die deutsche Gebärdensprache.
         </div>
-        <a class="prim_large_button_blue skip-to" href="#skip">Mehr erfahren</a>
       </div>
       <div class="main-right">
         <IconLoader

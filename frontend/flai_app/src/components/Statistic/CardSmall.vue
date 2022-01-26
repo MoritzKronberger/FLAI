@@ -11,8 +11,8 @@ const props = defineProps<{
 
 const progressBarElement = ref<HTMLDivElement>()
 const progressBarOptions: progressbar.PathDrawingOptions = {
-  color: '#355bbc',
-  strokeWidth: 4,
+  color: '#4a7bf6',
+  strokeWidth: 3.04 * 1.5,
   duration: 300,
 }
 const progressCircle = ref()

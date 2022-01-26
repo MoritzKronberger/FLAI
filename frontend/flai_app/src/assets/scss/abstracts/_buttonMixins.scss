@@ -1,0 +1,132 @@
+$trans-duration: 0.5s;
+
+@mixin import-button($width, $height, $padding, $font-size, $color-text, $color-background, $border-color) {
+  min-width: $width;
+  height: fit-content;
+
+  //text
+  @include font(GothamSSm, bold);
+  text-align: center;
+  font-size: $font-size;
+  color: $color-text;
+
+  //border
+  border-radius: $border-radius-s;
+  border-style: solid;
+  border-width: $line-width-m;
+  border-color: $border-color;
+
+  padding: $padding;
+
+  //mouse cursor changes to a pointy finger
+  cursor: pointer;
+
+  background-color: $color-background;
+  box-shadow: inset 0 0 0 0 $color-text;
+  transition: ease-in-out;
+  transition-duration: $trans-duration;
+  outline: none;
+
+  &:hover {
+    box-shadow: inset 0 0 -$width 0 $color-text;
+    color: $color-background;
+  }
+}
+
+//primary-button classes
+.prim_medium_button_blue {
+  @include import-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-m,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
+}
+
+.prim_medium_button_orange {
+  @include import-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-m,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+.prim_small_button_blue {
+  @include import-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-white,
+    $main-blue,
+    $main-blue
+  );
+}
+
+.prim_small_button_orange {
+  @include import-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-white,
+    $main-orange,
+    $main-orange
+  );
+}
+
+//secondary-button classes
+.sec_medium_button_blue {
+  @include import-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-m,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
+}
+
+.sec_medium_button_orange {
+  @include import-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-m,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}
+
+.sec_small_button_blue {
+  @include import-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-blue,
+    $main-white,
+    $main-blue
+  );
+}
+
+.sec_small_button_orange {
+  @include import-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-orange,
+    $main-white,
+    $main-orange
+  );
+}

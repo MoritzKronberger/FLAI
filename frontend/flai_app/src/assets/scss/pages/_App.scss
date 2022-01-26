@@ -1,33 +1,13 @@
-
-//sidebar width
-$sidebar-width: calc(buttonWidth('s') + $padding-width * 2);
-
-.display-aside {
-  width: $sidebar-width;
-  height: 100%;
-  background-color: white;
-  position: fixed;
-  padding-left: $padding-width;
-  padding-right: $padding-width;
-  @media (max-width: 768px) {
-    width: 100%;
-    position: relative;
-  }
-}
+@import '../layout/sidebar.scss';
 
 .hidden {
   display: none;
 }
 
-.main-login-register-lection {
-  width: 100%;
-}
-
-.main-home-profile {
-  float: right;
-  width: calc(100% - $sidebar-width);
+.main-content {
+  flex-basis: 100%;
   height: 100%;
-  @media (max-width: 768px) {
+  @media (max-width: $S) {
     width: 100%;
   }
 }
@@ -37,14 +17,8 @@ $sidebar-width: calc(buttonWidth('s') + $padding-width * 2);
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+  display: flex;
 }
 a {
   text-decoration: none;
-}
-.logout {
-  margin-bottom: 0;
-  margin-right: 0;
-  position: absolute;
-  left: $padding-width;
-  bottom: $homepage-margin-height;
 }

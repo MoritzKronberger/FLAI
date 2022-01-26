@@ -5,19 +5,19 @@
   .item {
     display: inline-flex;
     .bar {
-      @include flex-box(row, start, center, 0vh 1vw);
+      @include flex-box(row, start, center, 0 $padding-s);
       .icon {
-        width: 2.5vw;
+        width: $font-size-l;
       }
       .sidebar-flyout {
-        font-size: 15px;
+        font-size: $font-size-m;
       }
-      @media (max-width: 768px) {
+      @media (max-width: $S) {
         .icon {
           width: 12vw;
         }
         .sidebar-flyout {
-          font-size: 24px;
+          font-size: $font-size-l;
         }
       }
     }

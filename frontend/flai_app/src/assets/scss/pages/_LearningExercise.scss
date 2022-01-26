@@ -9,22 +9,16 @@
   display: grid;
   grid-auto-flow: column;
 
-  column-gap: $padding-width * 2;
-  row-gap: $padding-height;
+  column-gap: $margin-m;
+  row-gap: $margin-m;
   width: 100%;
   height: 100%;
-  padding: $padding-height $padding-width * 2;
+  padding: $padding-m $padding-l;
 
-  h2 {
+  .exercise-header {
     grid-area: heading;
-  }
-  .home-button {
-    grid-area: home;
-  }
-  .home-button {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 }
 
@@ -66,14 +60,14 @@
 
 .watch-word {
   grid-template-areas:
-    'heading home'
+    'heading heading'
     'signs status'
     'video webcam'
     'video webcam'
     'video-controls next';
 
   grid-auto-columns: 1fr;
-  grid-template-rows: auto auto 60% 1fr auto;
+  grid-template-rows: auto auto 50% 1fr auto;
 
   .sign-controls {
     grid-area: signs;
@@ -90,7 +84,7 @@
 
 .show-word {
   grid-template-areas:
-    'heading home'
+    'heading heading'
     '. current-word'
     'video webcam'
     'video-controls webcam'
@@ -114,8 +108,11 @@
 }
 
 .loading-screen {
+  width: 100%;
+  height: 100vh;
+
   grid-template-areas:
-    'heading home'
+    'heading heading'
     'loading-screen loading-screen';
 
   grid-template-columns: 1fr;
@@ -128,11 +125,11 @@
 
 .correct {
   #webcam-feed {
-    border: 4px solid $main-green;
+    border: $line-width-l solid $main-green;
   }
 }
 .wrong {
   #webcam-feed {
-    border: 4px solid $main-red;
+    border: $line-width-l solid $main-red;
   }
 }

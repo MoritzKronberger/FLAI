@@ -46,16 +46,15 @@ const submit = async (): Promise<void> => {
 
 <template>
   <div class="register-form-container">
-    <div class="form-item">
-      <IconLoader
-        path="/assets/logos/logo.svg"
-        alt="FLAI Icon"
-        element-class="flai-logo"
-      />
-      <div class="center-text body-small">
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo"
+    />
+    <div class="form-items">
+      <div class="lead-paragraph center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
-      <br />
       <div class="error-message body-normal">{{ errorMessage }}</div>
       <form>
         <text-input-field
@@ -92,17 +91,18 @@ const submit = async (): Promise<void> => {
           component-class="primary-checkbox body-small"
           checkmark-class="checkmark"
         />
-        <br />
-        <custom-button
-          label="Registrieren"
-          btnclass="button-form-primary prim_small_button_blue"
-          @button-click="submit"
-        />
+        <div class="button-container">
+          <custom-button
+            label="Registrieren"
+            btnclass="button-form-primary prim_small_button_blue"
+            @button-click="submit"
+          />
+        </div>
       </form>
       <div class="divider-line"></div>
       <div class="bottom-paragraph center-text body-small">
         Du hast ein Konto?
-        <span id="anmelden" @click="onclick">Melde dich an</span>
+        <span class="link" @click="onclick">Melde dich an</span>
       </div>
     </div>
   </div>
@@ -110,20 +110,4 @@ const submit = async (): Promise<void> => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
-
-.body-small {
-  font-size: $font-size-base * 0.75;
-  @include font(GothamSSm, medium);
-  color: $dark-grey;
-  line-height: 1.7;
-}
-
-#anmelden {
-  cursor: pointer;
-  color: $main-blue;
-}
-.flai-logo {
-  width: 60%;
-  margin-bottom: 16px;
-}
 </style>

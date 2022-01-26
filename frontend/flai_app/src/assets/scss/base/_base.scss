@@ -8,3 +8,7 @@ body {
   background-color: $main-white;
   @include font(GothamSSm, bold);
 }
+
+:root {
+  font-size: 19px;
+}
