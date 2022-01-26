@@ -8,7 +8,7 @@ $sidebar-width: calc($input-button-width-m + $padding-m * 2);
   position: fixed;
   padding-left: $padding-m;
   padding-right: $padding-m;
-  @media (max-width: 768px) {
+  @media (max-width: $S) {
     width: 100%;
     position: relative;
   }
