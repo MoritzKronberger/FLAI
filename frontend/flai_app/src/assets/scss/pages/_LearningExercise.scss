@@ -128,11 +128,11 @@
 
 .correct {
   #webcam-feed {
-    border: 4px solid $main-green;
+    border: $line-width-l solid $main-green;
   }
 }
 .wrong {
   #webcam-feed {
-    border: 4px solid $main-red;
+    border: $line-width-l solid $main-red;
   }
 }
