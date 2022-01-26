@@ -1,16 +1,11 @@
-//sidebar width
-$sidebar-width: calc($input-button-width-l + $margin-l);
-
-.display-aside {
-  width: $sidebar-width;
+aside {
+  width: fit-content;
   height: 100%;
   background-color: white;
-  position: fixed;
-  padding-left: $padding-m;
-  padding-right: $padding-m;
+  padding-left: $padding-l;
+  padding-right: $padding-l;
   @include media-query("S") {
     width: 100%;
-    position: relative;
     padding: $padding-l;
     @include flex-box(column, center, center)
   }

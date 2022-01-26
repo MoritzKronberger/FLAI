@@ -4,13 +4,8 @@
   display: none;
 }
 
-.main-login-register-lection {
-  width: 100%;
-}
-
-.main-home-profile {
-  float: right;
-  width: calc(100% - $sidebar-width);
+.main-content {
+  flex-basis: 100%;
   height: 100%;
   @media (max-width: $S) {
     width: 100%;
@@ -22,6 +17,7 @@
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+  display: flex;
 }
 a {
   text-decoration: none;
