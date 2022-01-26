@@ -58,7 +58,7 @@
       background-color: $subtle-orange;
       grid-column: span 2;
       grid-row: span 2;
-      border-radius: $border-radius-base;
+      border-radius: $border-radius-m;
       @include flex-box(column, center, center);
       color: $dark-blue;
 
