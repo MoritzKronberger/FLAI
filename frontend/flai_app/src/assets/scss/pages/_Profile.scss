@@ -42,6 +42,9 @@
         .profile-form-container {
             margin-left: $margin-m;
             width: 30%;
+            @include media-query("S") {
+                width: 50%;
+            }
             .body-small {
                 color: $main-red;
                 margin-bottom: $margin-l;
