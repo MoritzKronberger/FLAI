@@ -85,10 +85,10 @@
       grid-row: 1 / 5;
       grid-column: 4 / 6;
     }
-    @media (max-width: $S) {
-      //TODO: change to relative 
-      grid-template-columns: repeat(2, 100px);
-      grid-template-rows: repeat(4, 200px);
+    @media (max-width: $S) { 
+      height: 100%;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
       .start-panel {
         grid-column: span 3;
         grid-row: 1;
