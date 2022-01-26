@@ -14,38 +14,25 @@ const logoutUser = () => {
   router.push({ name: 'HomePage' })
 }
 const isAuth = computed(() => store.authdata.auth.isAuth)
-
-const switchClass = () => {
-  const path = router.currentRoute.value.path
-  if ((path === '/' || path === '/profile') && isAuth.value === true) {
-    return { aside: 'display-aside', main: 'main-home-profile' }
-  } else {
-    return { aside: 'hidden', main: 'main-login-register-lection' }
-  }
-}
-
-const classState = computed(() => switchClass())
 </script>
 
 <template>
-  <div v-if="isAuth">
-    <aside :class="classState.aside">
-      <router-link :to="{ name: 'HomePage' }">
-        <IconLoader
-          path="/assets/logos/logo.svg"
-          alt="FLAI Icon"
-          element-class="flai-header-icon"
-        />
-      </router-link>
-      <SidebarMenu />
-      <custom-button
-        label="Logout"
-        btnclass="sec_medium_button_orange logout"
-        @button-click="logoutUser"
+  <aside v-if="isAuth && router.currentRoute.value.name !== 'LearningExercise'">
+    <router-link :to="{ name: 'HomePage' }">
+      <IconLoader
+        path="/assets/logos/logo.svg"
+        alt="FLAI Icon"
+        element-class="flai-header-icon"
       />
-    </aside>
-  </div>
-  <main :class="classState.main">
+    </router-link>
+    <SidebarMenu />
+    <custom-button
+      label="Logout"
+      btnclass="sec_medium_button_orange logout"
+      @button-click="logoutUser"
+    />
+  </aside>
+  <main class="main-content">
     <router-view />
   </main>
 </template>
