@@ -1,14 +1,15 @@
-// sidebar
-/*.sidebar {
-    height: 100%; 
-    width: 160px; 
-    position: fixed; 
-    z-index: 1; // Stay on top
-    top: 0; // Stay at the top
-    left: 0;
-    background-color: $main-white;
-    overflow-x: hidden; // Disable horizontal scroll
-    padding-top: 180px;
-    border-right-style: solid;
+//sidebar width
+$sidebar-width: calc($input-button-width-m + $padding-m * 2);
+
+.display-aside {
+  width: $sidebar-width;
+  height: 100%;
+  background-color: white;
+  position: fixed;
+  padding-left: $padding-m;
+  padding-right: $padding-m;
+  @media (max-width: $S) {
+    width: 100%;
+    position: relative;
   }
-*/
+}

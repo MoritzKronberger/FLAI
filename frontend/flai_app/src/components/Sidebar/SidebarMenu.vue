@@ -17,7 +17,7 @@ const menuItems: MenuItem[] = [
   {
     viewName: 'LearningExercise',
     iconPath: '/assets/icons/FLAI_Lektionen.svg',
-    flyoutText: 'Lektionen',
+    flyoutText: 'Übung',
     iconAltText: 'Lektionen Icon',
   },
   {
