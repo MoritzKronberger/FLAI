@@ -9,30 +9,33 @@
         width: 100%;
         @include flex-box(row, center, flex-start, 0 $margin-s);
 
-        .key, .item {
+        .key,
+        .item {
             width: 100%;
             line-height: $input-button-height-m;
             height: $input-button-height-m;
             margin-bottom: $margin-m;
         }
 
+        .key {
+            text-align: end;
+            color: $main-blue;
+        }
+
+        .item {
+            background-color: white;
+            padding: 0 $padding-s;
+            border-radius: $border-radius-m;
+        }
+
         .property {
             display: flex;
             flex-direction: column;
-            .key {
-                text-align: end;
-                color: $main-blue;
-            }
         }
 
         .information {
             margin-left: $margin-m;
             width: 25%;
-            .item {
-                background-color: white;
-                padding: 0 $padding-s;
-                border-radius: $border-radius-m;
-            }
 
             #edit-button {
                 margin-top: $margin-l;
@@ -76,7 +79,7 @@
 
             .form-buttons {
                 margin-top: $margin-l;
-                @include flex-box(row, flex-start, center, 0 $margin-s)
+                @include flex-box(row, flex-start, center, 0 $margin-s);
             }
         }
 
