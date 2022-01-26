@@ -11,5 +11,9 @@ $sidebar-width: calc($input-button-width-m + $padding-m * 2);
   @media (max-width: $S) {
     width: 100%;
     position: relative;
+    padding: $padding-l;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
