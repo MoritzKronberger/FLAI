@@ -1,36 +1,30 @@
 <template>
   <div class="sign-controls">
-    <div>
-      <CustomButton
-        label="<"
-        :btnclass="[
-          'back-button',
-          'prim_xs_small_button_blue',
-          index > 0 ? '' : 'inactive-button',
-        ]"
-        @click="decreaseIndex"
-      />
-    </div>
+    <CustomButton
+      label="<"
+      :btnclass="`back-button prim_small_button_blue ${
+        index > 0 ? '' : 'inactive-button'
+      }`"
+      @click="decreaseIndex"
+    />
     <div class="letters">
-      <span v-if="index > 0" class="lastLetter">{{
-        signs[index - 1].name.toUpperCase()
-      }}</span>
-      <span class="currentLetter">{{ signs[index].name.toUpperCase() }}</span>
-      <span v-if="index + 1 < signs.length" class="nextLetter">{{
-        signs[index + 1].name.toUpperCase()
-      }}</span>
+      <div v-if="index > 0" class="lastLetter heading-medium">
+        {{ signs[index - 1].name.toUpperCase() }}
+      </div>
+      <div class="currentLetter heading-medium">
+        {{ signs[index].name.toUpperCase() }}
+      </div>
+      <div v-if="index + 1 < signs.length" class="nextLetter heading-medium">
+        {{ signs[index + 1].name.toUpperCase() }}
+      </div>
     </div>
-    <div>
-      <CustomButton
-        label=">"
-        :btnclass="[
-          'next-button',
-          'prim_xs_small_button_blue',
-          index + 1 < signs.length ? '' : 'inactive-button',
-        ]"
-        @click="increaseIndex"
-      />
-    </div>
+    <CustomButton
+      label=">"
+      :btnclass="`next-button prim_small_button_blue ${
+        index + 1 < signs.length ? '' : 'inactive-button'
+      }`"
+      @click="increaseIndex"
+    />
   </div>
 </template>
 
