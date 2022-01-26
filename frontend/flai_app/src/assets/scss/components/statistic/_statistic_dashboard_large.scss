@@ -1,27 +1,27 @@
 .statistic-dashboard-large {
   background-color: $main-white;
-  border-radius: 10px;
+  border-radius: $border-radius-m;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   .flex-cards {
-    @include flex-box(column, space-between, center, 10px);
+    @include flex-box(column, space-between, center, $padding-m);
   }
-  padding: 35px 25px 35px 25px;
+  padding: $padding-m;
 
   .hot-streak {
     @include flex-box(row, center, center);
-    margin-top: 5%;
+    margin-top: $padding-m;
   }
 
   .hot-streak-item {
-    padding-right: 12px;
+    padding-right: $padding-s;
   }
 
   .day-counter {
-    padding-right: 12px;
+    padding-right: $padding-m;
     color: $main-orange;
   }
 
@@ -32,19 +32,12 @@
 
   .counter {
     color: $dark-grey;
-    margin-top: 2%;
+    margin-top: $margin-m;
 
     .days {
       display: flex;
       justify-content: center;
-      margin-top: 2%;
+      margin-top: $margin-m;
     }
   }
-
-  #month {
-    margin-top: 10%;
-    margin-bottom: 10%;
-  }
-
-
 }
