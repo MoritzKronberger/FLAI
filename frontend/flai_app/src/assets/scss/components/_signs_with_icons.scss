@@ -2,34 +2,29 @@
   display: flex;
   justify-content: center;
 
-  .sign-with-icon-container {
-    width: 65%;
+  .item {
     display: flex;
-    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 $margin-m;
 
-    .item {
-      flex-basis: 100%;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
+    opacity: $light-grey-svg;
 
-      .feedback-icon {
-        filter: $main-black-svg;
-        width: 35%;
-        height: auto;
-        aspect-ratio: 1/1;
-        margin-left: -25%;
-      }
+    .feedback-icon {
+      height: $font-size-l;
+      aspect-ratio: 1/1;
+      margin-left: $margin-s;
+    }
+  }
+
+  .current-letter {
+    opacity: 1;
+
+    .feedback-icon {
+      width: 60%;
     }
 
-    .current-letter {
-      .feedback-icon {
-        width: 60%;
-      }
-
-      div {
-        font-weight: bold;
-      }
+    div {
+      font-weight: bold;
     }
   }
 }
