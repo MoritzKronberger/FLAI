@@ -28,7 +28,7 @@
             btnclass="start prim_medium_button_blue"
             @button-click="started = true"
           />
-          <div v-else>
+          <div v-else class="loading">
             <div class="loading-status body-medium">
               {{
                 !webcamReady
