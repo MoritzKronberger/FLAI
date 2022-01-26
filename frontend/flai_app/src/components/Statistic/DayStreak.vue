@@ -19,13 +19,11 @@ const longestStreak = computed(
       />
     </div>
     <div class="hot-streak-item">
-      <span v-if="streak" class="day-counter heading-small">{{ streak }}</span>
+      <span class="day-counter heading-small">{{ streak ? streak : '0' }}</span>
     </div>
     <div class="hot-streak-item">
       <span class="day-text heading-small">{{
-        `${!streak ? 'Keine' : ''} Tag${
-          (streak ?? 0) === 1 ? '' : 'e'
-        } in Folge`
+        `Tag${(streak ?? 0) === 1 ? '' : 'e'} in Folge`
       }}</span>
     </div>
   </div>
