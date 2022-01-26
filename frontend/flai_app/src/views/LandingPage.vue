@@ -57,9 +57,10 @@ function openModalRegister() {
       <div class="main-left">
         <div class="heading-large">Lerne Deutsche Gebärdensprache</div>
         <div class="text body-medium">
-          <span class="body-emphasised">FLAI</span> ist die erste KI-basierte
-          Lernanwendung für Deutsche Gebärdensprache, die dich aktiv beim Üben
-          unterstützt und sich deinem individuellen Lern-Rhythmus anpasst.
+          <span class="body-emphasised">FLAI</span> ist die erste
+          <span class="body-emphasised">KI-basierte Lernanwendung</span> für
+          Deutsche Gebärdensprache, die dich aktiv beim Üben unterstützt und
+          sich deinem individuellen Lern-Rhythmus anpasst.
         </div>
         <a class="prim_large_button_blue skip-to" href="#skip">Mehr erfahren</a>
       </div>
@@ -84,10 +85,11 @@ function openModalRegister() {
       <div class="main-right">
         <div class="heading-large">Selbstbewusst gebärden</div>
         <div class="text body-medium">
-          Neues Wissen souverän anwenden: Mit dem Echtzeit-Feedback von FLAI
+          Neues Wissen souverän anwenden: Mit dem
+          <span class="body-emphasised">Echtzeit-Feedback</span> von FLAI
           erhältst du von Anfang an Rückmeldung zu deiner Fingersprache. So
           gewinnst du spielerisch die Sicherheit, die du brauchst, um
-          selbstbewusst zu gebärden.
+          <span class="body-emphasised">selbstbewusst</span> zu gebärden.
         </div>
       </div>
     </div>
@@ -96,10 +98,12 @@ function openModalRegister() {
       <div class="main-left">
         <div class="heading-large">Lernlust statt Lernfrust</div>
         <div class="text body-medium">
-          Mit FLAIs Levelsystem nach dem Karteikasten-Prinzip ist Langeweile
-          ausgeschlossen. Lerneinheiten und Übungsaufgaben passen sich deinem
-          Rhythmus an, während deine individuelle Lernstatistik alle
-          Fortschritte dokumentiert und dich motiviert ans Ziel bringt.
+          Mit FLAIs Levelsystem nach dem
+          <span class="body-emphasised">Karteikasten-Prinzip</span> ist
+          Langeweile ausgeschlossen. Lerneinheiten und Übungsaufgaben passen
+          sich deinem <span class="body-emphasised">Rhythmus</span> an, während
+          deine individuelle Lernstatistik alle Fortschritte dokumentiert und
+          dich motiviert ans Ziel bringt.
         </div>
       </div>
       <div class="main-right">
