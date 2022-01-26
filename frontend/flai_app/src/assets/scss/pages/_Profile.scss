@@ -8,31 +8,34 @@
     .profile {
         width: 100%;
         @include flex-box(row, center, flex-start, 0 $margin-s);
+
+        .key,
+        .item {
+            width: 100%;
+            line-height: $input-button-height-m;
+            height: $input-button-height-m;
+            margin-bottom: $margin-m;
+        }
+
+        .key {
+            text-align: end;
+            color: $main-blue;
+        }
+
+        .item {
+            background-color: white;
+            padding: 0 $padding-s;
+            border-radius: $border-radius-m;
+        }
+
         .property {
             display: flex;
             flex-direction: column;
-            .key {
-                width: 100%;
-                text-align: end;
-                color: $main-blue;
-                line-height: $input-button-height-m;
-                height: $input-button-height-m;
-                margin-bottom: $margin-m;
-            }
         }
 
         .information {
             margin-left: $margin-m;
-            width: 30%;
-            .item {
-                background-color: white;
-                width: 100%;
-                height: $input-button-height-m;
-                line-height: $input-button-height-m;
-                padding: 0 $padding-s;
-                margin-bottom: $margin-m;
-                border-radius: $border-radius-m;
-            }
+            width: 25%;
 
             #edit-button {
                 margin-top: $margin-l;
@@ -41,7 +44,7 @@
 
         .profile-form-container {
             margin-left: $margin-m;
-            width: 30%;
+            width: 25%;
             @include media-query("S") {
                 width: 50%;
             }
@@ -76,7 +79,7 @@
 
             .form-buttons {
                 margin-top: $margin-l;
-                @include flex-box(row, flex-start, center, 0 $margin-s)
+                @include flex-box(row, flex-start, center, 0 $margin-s);
             }
         }
 
