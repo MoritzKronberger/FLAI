@@ -2,7 +2,7 @@ $trans-duration: 0.5s;
 
 @mixin import-button($width, $height, $padding, $font-size, $color-text, $color-background, $border-color) {
   min-width: $width;
-  min-height: $height;
+  height: fit-content;
 
   //text
   @include font(GothamSSm, bold);
