@@ -19,7 +19,10 @@ const longestStreak = computed(
       />
     </div>
     <div class="hot-streak-item">
-      <span class="day-counter heading-small">{{ streak ? streak : '0' }}</span>
+      <span
+        :class="[streak ?? 0 ? 'orange' : '', 'day-counter', 'heading-small']"
+        >{{ streak ? streak : '0' }}</span
+      >
     </div>
     <div class="hot-streak-item">
       <span class="day-text heading-small">{{
