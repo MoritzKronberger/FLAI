@@ -112,10 +112,10 @@ const options = computed(() => ({
     <div id="week">
       <custom-button
         label="<"
-        btnclass="prim_xxs_small_button_blue"
+        btnclass="sec_small_button_blue"
         @button-click="changeWeek('subtract', 1, 'weeks')"
       />
-      <span class="body-medium month"
+      <span class="body-medium"
         >{{
           moment(date)
             .clone()
@@ -128,7 +128,7 @@ const options = computed(() => ({
       }}</span>
       <custom-button
         label=">"
-        btnclass="prim_xxs_small_button_blue"
+        btnclass="sec_small_button_blue"
         @button-click="changeWeek('add', 1, 'weeks')"
       />
     </div>
@@ -143,6 +143,6 @@ const options = computed(() => ({
 
 <style scoped lang="scss">
 @import '../../assets/scss/main.scss';
-@import '../../assets/scss/components/buttonMixins';
+@import '../../assets/scss/abstracts/buttonMixins';
 @import '../../assets/scss/components/statistic/trend_diagram';
 </style>

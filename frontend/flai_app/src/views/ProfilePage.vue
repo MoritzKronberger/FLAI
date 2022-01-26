@@ -130,12 +130,14 @@ onMounted(() => {
             <li v-else-if="item.value == false" class="item">Links</li>
           </div>
         </div>
-        <custom-button
-          v-if="!displayForm"
-          label="Bearbeiten"
-          btnclass="prim_small_button_blue"
-          @button-click="openChangeForm"
-        />
+        <div id="edit-button">
+          <custom-button
+            v-if="!displayForm"
+            label="Bearbeiten"
+            btnclass="prim_medium_button_blue"
+            @button-click="openChangeForm"
+          />
+        </div>
       </div>
       <div v-if="displayForm" class="profile-form-container">
         <form class="form-items">
@@ -185,16 +187,18 @@ onMounted(() => {
         <p v-if="errorMessage" class="body-small">
           {{ errorMessage }}
         </p>
-        <custom-button
-          label="Bestätigen"
-          btnclass="prim_small_button_blue"
-          @button-click="submitChanges"
-        />
-        <custom-button
-          label="Verwerfen"
-          btnclass="sec_small_button_blue"
-          @button-click="discardChanges"
-        />
+        <div class="form-buttons">
+          <custom-button
+            label="Bestätigen"
+            btnclass="prim_medium_button_blue"
+            @button-click="submitChanges"
+          />
+          <custom-button
+            label="Verwerfen"
+            btnclass="sec_medium_button_blue"
+            @button-click="discardChanges"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -202,6 +206,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
-@import '../assets/scss/components/buttonMixins';
+@import '../assets/scss/abstracts/buttonMixins';
 @import '../assets/scss/components/customCheckbox';
 </style>

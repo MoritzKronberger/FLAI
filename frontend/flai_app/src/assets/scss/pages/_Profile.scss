@@ -1,86 +1,93 @@
-$padding: 1% 2%;
-$margin-width: 2vh;
-$margin-bottom: 5vh;
-$height: 6vh;
-
 .profile-page {
     background-color: $background-blue;
     list-style-type: none;
     position: relative;
     height: 100vh;
     max-height: 100vh;
+    @include flex-box(row, center, center);
     .profile {
         width: 100%;
-        padding-top: 10%;
-        display: inline-flex;
+        @include flex-box(row, center, flex-start, 0 $margin-s);
+
+        .key,
+        .item {
+            width: 100%;
+            line-height: $input-button-height-m;
+            height: $input-button-height-m;
+            margin-bottom: $margin-m;
+        }
+
+        .key {
+            text-align: end;
+            color: $main-blue;
+        }
+
+        .item {
+            background-color: white;
+            padding: 0 $padding-s;
+            border-radius: $border-radius-m;
+        }
+
         .property {
-            width: 40%;
-            min-width: 40%;
-            margin-right: $margin-width;
             display: flex;
             flex-direction: column;
-            .key {
-                text-align: end;
-                color: $main-blue;
-                line-height: $height;
-                height: $height;
-                width: 100%;
-                padding-right: 2%;
-                margin-bottom: $margin-bottom;
-            }
         }
 
         .information {
-            width: 60%;
-            margin-left: $margin-width;
-            .item {
-                width: 50%;
-                height: $height;
-                line-height: $height;
-                padding-left: 2%;
-                background-color: white;
-                margin-bottom: $margin-bottom;
-                border-radius: $border-radius;
+            margin-left: $margin-m;
+            width: 25%;
+
+            #edit-button {
+                margin-top: $margin-l;
             }
         }
 
         .profile-form-container {
-            margin-left: $margin-width;
-            width: 60%;
+            margin-left: $margin-m;
+            width: 25%;
+            @include media-query("S") {
+                width: 50%;
+            }
             .body-small {
                 color: $main-red;
-                margin-bottom: 1vh;
+                margin-bottom: $margin-l;
             }
 
             .form-items {
                 width: 100%;
                 display: flex;
-                row-gap: $margin-bottom;
+                row-gap: $margin-m;
                 flex-direction: column;
-                margin-bottom: $margin-bottom;
+                margin-bottom: $margin-m;
+
                 .checkbox-container {
                     width: 50%;
                     .primary-checkbox {
                         margin: 0;
                     }
                     display: flex;
-                    height: $height;
-                    line-height: $height;
+                    height: $input-button-height-m;
+                    line-height: $input-button-height-m;
                     align-items: center;
-                    gap: 10%;
+                    gap: $margin-m;
                     input {
                         width: 22px;
                         height: 22px;
                     }
                 }
             }
+
+            .form-buttons {
+                margin-top: $margin-l;
+                @include flex-box(row, flex-start, center, 0 $margin-s);
+            }
         }
 
         input {
-            font-size: $medium;
-            height: $height;
-            width: 50%;
-            border-radius: $border-radius;
+            font-size: $font-size-m;
+            height: $input-button-height-m;
+            width: 100%;
+            border-radius: $border-radius-m;
         }
 
         .input-form-primary,

@@ -1,11 +1,13 @@
 nav {
-    display: flex;
-    flex-direction: column;
-    row-gap: 3vh;
-    margin-top: 11vh;
-    margin-bottom: 40vh;
-    @media (max-width: 768px) {
-      text-align: center;
-      row-gap: 6vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: $padding-m;
+  //TODO: align with text?
+  margin-top: 11vh;
+  margin-bottom: 40vh;
+  @media (max-width: $S) {
+    text-align: center;
+    row-gap: $margin-s;
   }
 }

@@ -20,12 +20,12 @@ function openModalRegister() {
 </script>
 
 <template>
-  <header id="stick">
+  <header id="stick" class="main-header">
     <div class="header-left">
       <IconLoader
         path="/assets/logos/logo.svg"
         alt="FLAI Icon"
-        element-class="flai-logo-1"
+        element-class="flai-logo"
       />
     </div>
     <div id="buttons">
@@ -62,7 +62,6 @@ function openModalRegister() {
           Deutsche Gebärdensprache, die dich aktiv beim Üben unterstützt und
           sich deinem individuellen Lern-Rhythmus anpasst.
         </div>
-        <a class="prim_large_button_blue skip-to" href="#skip">Mehr erfahren</a>
       </div>
       <div class="main-right">
         <IconLoader

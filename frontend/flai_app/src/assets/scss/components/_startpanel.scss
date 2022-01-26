@@ -1,7 +1,7 @@
 .start-panel {
     position: relative;
-    border-radius: 10px;
-    padding: 5%;
+    border-radius: $border-radius-m;
+    padding: $padding-m;
     display: flex;
     justify-content: space-around;
     align-items: center;

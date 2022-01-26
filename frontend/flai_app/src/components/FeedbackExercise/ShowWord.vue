@@ -1,6 +1,13 @@
 <template>
   <div class="show-word exercise-grid">
-    <h2 class="heading-large align-left">Üben</h2>
+    <header class="exercise-header">
+      <h2 class="heading-large align-left">Üben</h2>
+      <Button
+        label="Home"
+        btnclass="exit sec_medium_button_blue"
+        @click="router.push({ name: 'HomePage' })"
+      />
+    </header>
     <SignsWithIcons
       class="current-word"
       :signs="signs"
@@ -15,19 +22,12 @@
     />
     <p v-if="!wordComplete" class="status body-medium">{{ status }}</p>
     <webcam :borderclass="feedbackClass" />
-    <div class="home-button">
-      <Button
-        label="Home"
-        btnclass="exit sec_small_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
-    </div>
     <div class="next-button">
       <Button
         v-if="wordComplete"
         id="next"
         label="weiter"
-        btnclass="prim_small_button_blue"
+        btnclass="prim_medium_button_blue"
         @button-click="emit('new-word')"
       />
     </div>

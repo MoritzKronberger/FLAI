@@ -2,27 +2,29 @@
   <div class="sign-controls">
     <CustomButton
       label="<"
-      :btnclass="
-        'prim_xs_small_button_blue' + ' ' + (index > 0 ? '' : 'inactive-button')
-      "
+      :btnclass="`back-button prim_small_button_blue ${
+        index > 0 ? '' : 'inactive-button'
+      }`"
       @click="decreaseIndex"
     />
-    <span class="letter lastLetter">{{
-      index > 0 ? signs[index - 1].name.toUpperCase() : ''
-    }}</span>
-    <span class="letter currentLetter">{{
-      signs[index].name.toUpperCase()
-    }}</span>
-    <span class="letter nextLetter">{{
-      index + 1 < signs.length ? signs[index + 1].name.toUpperCase() : ''
-    }}</span>
+    <div class="letters">
+      <div class="lastLetter heading-medium">
+        {{ index > 0 ? signs[index - 1].name.toUpperCase() : '' }}
+      </div>
+      <div class="currentLetter heading-medium">
+        {{ signs[index].name.toUpperCase() }}
+      </div>
+      <div class="nextLetter heading-medium">
+        {{
+          index + 1 < signs.length ? signs[index + 1].name.toUpperCase() : ''
+        }}
+      </div>
+    </div>
     <CustomButton
       label=">"
-      :btnclass="
-        'prim_xs_small_button_blue' +
-        ' ' +
-        (index + 1 < signs.length ? '' : 'inactive-button')
-      "
+      :btnclass="`next-button prim_small_button_blue ${
+        index + 1 < signs.length ? '' : 'inactive-button'
+      }`"
       @click="increaseIndex"
     />
   </div>

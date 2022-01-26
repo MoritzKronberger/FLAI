@@ -1,27 +1,28 @@
 
 .sign-controls {
   width: 100%;
-  height: $sign-div-height;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 
-  .letter {
-    width: 1em;
-    text-align: center;
+  .letters{
+    display: flex;
+    align-items: center;
+    margin: 0 $margin-l * 2;
+
+    div {
+      opacity: $light-grey-svg;
+      margin: 0 $margin-m;
+      width: 1rem;
+    }
+
+    .currentLetter {
+      opacity: 1;
+      font-weight: bold;
+    }
   }
 
-  .lastLetter {
-    font-size: $h3;
-  }
-  .currentLetter {
-    font-weight: 800;
-    font-size: $h2;
-  }
-  .nextLetter {
-    font-size: $h3;
-  }
-  
   .inactive-button {
     background-color: $subtle-grey;
     border-color: $subtle-grey;

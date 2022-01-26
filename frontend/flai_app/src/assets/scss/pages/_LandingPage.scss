@@ -3,30 +3,32 @@ body {
     flex-direction: column;
 }
 
-
 #stick {
     position: sticky;
-    top: 0;
     height: fit-content;
-    width: 100%;
-    z-index: 1;
     @include flex-box(row, space-between, center);
-    padding: 1vh 6vh;
-    background-color: rgba(255, 255, 255, .8);
+    padding: $padding-s;
+    background-color: rgba(255, 255, 255, 0.8);
 
-    @media (max-width:768px) {
+    @include media-query("S") {
         flex-direction: column;
         justify-content: space-between;
-        padding: 4vh 1vh 1vh 1vh;
-        row-gap: 4vw;
+        padding: $padding-m;
+        row-gap: $margin-m;
     }
-}
 
-#buttons {
-    height: fit-content;
-    @include flex-box(row, flex-end, center, 0vh 1vw);
-    @media (max-width:768px) {
-        justify-content: center;
+    #buttons {
+        height: fit-content;
+        margin-right: $margin-m;
+        @include flex-box(row, flex-end, center, 0 $margin-s);
+        @include media-query("S") {
+            justify-content: center;
+        }
+    }
+
+    #login {
+        cursor: pointer;
+        color: $main-blue;
     }
 }
 
@@ -34,19 +36,11 @@ body {
     color: $main-blue;
 }
 
-#login {
-    cursor: pointer;
-    color: $main-blue;
-}
-
 .header-left {
     @include flex-box(row, flex-start, center);
-    .flai-logo-1 {
-        height: 50px;
-        @media (max-width:768px) {
-            height: 90px;
-        }
-
+    .flai-logo {
+        height: $input-button-height-m;
+        margin-left: $margin-m;
     }
 }
 
@@ -70,128 +64,77 @@ body {
     background-color: $main-white;
 }
 
-
-.first-section, .second-section,
-.third-section, .end-section {
-    @include flex-box(row, space-between, center, 0vh 4vw);
+.first-section,
+.second-section,
+.third-section,
+.end-section {
+    @include flex-box(row, center, center, 0 $margin-l);
     width: 100%;
-
-    @media (max-width:768px) {
-        flex-flow: column;
-        gap: 1vh 0vw;
-        height: 100%;
-        padding: 5% 0%;
-    }
-}
-
-.bg-blue, .bg-white {
-    @media (max-width:768px) {
-        margin-top: 1vh;
+    @include media-query("S") {
         flex-direction: column;
-        align-items: center;
-        min-height: 100px;
-        row-gap: 2vh;
-        padding: 1vh;
+        gap: $margin-m 0;
+        height: 100%;
+        padding: $padding-m 0;
     }
 }
 
-.main-left, .main-right {
-    @include flex-box(column wrap, space-between, flex-start, 0vh 1vw);
-    width: 50%;
+.main-left,
+.main-right {
+    @include flex-box(column wrap, center, center);
+    width: 40%;
     text-align: left;
 }
 
-.main-left {
-    padding-left: 10vw;
-}
-
+.main-left,
 .main-right {
-    padding-right: 10vw;
-}
-
-.main-left, .main-right {
-    @media (max-width:768px) {
-        width: 60%;
-        align-items: center;
-        justify-content: center;
-        padding: 1vh 3vw;
-        row-gap: 1vh;
+    @include media-query("S") {
+        width: 70%;
+        padding: $padding-m;
+        row-gap: $margin-s;
     }
 }
 
 :is(.main-left, .main-right) .heading-large {
     color: $dark-blue;
     width: 100%;
-    margin-bottom: 3vh;
-    @media (max-width:768px) {
-        width: 100%;
-        font-size: 200%;
-    }
+    margin-bottom: $margin-m;
 }
 
 :is(.main-left, .main-right) .text {
     color: $dark-grey;
     width: 100%;
     line-height: 1.9;
-    @media (max-width:1200px) {
-        width: 100%;
-    }
-    @media (max-width:768px) {
-        font-size: 100%;
-        text-align: left;
+    @include media-query("S") {
+        text-align: justify;
     }
 }
 
-.main-right .img {
+:is(.main-left, .main-right)  .img {
     width: 100%;
     height: auto;
-    @media (max-width:768px) {
-        width: 60vw;
+    @include media-query("S") {
+        width: 80%;
         height: auto;
     }
-}
-
-.main-left .img {
-    width: 100%;
-    height: auto;
-    @media (max-width:768px) {
-        width: 60vw;
-        height: auto;
-    }
-}
-
-a.prim_large_button_blue {
-    width: 200px;
-    display: flex;
-    text-decoration:none;
-    justify-content: center;
-    align-items: center;
 }
 
 #line {
-    margin: 0 5vw 0 5vw;
-    width: 90vw;
+    width: 100%;
     color: $light-grey;
     opacity: 25%;
 }
 
 #footer {
-    padding: 2vw 4vw 2vw 4vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 3%;
-    color: $light-grey;
-    font-size: $font-size-base * 0.75;
+    @include flex-box(row, flex-end, center, 0 $margin-l);
     @include font(GothamSSm, medium);
+    padding: $padding-m $padding-l;
+    color: $light-grey;
+    font-size: $font-size-s;
 
-    a:link, a:visited, a:link:active, a:visited:active {
+    a {
         width: fit-content;
+        color: $light-grey;
         text-decoration: none;
         cursor: pointer;
-        color: $light-grey;
-        @include font(GothamSSm, medium);
     }
 }
-
-
