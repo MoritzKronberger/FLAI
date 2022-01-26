@@ -7,7 +7,7 @@ body {
     position: sticky;
     height: fit-content;
     @include flex-box(row, space-between, center);
-    padding: $padding-m;
+    padding: $padding-s;
     background-color: rgba(255, 255, 255, 0.8);
 
     @include media-query("S") {
@@ -19,6 +19,7 @@ body {
 
     #buttons {
         height: fit-content;
+        margin-right: $margin-m;
         @include flex-box(row, flex-end, center, 0 $margin-s);
         @include media-query("S") {
             justify-content: center;
@@ -38,7 +39,8 @@ body {
 .header-left {
     @include flex-box(row, flex-start, center);
     .flai-logo {
-        height: $input-button-height-l;
+        height: $input-button-height-m;
+        margin-left: $margin-m;
     }
 }
 

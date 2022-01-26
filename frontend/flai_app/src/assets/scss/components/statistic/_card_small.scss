@@ -21,7 +21,7 @@ a {
   flex-basis: 45%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  border: 2px solid $subtle-blue;
+  border: $line-width-m solid $subtle-blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,10 +42,10 @@ a {
   text-align: center;
   margin-top: $padding-m;
 
-  @media (min-width: $S) and (max-width: $M) {
-    font-size: 11px;
+  @media (min-width: $S) {
+    font-size: $font-size-s;
   }
-  @media (max-width: $L) {
-    font-size: 14px;
+  @media (min-width: $L) {
+    font-size: $font-size-m;
   }
 }
