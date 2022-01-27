@@ -2,9 +2,10 @@
   "name": "flai_app",
   "version": "0.0.1",
   "contributors": [
-    "Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"
+    "Stefanie Jany, Lea Jell, Martin Kohnle, Anja Krendlinger, Moritz Kronberger, Eva Kunzmann, Kieu Pham"
   ],
   "description": "Vue.js Frontend Application using Typescript and Vite",
+  "license": "MIT",
   "keywords": [
     "Vue",
     "Typescript",

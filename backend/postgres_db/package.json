@@ -1,0 +1,14 @@
+{
+  "name": "postgres",
+  "version": "0.0.1",
+  "contributors": [
+    "Moritz Kronberger"
+  ],
+  "license": "MIT",
+  "description": "PostgreSQL database schemas and dockerization",
+  "keywords": [
+    "PostgreSQL",
+    "database",
+    "SQL"
+  ]
+}
