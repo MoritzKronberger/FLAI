@@ -4,7 +4,7 @@ import customCheckbox from '../components/CustomCheckbox.vue'
 import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { RegisterUser } from '../store/userdata'
 //import { useRouter } from 'vue-router'
 
@@ -18,6 +18,14 @@ const user = ref<RegisterUser>({
   password: '',
   right_handed: true,
   target_learning_time: defaultTargetTime,
+})
+const leftHanded = ref(!user.value.right_handed)
+
+watchEffect(() => {
+  leftHanded.value = !user.value.right_handed
+})
+watchEffect(() => {
+  user.value.right_handed = !leftHanded.value
 })
 
 const errorMessage = ref('')
@@ -84,9 +92,15 @@ const submit = async (): Promise<void> => {
           custom-type="time"
           :time-step="1"
         />
+        <span>Händigkeit</span>
         <custom-checkbox
           v-model="user.right_handed"
-          label-name="Rechtshänder:in?"
+          element-class="primary-checkbox"
+          component-class="primary-checkbox body-small"
+          checkmark-class="checkmark"
+        />
+        <custom-checkbox
+          v-model="leftHanded"
           element-class="primary-checkbox"
           component-class="primary-checkbox body-small"
           checkmark-class="checkmark"
