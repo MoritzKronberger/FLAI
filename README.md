@@ -1,27 +1,25 @@
-# ia5_teamprojekt_flai
+# FLAI - Interactive Media Semester 5 - University of Applied Sciences Augsburg
 
-Repository für das IA5-Teamprojekt Web-App (Gruppe FLAI)
+Repository for the IA5-Team-Project Web-App (Group FLAI)
 
 ## Clone repository
 
-**A [VPN connection to the HSA](https://www.hs-augsburg.de/Rechenzentrum/Datennetz-WLAN-VPN.html) is needed to clone this repository.**
-
 ```bash
-git clone https://gitlab.multimedia.hs-augsburg.de/mokro/gruppenprojekt-webprogrammierung.git
-cd ProjectSetupTest
+git clone <repository-url>
+cd <repository-name>
 ```
 
 ## Create .env files
 
-**.env files must not be commited to the repository!**
+**.env files must not be committed to the repository!**
 
-Username and password for the postgres superuser and regular user are passed as arguments:
+Username and password for the postgres superuser and regular user must be passed as parameters, the REST-server hostname can be passed as an optional parameter (the default is set correctly for a local Docker setup):
 
 ```bash
-bash create_dotenv.sh <superuser username> <superuser password> <regular user username> <regular user password>
+bash create_dotenv.sh <superuser username> <superuser password> <regular user username> <regular user password> <rest-hostname>?
 ```
 
-The env-variables can be changed by editing the corresponding array in the [bash script](./create_dotenv.sh) and re-executing it
+If env-variables should be changed for all repo users the corresponding array must be edited in the [bash script](./create_dotenv.sh).
 
 ## Build Docker Images
 
@@ -37,6 +35,8 @@ docker-compose up
 
 ## Access Containers
 
+Defaults:
+
 Vue at <http://localhost:3000>
 
 Express at <http://localhost:5000>
@@ -49,6 +49,18 @@ Adminer at <http://localhost:7000>
 docker-compose down
 ```
 
+## Remove Database Data
+
+```bash
+rm -rf backend/postgres_db/pgdata
+```
+
+## Remove Docker Images
+
+```bash
+docker-compose down --rmi all
+```
+
 ## Further documentation
 
 More documentation about the individual components can be found here:
@@ -58,3 +70,5 @@ More documentation about the individual components can be found here:
 [Express](./backend/express/README.md)
 
 [Postgres](./backend/postgres_db/README.md)
+
+[Neural Network](./neural_net/README.md)

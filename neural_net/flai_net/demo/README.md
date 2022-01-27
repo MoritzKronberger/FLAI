@@ -1,10 +1,12 @@
-# FLAINET DEMO
+# FLAI_Net Demo
+
+## About
 
 FLAI NET Demo using [mediapipe hand pose detection](https://google.github.io/mediapipe/solutions/hands.html) and our custom neural net.
 
-[Python 3](https://www.python.org/downloads/) and [Python for VsCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python) must be installed.
-
 ## Initial Setup
+
+[Python 3](https://www.python.org/downloads/) and [Python for VsCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python) must be installed.
 
 ### Change directory
 
@@ -25,7 +27,7 @@ py -3 -m venv .venv
 code .
 ```
 
-Or open the collect_data dir in new VsCode window
+Or open the `/demo` directory in new VsCode window
 
 In the new window:
 
@@ -39,7 +41,7 @@ In VsCode Commandline:
 > Python 3.9.0 64-bit ('venv':venv)
 ```
 
-*Once the interpreter has been set from the collect_data folder, it might also be availiable in parent directories after a VsCode restart.*
+*Once the interpreter has been set from the `/demo` directory, it is also available in parent directories after a VsCode restart.*
 
 ### Install requirements
 
@@ -82,6 +84,8 @@ Run **demo.py**
 
 (To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
 
+Common errors:
+
 - If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
 
-- If the script fails, make sure you have navigated into the **demo** directory in the Python Console.
+- If the script fails, make sure you have navigated into the `/demo` directory in the Python Console.
