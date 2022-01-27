@@ -34,7 +34,7 @@ function onclick(label: string | undefined) {
       } ${hovering ? 'hovering' : ''}`"
       :switch="true"
       @button-click="onclick"
-      @mouseenter="index !== activeButton ? (hovering = true) : ''"
+      @mouseenter="hovering = true"
       @mouseleave="hovering = false"
     />
   </div>
