@@ -21,7 +21,6 @@ const user = ref<RegisterUser>({
 })
 
 const errorMessage = reactive([''])
-
 const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
 
@@ -33,6 +32,7 @@ function onclick() {
 }
 
 const submit = async (): Promise<void> => {
+  errorMessage.length = 0
   const submitUser = { ...user.value }
   const result = await userActions.postNewUser(submitUser)
   if (result?.status === 200) {
