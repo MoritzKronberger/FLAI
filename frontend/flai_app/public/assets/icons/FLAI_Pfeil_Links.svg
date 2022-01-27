@@ -1,1 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 58 99" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;"><rect id="ArtBoard1" x="0" y="0" width="57.543" height="98.263" style="fill:none;"/><clipPath id="_clip1"><rect x="0" y="0" width="57.543" height="98.263"/></clipPath><g clip-path="url(#_clip1)"><path d="M50.872,91.031l-41.667,-41.666l41.667,-41.667" style="fill:none;fill-rule:nonzero;stroke:#000;stroke-width:12.5px;"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="px" height="40px" viewBox="0 0 23 39" version="1.1">
+<defs>
+<clipPath id="clip1">
+  <path d="M 0 0 L 22.820312 0 L 22.820312 38.710938 L 0 38.710938 Z M 0 0 "/>
+</clipPath>
+</defs>
+<g id="surface1">
+<g clip-path="url(#clip1)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:12.5;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 50.868207 91.027644 L 9.200408 49.361178 L 50.868207 7.694712 " transform="matrix(0.396552,0,0,0.393939,0,0)"/>
+</g>
+</g>
+</svg>

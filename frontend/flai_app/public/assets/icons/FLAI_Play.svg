@@ -1,1 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 55 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;"><rect id="ArtBoard1" x="0" y="0" width="54.967" height="96.48" style="fill:none;"/><clipPath id="_clip1"><rect x="0" y="0" width="54.967" height="96.48"/></clipPath><g clip-path="url(#_clip1)"><path d="M48.077,48.598l-40.661,40.661c-0.262,0.263 -0.711,0.077 -0.711,-0.295l-0,-81.321c-0,-0.371 0.449,-0.557 0.711,-0.295l40.661,40.661c0.162,0.163 0.162,0.427 -0,0.589Z" style="fill-rule:nonzero;stroke:#000;stroke-width:12.5px;"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="px" height="40px" viewBox="0 0 23 40" version="1.1">
+<defs>
+<clipPath id="clip1">
+  <path d="M 0 0 L 22.984375 0 L 22.984375 39.785156 L 0 39.785156 Z M 0 0 "/>
+</clipPath>
+</defs>
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 20.105469 20.039062 L 3.101562 36.808594 C 2.992188 36.917969 2.804688 36.839844 2.804688 36.6875 L 2.804688 3.152344 C 2.804688 3 2.992188 2.921875 3.101562 3.03125 L 20.105469 19.796875 C 20.171875 19.863281 20.171875 19.972656 20.105469 20.039062 Z M 20.105469 20.039062 "/>
+<g clip-path="url(#clip1)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:12.5;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 48.078295 48.594727 L 7.41678 89.26084 C 7.155231 89.526074 6.706861 89.336621 6.706861 88.967188 L 6.706861 7.644434 C 6.706861 7.275 7.155231 7.085547 7.41678 7.350781 L 48.078295 48.007422 C 48.237092 48.168457 48.237092 48.433691 48.078295 48.594727 Z M 48.078295 48.594727 " transform="matrix(0.418182,0,0,0.412371,0,0)"/>
+</g>
+</g>
+</svg>
