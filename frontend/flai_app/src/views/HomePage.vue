@@ -9,8 +9,8 @@ import store from '../store'
 import LandingPage from './LandingPage.vue'
 const router = useRouter()
 
-//const user = computed(() => store.userdata.user)
 const auth = computed(() => store.authdata.auth)
+const username = computed(() => store.userdata.user.username)
 
 const redirect = (viewName: string) => router.push({ name: viewName })
 const level = ref(1)
@@ -24,7 +24,7 @@ const level = ref(1)
     <div class="dashboard">
       <div class="start-panel">
         <div class="start-panel-text">
-          <div class="heading-medium">Willkommen zurück!</div>
+          <div class="heading-medium">Willkommen {{ username }}!</div>
           <br />
           <div class="body-medium">
             Bereit für die heutige <br />
