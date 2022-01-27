@@ -2,6 +2,7 @@
   "name": "ia5_teamprojekt_flai",
   "version": "1.0.0",
   "description": "Repository for IA5-Teamprojekt Web-App (Group FLAI)",
+  "license": "MIT",
   "scripts": {
     "mdlint": "markdownlint \"./**/*.md\" --ignore ./**/node_modules/**/*.md",
     "mdlint-fix": "markdownlint --fix \"./**/*.md\" --ignore ./**/node_modules/**/*.md"
@@ -17,7 +18,7 @@
     "postgres"
   ],
   "contributors": [
-    "Anja Krendlinger, Eva Kunzmann, Kieu Pham, Lea Jell, Martin Kohnle, Moritz Kronberger, Stefanie Jany"
+    "Stefanie Jany, Lea Jell, Martin Kohnle, Anja Krendlinger, Moritz Kronberger, Eva Kunzmann, Kieu Pham"
   ],
   "devDependencies": {
     "husky": "^4.3.8",

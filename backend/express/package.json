@@ -1,9 +1,8 @@
 {
   "name": "express",
   "version": "0.0.1",
-  "contributors": [
-    "Lea Jell, Martin Kohnle, Moritz Kronberger"
-  ],
+  "contributors": ["Lea Jell, Martin Kohnle, Moritz Kronberger"],
+  "license": "MIT",
   "description": "Express server for REST-API",
   "keywords": [
     "Express",
