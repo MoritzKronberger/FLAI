@@ -94,13 +94,15 @@ const submit = async (): Promise<void> => {
         />
         <span>Händigkeit</span>
         <custom-checkbox
-          v-model="user.right_handed"
+          v-model="leftHanded"
+          label-name="Links"
           element-class="primary-checkbox"
           component-class="primary-checkbox body-small"
           checkmark-class="checkmark"
         />
         <custom-checkbox
-          v-model="leftHanded"
+          v-model="user.right_handed"
+          label-name="Rechts"
           element-class="primary-checkbox"
           component-class="primary-checkbox body-small"
           checkmark-class="checkmark"
