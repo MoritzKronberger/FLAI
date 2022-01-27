@@ -20,6 +20,14 @@ const user = ref<RegisterUser>({
   target_learning_time: defaultTargetTime,
 })
 
+const inputFieldValidation = reactive({
+  username: false,
+  password: false,
+  email: false,
+})
+
+type inputFieldKey = keyof typeof inputFieldValidation
+
 const errorMessage = reactive([{ message: '', type: '' }])
 const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
@@ -39,13 +47,16 @@ const submit = async (): Promise<void> => {
     userMethods.changeEmail(submitUser.email)
     emit('openLogin')
   } else {
+    for (const el in inputFieldValidation) {
+      inputFieldValidation[el as inputFieldKey] = false
+    }
     for (let i = 0; i < result?.data.length; i++) {
       errorMessage.push({
         message: result?.data[i].message,
         type: result?.data[i].path[0],
       })
+      inputFieldValidation[result?.data[i].path[0] as inputFieldKey] = true
     }
-    console.log(errorMessage)
   }
 }
 </script>
@@ -74,12 +85,14 @@ const submit = async (): Promise<void> => {
           label-name="Benutzername"
           placeholder="MaxMuster"
           element-class="default_input_field input-form-primary"
+          :validation-wrong="inputFieldValidation.username"
         />
         <text-input-field
           v-model="user.email"
           label-name="E-Mail-Adresse"
           placeholder="maxmusterman@flai.de"
           element-class="default_input_field input-form-primary"
+          :validation-wrong="inputFieldValidation.email"
         />
         <text-input-field
           v-model="user.password"
@@ -87,6 +100,7 @@ const submit = async (): Promise<void> => {
           placeholder="********"
           element-class="default_input_field input-form-primary"
           custom-type="password"
+          :validation-wrong="inputFieldValidation.password"
         />
         <text-input-field
           v-model="user.target_learning_time"
