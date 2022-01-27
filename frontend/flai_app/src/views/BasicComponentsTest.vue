@@ -119,7 +119,7 @@ const buttonClick = (): void => {
   </div>
   <div>
     <h1>Webcam</h1>
-    <webcam @webcam-ready="logWebcamFeed" />
+    <webcam borderclass="" @webcam-ready="logWebcamFeed" />
   </div>
   <div class="stats-small-panel">
     <StatisticDashboardSmall />
