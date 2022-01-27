@@ -1,23 +1,37 @@
 # Express Server
 
-## Install dependencies
+## About
+
+This project uses Express.
+
+## Getting Started
+
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-## Run server for development
+### Run server for development
 
 ```bash
 npm run dev
 ```
 
-## Run server for production
+### Run server for production
 
 ```bash
-npm run build
+npm run prod
 ```
 
-## Access server
+### Run from Docker, including Database
+
+The Express-server can be started from the docker-compose.yml in the project root.
+
+```bash
+docker-compose up --build express-server
+```
+
+### Access server
 
 At: <http://localhost:5000>
