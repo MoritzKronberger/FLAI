@@ -1,5 +1,4 @@
 import { dbQuery } from '../db/query.js'
-
 const request = async (options) => {
   const method = options.method.toLowerCase()
   const table = options.table
@@ -11,9 +10,11 @@ const request = async (options) => {
 
   try {
     if (validation) {
-      const validResult = validation.validate(data)
+      const validResult = validation.validate(data, {
+        abortEarly: false,
+      })
       if (validResult.error)
-        return res.status(422).send(validResult.error.details[0])
+        return res.status(422).send(validResult.error.details)
     }
     const { result } = await dbQuery({
       method: method,
