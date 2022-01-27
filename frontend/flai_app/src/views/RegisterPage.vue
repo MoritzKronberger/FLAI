@@ -92,21 +92,23 @@ const submit = async (): Promise<void> => {
           custom-type="time"
           :time-step="1"
         />
-        <span>Händigkeit</span>
-        <custom-checkbox
-          v-model="leftHanded"
-          label-name="Links"
-          element-class="primary-checkbox"
-          component-class="primary-checkbox body-small"
-          checkmark-class="checkmark"
-        />
-        <custom-checkbox
-          v-model="user.right_handed"
-          label-name="Rechts"
-          element-class="primary-checkbox"
-          component-class="primary-checkbox body-small"
-          checkmark-class="checkmark"
-        />
+        <div class="toggle-checkbox">
+          <p class="body-medium">Händigkeit</p>
+          <custom-checkbox
+            v-model="leftHanded"
+            label-name="Links"
+            element-class="primary-checkbox"
+            component-class="primary-checkbox body-small"
+            checkmark-class="checkmark"
+          />
+          <custom-checkbox
+            v-model="user.right_handed"
+            label-name="Rechts"
+            element-class="primary-checkbox"
+            component-class="primary-checkbox body-small"
+            checkmark-class="checkmark"
+          />
+        </div>
         <div class="button-container">
           <custom-button
             label="Registrieren"
