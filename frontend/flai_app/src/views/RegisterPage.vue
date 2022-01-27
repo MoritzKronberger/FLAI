@@ -20,7 +20,7 @@ const user = ref<RegisterUser>({
   target_learning_time: defaultTargetTime,
 })
 
-const errorMessage = reactive([''])
+const errorMessage = reactive([{ message: '', type: '' }])
 const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
 
@@ -40,8 +40,12 @@ const submit = async (): Promise<void> => {
     emit('openLogin')
   } else {
     for (let i = 0; i < result?.data.length; i++) {
-      errorMessage.push(result?.data[i].message)
+      errorMessage.push({
+        message: result?.data[i].message,
+        type: result?.data[i].path[0],
+      })
     }
+    console.log(errorMessage)
   }
 }
 </script>
@@ -59,10 +63,10 @@ const submit = async (): Promise<void> => {
       </div>
       <div
         v-for="err in errorMessage"
-        :key="err"
+        :key="err.message"
         class="error-message body-small"
       >
-        {{ err }}
+        {{ err.message }}
       </div>
       <form>
         <text-input-field
