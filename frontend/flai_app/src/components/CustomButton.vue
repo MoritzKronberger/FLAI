@@ -1,10 +1,12 @@
 <script setup lang="ts">
-defineProps<{ label: string; btnclass: string }>()
+const props =
+  defineProps<{ label: string; btnclass: string; switch?: boolean }>()
 const emit = defineEmits(['buttonClick'])
 
 function onclick() {
+  const emitLabel = props.switch ? props.label : undefined
   // emit is placed in method so that validation for input value can be added
-  emit('buttonClick')
+  emit('buttonClick', emitLabel)
 }
 </script>
 
