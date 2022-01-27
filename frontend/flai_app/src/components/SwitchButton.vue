@@ -11,10 +11,9 @@ const hovering = ref(false)
 
 function onclick(label: string | undefined) {
   if (label) {
-    console.log(label)
     activeButton.value = props.labels.indexOf(label)
+    emit('buttonClick', label)
   }
-  emit('buttonClick', label)
 }
 </script>
 
