@@ -1,27 +1,40 @@
 import Joi from 'joi'
 
+const usernameMessage = {
+  'string.empty': 'Benutzername ist leer',
+  'string.pattern.base': 'Benutzername enthält ungültige Zeichen',
+  'string.max': 'Benutzname ist länger als 30 Zeichen',
+}
+
+const passwordMessage = {
+  'string.empty': 'Passwort ist leer',
+  'string.min': 'Passwort ist kürzer als 8 Zeichen',
+}
+
+const emailMessage = {
+  'string.empty': 'E-Mail-Adresse ist leer',
+  'string.email': 'E-Mail-Adresse ist ungültig',
+}
+
 const createUser = Joi.object({
-  username: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).required(),
-  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).required(),
-  email: Joi.string().email().required(),
+  username: Joi.string()
+    .pattern(new RegExp('(\\w|\\s)$'))
+    .max(30)
+    .required()
+    .messages(usernameMessage),
+  password: Joi.string().min(8).messages(passwordMessage).required(),
+  email: Joi.string().email().messages(emailMessage).required(),
   right_handed: Joi.boolean(),
   target_learning_time: Joi.string(),
 })
 
 const updateUser = Joi.object({
-  username: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).message({
-    'string.empty': '"Name" darf nicht leer sein',
-    'string.pattern.base': '"Name" enthält ungültige Zeichen oder Länge [5,30]',
-  }),
-  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).message({
-    'string.empty': '"Passwort" darf nicht leer sein',
-    'string.pattern.base':
-      '"Passwort" enthält ungültige Zeichen oder Länge [5,30]',
-  }),
-  email: Joi.string().email().message({
-    'string.empty': '"Email" darf nicht leer sein',
-    'string.email': '"Email" enthält ungültige Zeichen',
-  }),
+  username: Joi.string()
+    .pattern(new RegExp('(\\w|\\s)$'))
+    .max(30)
+    .messages(usernameMessage),
+  password: Joi.string().min(8).messages(passwordMessage),
+  email: Joi.string().email().messages(emailMessage),
   right_handed: Joi.boolean(),
   target_learning_time: Joi.string(),
 })
