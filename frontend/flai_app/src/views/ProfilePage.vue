@@ -34,7 +34,6 @@ const options = ref<Options>({
 
 const displayForm = ref(false)
 const errorMessage = ref('')
-const successMessage = ref('')
 
 const rightHanded = ref(false)
 const leftHanded = ref(false)
@@ -72,7 +71,6 @@ const discardChanges = (): void => {
 
 const openChangeForm = (): void => {
   displayForm.value = true
-  successMessage.value = ''
   errorMessage.value = ''
 }
 const submitChanges = async (): Promise<void> => {
@@ -89,7 +87,6 @@ const submitChanges = async (): Promise<void> => {
   if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
     if (result?.status === 200) {
-      successMessage.value = 'Profil wurde erfolgreich geändert'
       options.value['password'].value = passwordReplacement
       displayForm.value = false
     } else {
@@ -183,7 +180,6 @@ onMounted(() => {
             />
           </div>
         </form>
-        <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
         <p v-if="errorMessage" class="body-small">
           {{ errorMessage }}
         </p>
