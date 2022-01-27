@@ -4,7 +4,7 @@ import customCheckbox from '../components/CustomCheckbox.vue'
 import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { RegisterUser } from '../store/userdata'
 //import { useRouter } from 'vue-router'
 
@@ -20,7 +20,7 @@ const user = ref<RegisterUser>({
   target_learning_time: defaultTargetTime,
 })
 
-const errorMessage = ref('')
+const errorMessage = reactive([''])
 
 const userActions = store.userdata.actions
 const userMethods = store.userdata.methods
@@ -39,7 +39,9 @@ const submit = async (): Promise<void> => {
     userMethods.changeEmail(submitUser.email)
     emit('openLogin')
   } else {
-    errorMessage.value = result?.data.message
+    for (let i = 0; i < result?.data.length; i++) {
+      errorMessage.push(result?.data[i].message)
+    }
   }
 }
 </script>
@@ -55,7 +57,13 @@ const submit = async (): Promise<void> => {
       <div class="lead-paragraph center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
-      <div class="error-message body-normal">{{ errorMessage }}</div>
+      <div
+        v-for="err in errorMessage"
+        :key="err"
+        class="error-message body-small"
+      >
+        {{ err }}
+      </div>
       <form>
         <text-input-field
           v-model="user.username"
