@@ -1,6 +1,14 @@
 $trans-duration: 0.5s;
 
-@mixin import-button($width, $height, $padding, $font-size, $color-text, $color-background, $border-color) {
+@mixin import-button(
+  $width,
+  $height,
+  $padding,
+  $font-size,
+  $color-text,
+  $color-background,
+  $border-color
+) {
   min-width: $width;
   height: fit-content;
 
@@ -30,6 +38,45 @@ $trans-duration: 0.5s;
   &:hover {
     box-shadow: inset 0 0 -$width 0 $color-text;
     color: $color-background;
+  }
+}
+
+@mixin import-switch-button(
+  $width,
+  $height,
+  $padding,
+  $font-size,
+  $color-text,
+  $color-background,
+  $border-color
+) {
+  button {
+    @include import-button(
+      $width,
+      $height,
+      $padding,
+      $font-size,
+      $color-text,
+      $color-background,
+      $border-color
+    );
+  }
+  .switch-button-active {
+    box-shadow: inset 0 0 -$width 0 $color-text;
+    color: $color-background;
+  }
+  .switch-button-left,
+  .switch-button-mid {
+    border-right-width: $line-width-m * 0.5;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .switch-button-right,
+  .switch-button-mid {
+    border-left-width: $line-width-m * 0.5;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 
@@ -128,5 +175,18 @@ $trans-duration: 0.5s;
     $main-orange,
     $main-white,
     $main-orange
+  );
+}
+
+//switch button classes
+.sec_small_button_blue_switch {
+  @include import-switch-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-blue,
+    $main-white,
+    $main-blue
   );
 }

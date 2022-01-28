@@ -10,18 +10,11 @@
     />
   </div>
   <div v-if="showSign" class="video-controls">
-    <div v-if="showSign" class="perspective-buttons">
-      <CustomButton
-        label="Front"
-        btnclass="sec_small_button_blue"
-        @click="frontPerspective()"
-      />
-      <CustomButton
-        label="Seite"
-        btnclass="sec_small_button_blue"
-        @click="sidePerspective()"
-      />
-    </div>
+    <SwitchButton
+      :labels="['Front', 'Seite']"
+      btnclass="sec_small_button_blue_switch"
+      @button-click="switchClick"
+    />
     <div v-if="showSign" class="play-button">
       <CustomButton
         :label="play ? '||' : '&#9658;'"
@@ -43,6 +36,7 @@
 import { ref, computed, ComputedRef, unref } from 'vue'
 import { Sign } from '../../store/signdata'
 import CustomButton from '../CustomButton.vue'
+import SwitchButton from '../SwitchButton.vue'
 import store from '../../store'
 
 const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
@@ -74,6 +68,11 @@ function frontPerspective() {
 function sidePerspective() {
   play.value = true
   perspective.value = 'side'
+}
+
+function switchClick(label: string) {
+  if (label === 'Front') frontPerspective()
+  else if (label === 'Seite') sidePerspective()
 }
 
 function togglePlay() {
