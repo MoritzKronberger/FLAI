@@ -153,6 +153,20 @@ $trans-duration: 0.5s;
   );
 }
 
+.prim_small_icon_button_blue {
+  @include import-icon-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-white,
+    $main-blue,
+    $main-blue,
+    $main-white-svg,
+    $main-blue-svg
+  );
+}
+
 .prim_small_button_orange {
   @include import-button(
     $input-button-width-s,
