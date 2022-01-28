@@ -5,6 +5,7 @@ defineProps<{
   modelValue: boolean | undefined
   componentClass?: string
   checkmarkClass?: string
+  disabled: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -23,6 +24,7 @@ const onInput = (e: Event): void => {
           type="checkbox"
           :name="labelName"
           :class="elementClass"
+          :disabled="disabled"
           @input="onInput"
         />
         <span :class="checkmarkClass"></span>
