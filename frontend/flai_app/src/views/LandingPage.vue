@@ -4,6 +4,7 @@ import customButton from '../components/CustomButton.vue'
 import IconLoader from '../components/IconLoader.vue'
 import Register from './RegisterPage.vue'
 import LoginPage from './LoginPage.vue'
+import BaseHeader from '../components/BaseHeader.vue'
 
 const showRegister = ref(false)
 const showLogin = ref(false)
@@ -20,15 +21,13 @@ function openModalRegister() {
 </script>
 
 <template>
-  <header id="stick" class="main-header">
-    <div class="header-left">
-      <IconLoader
-        path="/assets/logos/logo.svg"
-        alt="FLAI Icon"
-        element-class="flai-logo"
-      />
-    </div>
-    <div id="buttons">
+  <base-header header-class="main-header">
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo"
+    />
+    <div class="buttons">
       <div class="login">
         <custom-button
           label="Login"
@@ -50,7 +49,7 @@ function openModalRegister() {
         <Register @open-login="openModalLogin" @click.stop />
       </div>
     </div>
-  </header>
+  </base-header>
 
   <body>
     <div class="first-section">
