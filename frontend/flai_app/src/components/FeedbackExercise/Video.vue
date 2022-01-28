@@ -24,10 +24,13 @@
     </div>
   </div>
   <div v-else class="hint-container">
+    <div v-if="showProgressWarning" class="progress-warning body-medium">
+      Du wirst keinen Fortschritt erhalten!
+    </div>
     <CustomButton
       label="Hinweis"
       btnclass="sec_small_button_blue"
-      @click="emit('useHint')"
+      @click="useHint"
     />
   </div>
 </template>
@@ -39,10 +42,18 @@ import CustomButton from '../CustomButton.vue'
 import SwitchButton from '../SwitchButton.vue'
 import store from '../../store'
 
-const props = defineProps<{ signs: Sign[]; index: number; showSign: boolean }>()
+const props = defineProps<{
+  signs: Sign[]
+  index: number
+  showSign: boolean
+  progressWarning: boolean
+}>()
+
+const emit = defineEmits(['useHint'])
 
 const perspective = ref('front')
 const videoPlayer = ref()
+const showProgressWarning = ref(false)
 
 const rightHanded = computed(() => store.userdata.user.right_handed)
 
@@ -51,6 +62,7 @@ function getSource() {
     (el) => el.perspective === perspective.value
   )
   console.log('el', JSON.stringify(rec))
+  showProgressWarning.value = false
   if (rec === undefined) {
     return '/assets/error.webm'
   }
@@ -59,6 +71,16 @@ function getSource() {
 const videoSource: ComputedRef<string> = computed(() => getSource())
 
 const play = ref(true)
+
+function useHint() {
+  console.log(props.progressWarning)
+  console.log(showProgressWarning.value)
+  if (props.progressWarning && !showProgressWarning.value) {
+    showProgressWarning.value = true
+  } else {
+    emit('useHint')
+  }
+}
 
 function frontPerspective() {
   play.value = true
@@ -87,8 +109,6 @@ function togglePlay() {
     }
   }
 }
-
-const emit = defineEmits(['useHint'])
 </script>
 
 <style lang="scss">

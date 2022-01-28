@@ -18,6 +18,7 @@
       :show-sign="showSign"
       :signs="signs"
       :index="index"
+      :progress-warning="!progressSmallerLevelThree"
       @use-hint="showSign = true"
     />
     <p v-if="!wordComplete" class="status body-medium">{{ status }}</p>
