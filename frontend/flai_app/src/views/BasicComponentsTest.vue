@@ -53,6 +53,12 @@ const buttonClick = (): void => {
       btnclass="prim_large_button_orange"
       @button-click="buttonClick"
     />
+    <custom-button
+      label=""
+      iconpath="/assets/icons/FLAI_Fehler.svg"
+      btnclass="prim_medium_icon_button_blue"
+      @button-click="buttonClick"
+    />
     <div>Test Button click count is: {{ clickCount }}</div>
     <custom-button
       label=""
