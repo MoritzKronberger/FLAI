@@ -7,14 +7,7 @@
       @show-word="currentlyWatchWord = false"
     />
     <div v-else class="loading-screen exercise-grid">
-      <header class="exercise-header">
-        <h2 class="heading-large">Lektion - Buchstabieren</h2>
-        <CustomButton
-          label="Home"
-          btnclass="exit sec_medium_button_blue"
-          @click="router.push({ name: 'HomePage' })"
-        />
-      </header>
+      <exercise-header header-text="Lektion - Buchstabieren" />
       <div class="loading-screen-wrapper">
         <div class="loading-screen-container">
           <p class="body-large">
@@ -55,13 +48,12 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
+import { onBeforeRouteLeave } from 'vue-router'
 import FeedbackExercise from '../components/FeedbackExercise/FeedbackExercise.vue'
 import CustomButton from '../components/CustomButton.vue'
+import ExerciseHeader from '../components/ExerciseHeader.vue'
 import store from '../store'
 import { Results } from '@mediapipe/hands'
-
-const router = useRouter()
 
 const session = computed(() => store.exercisedata.activeExerciseSession)
 const signIds = computed(() => {

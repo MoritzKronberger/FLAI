@@ -1,13 +1,6 @@
 <template>
   <div class="show-word exercise-grid">
-    <header class="exercise-header">
-      <h2 class="heading-large align-left">Üben</h2>
-      <Button
-        label="Home"
-        btnclass="exit sec_medium_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
-    </header>
+    <exercise-header header-text="Üben" />
     <SignsWithIcons
       class="current-word"
       :signs="signs"
@@ -46,10 +39,7 @@ import { FlaiNetResults } from '../../store/flainetdata'
 import { FeedbackStatus } from '../../ressources/ts/interfaces'
 import SignsWithIcons from './SignsWithIcons.vue'
 import Webcam from '../Webcam.vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
+import ExerciseHeader from '../ExerciseHeader.vue'
 const inputAccepted = ref(true)
 const index = ref(0)
 

@@ -2,14 +2,7 @@
   <!--div vFocus tabindex="0" @keydown.c="correct">
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word exercise-grid">
-    <header class="exercise-header">
-      <h2 class="heading-large align-left">Einprägen</h2>
-      <CustomButton
-        label="Home"
-        btnclass="exit sec_medium_button_blue"
-        @click="router.push({ name: 'HomePage' })"
-      />
-    </header>
+    <exercise-header header-text="Einprägen" />
     <SignControls :signs="signs" @new-index="onNewIndex" />
     <Video
       :signs="signs"
@@ -35,15 +28,13 @@
 <script setup lang="ts">
 import { ref, watchEffect, computed, onBeforeMount } from 'vue'
 import { Sign } from '../../store/signdata'
-import { useRouter } from 'vue-router'
 import CustomButton from '../CustomButton.vue'
 import Video from './Video.vue'
 import Webcam from '../Webcam.vue'
 import SignControls from './SignControls.vue'
+import ExerciseHeader from '../ExerciseHeader.vue'
 import store from '../../store'
 import { getFlaiNetResults } from '../../ressources/ts/flaiNetCheck'
-
-const router = useRouter()
 
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
