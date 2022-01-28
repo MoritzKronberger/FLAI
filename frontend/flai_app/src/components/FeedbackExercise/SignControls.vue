@@ -3,7 +3,7 @@
     <CustomButton
       label=""
       iconpath="assets/icons/FLAI_Pfeil_Links.svg"
-      :btnclass="`sec_small_icon_button_blue ${
+      :btnclass="`prim_small_icon_button_blue ${
         index > 0 ? '' : 'inactive-button'
       }`"
       @click="decreaseIndex"
@@ -24,7 +24,7 @@
     <CustomButton
       label=""
       iconpath="assets/icons/FLAI_Pfeil_Rechts.svg"
-      :btnclass="`sec_small_icon_button_blue  ${
+      :btnclass="`prim_small_icon_button_blue  ${
         index + 1 < signs.length ? '' : 'inactive-button'
       }`"
       @click="increaseIndex"
