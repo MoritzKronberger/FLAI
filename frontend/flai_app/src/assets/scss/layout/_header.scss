@@ -29,3 +29,9 @@
     row-gap: $margin-m;
   }
 }
+
+.exercise-header {
+  grid-area: heading;
+  display: flex;
+  justify-content: space-between;
+}
