@@ -15,18 +15,23 @@ const props = defineProps<{
   errorMessage: string[]
   inputFieldValidation: InputFieldValidation
   submitType: string
+  diabledForm: boolean
+  userInfo?: RegisterUser
 }>()
 
-const { errorMessage, inputFieldValidation } = toRefs(props)
+const { errorMessage, inputFieldValidation, userInfo } = toRefs(props)
 
 const defaultTargetTime = '00:20:00'
-const user = ref<RegisterUser>({
-  username: '',
-  email: '',
-  password: '',
-  right_handed: true,
-  target_learning_time: defaultTargetTime,
-})
+
+const user = userInfo?.value
+  ? ref(userInfo?.value)
+  : ref({
+      username: '',
+      email: '',
+      password: '',
+      right_handed: true,
+      target_learning_time: defaultTargetTime,
+    })
 
 const leftHanded = ref(!user.value.right_handed)
 
@@ -56,6 +61,7 @@ function onclick() {
       placeholder="MaxMuster"
       element-class="default_input_field input-form-primary"
       :validation-wrong="inputFieldValidation.username"
+      :disabled="diabledForm"
     />
     <text-input-field
       v-model="user.email"
@@ -63,6 +69,7 @@ function onclick() {
       placeholder="maxmusterman@flai.de"
       element-class="default_input_field input-form-primary"
       :validation-wrong="inputFieldValidation.email"
+      :disabled="diabledForm"
     />
     <text-input-field
       v-model="user.password"
@@ -71,6 +78,7 @@ function onclick() {
       element-class="default_input_field input-form-primary"
       custom-type="password"
       :validation-wrong="inputFieldValidation.password"
+      :disabled="diabledForm"
     />
     <text-input-field
       v-model="user.target_learning_time"
@@ -79,6 +87,7 @@ function onclick() {
       element-class="default_input_field input-form-primary"
       custom-type="time"
       :time-step="1"
+      :disabled="diabledForm"
     />
     <div class="toggle-checkbox">
       <p class="body-medium">Händigkeit</p>
@@ -88,6 +97,7 @@ function onclick() {
         element-class="primary-checkbox"
         component-class="primary-checkbox body-small"
         checkmark-class="checkmark"
+        :disabled="diabledForm"
       />
       <custom-checkbox
         v-model="user.right_handed"
@@ -95,12 +105,13 @@ function onclick() {
         element-class="primary-checkbox"
         component-class="primary-checkbox body-small"
         checkmark-class="checkmark"
+        :disabled="diabledForm"
       />
     </div>
     <div class="button-container">
       <custom-button
         :label="submitType"
-        btnclass="button-form-primary prim_small_button_blue"
+        btnclass="prim_small_button_blue"
         @button-click="onclick"
       />
       <slot></slot>
