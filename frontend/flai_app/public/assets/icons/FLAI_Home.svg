@@ -1,7 +1,10 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 18L19.9374 5.54887C19.9741 5.52025 20.0256 5.52065 20.0618 5.54983L35.5 18" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M8 19.5V34.4C8 34.4552 8.04477 34.5 8.1 34.5H13.9C13.9552 34.5 14 34.4552 14 34.4V24.6C14 24.5448 14.0448 24.5 14.1 24.5H19.9C19.9552 24.5 20 24.5448 20 24.6V34.4C20 34.4552 20.0448 34.5 20.1 34.5H31.9C31.9552 34.5 32 34.4552 32 34.4V19.5" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M8 19.5L19.9379 10.0491C19.9743 10.0203 20.0257 10.0203 20.0621 10.0491L32 19.5" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M20 32H32" stroke="black"/>
-<path d="M8 32H13.5" stroke="black"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40" version="1.1">
+<g id="surface1">
+<path style="fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 4 18 L 19.9375 5.550781 C 19.972656 5.519531 20.027344 5.519531 20.0625 5.550781 L 35.5 18 "/>
+<path style="fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 8 19.5 L 8 34.398438 C 8 34.457031 8.042969 34.5 8.101562 34.5 L 13.898438 34.5 C 13.957031 34.5 14 34.457031 14 34.398438 L 14 24.601562 C 14 24.542969 14.042969 24.5 14.101562 24.5 L 19.898438 24.5 C 19.957031 24.5 20 24.542969 20 24.601562 L 20 34.398438 C 20 34.457031 20.042969 34.5 20.101562 34.5 L 31.898438 34.5 C 31.957031 34.5 32 34.457031 32 34.398438 L 32 19.5 "/>
+<path style="fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 8 19.5 L 19.9375 10.050781 C 19.972656 10.019531 20.027344 10.019531 20.0625 10.050781 L 32 19.5 "/>
+<path style="fill:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 20 32 L 32 32 "/>
+<path style="fill:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:4;" d="M 8 32 L 13.5 32 "/>
+</g>
 </svg>
