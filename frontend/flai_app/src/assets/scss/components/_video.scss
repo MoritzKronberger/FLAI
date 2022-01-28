@@ -24,5 +24,11 @@ video {
 
   .progress-warning {
     margin-bottom: $margin-m;
+    padding: 0 $padding-l;
+    text-align: center;
+  }
+
+  .progress-warning :first-child {
+    margin-bottom: $margin-m;
   }
 }
