@@ -57,9 +57,10 @@ const submit = async (user: RegisterUser): Promise<void> => {
       <Form
         :error-message="errorMessage"
         :input-field-validation="inputFieldValidation"
+        :diabled-form="false"
         submit-type="Registrieren"
         @submit="submit"
-      />
+      ></Form>
     </div>
     <div class="divider-line"></div>
     <div class="bottom-paragraph center-text body-small">
