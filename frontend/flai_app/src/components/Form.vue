@@ -103,6 +103,7 @@ function onclick() {
         btnclass="button-form-primary prim_small_button_blue"
         @button-click="onclick"
       />
+      <slot></slot>
     </div>
   </form>
 </template>
