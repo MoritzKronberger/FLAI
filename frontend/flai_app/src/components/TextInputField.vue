@@ -8,6 +8,7 @@ defineProps<{
   timeStep?: number
   modelValue: string | number | undefined
   validationWrong?: boolean
+  disabled: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -28,6 +29,7 @@ const onInput = (e: Event): void => {
         :placeholder="placeholder"
         :class="`${elementClass} ${validationWrong ? 'wrong' : ''}`"
         :step="timeStep"
+        :disabled="disabled"
         @input="onInput"
       />
     </label>
