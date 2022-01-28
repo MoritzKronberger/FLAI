@@ -1,0 +1,15 @@
+{
+  "name": "neural_network",
+  "version": "0.0.1",
+  "contributors": [
+    "Martin Kohnle, Moritz Kronberger"
+  ],
+  "license": "MIT",
+  "description": "Neural Network and dataset for sign detection",
+  "keywords": [
+    "Neural Network",
+    "Keras",
+    "Python",
+    "dataset"
+  ]
+}

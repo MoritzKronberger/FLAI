@@ -1,12 +1,14 @@
 # Dataset Collection
 
-A python project will be used to collect recordings of DGS-signs performed by team members using their webcam.
+## About
 
-The videos must be labeled with their respective sign and will then be processed using the [mediapipe hand pose detection](https://google.github.io/mediapipe/solutions/hands.html).
+This python project is used to collect recordings of DGS-signs performed by team members using their webcam.
 
-[Python 3](https://www.python.org/downloads/) and [Python for VsCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python) must be installed.
+The images are labeled with their respective sign and are then be processed using the [mediapipe hand pose detection](https://google.github.io/mediapipe/solutions/hands.html).
 
 ## Initial Setup
+
+[Python 3](https://www.python.org/downloads/) and [Python for VsCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python) must be installed.
 
 ### Change directory
 
@@ -27,7 +29,7 @@ py -3 -m venv .venv
 code .
 ```
 
-Or open the collect_data dir in new VsCode window
+Or open the `collect_data` directory in new VsCode window
 
 In the new window:
 
@@ -41,7 +43,7 @@ In VsCode Commandline:
 > Python 3.9.0 64-bit ('venv':venv)
 ```
 
-*Once the interpreter has been set from the collect_data folder, it might also be availiable in parent directories after a VsCode restart.*
+*Once the interpreter has been set from the `collect_data` directory, it is also available in parent directories after a VsCode restart.*
 
 ### Install requirements
 
@@ -68,7 +70,7 @@ In **settings.py**:
 - Set **username** to your own name (lowercase).
 - Set **image_directory** to the absolute path (C:\Users\...) of the folder, you want to save your images in.
 
-## Record Dataset
+## Dataset Recording Instructions
 
 It would be awesome if everybody could collect around 50 to 100 samples per letter.
 
@@ -80,52 +82,56 @@ If you collect less examples, that's fine, too, just try to collect roughly the 
 
 ### Usage
 
-Chechout the branch for dataset collection
+1. Run **main.py**.
 
-```bash
-git checkout all-chore-update-flai-dataset-#10
-```
+    (To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
 
-Run **main.py**.
+2. Enter **collect**
 
-Enter **collect**
+    ```bash
+    What action do you want to perform? (collect/check/convert) > collect
+    ```
 
-(To run click 'Run Python File' in the top right corner, or right click -> 'Run Python File in Terminal')
+3. Press any of the keys included in the labels to save an image with the respective label.
+
+4. Press 'esc' to quit.
+
+Common errors:
 
 - If the wrong camera is being used, quit and adjust **camera** in **settings.py**.
 
-- If the script fails, make sure you have navigated into the **collect_data** directory in the Python Console.
-
-Press any of the keys included in the labels to save an image with the respective label.
-
-Press 'esc' to quit.
+- If the script fails, make sure you have navigated into the `collect_data` directory in the Python Console.
 
 ## Check images
 
-Run **main.py**.
+1. Run **main.py**.
 
-Enter **check**
+2. Enter **check**
 
-Press 's' to keep an image, 'd' to delete it or the left or right arrow key to go back/ forward one image.
+    ```bash
+    What action do you want to perform? (collect/check/convert) > check
+    ```
 
-Press 'esc' to quit.
+3. Press 's' to keep an image, 'd' to delete it or the left or right arrow key to go back/ forward one image.
+
+4. Press 'esc' to quit.
 
 ## Convert Dataset
 
-**Make sure you have checked out the branch for dataset updates:**
+1. Run **main.py**.
 
-```bash
-git checkout all-chore-update-flai-dataset-#10
-```
+2. Enter **convert**
 
-Run **main.py**.
+    ```bash
+    What action do you want to perform? (collect/check/convert) > convert
+    ```
 
-Enter **convert**
+3. Choose if you want to overwrite existing entries with your username or keep them.
 
-Choose if you want to overwrite existing entries with your username or keep them.
+    ```bash
+    Do you want to overwrite your existing entries? (y/n) > y/n
+    ```
 
-- If you have already converted images from the folder you are converting right now, you should probably choose overwrite.
+    - If you have already converted images from the folder you are converting right now, you should probably choose overwrite.
 
-- If you are using a new folder, you should probably choose not to overwrite your old entries.
-
-Commit the updated dataset **on the all-chore-update-flai-dataset-#10 branch**.
+    - If you are using a new folder, you should probably choose not to overwrite your old entries.

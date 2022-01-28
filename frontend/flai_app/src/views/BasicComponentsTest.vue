@@ -6,6 +6,7 @@ import iconLoader from '../components/IconLoader.vue'
 import webcam from '../components/Webcam.vue'
 import customButton from '../components/CustomButton.vue'
 import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
+import SwitchButton from '../components/SwitchButton.vue'
 
 const testInput = ref('')
 const testCheckbox = ref(false)
@@ -84,6 +85,13 @@ const buttonClick = (): void => {
       @button-click="buttonClick"
     />
   </div>
+  <div>
+    <h1>Switch Button</h1>
+    <switch-button
+      :labels="['front', 'mid', 'sides']"
+      btnclass="sec_small_button_blue_switch"
+    />
+  </div>
   <br />
   <div>
     <h1>Input Fields</h1>
@@ -119,7 +127,7 @@ const buttonClick = (): void => {
   </div>
   <div>
     <h1>Webcam</h1>
-    <webcam @webcam-ready="logWebcamFeed" />
+    <webcam borderclass="" @webcam-ready="logWebcamFeed" />
   </div>
   <div class="stats-small-panel">
     <StatisticDashboardSmall />

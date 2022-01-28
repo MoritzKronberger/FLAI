@@ -1,35 +1,35 @@
 # Postgres Database
 
+## About
+
+This project uses PostgreSQL and Adminer
+
+## Getting Started
+
+### Build Docker Images
+
 The Postgres database is started from the docker-compose.yml in the project root.
 
-To only start the Postgres database and Adminer the below commands can be used, however both are also started if the whole docker-compose is executed.
-
-## Build Docker Images
+To only start the Postgres database and Adminer the below commands can be used:
 
 ```bash
-docker-compose build postgres-db
+docker-compose up --build postgres-db
 ```
 
-## Start Docker Containers
-
-```bash
-docker-compose up postgres-db
-```
-
-## Access Adminer
-
-At <http://localhost:7000>
-
-## Shut Down Docker Containers
+### Shut Down Docker Containers
 
 ```bash
 docker-compose down
 ```
 
-or use
+### Remove Postgres Data
+
+Remove pgdata to reset the database:
 
 ```bash
-docker-compose down --rmi all && rm -rf backend/postgres_db/pgdata
+rm -rf backend/postgres_db/pgdata
 ```
 
-to remove all images and delete pgdata to reset the database.
+### Access Adminer
+
+At <http://localhost:7000>
