@@ -100,12 +100,15 @@ $trans-duration: 0.5s;
     $color-background,
     $border-color
   );
-  img {
+  
+  img { 
+    transition: all .1s ease;
+    transition-delay: 0.2s;
     filter: $color-icon;
     height: $font-size-m;
     width: $font-size-m;
   }
-  &:hover img{
+  &:hover img {
     filter: $hover-color-icon;
   }
 }
