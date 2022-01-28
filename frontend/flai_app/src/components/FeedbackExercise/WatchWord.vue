@@ -11,12 +11,7 @@
       />
     </header>
     <SignControls :signs="signs" @new-index="onNewIndex" />
-    <Video
-      :signs="signs"
-      :index="index"
-      :show-sign="showSign"
-      @use-hint="showSign = true"
-    />
+    <Video :signs="signs" :index="index" :show-sign="true" />
     <p class="status body-medium">{{ status }}</p>
     <Webcam :borderclass="feedbackClass" />
     <div class="next-button">
@@ -48,7 +43,6 @@ const router = useRouter()
 const isCorrect = ref(false)
 const feedbackClass = ref('waiting')
 const index = ref(0)
-const showSign = ref(true)
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const status = ref('Loading')
@@ -96,11 +90,6 @@ async function onNewIndex(newIndex: number) {
 }
 
 async function checkProgress(sign: Sign) {
-  if (sign.progress >= store.exercisedata.exerciseSettings.level_1) {
-    showSign.value = false
-  } else {
-    showSign.value = true
-  }
   await store.signdata.actions.patchProgress(
     props.exerciseId,
     props.signs[index.value].id,
