@@ -21,7 +21,7 @@
         :iconpath="
           play ? 'assets/icons/FLAI_Pause.svg' : 'assets/icons/FLAI_Play.svg'
         "
-        btnclass="prim_medium_icon_button_blue"
+        btnclass="sec_small_icon_button_blue"
         @click="togglePlay()"
       />
     </div>

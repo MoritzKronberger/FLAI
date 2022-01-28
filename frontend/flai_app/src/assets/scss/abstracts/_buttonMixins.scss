@@ -100,13 +100,16 @@ $trans-duration: 0.5s;
     $color-background,
     $border-color
   );
-  
-  img { 
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  img {
+    height: $font-size;
+    width: $font-size; 
     transition: all .1s ease;
     transition-delay: 0.2s;
     filter: $color-icon;
-    height: $font-size-m;
-    width: $font-size-m;
   }
   &:hover img {
     filter: $hover-color-icon;
@@ -123,20 +126,6 @@ $trans-duration: 0.5s;
     $main-white,
     $main-blue,
     $main-blue
-  );
-}
-
-.prim_medium_icon_button_blue {
-  @include import-icon-button(
-    $input-button-width-m,
-    $input-button-height-m,
-    $padding-s,
-    $font-size-m,
-    $main-white,
-    $main-blue,
-    $main-blue,
-    $main-white-svg,
-    $dark-blue-svg
   );
 }
 
@@ -210,6 +199,20 @@ $trans-duration: 0.5s;
     $main-blue,
     $main-white,
     $main-blue
+  );
+}
+
+.sec_small_icon_button_blue {
+  @include import-icon-button(
+    $input-button-width-s,
+    $input-button-height-s,
+    $padding-s,
+    $font-size-s,
+    $main-blue,
+    $main-white,
+    $main-blue,
+    $dark-blue-svg,
+    $main-white-svg
   );
 }
 
