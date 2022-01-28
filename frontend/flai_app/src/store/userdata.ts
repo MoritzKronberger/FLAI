@@ -3,16 +3,17 @@ import { jsonAction } from '../common/service/rest'
 import authdata from './authdata'
 
 export interface User {
-  [id: string]: string | number | undefined | boolean
+  [id: string]: string | number | boolean
   email: string
   username: string
   right_handed: boolean
   target_learning_time: number
 }
 export interface Changes {
-  [key: string]: string | boolean | number | undefined
+  [key: string]: string | boolean | number
 }
 export interface RegisterUser {
+  [id: string]: string | number | boolean
   username: string
   email: string
   password: string
