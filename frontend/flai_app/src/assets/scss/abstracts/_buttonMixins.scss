@@ -80,6 +80,36 @@ $trans-duration: 0.5s;
   }
 }
 
+@mixin import-icon-button(
+  $width,
+  $height,
+  $padding,
+  $font-size,
+  $color-text,
+  $color-background,
+  $border-color,
+  $color-icon,
+  $hover-color-icon,
+) {
+  @include import-button(
+    $width,
+    $height,
+    $padding,
+    $font-size,
+    $color-text,
+    $color-background,
+    $border-color
+  );
+  img {
+    filter: $color-icon;
+    height: $font-size-m;
+    width: $font-size-m;
+  }
+  &:hover img{
+    filter: $hover-color-icon;
+  }
+}
+
 //primary-button classes
 .prim_medium_button_blue {
   @include import-button(
@@ -90,6 +120,20 @@ $trans-duration: 0.5s;
     $main-white,
     $main-blue,
     $main-blue
+  );
+}
+
+.prim_medium_icon_button_blue {
+  @include import-icon-button(
+    $input-button-width-m,
+    $input-button-height-m,
+    $padding-s,
+    $font-size-m,
+    $main-white,
+    $main-blue,
+    $main-blue,
+    $main-white-svg,
+    $dark-blue-svg
   );
 }
 
