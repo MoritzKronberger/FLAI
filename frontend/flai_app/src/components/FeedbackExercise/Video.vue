@@ -25,7 +25,11 @@
   </div>
   <div v-else class="hint-container">
     <div v-if="showProgressWarning" class="progress-warning body-medium">
-      Du wirst keinen Fortschritt erhalten!
+      <p>
+        Du beherrscht diesen Buchstaben bereits sehr gut. Wenn du den Hinweis
+        nutzt, erhältst du daher keinen Fortschritt.
+      </p>
+      <p>Möchtest du das Hinweisvideo trotzdem sehen?</p>
     </div>
     <CustomButton
       label="Hinweis"
