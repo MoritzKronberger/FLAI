@@ -41,7 +41,7 @@ const discardChanges = (): void => {
   errorMessage.value = []
 }
 
-const openChangeForm = (): void => {
+const openEditForm = (): void => {
   displayForm.value = true
   errorMessage.value = []
 }
@@ -85,7 +85,7 @@ onMounted(() => {
             :disabled-form="true"
             submit-name="Bearbeiten"
             :user-info="options"
-            @submit="openChangeForm"
+            @submit="openEditForm"
           ></Form>
         </div>
       </div>
