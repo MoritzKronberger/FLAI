@@ -21,7 +21,9 @@ a {
   flex-basis: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  border: $line-width-m solid $subtle-blue;
+  width: 100%;
+  /*outline: $line-width-m solid $subtle-blue;
+  outline-offset: $padding-s * -1;*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +31,11 @@ a {
 
 // TODO: update progress bar styling to be responsive
 .progress-bar {
-  width: 125%;
+  width: 100%;
+  position: absolute;
+}
+.circle {
+  width: 75%;
   position: absolute;
 }
 
@@ -39,6 +45,7 @@ a {
 
 .statistic-text {
   width: 100%;
+  padding: $padding-s;
   text-align: center;
   margin-top: $padding-m;
 
