@@ -2,8 +2,9 @@
 import { onMounted, ref, reactive } from 'vue'
 import customButton from '../components/CustomButton.vue'
 import store from '../store'
-import Form from '../components/Form.vue'
+import ProfileForm from '../components/ProfileForm.vue'
 import { Changes, RegisterUser } from '../store/userdata'
+import { profileValidation } from '../ressources/ts/validation'
 
 const actions = store.userdata.actions
 const user = store.userdata.user
@@ -26,8 +27,7 @@ const inputFieldValidation = reactive({
   email: false,
   password: false,
 })
-
-type inputFieldKey = keyof typeof inputFieldValidation
+type ValidationKey = keyof typeof inputFieldValidation
 
 const getUserInformation = (): void => {
   for (const prop in user) {
@@ -40,7 +40,7 @@ const discardChanges = (): void => {
   displayForm.value = false
   errorMessage.value = []
   for (const el in inputFieldValidation) {
-    inputFieldValidation[el as inputFieldKey] = false
+    inputFieldValidation[el as ValidationKey] = false
   }
 }
 
@@ -58,20 +58,10 @@ const submitChanges = async (): Promise<void> => {
   }
   if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
-    if (result?.status === 200) {
-      options.value['password'] = passwordReplacement
+    profileValidation(result, errorMessage, inputFieldValidation, () => {
       displayForm.value = false
-    } else {
-      errorMessage.value = []
-      for (const el in inputFieldValidation) {
-        inputFieldValidation[el as inputFieldKey] = false
-      }
-      for (let i = 0; i < result?.data.length; i++) {
-        errorMessage.value.push(result?.data[i].message)
-        inputFieldValidation[result?.data[i].path[0] as inputFieldKey] = true
-      }
-      options.value['password'] = passwordReplacement
-    }
+    })
+    options.value['password'] = passwordReplacement
   } else displayForm.value = false
 }
 onMounted(() => {
@@ -80,20 +70,21 @@ onMounted(() => {
 </script>
 <template>
   <div class="profile-page">
-    <div class="profile">
-      <div v-if="!displayForm" class="form-items">
-        <Form
-          :error-message="errorMessage"
-          :input-field-validation="inputFieldValidation"
-          :disabled-form="true"
-          submit-name="Bearbeiten"
-          :user-info="options"
-          component-class="custom-profile-input"
-          @submit="openEditForm"
-        ></Form>
+    <div class="profile body-medium">
+      <div v-if="!displayForm" class="information">
+        <div id="edit-button">
+          <ProfileForm
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="true"
+            submit-name="Bearbeiten"
+            :user-info="options"
+            @submit="openEditForm"
+          ></ProfileForm>
+        </div>
       </div>
-      <div v-if="displayForm" class="form-items">
-        <Form
+      <div v-if="displayForm" class="profile-form-container">
+        <ProfileForm
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
           :disabled-form="false"
@@ -106,7 +97,7 @@ onMounted(() => {
             label="Verwerfen"
             btnclass="sec_small_button_blue"
             @button-click="discardChanges"
-        /></Form>
+        /></ProfileForm>
       </div>
     </div>
   </div>

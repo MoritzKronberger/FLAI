@@ -8,7 +8,7 @@ defineProps<{
   timeStep?: number
   modelValue: string | number | undefined
   validationWrong?: boolean
-  disabled: boolean
+  disabled?: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 

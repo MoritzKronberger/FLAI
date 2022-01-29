@@ -17,8 +17,11 @@
     />
     <div v-if="showSign" class="play-button">
       <CustomButton
-        :label="play ? '||' : '&#9658;'"
-        btnclass="sec_small_button_blue"
+        label=""
+        :iconpath="
+          play ? 'assets/icons/FLAI_Pause.svg' : 'assets/icons/FLAI_Play.svg'
+        "
+        btnclass="sec_small_icon_button_blue"
         @click="togglePlay()"
       />
     </div>

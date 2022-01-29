@@ -26,11 +26,19 @@
   .inactive-button {
     background-color: $subtle-grey;
     border-color: $subtle-grey;
+
+    img {
+      filter: $main-white-svg;
+    }
   }
   .inactive-button:hover {
     animation: none;
     box-shadow: none;
     cursor: default;
     color: $main-white;
+
+    img {
+      filter: $main-white-svg;
+    }
   }
 }

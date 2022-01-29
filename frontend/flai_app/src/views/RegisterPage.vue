@@ -3,15 +3,14 @@ import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
 import { reactive, ref } from 'vue'
 import { RegisterUser } from '../store/userdata'
-import Form from '../components/Form.vue'
+import ProfileForm from '../components/ProfileForm.vue'
+import { profileValidation } from '../ressources/ts/validation'
 
 const inputFieldValidation = reactive({
   username: false,
   password: false,
   email: false,
 })
-
-type inputFieldKey = keyof typeof inputFieldValidation
 
 const errorMessage = ref<string[]>([])
 const userActions = store.userdata.actions
@@ -25,21 +24,12 @@ function onclick() {
 }
 
 const submit = async (user: RegisterUser): Promise<void> => {
-  errorMessage.value.length = 0
   const submitUser = { ...user }
   const result = await userActions.postNewUser(submitUser)
-  if (result?.status === 200) {
+  profileValidation(result, errorMessage, inputFieldValidation, () => {
     userMethods.changeEmail(submitUser.email)
     emit('openLogin')
-  } else {
-    for (const el in inputFieldValidation) {
-      inputFieldValidation[el as inputFieldKey] = false
-    }
-    for (let i = 0; i < result?.data.length; i++) {
-      errorMessage.value.push(result?.data[i].message)
-      inputFieldValidation[result?.data[i].path[0] as inputFieldKey] = true
-    }
-  }
+  })
 }
 </script>
 
@@ -54,13 +44,13 @@ const submit = async (user: RegisterUser): Promise<void> => {
       <div class="lead-paragraph center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
-      <Form
+      <ProfileForm
         :error-message="errorMessage"
         :input-field-validation="inputFieldValidation"
         :disabled-form="false"
         submit-name="Registrieren"
         @submit="submit"
-      ></Form>
+      ></ProfileForm>
     </div>
     <div class="divider-line"></div>
     <div class="bottom-paragraph center-text body-small">
