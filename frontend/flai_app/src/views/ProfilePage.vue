@@ -59,6 +59,7 @@ const submitChanges = async (): Promise<void> => {
       options.value['password'] = passwordReplacement
       displayForm.value = false
     } else {
+      errorMessage.value = []
       for (const el in inputFieldValidation) {
         inputFieldValidation[el as inputFieldKey] = false
       }
