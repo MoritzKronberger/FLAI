@@ -3,7 +3,7 @@ import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
 import { reactive, ref } from 'vue'
 import { RegisterUser } from '../store/userdata'
-import Form from '../components/Form.vue'
+import ProfileForm from '../components/ProfileForm.vue'
 import { profileValidation } from '../ressources/ts/validation'
 
 const inputFieldValidation = reactive({
@@ -44,13 +44,13 @@ const submit = async (user: RegisterUser): Promise<void> => {
       <div class="lead-paragraph center-text body-small">
         Registriere dich, um die deutsche Gebärdensprache zu erlernen.
       </div>
-      <Form
+      <ProfileForm
         :error-message="errorMessage"
         :input-field-validation="inputFieldValidation"
         :disabled-form="false"
         submit-name="Registrieren"
         @submit="submit"
-      ></Form>
+      ></ProfileForm>
     </div>
     <div class="divider-line"></div>
     <div class="bottom-paragraph center-text body-small">

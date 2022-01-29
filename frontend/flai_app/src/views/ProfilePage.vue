@@ -2,7 +2,7 @@
 import { onMounted, ref, reactive } from 'vue'
 import customButton from '../components/CustomButton.vue'
 import store from '../store'
-import Form from '../components/Form.vue'
+import ProfileForm from '../components/ProfileForm.vue'
 import { Changes, RegisterUser } from '../store/userdata'
 import { profileValidation } from '../ressources/ts/validation'
 
@@ -55,11 +55,9 @@ const submitChanges = async (): Promise<void> => {
   if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
     profileValidation(result, errorMessage, inputFieldValidation, () => {
-      options.value['password'] = passwordReplacement
       displayForm.value = false
     })
-    // TODO: needed?
-    //options.value['password'] = passwordReplacement
+    options.value['password'] = passwordReplacement
   } else displayForm.value = false
 }
 onMounted(() => {
@@ -71,18 +69,18 @@ onMounted(() => {
     <div class="profile body-medium">
       <div v-if="!displayForm" class="information">
         <div id="edit-button">
-          <Form
+          <ProfileForm
             :error-message="errorMessage"
             :input-field-validation="inputFieldValidation"
             :disabled-form="true"
             submit-name="Bearbeiten"
             :user-info="options"
             @submit="openEditForm"
-          ></Form>
+          ></ProfileForm>
         </div>
       </div>
       <div v-if="displayForm" class="profile-form-container">
-        <Form
+        <ProfileForm
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
           :disabled-form="false"
@@ -94,7 +92,7 @@ onMounted(() => {
             label="Verwerfen"
             btnclass="sec_small_button_blue"
             @button-click="discardChanges"
-        /></Form>
+        /></ProfileForm>
       </div>
     </div>
   </div>
