@@ -83,7 +83,7 @@ onMounted(() => {
             :error-message="errorMessage"
             :input-field-validation="inputFieldValidation"
             :disabled-form="true"
-            submit-type="Bearbeiten"
+            submit-name="Bearbeiten"
             :user-info="options"
             @submit="openChangeForm"
           ></Form>
@@ -94,7 +94,7 @@ onMounted(() => {
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
           :disabled-form="false"
-          submit-type="Bestätigen"
+          submit-name="Bestätigen"
           :user-info="options"
           @submit="submitChanges"
         >

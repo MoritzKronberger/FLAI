@@ -14,7 +14,7 @@ interface InputFieldValidation {
 const props = defineProps<{
   errorMessage: string[]
   inputFieldValidation: InputFieldValidation
-  submitType: string
+  submitName: string
   disabledForm: boolean
   userInfo?: RegisterUser
 }>()
@@ -111,7 +111,7 @@ function onclick() {
     </div>
     <div class="button-container">
       <custom-button
-        :label="submitType"
+        :label="submitName"
         btnclass="prim_small_button_blue"
         @button-click="onclick"
       />
