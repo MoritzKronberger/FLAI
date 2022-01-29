@@ -3,7 +3,7 @@ import Joi from 'joi'
 const usernameMessage = {
   'string.empty': 'Benutzername ist leer',
   'string.pattern.base': 'Benutzername enthält ungültige Zeichen',
-  'string.max': 'Benutzname ist länger als 30 Zeichen',
+  'string.max': 'Benutzername ist länger als 30 Zeichen',
 }
 
 const passwordMessage = {
