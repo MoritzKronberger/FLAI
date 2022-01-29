@@ -39,6 +39,9 @@ const discardChanges = (): void => {
   getUserInformation()
   displayForm.value = false
   errorMessage.value = []
+  for (const el in inputFieldValidation) {
+    inputFieldValidation[el as inputFieldKey] = false
+  }
 }
 
 const openEditForm = (): void => {
