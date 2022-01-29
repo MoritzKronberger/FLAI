@@ -129,7 +129,7 @@
 }
 
 // creating form mixin
-@mixin form-layout($container-name, $form-width: 30%, $input-width: 100%) {
+@mixin form-layout($container-name, $form-width: 30%, $input-width: 100%, $err-message: left) {
   .#{$container-name} {
     width: $form-width;
     max-height: 100%;
@@ -171,6 +171,8 @@
 
     .error-message {
       color: $main-red;
+      width: 55%;
+      float: $err-message;
       margin-bottom: $margin-s;
     }
 
