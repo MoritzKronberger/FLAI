@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="word !== undefined && word.length > 0 && wordSet"
+    v-if="word !== undefined && word.length > 0"
     :key="startSession"
     class="exercise-container"
   >
@@ -18,16 +18,13 @@
       v-else
       :signs="signsFromWord"
       :exercise-id="exerciseId"
+      :word-set="wordSet"
       @new-word="newWord"
       @correct="feedbackClass = 'correct'"
       @wrong="feedbackClass = 'wrong'"
       @waiting="feedbackClass = 'waiting'"
       @rendered="emit('show-word')"
     />
-  </div>
-  <div v-else>
-    <!-- TODO: second loading needed? -->
-    <p>Generiere Wort...</p>
   </div>
 </template>
 

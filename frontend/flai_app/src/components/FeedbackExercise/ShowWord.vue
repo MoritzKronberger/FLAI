@@ -2,12 +2,17 @@
   <div class="show-word exercise-grid">
     <exercise-header header-text="Üben" />
     <SignsWithIcons
+      v-if="wordSet"
       class="current-word"
       :signs="signs"
       :index="index"
       :path="pathToIcon"
     />
+    <div v-else class="current-word body-medium status-generating">
+      Generiere Wort...
+    </div>
     <Video
+      v-if="wordSet"
       :show-sign="showSign"
       :signs="signs"
       :index="index"
@@ -61,7 +66,8 @@ const newInputTimeout = computed(
 )
 const status = ref<FeedbackStatus>(FeedbackStatus.Paused)
 
-const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
+const props =
+  defineProps<{ signs: Sign[]; exerciseId: string; wordSet: boolean }>()
 const emit = defineEmits([
   'new-word',
   'correct',
