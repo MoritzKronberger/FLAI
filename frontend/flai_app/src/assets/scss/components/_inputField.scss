@@ -2,11 +2,13 @@
 .custom-profile-input {
   .label {
     margin-bottom: $padding-s;
-    line-height: 1rem;
+    min-height: $input-button-height-m;
+    height: $input-button-height-m;
   }
   .default_input_field {
     min-width: $input-button-width-m;
     min-height: $input-button-height-m;
+    height: $input-button-height-m;
     border: $line-width-s solid $main-blue;
     border-radius: $border-radius-s;
     padding: $padding-s;
@@ -30,6 +32,6 @@
 
 .custom-profile-input {
   width: 100%;
-  @include flex-box(row, space-between, center);
+  @include flex-box(row, space-between, flex-start);
   margin-bottom: 3vh;
 }
