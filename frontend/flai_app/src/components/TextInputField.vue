@@ -7,6 +7,8 @@ defineProps<{
   customType?: string
   timeStep?: number
   modelValue: string | number | undefined
+  validationWrong?: boolean
+  disabled: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -25,8 +27,9 @@ const onInput = (e: Event): void => {
         :type="customType ? customType : 'text'"
         :name="labelName"
         :placeholder="placeholder"
-        :class="elementClass"
+        :class="`${elementClass} ${validationWrong ? 'wrong' : ''}`"
         :step="timeStep"
+        :disabled="disabled"
         @input="onInput"
       />
     </label>

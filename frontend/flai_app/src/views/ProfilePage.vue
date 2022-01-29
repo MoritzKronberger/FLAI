@@ -1,204 +1,109 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import customCheckbox from '../components/CustomCheckbox.vue'
-import textInputField from '../components/TextInputField.vue'
+import { onMounted, ref, reactive } from 'vue'
 import customButton from '../components/CustomButton.vue'
 import store from '../store'
-import { Changes } from '../store/userdata'
+import Form from '../components/Form.vue'
+import { Changes, RegisterUser } from '../store/userdata'
 
 const actions = store.userdata.actions
 const user = store.userdata.user
 
-const passwordReplacement = '*****'
+const passwordReplacement = ''
 
-interface Options {
-  [key: string]:
-    | { label: string; value: string }
-    | { label: string; value: boolean }
-    | { label: string; value: number }
-    | { label: string; value: undefined }
-  username: { label: string; value: string }
-  email: { label: string; value: string }
-  password: { label: string; value: string }
-  target_learning_time: { label: string; value: number }
-  right_handed: { label: string; value: boolean }
-}
-const options = ref<Options>({
-  id: { label: 'id', value: '' },
-  username: { label: 'Name', value: '' },
-  email: { label: 'E-Mail', value: '' },
-  password: { label: 'Passwort', value: passwordReplacement },
-  target_learning_time: { label: 'Lernzeit', value: 0 },
-  right_handed: { label: 'Händigkeit', value: false },
+const options = ref<RegisterUser>({
+  username: '',
+  email: '',
+  password: passwordReplacement,
+  target_learning_time: '',
+  right_handed: false,
 })
 
 const displayForm = ref(false)
-const errorMessage = ref('')
-const successMessage = ref('')
+const errorMessage = ref<string[]>([])
 
-const rightHanded = ref(false)
-const leftHanded = ref(false)
+const inputFieldValidation = reactive({
+  username: false,
+  password: false,
+  email: false,
+})
 
-const loadCurrentUser = (): void => {
+type inputFieldKey = keyof typeof inputFieldValidation
+
+const getUserInformation = (): void => {
   for (const prop in user) {
-    options.value[prop].value = user[prop]
-  }
-}
-
-const switchHand = (hand: string): void => {
-  if (hand === 'rightHand') {
-    if (rightHanded.value === false) {
-      leftHanded.value = true
-      options.value.right_handed.value = false
-    } else {
-      options.value.right_handed.value = true
-      leftHanded.value = false
-    }
-  } else if (hand === 'leftHand') {
-    if (leftHanded.value === false) {
-      rightHanded.value = true
-      options.value.right_handed.value = true
-    } else {
-      options.value.right_handed.value = false
-      rightHanded.value = false
-    }
+    options.value[prop] = user[prop]
   }
 }
 
 const discardChanges = (): void => {
-  loadCurrentUser()
+  getUserInformation()
   displayForm.value = false
+  errorMessage.value = []
 }
 
-const openChangeForm = (): void => {
+const openEditForm = (): void => {
   displayForm.value = true
-  successMessage.value = ''
-  errorMessage.value = ''
+  errorMessage.value = []
 }
 const submitChanges = async (): Promise<void> => {
   const changes: Changes = {}
   for (const prop in options.value) {
-    if (user[prop] !== options.value[prop].value) {
-      if (
-        prop !== 'password' ||
-        options.value[prop].value !== passwordReplacement
-      )
-        changes[prop] = options.value[prop].value
+    if (user[prop] !== options.value[prop]) {
+      if (prop !== 'password' || options.value[prop] !== passwordReplacement)
+        changes[prop] = options.value[prop]
     }
   }
   if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
     if (result?.status === 200) {
-      successMessage.value = 'Profil wurde erfolgreich geändert'
-      options.value['password'].value = passwordReplacement
+      options.value['password'] = passwordReplacement
       displayForm.value = false
     } else {
-      errorMessage.value = result?.data.message
-      loadCurrentUser()
-      options.value['password'].value = passwordReplacement
+      errorMessage.value = []
+      for (const el in inputFieldValidation) {
+        inputFieldValidation[el as inputFieldKey] = false
+      }
+      for (let i = 0; i < result?.data.length; i++) {
+        errorMessage.value.push(result?.data[i].message)
+        inputFieldValidation[result?.data[i].path[0] as inputFieldKey] = true
+      }
+      options.value['password'] = passwordReplacement
     }
   } else displayForm.value = false
 }
 onMounted(() => {
-  loadCurrentUser()
-  rightHanded.value = options.value.right_handed.value
-  leftHanded.value = !rightHanded.value
+  getUserInformation()
 })
 </script>
-
 <template>
   <div class="profile-page">
     <div class="profile body-medium">
-      <div class="property">
-        <div v-for="(item, key) in options" :key="key">
-          <div v-if="key !== 'id'">
-            <li class="key">
-              {{ item.label }}
-            </li>
-          </div>
-        </div>
-      </div>
       <div v-if="!displayForm" class="information">
-        <div v-for="(item, key) in options" :key="key">
-          <div v-if="key !== 'id' && key !== 'right_handed'">
-            <li class="item">
-              {{ item.value }}
-            </li>
-          </div>
-          <div v-else-if="key == 'right_handed'">
-            <li v-if="item.value == true" class="item">Rechts</li>
-            <li v-else-if="item.value == false" class="item">Links</li>
-          </div>
-        </div>
         <div id="edit-button">
-          <custom-button
-            v-if="!displayForm"
-            label="Bearbeiten"
-            btnclass="prim_medium_button_blue"
-            @button-click="openChangeForm"
-          />
+          <Form
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="true"
+            submit-name="Bearbeiten"
+            :user-info="options"
+            @submit="openEditForm"
+          ></Form>
         </div>
       </div>
       <div v-if="displayForm" class="profile-form-container">
-        <form class="form-items">
-          <text-input-field
-            v-model="options.username.value"
-            placeholder="username"
-            element-class="default_input_field"
-          />
-          <text-input-field
-            v-model="options.email.value"
-            placeholder="x.y@email.com"
-            element-class="default_input_field"
-          />
-          <text-input-field
-            v-model="options.password.value"
-            placeholder="passwort"
-            element-class="default_input_field"
-            custom-type="password"
-          />
-          <text-input-field
-            v-model="options.target_learning_time.value"
-            placeholder="00:20:00"
-            element-class="default_input_field"
-            custom-type="time"
-            :time-step="1"
-          />
-          <div class="checkbox-container">
-            <custom-checkbox
-              v-model="leftHanded"
-              label-name="Links"
-              element-class="checkbox-primary"
-              component-class="primary-checkbox"
-              checkmark-class="checkmark"
-              @change="switchHand('leftHand')"
-            />
-            <custom-checkbox
-              v-model="rightHanded"
-              label-name="Rechts"
-              element-class="primary-checkbox"
-              component-class="primary-checkbox"
-              checkmark-class="checkmark"
-              @change="switchHand('rightHand')"
-            />
-          </div>
-        </form>
-        <p v-if="successMessage" class="body-small">{{ successMessage }}</p>
-        <p v-if="errorMessage" class="body-small">
-          {{ errorMessage }}
-        </p>
-        <div class="form-buttons">
-          <custom-button
-            label="Bestätigen"
-            btnclass="prim_medium_button_blue"
-            @button-click="submitChanges"
-          />
+        <Form
+          :error-message="errorMessage"
+          :input-field-validation="inputFieldValidation"
+          :disabled-form="false"
+          submit-name="Bestätigen"
+          :user-info="options"
+          @submit="submitChanges"
+        >
           <custom-button
             label="Verwerfen"
-            btnclass="sec_medium_button_blue"
+            btnclass="sec_small_button_blue"
             @button-click="discardChanges"
-          />
-        </div>
+        /></Form>
       </div>
     </div>
   </div>
