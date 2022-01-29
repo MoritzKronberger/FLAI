@@ -1,4 +1,5 @@
-.default-labeled-input {
+.default-labeled-input,
+.custom-profile-input {
   .label {
     margin-bottom: $padding-s;
     line-height: 1rem;
@@ -11,11 +12,11 @@
     padding: $padding-s;
     font-size: $font-size-m;
     outline: none;
-  
+
     &:hover {
       border-color: $main-blue;
     }
-  
+
     &:active {
       border-color: $main-blue;
       color: $main-black;
@@ -25,4 +26,10 @@
   .wrong {
     border-color: $main-red;
   }
+}
+
+.custom-profile-input {
+  width: 100%;
+  @include flex-box(row, center, center, $margin-l);
+  margin-bottom: 3vh;
 }
