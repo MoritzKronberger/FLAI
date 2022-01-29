@@ -30,6 +30,6 @@
 
 .custom-profile-input {
   width: 100%;
-  @include flex-box(row, center, center, $margin-l);
+  @include flex-box(row, space-between, center);
   margin-bottom: 3vh;
 }
