@@ -23,8 +23,8 @@ const errorMessage = ref<string[]>([])
 
 const inputFieldValidation = reactive({
   username: false,
-  password: false,
   email: false,
+  password: false,
 })
 
 type inputFieldKey = keyof typeof inputFieldValidation
