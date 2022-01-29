@@ -1,6 +1,12 @@
 <script setup lang="ts">
-const props =
-  defineProps<{ label: string; btnclass: string; switch?: boolean }>()
+import IconLoader from './IconLoader.vue'
+
+const props = defineProps<{
+  label: string
+  btnclass: string
+  iconpath?: string
+  switch?: boolean
+}>()
 const emit = defineEmits(['buttonClick'])
 
 function onclick() {
@@ -13,6 +19,12 @@ function onclick() {
 <template>
   <button type="button" :class="btnclass" @click="onclick()">
     {{ label }}
+    <IconLoader
+      v-if="iconpath !== undefined"
+      :path="iconpath"
+      alt="Button Icon"
+      element-class=""
+    />
   </button>
 </template>
 

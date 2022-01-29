@@ -1,8 +1,9 @@
 <template>
   <div class="sign-controls">
     <CustomButton
-      label="<"
-      :btnclass="`back-button prim_small_button_blue ${
+      label=""
+      iconpath="assets/icons/FLAI_Pfeil_Links.svg"
+      :btnclass="`prim_small_icon_button_blue ${
         index > 0 ? '' : 'inactive-button'
       }`"
       @click="decreaseIndex"
@@ -21,8 +22,9 @@
       </div>
     </div>
     <CustomButton
-      label=">"
-      :btnclass="`next-button prim_small_button_blue ${
+      label=""
+      iconpath="assets/icons/FLAI_Pfeil_Rechts.svg"
+      :btnclass="`prim_small_icon_button_blue  ${
         index + 1 < signs.length ? '' : 'inactive-button'
       }`"
       @click="increaseIndex"
