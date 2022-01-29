@@ -38,6 +38,7 @@ const getUserInformation = (): void => {
 const discardChanges = (): void => {
   getUserInformation()
   displayForm.value = false
+  errorMessage.value = []
 }
 
 const openChangeForm = (): void => {
@@ -65,7 +66,6 @@ const submitChanges = async (): Promise<void> => {
         errorMessage.value.push(result?.data[i].message)
         inputFieldValidation[result?.data[i].path[0] as inputFieldKey] = true
       }
-      getUserInformation()
       options.value['password'] = passwordReplacement
     }
   } else displayForm.value = false
@@ -74,7 +74,6 @@ onMounted(() => {
   getUserInformation()
 })
 </script>
-
 <template>
   <div class="profile-page">
     <div class="profile body-medium">
@@ -83,7 +82,7 @@ onMounted(() => {
           <Form
             :error-message="errorMessage"
             :input-field-validation="inputFieldValidation"
-            :diabled-form="true"
+            :disabled-form="true"
             submit-type="Bearbeiten"
             :user-info="options"
             @submit="openChangeForm"
@@ -94,7 +93,7 @@ onMounted(() => {
         <Form
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
-          :diabled-form="false"
+          :disabled-form="false"
           submit-type="Bestätigen"
           :user-info="options"
           @submit="submitChanges"
