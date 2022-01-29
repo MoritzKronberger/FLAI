@@ -31,14 +31,24 @@ export const profileValidation = (
       validation[result.data[el].path[0] as ValidationKey] = true
     }
   } else if (result.status === 400) {
-    errorMessages.value = []
     if (result.data.constraint === 'user_unique_email') {
-      errorMessages.value.push(
-        'Es ist bereits ein Konto mit dieser E-Mail-Adresse registriert.'
-      )
+      errorMessages.value = [
+        'Es ist bereits ein Konto mit dieser E-Mail-Adresse registriert.',
+      ]
       validation.email = true
     } else {
-      errorMessages.value.push('Ungültige Eingabe')
+      errorMessages.value = ['Ungültige Eingabe']
     }
+  }
+}
+
+export const loginValidation = (
+  result: { status: number; data: any },
+  errorMessages: Ref<string[]>,
+  successCallback: () => void
+) => {
+  baseValidation(result, errorMessages, successCallback)
+  if (result.status === 401 || result.status === 400) {
+    errorMessages.value = [result.data.message]
   }
 }

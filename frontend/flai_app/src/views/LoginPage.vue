@@ -6,6 +6,7 @@ import { computed, onMounted, ref, watchEffect } from 'vue'
 import { LoginUser } from '../store/authdata'
 import store from '../store'
 import { useRouter } from 'vue-router'
+import { loginValidation } from '../ressources/ts/validation'
 
 const router = useRouter()
 
@@ -18,7 +19,7 @@ const user = ref<LoginUser>({
   password: '',
 })
 
-const errorMessage = ref('')
+const errorMessage = ref<string[]>([])
 
 onMounted(() => {
   user.value.email = userData.value.email
@@ -34,12 +35,10 @@ watchEffect(() => updateUser(userData.value.email))
 const submit = async (): Promise<void> => {
   const submitUser = { ...user.value }
   const result = await authActions.loginUser(submitUser)
-  if (result?.status === 200) {
+  loginValidation(result, errorMessage, async () => {
     await userActions.getUser()
     router.push({ name: 'HomePage' })
-  } else {
-    errorMessage.value = result?.data.message
-  }
+  })
 }
 
 const emit = defineEmits(['openRegister'])
@@ -61,7 +60,13 @@ function onclick() {
       <div class="lead-paragraph center-text body-small">
         Melde dich an, um die deutsche Gebärdensprache zu erlernen.
       </div>
-      <div class="error-message body-normal">{{ errorMessage }}</div>
+      <div
+        v-for="err in errorMessage"
+        :key="err"
+        class="error-message body-small"
+      >
+        {{ err }}
+      </div>
       <form>
         <text-input-field
           v-model="user.email"
