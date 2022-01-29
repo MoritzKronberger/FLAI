@@ -16,15 +16,18 @@
         }
 
         .toggle-checkbox {
-            @include flex-box(row, center, flex-start, 10%);
+            height: $input-button-height-m;
+            @include flex-box(row, flex-start, center, 10%);
             .box {
-                width: 50%;
-                display: inline-flex;
+                height: 22px;
+                @include flex-box(row, flex-start, flex-start, 10%);
             }
         }
         .body-medium {
             text-align: end;
             width: 40%;
+            line-height: $input-button-height-m;
+            height: $input-button-height-m;
         }
     }
 }
