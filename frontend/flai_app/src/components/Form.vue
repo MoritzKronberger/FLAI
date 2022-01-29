@@ -127,6 +127,5 @@ function onclick() {
   </form>
 </template>
 <style scoped lang="scss">
-@import '../assets/scss/components/form';
 @import '../assets/scss/main.scss';
 </style>
