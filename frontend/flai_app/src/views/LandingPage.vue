@@ -35,7 +35,7 @@ function openModalRegister() {
           @button-click="showLogin = true"
         />
       </div>
-      <div v-show="showLogin" class="modal" @click="showLogin = false">
+      <div v-if="showLogin" class="modal" @click="showLogin = false">
         <LoginPage @open-register="openModalRegister" @click.stop />
       </div>
       <div class="register">
@@ -45,7 +45,7 @@ function openModalRegister() {
           @button-click="showRegister = true"
         />
       </div>
-      <div v-show="showRegister" class="modal" @click="showRegister = false">
+      <div v-if="showRegister" class="modal" @click="showRegister = false">
         <Register @open-login="openModalLogin" @click.stop />
       </div>
     </div>
