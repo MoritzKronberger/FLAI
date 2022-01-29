@@ -16,8 +16,6 @@ export const profileValidation = (
       validation[el as ValidationKey] = false
     }
 
-    console.log(errorMessages)
-
     for (const el in result.data) {
       console.log(result.data[el].message)
       errorMessages.value.push(result.data[el].message)
@@ -31,5 +29,7 @@ export const profileValidation = (
       )
       validation.email = true
     }
+  } else {
+    errorMessages.value.push('Ein Netzwerkfehler ist aufgetreten.')
   }
 }
