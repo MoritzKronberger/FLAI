@@ -14,7 +14,8 @@
 
     .child-card {
       width: 100%;
-      flex-basis: 100%;
+      flex-basis: fit-content;
+      height: 0;
       padding: $padding-m;
       display: flex;
       align-items: center;
