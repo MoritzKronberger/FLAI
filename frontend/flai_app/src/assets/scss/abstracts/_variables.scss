@@ -36,6 +36,9 @@ $font-size-l: $font-size-base*1.25;
 $font-size-m: $font-size-base;
 $font-size-s: $font-size-base * 0.75;
 
+//line-height, currently only used for buttons
+$line-height-base: 1;
+
 // input / button sizes
 $input-button-width-base: 5.26rem;
 $input-button-width-l: $input-button-width-base * 1.2;

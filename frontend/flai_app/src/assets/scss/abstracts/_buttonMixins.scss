@@ -16,6 +16,7 @@ $trans-duration: 0.5s;
   @include font(GothamSSm, bold);
   text-align: center;
   font-size: $font-size;
+  line-height: $line-height-base;
   color: $color-text;
 
   //border
@@ -105,7 +106,7 @@ $trans-duration: 0.5s;
   justify-content: center;
 
   img {
-    height: $font-size;
+    height: calc($font-size * $line-height-base);
     width: $font-size; 
     transition: all .1s ease;
     transition-delay: 0.2s;
