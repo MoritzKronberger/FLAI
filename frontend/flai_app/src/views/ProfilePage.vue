@@ -4,6 +4,7 @@ import customButton from '../components/CustomButton.vue'
 import store from '../store'
 import Form from '../components/Form.vue'
 import { Changes, RegisterUser } from '../store/userdata'
+import { profileValidation } from '../ressources/ts/validation'
 
 const actions = store.userdata.actions
 const user = store.userdata.user
@@ -26,8 +27,6 @@ const inputFieldValidation = reactive({
   password: false,
   email: false,
 })
-
-type inputFieldKey = keyof typeof inputFieldValidation
 
 const getUserInformation = (): void => {
   for (const prop in user) {
@@ -55,20 +54,12 @@ const submitChanges = async (): Promise<void> => {
   }
   if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
-    if (result?.status === 200) {
+    profileValidation(result, errorMessage, inputFieldValidation, () => {
       options.value['password'] = passwordReplacement
       displayForm.value = false
-    } else {
-      errorMessage.value = []
-      for (const el in inputFieldValidation) {
-        inputFieldValidation[el as inputFieldKey] = false
-      }
-      for (let i = 0; i < result?.data.length; i++) {
-        errorMessage.value.push(result?.data[i].message)
-        inputFieldValidation[result?.data[i].path[0] as inputFieldKey] = true
-      }
-      options.value['password'] = passwordReplacement
-    }
+    })
+    // TODO: needed?
+    //options.value['password'] = passwordReplacement
   } else displayForm.value = false
 }
 onMounted(() => {
