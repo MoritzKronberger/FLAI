@@ -16,6 +16,7 @@
       :show-sign="showSign"
       :signs="signs"
       :index="index"
+      :progress-warning="!progressSmallerLevelThree"
       @use-hint="showSign = true"
     />
     <p v-if="!wordComplete" class="status body-medium">{{ status }}</p>
@@ -122,6 +123,7 @@ function reset() {
 async function correct() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
+  // TODO: should be progressSmallerLevelThree
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update correct')
     const progress =
@@ -150,6 +152,7 @@ async function correct() {
 async function wrong() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Fehler.svg'
+  // TODO: should be progressSmallerLevelThree
   if (progressSmallerLevelTwo.value || !showSign.value) {
     console.log('update wrong')
     const progress =
