@@ -15,7 +15,14 @@ const progressBarOptions: progressbar.PathDrawingOptions = {
   strokeWidth: 3.04 * 1.5,
   duration: 300,
 }
+const borderElement = ref<HTMLDivElement>()
+const border: progressbar.PathDrawingOptions = {
+  color: '#000000',
+  strokeWidth: 3.04,
+  duration: 1,
+}
 const progressCircle = ref()
+const borderCircle = ref()
 const { progress } = toRefs(props)
 
 const renderProgress = (pg: number) => {
@@ -25,7 +32,11 @@ const renderProgress = (pg: number) => {
       progressBarOptions
     )
   }
+  if (!borderCircle.value && borderElement.value) {
+    borderCircle.value = new progressbar.Circle(borderElement.value, border)
+  }
   if (progressCircle.value) progressCircle.value.animate(pg)
+  if (borderCircle.value) borderCircle.value.animate(1)
 }
 
 watchEffect(() => renderProgress(progress?.value ?? 0))
@@ -40,6 +51,7 @@ watchEffect(() => renderProgress(progress?.value ?? 0))
           ref="progressBarElement"
           class="progress-bar"
         ></div>
+        <div ref="borderElement" class="circle"></div>
         <div class="body-large statistic-value">{{ statisticValue }}</div>
       </div>
       <div class="statistic-text body-medium">{{ statisticText }}</div>
