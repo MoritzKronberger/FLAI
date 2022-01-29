@@ -77,26 +77,26 @@ onMounted(() => {
 </script>
 <template>
   <div class="profile-page">
-    <div class="profile body-medium">
-      <div v-if="!displayForm" class="information">
-        <div id="edit-button">
-          <Form
-            :error-message="errorMessage"
-            :input-field-validation="inputFieldValidation"
-            :disabled-form="true"
-            submit-name="Bearbeiten"
-            :user-info="options"
-            @submit="openEditForm"
-          ></Form>
-        </div>
+    <div class="profile">
+      <div v-if="!displayForm">
+        <Form
+          :error-message="errorMessage"
+          :input-field-validation="inputFieldValidation"
+          :disabled-form="true"
+          submit-name="Bearbeiten"
+          :user-info="options"
+          component-class="custom-profile-input"
+          @submit="openEditForm"
+        ></Form>
       </div>
-      <div v-if="displayForm" class="profile-form-container">
+      <div v-if="displayForm">
         <Form
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
           :disabled-form="false"
           submit-name="Bestätigen"
           :user-info="options"
+          component-class="custom-profile-input"
           @submit="submitChanges"
         >
           <custom-button
@@ -112,5 +112,6 @@ onMounted(() => {
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/abstracts/buttonMixins';
+@import '../assets/scss/abstracts/mixins';
 @import '../assets/scss/components/customCheckbox';
 </style>
