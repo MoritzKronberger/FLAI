@@ -111,8 +111,9 @@ const options = computed(() => ({
   <div>
     <div id="week">
       <custom-button
-        label="<"
-        btnclass="sec_small_button_blue"
+        label=""
+        iconpath="assets/icons/FLAI_Pfeil_Links.svg"
+        btnclass="sec_small_icon_button_blue"
         @button-click="changeWeek('subtract', 1, 'weeks')"
       />
       <span class="body-medium"
@@ -127,9 +128,10 @@ const options = computed(() => ({
         moment(date).format('DD.&#8201;MM.&#8201;YY')
       }}</span>
       <custom-button
-        label=">"
-        btnclass="sec_small_button_blue"
-        @button-click="changeWeek('add', 1, 'weeks')"
+        label=""
+        iconpath="assets/icons/FLAI_Pfeil_Rechts.svg"
+        btnclass="sec_small_icon_button_blue"
+        @click="changeWeek('add', 1, 'weeks')"
       />
     </div>
     <BarChart
