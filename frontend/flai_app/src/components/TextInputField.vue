@@ -22,17 +22,17 @@ const onInput = (e: Event): void => {
   <div :class="componentClass ?? 'default-labeled-input'">
     <label :for="labelName" class="body-medium">
       <div v-if="labelName" class="label">{{ labelName }}</div>
-      <input
-        :value="modelValue"
-        :type="customType ? customType : 'text'"
-        :name="labelName"
-        :placeholder="placeholder"
-        :class="`${elementClass} ${validationWrong ? 'wrong' : ''}`"
-        :step="timeStep"
-        :disabled="disabled"
-        @input="onInput"
-      />
     </label>
+    <input
+      :value="modelValue"
+      :type="customType ? customType : 'text'"
+      :name="labelName"
+      :placeholder="placeholder"
+      :class="`${elementClass} ${validationWrong ? 'wrong' : ''}`"
+      :step="timeStep"
+      :disabled="disabled"
+      @input="onInput"
+    />
   </div>
 </template>
 <style scoped lang="scss">
