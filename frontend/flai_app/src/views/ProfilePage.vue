@@ -78,7 +78,7 @@ onMounted(() => {
 <template>
   <div class="profile-page">
     <div class="profile">
-      <div v-if="!displayForm">
+      <div v-if="!displayForm" class="form-items">
         <Form
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
@@ -89,7 +89,7 @@ onMounted(() => {
           @submit="openEditForm"
         ></Form>
       </div>
-      <div v-if="displayForm">
+      <div v-if="displayForm" class="form-items">
         <Form
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
