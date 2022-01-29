@@ -55,11 +55,9 @@ const submitChanges = async (): Promise<void> => {
   if (changes.length !== 0) {
     const result = await actions.patchValues(changes)
     profileValidation(result, errorMessage, inputFieldValidation, () => {
-      options.value['password'] = passwordReplacement
       displayForm.value = false
     })
-    // TODO: needed?
-    //options.value['password'] = passwordReplacement
+    options.value['password'] = passwordReplacement
   } else displayForm.value = false
 }
 onMounted(() => {
