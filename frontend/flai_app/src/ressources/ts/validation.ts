@@ -9,7 +9,7 @@ export const profileValidation = (
   errorMessages.value = []
   if (result.status === 200) {
     successCallback()
-  } else {
+  } else if (result.status === 422) {
     type ValidationKey = keyof typeof validation
 
     for (const el in validation) {
@@ -22,6 +22,14 @@ export const profileValidation = (
       console.log(result.data[el].message)
       errorMessages.value.push(result.data[el].message)
       validation[result.data[el].path[0] as ValidationKey] = true
+    }
+  } else if (result.status === 400) {
+    console.log(result)
+    if (result.data.constraint === 'user_unique_email') {
+      errorMessages.value.push(
+        'Es ist bereits ein Konto mit dieser E-Mail-Adresse registriert.'
+      )
+      validation.email = true
     }
   }
 }
