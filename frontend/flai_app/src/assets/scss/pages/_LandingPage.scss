@@ -3,45 +3,8 @@ body {
     flex-direction: column;
 }
 
-#stick {
-    position: sticky;
-    height: fit-content;
-    @include flex-box(row, space-between, center);
-    padding: $padding-s;
-    background-color: rgba(255, 255, 255, 0.8);
-
-    @include media-query("S") {
-        flex-direction: column;
-        justify-content: space-between;
-        padding: $padding-m;
-        row-gap: $margin-m;
-    }
-
-    #buttons {
-        height: fit-content;
-        margin-right: $margin-m;
-        @include flex-box(row, flex-end, center, 0 $margin-s);
-        @include media-query("S") {
-            justify-content: center;
-        }
-    }
-
-    #login {
-        cursor: pointer;
-        color: $main-blue;
-    }
-}
-
 #blue {
     color: $main-blue;
-}
-
-.header-left {
-    @include flex-box(row, flex-start, center);
-    .flai-logo {
-        height: $input-button-height-m;
-        margin-left: $margin-m;
-    }
 }
 
 .first-section {

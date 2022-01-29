@@ -1,8 +1,37 @@
 .main-header {
-  background-color: $main-white;
-  position: fixed;
-  height: 50px;
-  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: sticky;
   top: 0;
   left: 0;
+  width: 100%;
+  height: fit-content;
+
+  @include flex-box(row, space-between, center);
+
+  padding: $padding-m $padding-m;
+
+  .buttons {
+    @include flex-box(row, flex-end, center, 0 $margin-s);
+    @include media-query('S') {
+      justify-content: center;
+    }
+  }
+
+  .flai-logo {
+    height: 100%;
+    width: fit-content;
+  }
+
+  @include media-query('S') {
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $padding-m;
+    row-gap: $margin-m;
+  }
+}
+
+.exercise-header {
+  grid-area: heading;
+  display: flex;
+  justify-content: space-between;
 }
