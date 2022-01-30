@@ -79,7 +79,7 @@ onMounted(() => {
             :disabled-form="true"
             submit-name="Bearbeiten"
             :user-info="options"
-            component-class="custom-profile-input"
+            component-class="form-input"
             @submit="openEditForm"
           ></ProfileForm>
         </div>
@@ -90,7 +90,7 @@ onMounted(() => {
             :disabled-form="false"
             submit-name="Bestätigen"
             :user-info="options"
-            component-class="custom-profile-input"
+            component-class="form-input"
             @submit="submitChanges"
           >
             <custom-button
