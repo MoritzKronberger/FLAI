@@ -3,7 +3,6 @@ import customButton from '../components/CustomButton.vue'
 
 defineProps<{
   errorMessage: string[]
-  componentClass: string
   submitName: string
 }>()
 
@@ -11,7 +10,7 @@ const emit = defineEmits(['submit'])
 </script>
 
 <template>
-  <div :class="componentClass + ' body-small'">
+  <div class="error-message body-small">
     <div v-for="err in errorMessage" :key="err">
       {{ err }}
     </div>
