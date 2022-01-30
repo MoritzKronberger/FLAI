@@ -1,29 +1,35 @@
 <script setup lang="ts">
 import customButton from '../components/CustomButton.vue'
-import { toRefs } from 'vue'
-const props = defineProps<{
+
+defineProps<{
   errorMessage: string[]
   submitName: string
   buttonContainer?: string
+  errorMessageClass?: string
 }>()
-
-const { buttonContainer } = toRefs(props)
-const buttonContainerClass = buttonContainer?.value
-  ? buttonContainer.value
-  : 'button-container-forms'
 
 const emit = defineEmits(['submit'])
 </script>
 
 <template>
-  <div class="error-message body-small">
+  <div
+    :class="`${
+      errorMessageClass
+        ? errorMessageClass
+        : 'error-message-right-align body-small'
+    }`"
+  >
     <div v-for="err in errorMessage" :key="err">
       {{ err }}
     </div>
   </div>
   <form>
     <slot name="inputs"></slot>
-    <div :class="buttonContainerClass">
+    <div
+      :class="`${
+        buttonContainer ? buttonContainer : 'button-container-forms body-small'
+      }`"
+    >
       <custom-button
         :label="submitName"
         btnclass="prim_small_button_blue"
