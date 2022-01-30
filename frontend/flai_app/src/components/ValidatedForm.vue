@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import customButton from '../components/CustomButton.vue'
-
-defineProps<{
+import { toRefs } from 'vue'
+const props = defineProps<{
   errorMessage: string[]
   submitName: string
+  buttonContainer?: string
 }>()
+
+const { buttonContainer } = toRefs(props)
+const buttonContainerClass = buttonContainer?.value
+  ? buttonContainer.value
+  : 'button-container-forms'
 
 const emit = defineEmits(['submit'])
 </script>
@@ -17,7 +23,7 @@ const emit = defineEmits(['submit'])
   </div>
   <form>
     <slot name="inputs"></slot>
-    <div class="button-container">
+    <div :class="buttonContainerClass">
       <custom-button
         :label="submitName"
         btnclass="prim_small_button_blue"
