@@ -190,10 +190,16 @@
       }
     }
 
-    .button-container {
+    .button-container-login {
       margin-top: $margin-l;
-      width: 55%;
+      width: 100%;
+      text-align: center;
+    }
+
+    .button-container-forms {
+      margin-top: $margin-l;
       @include flex-box(row, space-between, center);
+      width: 55%;
       float: right;
     }
 
