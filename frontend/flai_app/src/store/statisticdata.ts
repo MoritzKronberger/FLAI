@@ -4,6 +4,7 @@ import { jsonAction } from '../common/service/rest'
 import exerciseData from './exercisedata'
 import userdata from './userdata'
 import 'moment/dist/locale/de'
+import { ExpressData, PostgresData } from '../ressources/ts/interfaces'
 moment.locale()
 export interface UserStatistic {
   activeStreak: number | undefined
@@ -60,10 +61,7 @@ const methods = {
     Object.assign(userStatistic, newStatistic)
     console.log(userStatistic)
   },
-  changeTrends(
-    trendsData: { status: number; data: { rows: TrendsRow[] } },
-    dateFormat = 'YYYY-MM-DD'
-  ) {
+  changeTrends(trendsData: ExpressData, dateFormat = 'YYYY-MM-DD') {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0
     const baseDataset: TrendsEntry[] = []
     const endDay = moment(trends.end_day)
@@ -78,15 +76,16 @@ const methods = {
     let dataset = baseDataset
 
     // convert the fetched rows into the TrendsDataset type and match the date formatting
-    if (trendsData.data.rows) {
-      const trendsDataDataset: TrendsEntry[] = trendsData.data.rows.map(
-        (entry) => {
-          return {
-            x: moment(entry.day).format(dateFormat).toString(),
-            y: moment.duration(entry.time_learnt).asMinutes(),
-          } as TrendsEntry
-        }
-      )
+    const data = trendsData.data as PostgresData
+    if (data.rows) {
+      const trendsDataDataset: TrendsEntry[] = data.rows.map((entry) => {
+        return {
+          x: moment(entry.day as string)
+            .format(dateFormat)
+            .toString(),
+          y: moment.duration(entry.time_learnt as string).asMinutes(),
+        } as TrendsEntry
+      })
       // find the entries where the day matches the database row and replace them with the row
       // from https://stackoverflow.com/a/37585362/14906871
       dataset = baseDataset.map(
@@ -153,12 +152,18 @@ const actions = {
     })
 
     const newUserStatistic: UserStatistic = {
-      activeStreak: activeStreakData.data.rows?.[0].streak,
-      longestStreak: { ...longestStreakData.data.rows?.[0] },
-      exerciseCompletion:
-        exerciseCompletionData.data.rows?.[0].progress_completion,
-      bestExerciseSign: bestExerciseSignData.data.rows?.[0].sign_name,
-      timeLearntToday: timeLearntTodayData.data.rows?.[0].time_learnt,
+      activeStreak: (activeStreakData.data as PostgresData).rows?.[0].streak as
+        | number
+        | undefined,
+      longestStreak: {
+        ...(longestStreakData.data as PostgresData).rows?.[0],
+      } as UserStatistic['longestStreak'],
+      exerciseCompletion: (exerciseCompletionData.data as PostgresData)
+        .rows?.[0].progress_completion as number | undefined,
+      bestExerciseSign: (bestExerciseSignData.data as PostgresData).rows?.[0]
+        .sign_name as string | undefined,
+      timeLearntToday: (timeLearntTodayData.data as PostgresData).rows?.[0]
+        .time_learnt as string | undefined,
     }
 
     methods.changeUserStatistic(newUserStatistic)

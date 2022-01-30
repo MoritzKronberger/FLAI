@@ -1,7 +1,8 @@
 import { Ref } from 'vue'
+import { ExpressData } from './interfaces'
 
 export const baseValidation = (
-  result: { status: number; data: any },
+  result: ExpressData,
   errorMessages: Ref<string[]>,
   successCallback: () => void
 ) => {
@@ -14,7 +15,7 @@ export const baseValidation = (
 }
 
 export const profileValidation = (
-  result: { status: number; data: any },
+  result: ExpressData,
   errorMessages: Ref<string[]>,
   validation: { username: boolean; password: boolean; email: boolean },
   successCallback: () => void
@@ -43,7 +44,7 @@ export const profileValidation = (
 }
 
 export const loginValidation = (
-  result: { status: number; data: any },
+  result: ExpressData,
   errorMessages: Ref<string[]>,
   successCallback: () => void
 ) => {
