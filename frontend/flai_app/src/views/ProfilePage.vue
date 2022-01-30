@@ -71,32 +71,34 @@ onMounted(() => {
 <template>
   <div class="profile-page">
     <div class="profile body-medium">
-      <div v-if="!displayForm">
-        <ProfileForm
-          :error-message="errorMessage"
-          :input-field-validation="inputFieldValidation"
-          :disabled-form="true"
-          submit-name="Bearbeiten"
-          :user-info="options"
-          component-class="custom-profile-input"
-          @submit="openEditForm"
-        ></ProfileForm>
-      </div>
-      <div v-if="displayForm">
-        <ProfileForm
-          :error-message="errorMessage"
-          :input-field-validation="inputFieldValidation"
-          :disabled-form="false"
-          submit-name="Bestätigen"
-          :user-info="options"
-          component-class="custom-profile-input"
-          @submit="submitChanges"
-        >
-          <custom-button
-            label="Verwerfen"
-            btnclass="sec_small_button_blue"
-            @button-click="discardChanges"
-        /></ProfileForm>
+      <div class="form-items">
+        <div v-if="!displayForm">
+          <ProfileForm
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="true"
+            submit-name="Bearbeiten"
+            :user-info="options"
+            component-class="custom-profile-input"
+            @submit="openEditForm"
+          ></ProfileForm>
+        </div>
+        <div v-if="displayForm">
+          <ProfileForm
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="false"
+            submit-name="Bestätigen"
+            :user-info="options"
+            component-class="custom-profile-input"
+            @submit="submitChanges"
+          >
+            <custom-button
+              label="Verwerfen"
+              btnclass="sec_small_button_blue"
+              @button-click="discardChanges"
+          /></ProfileForm>
+        </div>
       </div>
     </div>
   </div>
