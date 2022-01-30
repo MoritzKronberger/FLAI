@@ -5,7 +5,7 @@
     height: 100vh;
     max-height: 100vh;
     @include flex-box(row, center, center);
-    @include form-layout("profile", 55%, 55%, right);
+    @include form-layout("profile", 55%, 55%);
 
     .profile {
         .button-container {
