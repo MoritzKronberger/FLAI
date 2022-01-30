@@ -17,12 +17,7 @@
 
 // font mixins
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
-@mixin font(
-  $group,
-  $variant: regular,
-  $properties: family weight style,
-  $font-stack: $base-font-stack
-) {
+@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack) {
   $font-properties: map-deep-get($font-stack, $group, $variant);
 
   @if $font-properties {
@@ -76,20 +71,9 @@
           $font-style: map-get($font-properties, style);
 
           @if $file-formats {
-            @include font-face(
-              $font-family,
-              $file-path,
-              $font-weight,
-              $font-style,
-              $file-formats
-            );
+            @include font-face($font-family, $file-path, $font-weight, $font-style, $file-formats);
           } @else {
-            @include font-face(
-              $font-family,
-              $file-path,
-              $font-weight,
-              $font-style
-            );
+            @include font-face($font-family, $file-path, $font-weight, $font-style);
           }
         }
       }
@@ -115,12 +99,7 @@
 }
 
 // creating flex-box mixin
-@mixin flex-box(
-  $flex-flow: column wrap,
-  $justify-content: flex-start,
-  $align-items: flex-start,
-  $gap: 0vh 0vw
-) {
+@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 0vh 0vw) {
   display: flex;
   flex-flow: $flex-flow;
   justify-content: $justify-content;
@@ -169,24 +148,22 @@
       text-align: center;
     }
 
-    .error-message-register, .error-message-profile {
+    .error-message {
+      width: 55%;
+      float: right;
       color: $main-red;
       margin-bottom: $margin-s;
     }
 
-    .error-message-profile {
-      width: 55%;
-      float: right;
-    }
-
-    input, .primary-checkbox {
+    input,
+    .primary-checkbox {
       margin-bottom: $margin-m;
     }
 
     .input-form-primary {
       width: $input-width;
     }
-  
+
     .button-container {
       display: flex;
       justify-content: center;
@@ -196,6 +173,28 @@
       margin: $margin-m 0;
       line-height: 0;
       border-bottom: solid $light-grey $line-width-s;
+    }
+
+    .toggle-checkbox {
+      height: $input-button-height-m;
+      @include flex-box(row, space-between, center);
+      .box {
+        height: 22px;
+        width: 55%;
+        @include flex-box(row, flex-start, flex-start, 10%);
+      }
+      .body-medium {
+        text-align: end;
+        line-height: $input-button-height-m;
+        height: $input-button-height-m;
+      }
+    }
+
+    .button-container {
+      margin-top: $margin-l;
+      width: 55%;
+      @include flex-box(row, space-between, center);
+      float: right;
     }
 
     @include media-query(L) {
