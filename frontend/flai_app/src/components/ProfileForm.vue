@@ -25,10 +25,6 @@ const { errorMessage, inputFieldValidation, userInfo, componentClass } =
 
 const defaultTargetTime = '00:20:00'
 
-const errMessagePosition = userInfo?.value
-  ? 'error-message-profile'
-  : 'error-message-register'
-
 /*eslint-disable */
 const user = userInfo?.value
   ? ref(userInfo?.value)
@@ -61,7 +57,6 @@ function onclick() {
   <validated-form
     :error-message="errorMessage"
     :submit-name="submitName"
-    :component-class="errMessagePosition"
     @submit="onclick"
   >
     <template #inputs>
