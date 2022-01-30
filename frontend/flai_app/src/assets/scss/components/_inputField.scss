@@ -4,6 +4,7 @@
     margin-bottom: $padding-s;
     min-height: $input-button-height-m;
     height: $input-button-height-m;
+    line-height: $input-button-height-m;
   }
   .default_input_field {
     min-width: $input-button-width-m;
@@ -33,5 +34,5 @@
 .form-input {
   width: 100%;
   @include flex-box(row, space-between, flex-start);
-  margin-bottom: 3vh;
+  
 }
