@@ -63,6 +63,7 @@ function onclick() {
       <validated-form
         :error-message="errorMessage"
         submit-name="Login"
+        component-class="error-message-register"
         @submit="submit"
       >
         <template #inputs>
