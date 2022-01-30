@@ -62,6 +62,7 @@ function onclick() {
         submit-name="Login"
         component-class="error-message"
         button-container="button-container-login"
+        error-message-class="error-message body-small"
         @submit="submit"
       >
         <template #inputs>
