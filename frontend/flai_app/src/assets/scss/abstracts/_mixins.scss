@@ -148,11 +148,14 @@
       text-align: center;
     }
 
-    .error-message {
-      width: 55%;
-      float: right;
+    .error-message, .error-message-right-align {
+      width: 60.5%;
       color: $main-red;
       margin-bottom: $margin-s;
+    }
+
+    .error-message-right-align {
+      float: right;
     }
 
     input,
