@@ -70,7 +70,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="profile-page">
-    <div class="profile body-medium">
+    <div class="profile">
       <div class="form-items">
         <div v-if="!displayForm">
           <ProfileForm
