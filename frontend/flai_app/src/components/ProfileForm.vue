@@ -17,6 +17,7 @@ const props = defineProps<{
   submitName: string
   disabledForm: boolean
   userInfo?: RegisterUser
+  componentClass?: string
 }>()
 
 const { errorMessage, inputFieldValidation, userInfo } = toRefs(props)
@@ -62,6 +63,7 @@ function onclick() {
         v-model="user.username"
         label-name="Benutzername"
         placeholder="MaxMuster"
+        :component-class="componentClass"
         element-class="default_input_field input-form-primary"
         :validation-wrong="inputFieldValidation.username"
         :disabled="disabledForm"
@@ -70,6 +72,7 @@ function onclick() {
         v-model="user.email"
         label-name="E-Mail-Adresse"
         placeholder="maxmusterman@flai.de"
+        :component-class="componentClass"
         element-class="default_input_field input-form-primary"
         :validation-wrong="inputFieldValidation.email"
         :disabled="disabledForm"
@@ -78,6 +81,7 @@ function onclick() {
         v-model="user.password"
         label-name="Passwort"
         placeholder="********"
+        :component-class="componentClass"
         element-class="default_input_field input-form-primary"
         custom-type="password"
         :validation-wrong="inputFieldValidation.password"
@@ -87,6 +91,7 @@ function onclick() {
         v-model="user.target_learning_time"
         label-name="Tägliches Lernziel"
         :placeholder="defaultTargetTime"
+        :component-class="componentClass"
         element-class="default_input_field input-form-primary"
         custom-type="time"
         :time-step="1"
@@ -94,22 +99,24 @@ function onclick() {
       />
       <div class="toggle-checkbox">
         <p class="body-medium">Händigkeit</p>
-        <custom-checkbox
-          v-model="leftHanded"
-          label-name="Links"
-          element-class="primary-checkbox"
-          component-class="primary-checkbox body-small"
-          checkmark-class="checkmark"
-          :disabled="disabledForm"
-        />
-        <custom-checkbox
-          v-model="user.right_handed"
-          label-name="Rechts"
-          element-class="primary-checkbox"
-          component-class="primary-checkbox body-small"
-          checkmark-class="checkmark"
-          :disabled="disabledForm"
-        />
+        <div class="box">
+          <custom-checkbox
+            v-model="leftHanded"
+            label-name="Links"
+            element-class="primary-checkbox"
+            component-class="primary-checkbox body-small"
+            checkmark-class="checkmark"
+            :disabled="disabledForm"
+          />
+          <custom-checkbox
+            v-model="user.right_handed"
+            label-name="Rechts"
+            element-class="primary-checkbox"
+            component-class="primary-checkbox body-small"
+            checkmark-class="checkmark"
+            :disabled="disabledForm"
+          />
+        </div>
       </div>
     </template>
     <template #additional-buttons>
