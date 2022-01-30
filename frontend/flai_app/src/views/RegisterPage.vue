@@ -41,9 +41,6 @@ const submit = async (user: RegisterUser): Promise<void> => {
       element-class="flai-logo"
     />
     <div class="form-items">
-      <div class="lead-paragraph center-text body-small">
-        Registriere dich, um die deutsche Gebärdensprache zu erlernen.
-      </div>
       <ProfileForm
         :error-message="errorMessage"
         :input-field-validation="inputFieldValidation"
@@ -52,8 +49,8 @@ const submit = async (user: RegisterUser): Promise<void> => {
         component-class="form-input"
         @submit="submit"
       ></ProfileForm>
+      <div class="divider-line"></div>
     </div>
-    <div class="divider-line"></div>
     <div class="bottom-paragraph center-text body-small">
       Du hast ein Konto?
       <span class="link" @click="onclick">Melde dich an</span>
