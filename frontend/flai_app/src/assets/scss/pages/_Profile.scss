@@ -6,28 +6,4 @@
     max-height: 100vh;
     @include flex-box(row, center, center);
     @include form-layout("profile", 55%, 55%);
-
-    .profile {
-        .button-container {
-            margin-top: $margin-l;
-            width: 55%;
-            @include flex-box(row, space-between, center);
-            float: right;
-        }
-
-        .toggle-checkbox {
-            height: $input-button-height-m;
-            @include flex-box(row, flex-start, center, 5%);
-            .box {
-                height: 22px;
-                @include flex-box(row, flex-start, flex-start, 10%);
-            }
-        }
-        .body-medium {
-            text-align: end;
-            width: 40%;
-            line-height: $input-button-height-m;
-            height: $input-button-height-m;
-        }
-    }
 }
