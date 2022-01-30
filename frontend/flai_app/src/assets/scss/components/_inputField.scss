@@ -1,5 +1,5 @@
 .default-labeled-input,
-.custom-profile-input {
+.form-input {
   .label {
     margin-bottom: $padding-s;
     min-height: $input-button-height-m;
@@ -30,7 +30,7 @@
   }
 }
 
-.custom-profile-input {
+.form-input {
   width: 100%;
   @include flex-box(row, space-between, flex-start);
   margin-bottom: 3vh;
