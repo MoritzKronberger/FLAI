@@ -20,9 +20,14 @@ const props = defineProps<{
   componentClass?: string
 }>()
 
-const { errorMessage, inputFieldValidation, userInfo } = toRefs(props)
+const { errorMessage, inputFieldValidation, userInfo, componentClass } =
+  toRefs(props)
 
 const defaultTargetTime = '00:20:00'
+
+const errMessagePosition = userInfo?.value
+  ? 'error-message-profile'
+  : 'error-message-register'
 
 /*eslint-disable */
 const user = userInfo?.value
@@ -56,6 +61,7 @@ function onclick() {
   <validated-form
     :error-message="errorMessage"
     :submit-name="submitName"
+    :component-class="errMessagePosition"
     @submit="onclick"
   >
     <template #inputs>
