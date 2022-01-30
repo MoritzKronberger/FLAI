@@ -57,9 +57,6 @@ function onclick() {
       element-class="flai-logo"
     />
     <div class="form-items">
-      <div class="lead-paragraph center-text body-small">
-        Melde dich an, um die deutsche Gebärdensprache zu erlernen.
-      </div>
       <validated-form
         :error-message="errorMessage"
         submit-name="Login"
