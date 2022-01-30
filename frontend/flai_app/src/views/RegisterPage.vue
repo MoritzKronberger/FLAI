@@ -49,6 +49,7 @@ const submit = async (user: RegisterUser): Promise<void> => {
         :input-field-validation="inputFieldValidation"
         :disabled-form="false"
         submit-name="Registrieren"
+        component-class="form-input"
         @submit="submit"
       ></ProfileForm>
     </div>
