@@ -71,19 +71,18 @@ onMounted(() => {
 <template>
   <div class="profile-page">
     <div class="profile body-medium">
-      <div v-if="!displayForm" class="information">
-        <div id="edit-button">
-          <ProfileForm
-            :error-message="errorMessage"
-            :input-field-validation="inputFieldValidation"
-            :disabled-form="true"
-            submit-name="Bearbeiten"
-            :user-info="options"
-            @submit="openEditForm"
-          ></ProfileForm>
-        </div>
+      <div v-if="!displayForm">
+        <ProfileForm
+          :error-message="errorMessage"
+          :input-field-validation="inputFieldValidation"
+          :disabled-form="true"
+          submit-name="Bearbeiten"
+          :user-info="options"
+          component-class="custom-profile-input"
+          @submit="openEditForm"
+        ></ProfileForm>
       </div>
-      <div v-if="displayForm" class="profile-form-container">
+      <div v-if="displayForm">
         <ProfileForm
           :error-message="errorMessage"
           :input-field-validation="inputFieldValidation"
