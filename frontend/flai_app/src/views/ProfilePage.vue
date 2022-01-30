@@ -56,7 +56,7 @@ const submitChanges = async (): Promise<void> => {
         changes[prop] = options.value[prop]
     }
   }
-  if (changes.length !== 0) {
+  if (Object.keys(changes).length) {
     const result = await actions.patchValues(changes)
     profileValidation(result, errorMessage, inputFieldValidation, () => {
       displayForm.value = false
