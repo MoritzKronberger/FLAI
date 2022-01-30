@@ -129,7 +129,7 @@
 }
 
 // creating form mixin
-@mixin form-layout($container-name, $form-width: 30%, $input-width: 100%, $err-message: left) {
+@mixin form-layout($container-name, $form-width: 30%, $input-width: 100%) {
   .#{$container-name} {
     width: $form-width;
     max-height: 100%;
@@ -169,11 +169,14 @@
       text-align: center;
     }
 
-    .error-message {
+    .error-message-register, .error-message-profile {
       color: $main-red;
-      width: 55%;
-      float: $err-message;
       margin-bottom: $margin-s;
+    }
+
+    .error-message-profile {
+      width: 55%;
+      float: right;
     }
 
     input, .primary-checkbox {
