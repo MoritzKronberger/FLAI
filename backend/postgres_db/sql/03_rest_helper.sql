@@ -179,16 +179,15 @@ COMMIT;
 /*
 SELECT * FROM "user";
 
-SELECT *
-FROM rest_helper
-     ('user', 
-      '{"email": "new_user@email.com",
-        "username": "new_user",
-        "password": "supersecret",
-        "right_handed": "false"
-       }',
-       'POST'
-     );
+SELECT * FROM rest_helper
+              ('user', 
+               '{"email": "new_user@email.com",
+                 "username": "new_user",
+                 "password": "supersecret",
+                 "right_handed": "false"
+                }',
+                'POST'
+              );
 
 SELECT * FROM "user";
 

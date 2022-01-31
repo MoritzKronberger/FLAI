@@ -17,12 +17,12 @@ DROP TRIGGER IF EXISTS new_exercise_settings_user_trigger    ON "exercise_sessio
 DROP TRIGGER IF EXISTS new_learns_sign_trigger               ON "exercise_settings_user" CASCADE;
 DROP TRIGGER IF EXISTS update_unlocked_signs_trigger         ON "learns_sign"            CASCADE;
 
-DROP FUNCTION IF EXISTS hash_password_function                                           CASCADE;
-DROP FUNCTION IF EXISTS set_unlocked_signs_to_default_function                           CASCADE;
-DROP FUNCTION IF EXISTS order_not_null_function                                          CASCADE;
-DROP FUNCTION IF EXISTS new_exercise_settings_user_function                              CASCADE;
-DROP FUNCTION IF EXISTS new_learns_sign_function                                         CASCADE;
-DROP FUNCTION IF EXISTS update_unlocked_signs_function                                   CASCADE;
+DROP FUNCTION IF EXISTS hash_password_function                 CASCADE;
+DROP FUNCTION IF EXISTS set_unlocked_signs_to_default_function CASCADE;
+DROP FUNCTION IF EXISTS order_not_null_function                CASCADE;
+DROP FUNCTION IF EXISTS new_exercise_settings_user_function    CASCADE;
+DROP FUNCTION IF EXISTS new_learns_sign_function               CASCADE;
+DROP FUNCTION IF EXISTS update_unlocked_signs_function         CASCADE;
 
 
 /* Trigger */
@@ -32,10 +32,12 @@ DROP FUNCTION IF EXISTS update_unlocked_signs_function                          
 CREATE FUNCTION hash_password_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN
-        IF(LENGTH(NEW."password")<9)
-            THEN RAISE EXCEPTION 'minimum_password_length';
-        ELSIF(TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND NEW."password" <> OLD."password"))
-            THEN NEW."password" = crypt(NEW."password", gen_salt('bf',12));
+        IF LENGTH(NEW."password") < 9  
+        THEN 
+            RAISE EXCEPTION 'minimum_password_length';
+        ELSIF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND NEW."password" <> OLD."password")
+        THEN 
+            NEW."password" = crypt(NEW."password", gen_salt('bf',12));
         END IF;
 
         RETURN NEW;
@@ -107,16 +109,16 @@ FOR EACH ROW
 CREATE FUNCTION new_exercise_settings_user_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN                                
-        IF(NOT EXISTS (SELECT "user_id"
-                       FROM   "exercise_session"
-                       WHERE  "user_id" = NEW."user_id"
-                              AND "exercise_id" = NEW."exercise_id")
-           AND
-           NOT EXISTS (SELECT "user_id"
-                       FROM   "exercise_settings_user"
-                       WHERE  "user_id" = NEW."user_id"
-                              AND "exercise_id" = NEW."exercise_id")
-          )
+        IF (NOT EXISTS (SELECT "user_id"
+                        FROM   "exercise_session"
+                        WHERE  "user_id" = NEW."user_id"
+                               AND "exercise_id" = NEW."exercise_id")
+            AND
+            NOT EXISTS (SELECT "user_id"
+                        FROM   "exercise_settings_user"
+                        WHERE  "user_id" = NEW."user_id"
+                               AND "exercise_id" = NEW."exercise_id")
+           )
         THEN
             INSERT INTO "exercise_settings_user" ("user_id", "exercise_id")
             VALUES
@@ -187,7 +189,7 @@ FOR EACH ROW
 ;
 
 -- increase unlocked_signs if a sign's progress reaches level_3 for the first time 
----
+--
 -- ! unlocked_signs should only be increased if the new sign has not already been accounted for !
 -- This is relevant in the following scenario:
 -- A user is learning without an internet connection.
@@ -265,17 +267,17 @@ COMMIT;
 /*
 -- first update should raise "includes_signs_order_not_null" exception
 UPDATE "includes_sign"
-SET "order" = NULL
-WHERE "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
+SET    "order" = NULL
+WHERE  "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
 
 -- second update should be allowed after updating exercise_settings
 UPDATE "exercise_settings"
-SET "sort_signs_by_order" = FALSE
-WHERE "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
+SET    "sort_signs_by_order" = FALSE
+WHERE  "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
 
 UPDATE "includes_sign"
-SET "order" = NULL
-WHERE "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
+SET    "order" = NULL
+WHERE  "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen');
 */
 
 -- test new_exercise_settings_user_trigger and function
@@ -304,9 +306,9 @@ VALUES
 SELECT * FROM "learns_sign";
 
 UPDATE "exercise_settings_user"
-SET "unlocked_signs" = 5
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Sabine')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+SET    "unlocked_signs" = 5
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Sabine')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
 ;
 
 SELECT * FROM "learns_sign";
@@ -319,14 +321,14 @@ SELECT * FROM "learns_sign";
 SELECT * FROM "exercise_settings_user";
 
 UPDATE "learns_sign"
-SET "progress" = 100
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "sign_id" FROM "learns_sign"
-                       WHERE "level_3_reached" IS FALSE
-                       AND "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-                       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-                       LIMIT 1)
+SET    "progress" = 100
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "sign_id" FROM "learns_sign"
+                        WHERE "level_3_reached" IS FALSE
+                        AND "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+                        AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+                        LIMIT 1)
 ;
 
 SELECT * FROM "learns_sign";
@@ -337,28 +339,28 @@ SELECT * FROM "learns_sign";
 SELECT * FROM "exercise_settings_user";
 
 UPDATE "exercise_settings_user"
-SET "unlocked_signs" = (SELECT "unlocked_signs"
-                        FROM "exercise_settings_user"
-                        WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-                        AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-                       )
-                       + 1
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+SET    "unlocked_signs" = (SELECT "unlocked_signs"
+                           FROM "exercise_settings_user"
+                           WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+                           AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+                          )
+                          + 1
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
 ;
 
 SELECT * FROM "learns_sign";
 SELECT * FROM "exercise_settings_user";
 
 UPDATE "learns_sign"
-SET "progress" = 100
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "sign_id" FROM "learns_sign"
-                       WHERE "level_3_reached" IS FALSE
-                       AND "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-                       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-                       LIMIT 1)
+SET    "progress" = 100
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "sign_id" FROM "learns_sign"
+                        WHERE "level_3_reached" IS FALSE
+                        AND "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+                        AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+                        LIMIT 1)
 ;
 
 SELECT * FROM "learns_sign";

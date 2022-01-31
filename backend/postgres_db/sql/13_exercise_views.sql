@@ -30,11 +30,12 @@ FROM     get_exercise e
 CREATE VIEW get_full_exercise_for_user ("id", "user_id", "name", "description", 
                                         "level_1", "level_2", "level_3", "sort_signs_by_order", 
                                         "task_split", "word_length", "unlocked_signs")
-AS SELECT fe."id", esu."user_id", fe."name", fe."description", 
-          fe."level_1", fe."level_2", fe."level_3", fe."sort_signs_by_order", 
-          esu."task_split", esu."word_length", esu."unlocked_signs"
-FROM      get_full_exercise fe
-          JOIN "exercise_settings_user" esu ON fe."id" = esu."exercise_id"
+AS 
+SELECT fe."id", esu."user_id", fe."name", fe."description", 
+       fe."level_1", fe."level_2", fe."level_3", fe."sort_signs_by_order", 
+       esu."task_split", esu."word_length", esu."unlocked_signs"
+FROM   get_full_exercise fe
+       JOIN "exercise_settings_user" esu ON fe."id" = esu."exercise_id"
 ;
 
 COMMIT;
