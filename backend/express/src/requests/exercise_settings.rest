@@ -1,4 +1,5 @@
 PATCH http://localhost:5000/api/exercise-settings
+Authorization: {{token}}
 Content-Type: application/json
 
 {
