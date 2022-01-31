@@ -5,6 +5,7 @@ import signData from './signdata'
 import userData from './userdata'
 import { networkMessage } from './index'
 import moment from 'moment'
+import { PostgresData } from '../ressources/ts/interfaces'
 
 export interface Exercise {
   id: string
@@ -140,19 +141,22 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       console.log(jsonData.data)
-      for (const row of jsonData.data.rows) {
-        const exerciseCache: Exercise = {
-          id: row.id,
-          name: row.name,
-          description: row.description,
+      const data = jsonData.data as PostgresData
+      if (data.rows) {
+        for (const row of data.rows) {
+          const exerciseCache: Exercise = {
+            id: row.id as string,
+            name: row.name as string,
+            description: row.description as string,
+          }
+          exercises.push(exerciseCache)
         }
-        exercises.push(exerciseCache)
+        await signData.actions.getFullSignForExercise(
+          exercises[0].id,
+          exerciseSettingsUser.unlocked_signs
+        )
+        console.log(exercises)
       }
-      await signData.actions.getFullSignForExercise(
-        exercises[0].id,
-        exerciseSettingsUser.unlocked_signs
-      )
-      console.log(exercises)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
@@ -167,15 +171,19 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      const exerciseData = jsonData?.data.rows[0]
+      const data = jsonData.data as PostgresData
 
-      exerciseSettings.level_1 = exerciseData.level_1
-      exerciseSettings.level_2 = exerciseData.level_2
-      exerciseSettings.level_3 = exerciseData.level_3
-      exerciseSettings.sort_signs_by_order = exerciseData.sort_signs_by_order
+      const exerciseData = data.rows?.[0]
 
-      exerciseSettingsUser.word_length = exerciseData.word_length
-      exerciseSettingsUser.unlocked_signs = exerciseData.unlocked_signs
+      exerciseSettings.level_1 = exerciseData?.level_1 as number
+      exerciseSettings.level_2 = exerciseData?.level_2 as number
+      exerciseSettings.level_3 = exerciseData?.level_3 as number
+      exerciseSettings.sort_signs_by_order =
+        exerciseData?.sort_signs_by_order as boolean
+
+      exerciseSettingsUser.word_length = exerciseData?.word_length as number
+      exerciseSettingsUser.unlocked_signs =
+        exerciseData?.unlocked_signs as number
 
       for (const exercise of exercises) {
         Object.assign(
@@ -248,7 +256,8 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      Object.assign(exerciseSessions, jsonData?.data.rows)
+      const data = jsonData.data as PostgresData
+      Object.assign(exerciseSessions, data.rows)
       console.log(exerciseSessions)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)

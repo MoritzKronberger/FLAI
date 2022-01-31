@@ -1,5 +1,6 @@
 import { reactive, readonly } from 'vue'
 import { jsonAction } from '../common/service/rest'
+import { PostgresData } from '../ressources/ts/interfaces'
 import authdata from './authdata'
 
 export interface User {
@@ -56,10 +57,8 @@ const actions = {
       url: 'user',
       data: { id: user.id },
     })
-    const data = jsonData?.data.rows[0]
-    for (const prop in data) {
-      user[prop] = data[prop]
-    }
+    const data = (jsonData.data as PostgresData).rows?.[0]
+    Object.assign(user, data)
     console.log(user)
     return jsonData
   },

@@ -6,6 +6,7 @@ import { errorMessage } from '../ressources/ts/methods'
 import { networkMessage } from './index'
 import userData from './userdata'
 import { getWeightedDistance } from '../ressources/ts/random'
+import { PostgresData } from '../ressources/ts/interfaces'
 
 export interface Sign {
   id: string
@@ -97,7 +98,6 @@ const methods = {
 }
 
 const actions = {
-  /* eslint-disable */
   async getFullSignForExercise(exerciseId: string, unlockedSigns: number) {
     console.log('id', exerciseId)
     const jsonData = await jsonAction({
@@ -105,25 +105,31 @@ const actions = {
       url: 'sign',
       data: { exercise_id: exerciseId },
     })
-    if (jsonData?.status === 200) {
-      let signArray: Sign[] = []
+    const data = jsonData.data as PostgresData
+    if (jsonData?.status === 200 && data.rows) {
+      const signArray: Sign[] = []
       let count = 0
-      for (let row of jsonData?.data.rows) {
+      for (const row of data.rows) {
         if (count < unlockedSigns) {
-          let jsonProgress = await this.getProgress(exerciseId, row.id)
-          jsonProgress =
-            jsonProgress === undefined
+          const jsonProgress = await this.getProgress(
+            exerciseId,
+            row.id as string
+          )
+          const signProgress =
+            jsonProgress === undefined || !jsonProgress.rows
               ? { progress: 0, level_3_reached: false, intro_done: false }
               : jsonProgress.rows[0]
-          let sign: Sign = {
-            id: row.id,
-            name: row.name,
-            motion_category_id: row.motion_category,
-            progress: jsonProgress.progress,
-            level_3_reached: jsonProgress.level_3_reached,
-            recordings: await actions.getSignRecording(row.id),
-            intro_done: jsonProgress.intro_done,
+          const signRecording = await actions.getSignRecording(row.id as string)
+          const sign: Sign = {
+            id: row.id as string,
+            name: row.name as string,
+            motion_category_id: row.motion_category as string,
+            progress: signProgress.progress as number,
+            level_3_reached: signProgress.level_3_reached as boolean,
+            recordings: [],
+            intro_done: signProgress.intro_done as boolean,
           }
+          Object.assign(sign.recordings, signRecording)
           console.log('sign:', sign)
           signArray.push(sign)
           count++
@@ -142,11 +148,11 @@ const actions = {
       data: { sign_id: signId },
     })
     if (jsonData?.status === 200) {
-      return jsonData.data.rows
+      console.log((jsonData.data as PostgresData).rows)
+      return (jsonData.data as PostgresData).rows
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data.rows)
   },
   /*async getSignRecordingForExercise(exerciseId: string) {
     const jsonData = await jsonAction({
@@ -172,7 +178,7 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      return jsonData.data
+      return jsonData.data as PostgresData
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
@@ -208,7 +214,6 @@ const actions = {
     }
     console.log(jsonData.data)
   },
-  /* eslint-enable */
 }
 
 const signData = {

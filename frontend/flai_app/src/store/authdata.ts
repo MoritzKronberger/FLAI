@@ -1,6 +1,7 @@
 import { reactive, readonly } from 'vue'
 import store from '.'
 import { jsonAction } from '../common/service/rest'
+import { PostgresData } from '../ressources/ts/interfaces'
 import exerciseData from './exercisedata'
 import userData from './userdata'
 
@@ -74,14 +75,18 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       console.log(jsonData.data)
-      sessionStorage.setItem('jsonWebToken', jsonData?.data.jwt)
-      sessionStorage.setItem('userId', jsonData?.data.ids.id)
-      methods.saveAuthData({
-        token: jsonData?.data.jwt,
-        user_id: jsonData?.data.ids.id,
-        isAuth: true,
-      })
-      await this.getApplicationData()
+      const data = jsonData.data as PostgresData
+      if (data.jwt && data.ids) {
+        sessionStorage.setItem('jsonWebToken', data.jwt)
+        const userId = data.ids.id as string
+        sessionStorage.setItem('userId', userId)
+        methods.saveAuthData({
+          token: data.jwt,
+          user_id: userId,
+          isAuth: true,
+        })
+        await this.getApplicationData()
+      }
     }
     return jsonData
   },
