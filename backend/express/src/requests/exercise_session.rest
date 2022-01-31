@@ -1,5 +1,5 @@
 // including start_time as an attribute in exercise_session GET depending on usecase
-
+@start_time=2021-01-31 10:45:00.595133+00
 
 GET http://localhost:5000/api/exercise-session/?exercise_id={{exercise_id}}&&user_id={{user_id}}
 Authorization: {{token}}
@@ -13,12 +13,12 @@ Content-Type: application/json
 {
     "exercise_id": "{{exercise_id}}",
     "user_id": "{{user_id}}",
-    "start_time": "2021-01-31 10:45:00.595133+00"
+    "start_time": "{{start_time}}"
 } 
 
 ### 
 
-@start_time=2021-01-31 10:45:00.595133+00
+
 
 PATCH http://localhost:5000/api/exercise-session/
 Authorization: {{token}}
