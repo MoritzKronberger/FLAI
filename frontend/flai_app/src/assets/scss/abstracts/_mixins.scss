@@ -17,12 +17,7 @@
 
 // font mixins
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
-@mixin font(
-  $group,
-  $variant: regular,
-  $properties: family weight style,
-  $font-stack: $base-font-stack
-) {
+@mixin font($group, $variant: regular, $properties: family weight style, $font-stack: $base-font-stack) {
   $font-properties: map-deep-get($font-stack, $group, $variant);
 
   @if $font-properties {
@@ -76,20 +71,9 @@
           $font-style: map-get($font-properties, style);
 
           @if $file-formats {
-            @include font-face(
-              $font-family,
-              $file-path,
-              $font-weight,
-              $font-style,
-              $file-formats
-            );
+            @include font-face($font-family, $file-path, $font-weight, $font-style, $file-formats);
           } @else {
-            @include font-face(
-              $font-family,
-              $file-path,
-              $font-weight,
-              $font-style
-            );
+            @include font-face($font-family, $file-path, $font-weight, $font-style);
           }
         }
       }
@@ -115,12 +99,7 @@
 }
 
 // creating flex-box mixin
-@mixin flex-box(
-  $flex-flow: column wrap,
-  $justify-content: flex-start,
-  $align-items: flex-start,
-  $gap: 0vh 0vw
-) {
+@mixin flex-box($flex-flow: column wrap, $justify-content: flex-start, $align-items: flex-start, $gap: 0vh 0vw) {
   display: flex;
   flex-flow: $flex-flow;
   justify-content: $justify-content;
@@ -129,9 +108,9 @@
 }
 
 // creating form mixin
-@mixin form-layout($container-name) {
+@mixin form-layout($container-name, $form-width: 30%, $input-width: 100%) {
   .#{$container-name} {
-    width: 20%;
+    width: $form-width;
     max-height: 100%;
     overflow: auto;
     padding: $padding-l 0;
@@ -148,8 +127,8 @@
     }
 
     .flai-logo {
-      width: 40%;
-      margin-bottom: $margin-s;
+      width: 30%;
+      margin-bottom: $margin-m;
     }
 
     .lead-paragraph {
@@ -169,17 +148,23 @@
       text-align: center;
     }
 
-    .error-message {
+    .error-message, .error-message-right-align {
+      width: 60.5%;
       color: $main-red;
       margin-bottom: $margin-s;
     }
 
-    input, .primary-checkbox {
+    .error-message-right-align {
+      float: right;
+    }
+
+    input,
+    .primary-checkbox {
       margin-bottom: $margin-m;
     }
 
     .input-form-primary {
-      width: 100%;
+      width: $input-width;
     }
 
     .button-container {
@@ -189,12 +174,39 @@
 
     .divider-line {
       margin: $margin-m 0;
-      line-height: 0;
       border-bottom: solid $light-grey $line-width-s;
+      width: 100%;
+    }
+
+    .toggle-checkbox {
+      height: $input-button-height-m;
+      @include flex-box(row, space-between, center);
+      .box {
+        height: 22px;
+        width: 60%;
+        @include flex-box(row, flex-start, flex-start, 10%);
+      }
+      .body-medium {
+        text-align: end;
+        line-height: $input-button-height-m;
+        height: $input-button-height-m;
+      }
+    }
+
+    .button-container-login {
+      margin-top: $margin-m;
+      width: 100%;
+      text-align: center;
+    }
+
+    .button-container-forms {
+      margin-top: $margin-l;
+      width: 100%;
+      @include flex-box(row, center, flex-start, $margin-s);
     }
 
     @include media-query(L) {
-      width: 30%;
+      width: $form-width;
     }
 
     @include media-query(M) {

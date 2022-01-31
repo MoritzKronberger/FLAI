@@ -1,5 +1,6 @@
 import axios, { AxiosError, Method } from 'axios'
 import authdata from '../../store/authdata'
+import { ExpressData } from '../../ressources/ts/interfaces'
 
 const restPath = import.meta.env.VITE_REST_HOSTNAME
 
@@ -39,15 +40,18 @@ const authState = () => {
 
 const jsonResult = async (config: object) => {
   try {
-    const res = await axios(config).then((value) => {
+    const res = (await axios(config).then((value) => {
       return { status: value.status, data: value.data }
-    })
+    })) as ExpressData
     return res
   } catch (error) {
     const err = error as AxiosError
     if (err.response)
-      return { status: err.response.status, data: err.response.data }
-    return { status: 503, data: { message: 'Network Error' } }
+      return {
+        status: err.response.status,
+        data: err.response.data,
+      } as ExpressData
+    return { status: 503, data: { message: 'Network Error' } } as ExpressData
   }
 }
 

@@ -1,7 +1,8 @@
 import { Ref } from 'vue'
+import { ExpressData, JoiData, PostgresData } from './interfaces'
 
 export const baseValidation = (
-  result: { status: number; data: any },
+  result: ExpressData,
   errorMessages: Ref<string[]>,
   successCallback: () => void
 ) => {
@@ -14,7 +15,7 @@ export const baseValidation = (
 }
 
 export const profileValidation = (
-  result: { status: number; data: any },
+  result: ExpressData,
   errorMessages: Ref<string[]>,
   validation: { username: boolean; password: boolean; email: boolean },
   successCallback: () => void
@@ -25,13 +26,15 @@ export const profileValidation = (
   }
   baseValidation(result, errorMessages, successCallback)
   if (result.status === 422) {
+    const data = result.data as JoiData
     errorMessages.value = []
-    for (const el in result.data) {
-      errorMessages.value.push(result.data[el].message)
-      validation[result.data[el].path[0] as ValidationKey] = true
+    for (const el in data) {
+      errorMessages.value.push(data[el].message)
+      validation[data[el].path[0] as ValidationKey] = true
     }
   } else if (result.status === 400) {
-    if (result.data.constraint === 'user_unique_email') {
+    const data = result.data as PostgresData
+    if (data.constraint === 'user_unique_email') {
       errorMessages.value = [
         'Es ist bereits ein Konto mit dieser E-Mail-Adresse registriert.',
       ]
@@ -43,12 +46,12 @@ export const profileValidation = (
 }
 
 export const loginValidation = (
-  result: { status: number; data: any },
+  result: ExpressData,
   errorMessages: Ref<string[]>,
   successCallback: () => void
 ) => {
   baseValidation(result, errorMessages, successCallback)
   if (result.status === 401 || result.status === 400) {
-    errorMessages.value = [result.data.message]
+    errorMessages.value = [(result.data as PostgresData).message ?? '']
   }
 }
