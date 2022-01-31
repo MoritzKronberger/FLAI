@@ -1,0 +1,10 @@
+{
+    "rest-client.environmentVariables": {
+
+          "$shared": {
+            "token": "eyJhbGciOiJIUzI1NiJ9.ZmE5MDk4ZGYtMmNlOC00ODE3LTgzOTktYTVhNGE5ZGY3NmFk.J8o9b4W47MjKHHeLFdxiYHIKtZPPA0bGT7CQ-0N2VbA",
+            "user_id": "fa9098df-2ce8-4817-8399-a5a4a9df76ad", 
+            "exercise_id": "17bce3bf-8336-45d2-8803-60fb3be3ae7a" 
+        }
+    }
+}
