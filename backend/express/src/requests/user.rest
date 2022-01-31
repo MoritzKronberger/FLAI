@@ -7,9 +7,9 @@ POST http://localhost:5000/api/user
 Content-Type: application/json
 
 {
-    "username": "Martin Kohnle",
-    "password": "best4flai!",
-    "email": "martin.kohnle@flai.de"
+    "username": "Max Mustermann",
+    "password": "max4Muster!",
+    "email": "max-muster@flai.de"
 }
 
 ###
@@ -21,7 +21,7 @@ Content-Type: application/json
 {   
     "data": 
     {
-        "username": "Martin"
+        "username": "example_name"
     },
     
     "ids": 
