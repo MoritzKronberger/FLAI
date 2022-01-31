@@ -23,9 +23,3 @@ Content-Type: application/json
 {
     "token": ""
 }
-
-###
-
-GET http://localhost:5000/api/exercises
-Authorization: bearer
-bearer: 
