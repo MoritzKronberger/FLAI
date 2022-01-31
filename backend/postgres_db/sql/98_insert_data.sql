@@ -1,6 +1,6 @@
 /*************************************************************************************
  * Insert required data
- * preferably this would be done via a CMS for admins
+ * Preferably this would be done via a CMS for admins.
  *************************************************************************************/
 
 BEGIN;
@@ -19,7 +19,7 @@ VALUES
 ('front'),
 ('side');
 
--- mimetype (used to determine the mimetype of sign recording blobs)
+-- mimetype (used to determine the mimetype of sign recording (more useful when recordings become blobs))
 INSERT INTO "e_mimetype" ("name")
 VALUES
 ('webm'),

@@ -1,8 +1,8 @@
-/**************************************************************************************
+/***************************************************************************************
  * Insert test data
- * data is only inserted for testing purposes
- * in the production application this data is provided by the users trough the frontend
- **************************************************************************************/
+ * The data is only inserted for testing purposes.
+ * In the production application this data is provided by the users trough the frontend.
+ ***************************************************************************************/
 
 BEGIN;
 
