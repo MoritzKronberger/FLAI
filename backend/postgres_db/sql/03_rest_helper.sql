@@ -11,7 +11,7 @@ DROP FUNCTION IF EXISTS arr_to_text       CASCADE;
 
 /* Rest helper */
 -- REST helper that provides GET, PUT, PATCH and DELETE functionality independently from table an data types
--- insprired by https://stackoverflow.com/questions/17905501/postgresql-insert-data-into-table-from-json/17908760#17908760
+-- inspired by https://stackoverflow.com/questions/17905501/postgresql-insert-data-into-table-from-json/17908760#17908760
 CREATE OR REPLACE FUNCTION rest_helper(_table             TEXT,                   -- table to perform REST action on and infer data types from 
                                        _data              JSONB,                  -- data that should be inserted or updated
                                        _method            TEXT,                   -- GET, PUT, PATCH or DELETE (case insensitive)
@@ -42,7 +42,7 @@ $$
         _data_values_ := json_keys_to_text(_data);
         -- collect the column names making up the tables pk or unique identifier(provided by the json keys) into _pk_values_
         _pk_values_ := json_keys_to_text(_ids);
-        -- collect the names of the columns that shoud be selected and returned (provided by the array) into _select_values_  
+        -- collect the names of the columns that should be selected and returned (provided by the array) into _select_values_  
         _select_values_ := arr_to_text(_select_cols);
 
         IF LOWER(_method) = 'get'
@@ -64,14 +64,14 @@ $$
         ELSIF LOWER(_method) = 'post'
         THEN        
             -- build an INSERT query inserting only the elements of _data into _table
-            -- data types are infered and cast from _table using JSONB_POPULATE_RECORD
+            -- data types are inferred and cast from _table using JSONB_POPULATE_RECORD
             _query_ := 'INSERT INTO ' || QUOTE_IDENT(_table) || ' (' || _data_values_ || ') ' ||
                        'SELECT ' || _data_values_ ||  
                       ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1) ';
         ElSIF LOWER(_method) = 'patch'
         THEN
-            -- build an UPADTE query updating only the elements of _data on _table
-            -- data types are infered and cast from _table using JSONB_POPULATE_RECORD
+            -- build an UPDATE query updating only the elements of _data on _table
+            -- data types are inferred and cast from _table using JSONB_POPULATE_RECORD
             _query_ := 'UPDATE ' || QUOTE_IDENT(_table) || 
                       ' SET ' || '(' || _data_values_ || ') = (SELECT ' || _data_values_ || 
                                                              ' FROM JSONB_POPULATE_RECORD(NULL::' || QUOTE_IDENT(_table) || ', $1))'
@@ -80,7 +80,7 @@ $$
         ElSIF LOWER(_method) = 'delete'
         THEN
             -- build a DELETE query deleting the row(s) corresponding to the identifiers in _ids from _table
-            -- data types are infered and cast from _table using JSONB_POPULATE_RECORD
+            -- data types are inferred and cast from _table using JSONB_POPULATE_RECORD
             _query_ := 'DELETE'
                       ' FROM ' || QUOTE_IDENT(_table) ||
                       ' WHERE (' || _pk_values_ || ') = (SELECT ' || _pk_values_ || 
@@ -149,7 +149,7 @@ CREATE OR REPLACE FUNCTION json_keys_to_text(_data JSONB)
 LANGUAGE SQL
 AS
 $$
-    -- collect all keys in the json and concatenate them to a comma seperated string with correct quoting
+    -- collect all keys in the json and concatenate them to a comma separated string with correct quoting
     SELECT STRING_AGG(QUOTE_IDENT(KEY), ',')
     FROM JSONB_OBJECT_KEYS(_data) AS X (KEY);
 $$
@@ -162,7 +162,7 @@ CREATE OR REPLACE FUNCTION arr_to_text(_data TEXT[])
 LANGUAGE SQL
 AS
 $$
-    -- concatenate all array elements to a comma seperated string with correct quoting
+    -- concatenate all array elements to a comma separated string with correct quoting
     SELECT STRING_AGG(QUOTE_IDENT(val), ',')
     FROM UNNEST(_data::TEXT[]) AS val;
 $$

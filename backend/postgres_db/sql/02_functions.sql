@@ -1,5 +1,5 @@
 /*************************************************************************************
- * Create global functions, seperate from REST helper
+ * Create global functions, separate from REST helper
  *************************************************************************************/
 
 BEGIN;
@@ -10,7 +10,7 @@ DROP FUNCTION IF EXISTS check_password             CASCADE;
 DROP FUNCTION IF EXISTS populate_spelling_exercise CASCADE;
 
 /* JSON status */
--- build result json from pg_axios results
+-- build result json from rest_helper results
 -- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
 CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
                                        _ids        JSONB,

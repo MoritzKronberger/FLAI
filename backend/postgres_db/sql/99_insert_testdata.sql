@@ -1,6 +1,6 @@
 /**************************************************************************************
  * Insert test data
- * data is only inserted for testing puropses
+ * data is only inserted for testing purposes
  * in the production application this data is provided by the users trough the frontend
  **************************************************************************************/
 

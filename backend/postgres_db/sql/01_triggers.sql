@@ -33,7 +33,7 @@ CREATE FUNCTION hash_password_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN
         IF(LENGTH(NEW."password")<9)
-            THEN RAISE EXCEPTION 'minimum_password_legth';
+            THEN RAISE EXCEPTION 'minimum_password_length';
         ELSIF(TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND NEW."password" <> OLD."password"))
             THEN NEW."password" = crypt(NEW."password", gen_salt('bf',12));
         END IF;
