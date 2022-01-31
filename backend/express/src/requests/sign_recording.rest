@@ -1,10 +1,10 @@
-@sign_recording_id=8c417e5d-9854-4cdb-bbeb-75d7ca290d7e
+@sign_recording_id=insert id from get_sign_recording view
 
 GET http://localhost:5000/api/sign-recording/sign/?id={{sign_recording_id}}
 
 ### 
 
 
-@sign_recording_for_exercise_id=85695945-d0f9-46ce-85f8-3e4593393dcb
+@sign_recording_for_exercise_id=insert id from get_sign_recording_for_exercise view
 
 GET http://localhost:5000/api/sign-recording/sign/exercise/?id={{sign_recording_for_exercise_id}}
