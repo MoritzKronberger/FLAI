@@ -158,10 +158,11 @@ COMMIT;
  * Test queries for functions
  *************************************************************************************/
 
--- test new_exercise_settings_user_trigger and function
+-- test check_password_function
 /*
 SELECT * FROM check_password('{"email":"miriam.weber@email.com", "password":"supersecret"}');
 SELECT * FROM check_password('{"email":"miriam.weber@email.com", "password":"superwrong"}');
 SELECT * FROM check_password('{"email":"miriam.weber@online.com", "password":"supersecret"}');
+-- violations of domains that prevent correct casting are caught in error handling
 SELECT * FROM check_password('{"email":"miriamweberemailcom", "password":"superwrong"}');
 */

@@ -196,7 +196,7 @@ SELECT * FROM "user";
 
 SELECT * FROM rest_helper
          ('user',
-          '{"username": "new_user"}',
+          '{"username": "new_new_user"}',
           'PATCH',
           '{"id": "<user-id>"}');
 
@@ -217,7 +217,7 @@ SELECT * FROM "user";
 -- test POST, PATCH, DELETE for tables with combined pk
 /*
 SELECT * FROM "sign"
-WHERE "name"='y';
+WHERE  "name"='y';
 SELECT * FROM "exercise";
 SELECT * FROM "user";
 
@@ -261,7 +261,7 @@ FROM rest_helper
      ('includes_sign', 
       NULL,
       'DELETE',
-      '{"task_id": "<task-id>",
+      '{"exercise_id": "<exercise-id>",
         "sign_id": "<sign-id>"
        }'
      );

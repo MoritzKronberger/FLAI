@@ -294,10 +294,11 @@ SELECT * FROM "exercise_settings_user";
 
 -- test new_learns_sign_trigger and function
 /*
-INSERT INTO "exercise_settings_user" ("user_id", "exercise_settings_id", "task_split", "word_length", "unlocked_signs")
+-- test via INSERT
+INSERT INTO "exercise_settings_user" ("user_id", "exercise_id", "task_split", "word_length", "unlocked_signs")
 VALUES 
-((SELECT "id" FROM "user"    WHERE "username"='Sabine'),
- (SELECT "id" FROM "exercise WHERE "name"='Buchstabieren lernen'),
+((SELECT "id" FROM "user"     WHERE "username"='Sabine'),
+ (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen'),
  0.5,
  3,
  3
@@ -305,6 +306,7 @@ VALUES
 
 SELECT * FROM "learns_sign";
 
+-- test via UPDATE
 UPDATE "exercise_settings_user"
 SET    "unlocked_signs" = 5
 WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Sabine')
@@ -316,7 +318,8 @@ SELECT * FROM "learns_sign";
 
 -- test update_unlocked_signs_trigger and function
 /*
--- this should (in isolation) increase unlocked_signs and add a new sign to learns_sign
+-- in the initial db state increasing the progress above level_3 also increases unlocked_signs 
+-- and add a new sign to learns_sign via the trigger
 SELECT * FROM "learns_sign";
 SELECT * FROM "exercise_settings_user";
 
@@ -334,7 +337,10 @@ WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
 SELECT * FROM "learns_sign";
 SELECT * FROM "exercise_settings_user";
 
--- this should (in isolation) not increase unlocked_signs via the trigger (at UPDATE "learns_sign")
+-- In the initial db state no new signs should be added via the trigger by updating "learns_sign",
+-- if the unlocked signs were increased manually beforehand.
+-- This prevents excess signs from being added if the INSERT or UPDATE queries were called in the "wrong" order. 
+-- (See comment in the update_unlocked_signs_function)
 SELECT * FROM "learns_sign";
 SELECT * FROM "exercise_settings_user";
 
