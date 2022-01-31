@@ -1,46 +1,49 @@
 // including start_time as an attribute in exercise_session GET depending on usecase
-GET http://localhost:5000/api/exercise-session/
-Content-Type: application/json
 
-{
-    "exercise_id": "b86c7bf4-38c5-460a-9692-cfd08f896976",
-    "user_id": "64dd868f-cda6-41c8-a574-23d1b42fa04d"
-}
+
+GET http://localhost:5000/api/exercise-session/?exercise_id={{exercise_id}}&&user_id={{user_id}}
+Authorization: {{token}}
 
 ### 
 
 POST http://localhost:5000/api/exercise-session/
+Authorization: {{token}}
 Content-Type: application/json
 
 {
-    "exercise_id": "b86c7bf4-38c5-460a-9692-cfd08f896976",
-    "user_id": "64dd868f-cda6-41c8-a574-23d1b42fa04d",
-    "start_time": "2021-12-27 10:45:00.595133+00"
+    "exercise_id": "{{exercise_id}}",
+    "user_id": "{{user_id}}",
+    "start_time": "2021-01-31 10:45:00.595133+00"
 } 
 
 ### 
 
+@start_time=2021-01-31 10:45:00.595133+00
+
 PATCH http://localhost:5000/api/exercise-session/
+Authorization: {{token}}
 Content-Type: application/json
 
 {
     "data": {
-        "session_duration": "00:35:00"
+        "session_duration": "00:45:00"
     },
     "ids": {
-        "exercise_id": "b86c7bf4-38c5-460a-9692-cfd08f896976",
-        "user_id": "64dd868f-cda6-41c8-a574-23d1b42fa04d",
-        "start_time": "2021-12-27 10:45:00.595133+00"
+        "exercise_id": "{{exercise_id}}",
+        "user_id": "{{user_id}}",
+        "start_time": "{{start_time}}"
     }
 } 
 
 ### 
 
 DELETE http://localhost:5000/api/exercise-session/
+Authorization: {{token}}
 Content-Type: application/json
 
 {
-    "exercise_id": "f1fea077-3fd0-401a-9803-ba6cd0a30cd4",
-    "user_id": "11ed6e6e-03df-435e-9b27-e2b34a496453",
-    "start_time": "2021-12-25 14:33:55.320892+00"
-} 
+        "exercise_id": "{{exercise_id}}",
+        "user_id": "{{user_id}}",
+        "start_time": "{{start_time}}"
+}
+ 
