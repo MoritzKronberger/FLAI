@@ -86,7 +86,6 @@
       grid-column: 4 / 6;
     }
     @media (min-width: $S) and (max-width: $M) { 
-      background-color: yellow;
       height: 100%;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(3, 1fr);
