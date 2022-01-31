@@ -35,8 +35,12 @@ a {
   position: absolute;
 }
 .circle {
-  width: 75%;
+  height: 100%;
   position: absolute;
+
+  svg {
+    height: 100%;
+  }
 }
 
 .statistic-value {
@@ -45,7 +49,7 @@ a {
 
 .statistic-text {
   width: 100%;
-  padding: $padding-s;
+  //padding: $padding-s;
   text-align: center;
   margin-top: $padding-m;
 
