@@ -2,20 +2,23 @@ GET http://localhost:5000/api/progress/?user_id={{user_id}}&&exercise_id={{exerc
 Authorization: {{token}}
 ###
 
+
+@sign_id=insert a sign_id related to user_id and exercise_id from get_progress view
+
 PATCH http://localhost:5000/api/progress/	
 Authorization: {{token}}
 Content-Type: application/json
 
 {
     "data": {
-        "progress": 300
+        "progress": 15
     },
     
     "ids": 
     {
         "user_id": "{{user_id}}",
         "exercise_id": "{{exercise_id}}",
-        "sign_id": "4ac39267-0ed2-450c-8406-5faeb565c822"
+        "sign_id": "{{sign_id}}"
 
     }
 
