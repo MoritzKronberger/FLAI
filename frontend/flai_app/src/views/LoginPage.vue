@@ -57,12 +57,12 @@ function onclick() {
       element-class="flai-logo"
     />
     <div class="form-items">
-      <div class="lead-paragraph center-text body-small">
-        Melde dich an, um die deutsche Gebärdensprache zu erlernen.
-      </div>
       <validated-form
         :error-message="errorMessage"
         submit-name="Login"
+        component-class="error-message"
+        button-container="button-container-login"
+        error-message-class="error-message body-small"
         @submit="submit"
       >
         <template #inputs>
@@ -71,6 +71,7 @@ function onclick() {
             label-name="E-Mail-Adresse"
             placeholder="E-Mail-Adresse"
             element-class="default_input_field input-form-primary"
+            component-class="form-input"
           />
           <text-input-field
             v-model="user.password"
@@ -78,6 +79,7 @@ function onclick() {
             placeholder="Passwort"
             element-class="default_input_field input-form-primary"
             custom-type="password"
+            component-class="form-input"
           />
         </template>
       </validated-form>

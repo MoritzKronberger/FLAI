@@ -1,1 +1,1 @@
-@include form-layout($container-name: 'login-form-container');
+@include form-layout('login-form-container', 35%, 60%);

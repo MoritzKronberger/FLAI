@@ -24,9 +24,10 @@ const errorMessage = ref<string[]>([])
 
 const inputFieldValidation = reactive({
   username: false,
-  password: false,
   email: false,
+  password: false,
 })
+type ValidationKey = keyof typeof inputFieldValidation
 
 const getUserInformation = (): void => {
   for (const prop in user) {
@@ -38,6 +39,9 @@ const discardChanges = (): void => {
   getUserInformation()
   displayForm.value = false
   errorMessage.value = []
+  for (const el in inputFieldValidation) {
+    inputFieldValidation[el as ValidationKey] = false
+  }
 }
 
 const openEditForm = (): void => {
@@ -52,7 +56,7 @@ const submitChanges = async (): Promise<void> => {
         changes[prop] = options.value[prop]
     }
   }
-  if (changes.length !== 0) {
+  if (Object.keys(changes).length) {
     const result = await actions.patchValues(changes)
     profileValidation(result, errorMessage, inputFieldValidation, () => {
       displayForm.value = false
@@ -66,33 +70,35 @@ onMounted(() => {
 </script>
 <template>
   <div class="profile-page">
-    <div class="profile body-medium">
-      <div v-if="!displayForm" class="information">
-        <div id="edit-button">
+    <div class="profile">
+      <div class="form-items">
+        <div v-if="!displayForm">
           <ProfileForm
             :error-message="errorMessage"
             :input-field-validation="inputFieldValidation"
             :disabled-form="true"
             submit-name="Bearbeiten"
             :user-info="options"
+            component-class="form-input"
             @submit="openEditForm"
           ></ProfileForm>
         </div>
-      </div>
-      <div v-if="displayForm" class="profile-form-container">
-        <ProfileForm
-          :error-message="errorMessage"
-          :input-field-validation="inputFieldValidation"
-          :disabled-form="false"
-          submit-name="Bestätigen"
-          :user-info="options"
-          @submit="submitChanges"
-        >
-          <custom-button
-            label="Verwerfen"
-            btnclass="sec_small_button_blue"
-            @button-click="discardChanges"
-        /></ProfileForm>
+        <div v-if="displayForm">
+          <ProfileForm
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="false"
+            submit-name="Bestätigen"
+            :user-info="options"
+            component-class="form-input"
+            @submit="submitChanges"
+          >
+            <custom-button
+              label="Verwerfen"
+              btnclass="sec_small_button_blue"
+              @button-click="discardChanges"
+          /></ProfileForm>
+        </div>
       </div>
     </div>
   </div>
@@ -101,5 +107,6 @@ onMounted(() => {
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/abstracts/buttonMixins';
+@import '../assets/scss/abstracts/mixins';
 @import '../assets/scss/components/customCheckbox';
 </style>
