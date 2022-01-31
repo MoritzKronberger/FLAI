@@ -1,6 +1,6 @@
 
 // No auth-check on exercise/all since it is not related to user-info
-GET http://localhost:5000/api/exercise/all/
+GET http://localhost:5000/api/exercise/all
 ###
 
 GET http://localhost:5000/api/exercise/?id={{exercise_id}}&&user_id={{user_id}}
