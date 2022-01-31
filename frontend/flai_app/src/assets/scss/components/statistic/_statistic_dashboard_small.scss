@@ -22,10 +22,14 @@
       justify-content: center;
       border-radius: $border-radius-m;
       background-color: $main-white;
+      @media (min-width: $S) and (max-width: $M) {
+        height: 100%;
+        flex: 1;
+      }
     }
-    @media (max-width: $S)
-    {
+    @media (min-width: $S) and (max-width: $M) {
       justify-content: center;
+      flex-direction: row;
     }
   }
 }
