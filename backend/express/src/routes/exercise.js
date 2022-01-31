@@ -29,6 +29,8 @@ exercise.get(
         'level_1',
         'level_2',
         'level_3',
+        'progress_add',
+        'progress_sub',
         'sort_signs_by_order',
         'task_split',
         'word_length',

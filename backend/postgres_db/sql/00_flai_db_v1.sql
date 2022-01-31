@@ -103,6 +103,8 @@ CREATE TABLE "exercise_settings"
  "level_1"                INTEGER          DEFAULT 20,
  "level_2"                INTEGER          DEFAULT 50,
  "level_3"                INTEGER NOT NULL DEFAULT 80,
+ "progress_add"           INTEGER NOT NULL DEFAULT 5,
+ "progress_sub"           INTEGER NOT NULL DEFAULT -5,
  "exercise_id"            UUID    NOT NULL,
  "sort_signs_by_order"    BOOLEAN NOT NULL DEFAULT TRUE,
  "initial_unlocked_signs" INTEGER NOT NULL DEFAULT 3,
