@@ -34,8 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, onBeforeMount, watchEffect } from 'vue'
-import { Progress } from '../../store/exercisedata'
+import { ref, computed, onBeforeMount, watchEffect } from 'vue'
 import { Sign } from '../../store/signdata'
 import Video from './Video.vue'
 import store from '../../store'
@@ -57,9 +56,8 @@ const progressSmallerLevelThree = ref(true)
 const showSign = ref(true)
 const wordComplete = ref(false)
 
-const progressStep: ComputedRef<Progress> = computed(
-  () => store.exercisedata.progressStep
-)
+const progressAdd = store.exercisedata.exerciseSettings.progress_add
+const progressSub = store.exercisedata.exerciseSettings.progress_sub
 
 const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const newInputTimeout = computed(
@@ -125,8 +123,7 @@ async function correct() {
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
   if (progressSmallerLevelThree.value || !showSign.value) {
     console.log('update correct')
-    const progress =
-      props.signs[index.value].progress + progressStep.value.progressAdd
+    const progress = props.signs[index.value].progress + progressAdd
     await store.signdata.actions.patchProgress(
       props.exerciseId,
       props.signs[index.value].id,
@@ -153,8 +150,7 @@ async function wrong() {
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Fehler.svg'
   if (progressSmallerLevelThree.value || !showSign.value) {
     console.log('update wrong')
-    const progress =
-      props.signs[index.value].progress + progressStep.value.progressSubtract
+    const progress = props.signs[index.value].progress + progressSub
     await store.signdata.actions.patchProgress(
       props.exerciseId,
       props.signs[index.value].id,

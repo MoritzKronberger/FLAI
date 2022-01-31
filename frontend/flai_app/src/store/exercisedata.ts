@@ -19,6 +19,8 @@ export interface ExerciseSettings {
   level_1: number
   level_2: number
   level_3: number
+  progress_add: number
+  progress_sub: number
   exercise_id: string
   sort_signs_by_order: boolean
 }
@@ -28,6 +30,8 @@ const exerciseSettings = reactive({
   level_1: 10,
   level_2: 20,
   level_3: 30,
+  progress_add: 5,
+  progress_sub: -5,
   exercise_id: '',
   sort_signs_by_order: true,
 })
@@ -57,16 +61,6 @@ const activeExerciseSession: ExerciseSession = reactive({
   session_duration: '',
   order: 1,
 })
-
-export interface Progress {
-  progressAdd: number
-  progressSubtract: number
-}
-
-const progressStep: Progress = {
-  progressAdd: 10,
-  progressSubtract: -10,
-}
 
 export interface Word {
   signs: string[]
@@ -172,6 +166,8 @@ const actions = {
       exerciseSettings.level_1 = exerciseData.level_1
       exerciseSettings.level_2 = exerciseData.level_2
       exerciseSettings.level_3 = exerciseData.level_3
+      exerciseSettings.progress_add = exerciseData.progress_add
+      exerciseSettings.progress_sub = exerciseData.progress_sub
       exerciseSettings.sort_signs_by_order = exerciseData.sort_signs_by_order
 
       exerciseSettingsUser.word_length = exerciseData.word_length
@@ -339,7 +335,6 @@ const exerciseData = {
   exerciseSettingsUser: readonly(exerciseSettingsUser) as ExerciseSettingsUser,
   exerciseSessions: readonly(exerciseSessions) as ExerciseSession[],
   activeExerciseSession: readonly(activeExerciseSession) as ExerciseSession,
-  progressStep: readonly(progressStep),
   word: readonly(word) as Word,
   methods,
   actions,
