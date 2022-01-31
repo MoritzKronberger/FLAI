@@ -15,7 +15,7 @@ const dbQuery = async (options) => {
   ) {
     const result = await query(
       `SELECT result
-       FROM pg_axios ($1, $2, $3, $4, $5);`,
+       FROM   rest_helper ($1, $2, $3, $4, $5);`,
       [table, data, method, ids, selectCols]
     )
     return result.rows[0]

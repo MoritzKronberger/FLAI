@@ -5,21 +5,21 @@
 BEGIN;
 
 /* Cleanup */
-DROP FUNCTION IF EXISTS pg_axios          CASCADE;
+DROP FUNCTION IF EXISTS rest_helper       CASCADE;
 DROP FUNCTION IF EXISTS json_keys_to_text CASCADE;
 DROP FUNCTION IF EXISTS arr_to_text       CASCADE;
 
 /* Rest helper */
 -- REST helper that provides GET, PUT, PATCH and DELETE functionality independently from table an data types
 -- insprired by https://stackoverflow.com/questions/17905501/postgresql-insert-data-into-table-from-json/17908760#17908760
-CREATE OR REPLACE FUNCTION pg_axios(_table             TEXT,                   -- table to perform REST action on and infer data types from 
-                                    _data              JSONB,                  -- data that should be inserted or updated
-                                    _method            TEXT,                   -- GET, PUT, PATCH or DELETE (case insensitive)
-                                    _ids               JSONB   DEFAULT NULL,   -- key value pairs of attributes identifying the row(s) to perform REST actions on
-                                    _select_cols       TEXT[]  DEFAULT NULL,   -- names of columns to return on GET or PATCH
-                                    _postgres_status   TEXT    DEFAULT '02000',
-                                    _http_status       INTEGER DEFAULT 200,
-                                    _http_error_status INTEGER DEFAULT 400)
+CREATE OR REPLACE FUNCTION rest_helper(_table             TEXT,                   -- table to perform REST action on and infer data types from 
+                                       _data              JSONB,                  -- data that should be inserted or updated
+                                       _method            TEXT,                   -- GET, PUT, PATCH or DELETE (case insensitive)
+                                       _ids               JSONB   DEFAULT NULL,   -- key value pairs of attributes identifying the row(s) to perform REST actions on
+                                       _select_cols       TEXT[]  DEFAULT NULL,   -- names of columns to return on GET or PATCH
+                                       _postgres_status   TEXT    DEFAULT '02000',
+                                       _http_status       INTEGER DEFAULT 200,
+                                       _http_error_status INTEGER DEFAULT 400)
     RETURNS TABLE (result JSONB)
 LANGUAGE plpgsql
 AS
@@ -180,7 +180,7 @@ COMMIT;
 SELECT * FROM "user";
 
 SELECT *
-FROM pg_axios
+FROM rest_helper
      ('user', 
       '{"email": "new_user@email.com",
         "username": "new_user",
@@ -195,7 +195,7 @@ SELECT * FROM "user";
 
 SELECT * FROM "user";
 
-SELECT * FROM pg_axios
+SELECT * FROM rest_helper
          ('user',
           '{"username": "new_user"}',
           'PATCH',
@@ -206,7 +206,7 @@ SELECT * FROM "user";
 
 SELECT * FROM "user";
 
-SELECT * FROM pg_axios
+SELECT * FROM rest_helper
          ('user',
            NULL,
           'DELETE',
@@ -225,7 +225,7 @@ SELECT * FROM "user";
 SELECT * FROM "learns_sign";
 
 SELECT *
-FROM pg_axios
+FROM rest_helper
      ('learns_sign', 
       '{"user_id": "<user-id>",
         "sign_id": "<sign-id>",
@@ -242,7 +242,7 @@ SELECT * FROM "learns_sign";
 SELECT * FROM "learns_sign";
 
 SELECT *
-FROM pg_axios
+FROM rest_helper
      ('learns_sign', 
       '{"progress": "90"}',
       'PATCH',
@@ -258,7 +258,7 @@ SELECT * FROM "learns_sign";
 SELECT * FROM "includes_sign";
 
 SELECT *
-FROM pg_axios
+FROM rest_helper
      ('includes_sign', 
       NULL,
       'DELETE',
@@ -274,18 +274,22 @@ SELECT * FROM "includes_sign";
 /*
 SELECT * FROM "sign";
 
-SELECT * FROM pg_axios('sign', 
-                       NULL, 
-                       'GET', 
-                       '{"id": "<id>"}', 
-                       '{name}');
+SELECT * FROM rest_helper
+              ('sign', 
+               NULL, 
+               'GET', 
+               '{"id": "<id>"}', 
+               '{name}'
+              );
 
 
 SELECT * FROM "sign_recording";
 
-SELECT * FROM pg_axios('sign_recording', 
-                       NULL, 
-                       'GET', 
-                       '{"sign_id": "<sign-id>"}', 
-                       '{path, mimetype_id}');
+SELECT * FROM rest_helper
+              ('sign_recording', 
+               NULL, 
+               'GET', 
+               '{"sign_id": "<sign-id>"}', 
+               '{path, mimetype_id}'
+              );
 */
