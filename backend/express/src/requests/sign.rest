@@ -1,3 +1,3 @@
-GET http://localhost:5000/api/sign/4f6273d1-1f07-4db8-ad8b-9bc3d5ffe347
+@sign_for_exercise_id=1869856b-9407-4b88-ac71-129b27949d17
 
-### 
+GET http://localhost:5000/api/sign/?id={{sign_for_exercise_id}}
