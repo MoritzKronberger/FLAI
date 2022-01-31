@@ -11,13 +11,13 @@ const props = defineProps<{
 
 const progressBarElement = ref<HTMLDivElement>()
 const progressBarOptions: progressbar.PathDrawingOptions = {
-  color: '#4a7bf6',
+  color: '#4a7bf6', //main-blue
   strokeWidth: 3.04 * 1.5,
   duration: 300,
 }
 const borderElement = ref<HTMLDivElement>()
 const border: progressbar.PathDrawingOptions = {
-  color: '#000000',
+  color: '#c5dcff', //subtle-blue
   strokeWidth: 3.04,
   duration: 1,
 }
