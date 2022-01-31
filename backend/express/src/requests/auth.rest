@@ -7,8 +7,8 @@ Content-Type: application/json
 }
 
 ###
-
-POST http://localhost:5000/api/token
+// refresh token currently not in use
+POST http://localhost:5000/api/auth/token
 Content-Type: application/json
 
 {
@@ -17,7 +17,9 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/api/logout
+// Compared to the web client side, the rest client logout works
+// but it cant delete the jwt token since it´s a env variable
+DELETE http://localhost:5000/api/auth/logout
 Content-Type: application/json
 
 {
