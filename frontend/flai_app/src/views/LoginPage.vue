@@ -71,6 +71,7 @@ function onclick() {
             label-name="E-Mail-Adresse"
             placeholder="E-Mail-Adresse"
             element-class="default_input_field input-form-primary"
+            component-class="form-input"
           />
           <text-input-field
             v-model="user.password"
@@ -78,6 +79,7 @@ function onclick() {
             placeholder="Passwort"
             element-class="default_input_field input-form-primary"
             custom-type="password"
+            component-class="form-input"
           />
         </template>
       </validated-form>
