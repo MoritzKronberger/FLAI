@@ -169,12 +169,13 @@ const actions = {
 
       const exerciseData = data.rows?.[0]
 
-      exerciseSettings.level_1 = exerciseData.level_1
-      exerciseSettings.level_2 = exerciseData.level_2
-      exerciseSettings.level_3 = exerciseData.level_3
-      exerciseSettings.progress_add = exerciseData.progress_add
-      exerciseSettings.progress_sub = exerciseData.progress_sub
-      exerciseSettings.sort_signs_by_order = exerciseData.sort_signs_by_order
+      exerciseSettings.level_1 = exerciseData?.level_1 as number
+      exerciseSettings.level_2 = exerciseData?.level_2 as number
+      exerciseSettings.level_3 = exerciseData?.level_3 as number
+      exerciseSettings.progress_add = exerciseData?.progress_add as number
+      exerciseSettings.progress_sub = exerciseData?.progress_sub as number
+      exerciseSettings.sort_signs_by_order =
+        exerciseData?.sort_signs_by_order as boolean
 
       exerciseSettingsUser.word_length = exerciseData?.word_length as number
       exerciseSettingsUser.unlocked_signs =
