@@ -28,7 +28,7 @@ auth.post(
   }
 )
 
-// currently not in use
+// refresh token currently not in use
 auth.post('/token', (req, res) => {
   const refreshToken = req.body.token
   if (refreshToken == null) return res.sendStatus(401)

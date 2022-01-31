@@ -11,5 +11,3 @@ Content-Type: application/json
         "user_id": "{{user_id}}"
     }
 }
-
-### 
