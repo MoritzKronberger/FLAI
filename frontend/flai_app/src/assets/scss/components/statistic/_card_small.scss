@@ -12,24 +12,33 @@ a {
   border-radius: $border-radius-m;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
 .statistic-circle {
   position: relative;
   flex-basis: 100%;
-  aspect-ratio: 1 / 1;
   border-radius: 50%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (min-width: $S) and (max-width: $M) {
+    aspect-ratio: 1 / 1;
+    height: fit-content;
+    flex-basis: inherit;
+  }
 }
 
 .progress-bar {
   height: 100%;
   position: absolute;
+
+  @media (min-width: $S) and (max-width: $M) {
+    height: auto;
+    width: 100%;
+  }
 
   svg {
     height: 100%;
@@ -38,6 +47,11 @@ a {
 .circle {
   height: 80%;
   position: absolute;
+  
+  @media (min-width: $S) and (max-width: $M) {
+    height: auto;
+    width: 100%;
+  }
 
   svg {
     height: 100%;
@@ -51,7 +65,7 @@ a {
 .statistic-text {
   width: 100%;
   text-align: center;
-  margin-top: $padding-m;
+  margin-top: $padding-s;
 
   @media (min-width: $S) {
     font-size: $font-size-s;
