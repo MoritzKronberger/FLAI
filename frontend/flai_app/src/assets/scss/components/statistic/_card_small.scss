@@ -31,11 +31,15 @@ a {
 
 // TODO: update progress bar styling to be responsive
 .progress-bar {
-  width: 100%;
+  height: 100%;
   position: absolute;
+
+  svg {
+    height: 100%;
+  }
 }
 .circle {
-  height: 100%;
+  height: 80%;
   position: absolute;
 
   svg {
