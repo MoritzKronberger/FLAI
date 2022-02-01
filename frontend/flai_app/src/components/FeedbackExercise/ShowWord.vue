@@ -7,6 +7,7 @@
       :signs="signs"
       :index="index"
       :path="pathToIcon"
+      :word-complete="wordComplete"
     />
     <div v-else class="current-word body-medium status-generating column-right">
       Generiere Wort...
