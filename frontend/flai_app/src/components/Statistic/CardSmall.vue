@@ -46,12 +46,12 @@ watchEffect(() => renderProgress(progress?.value ?? 0))
   <router-link :to="{ name: linkTarget }">
     <div class="card-container">
       <div class="statistic-circle">
+        <div ref="borderElement" class="circle"></div>
         <div
           v-if="progress"
           ref="progressBarElement"
           class="progress-bar"
         ></div>
-        <div ref="borderElement" class="circle"></div>
         <div class="body-large statistic-value">{{ statisticValue }}</div>
       </div>
       <div class="statistic-text body-medium">{{ statisticText }}</div>
