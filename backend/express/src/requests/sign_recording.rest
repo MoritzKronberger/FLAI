@@ -1,7 +1,10 @@
-GET http://localhost:5000/api/sign-recording/sign/6c1089a0-0a7f-4682-9902-1da22749e007
+@sign_recording_id=insert id from get_sign_recording view
+
+GET http://localhost:5000/api/sign-recording/sign/?id={{sign_recording_id}}
 
 ### 
 
-GET http://localhost:5000/api/sign-recording/exercise/7980a96b-5e00-4c72-8bcc-4d256fe599fc
 
-### 
+@sign_recording_for_exercise_id=insert id from get_sign_recording_for_exercise view
+
+GET http://localhost:5000/api/sign-recording/sign/exercise/?id={{sign_recording_for_exercise_id}}

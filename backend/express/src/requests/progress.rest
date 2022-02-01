@@ -1,24 +1,25 @@
-GET http://localhost:5000/api/progress/?user_id=6cce9bd5-f3a4-41a8-85b5-608ee6f66a88&exercise_id=487bb40a-3e9f-4fa9-bec9-3b93dd73510e
-
+GET http://localhost:5000/api/progress/?user_id={{user_id}}&&exercise_id={{exercise_id}}
+Authorization: {{token}}
 ###
 
+
+@sign_id=insert a sign_id related to user_id and exercise_id from get_progress view
+
 PATCH http://localhost:5000/api/progress/	
+Authorization: {{token}}
 Content-Type: application/json
 
 {
     "data": {
-        "progress": 10
+        "progress": 15
     },
     
     "ids": 
     {
-    "user_id": "13d5bf29-8610-49ae-adc6-c41e636dfd88",
-    "sign_id": "94ce2ef3-1225-444b-8e24-4cdb9b1962e5",
-    "exercise_id": "b86c7bf4-38c5-460a-9692-cfd08f896976"
+        "user_id": "{{user_id}}",
+        "exercise_id": "{{exercise_id}}",
+        "sign_id": "{{sign_id}}"
+
     }
 
 }
-
-###
-
-DELETE http://localhost:5000/api/progress/

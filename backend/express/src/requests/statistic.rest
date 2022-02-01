@@ -1,29 +1,30 @@
-GET http://localhost:5000/api/statistic/active_streak/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48
-Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
+GET http://localhost:5000/api/statistic/active_streak/?user_id={{user_id}}
+Authorization: {{token}}
 
 ###
 
-GET http://localhost:5000/api/statistic/longest_streak/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48
-Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
+GET http://localhost:5000/api/statistic/longest_streak/?user_id={{user_id}}
+Authorization: {{token}}
 
 ###
 
-GET http://localhost:5000/api/statistic/exercise_completion/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&exercise_id=a2dfcce1-65ac-4107-b6d1-46c31da6f330
-Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
+GET http://localhost:5000/api/statistic/exercise_completion/?user_id={{user_id}}&&exercise_id={{exercise_id}}
+Authorization: {{token}}
 
 ###
 
-GET http://localhost:5000/api/statistic/best_exercise_sign/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&exercise_id=a2dfcce1-65ac-4107-b6d1-46c31da6f330
-Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
+GET http://localhost:5000/api/statistic/best_exercise_sign/?user_id={{user_id}}&&exercise_id={{exercise_id}}
+Authorization: {{token}}
 
 ###
 
-GET http://localhost:5000/api/statistic/time_learnt_by_day/?user_id=0968cdda-c00a-4b35-8a14-d9213dcc0b48&&day=2022-01-08
-Authorization: eyJhbGciOiJIUzI1NiJ9.MDk2OGNkZGEtYzAwYS00YjM1LThhMTQtZDkyMTNkY2MwYjQ4.jwJS0LyUBjUQHSv3PBm2015bu4w22BqFwqLFBftnEZ0
+
+GET http://localhost:5000/api/statistic/time_learnt_by_day/?user_id={{user_id}}&&day=2022-01-15
+Authorization: {{token}}
 
 ###
 
-GET http://localhost:5000/api/statistic/trends/?user_id=a752d274-a89e-4e55-8c67-f7dca579006f&&end_day=2022-01-16&&days=2
-Authorization: eyJhbGciOiJIUzI1NiJ9.YTc1MmQyNzQtYTg5ZS00ZTU1LThjNjctZjdkY2E1NzkwMDZm.evH5JK4ShAEmZPdel40U0-aIZXvT7bmuaE_VDSvZKu8
+GET http://localhost:5000/api/statistic/trends/?user_id={{user_id}}&&end_day=2022-01-17&&days=2
+Authorization: {{token}}
 
 ###

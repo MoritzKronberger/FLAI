@@ -56,13 +56,13 @@ user.patch(
 user.delete(
   '/',
   (req, res, next) => {
-    authToken(req, res, next, req.body.id)
+    authToken(req, res, next, req.query.id)
   },
   async (req, res) => {
     await request({
       method: 'DELETE',
       table: 'user',
-      ids: req.body,
+      ids: req.query,
       res: res,
     })
   }

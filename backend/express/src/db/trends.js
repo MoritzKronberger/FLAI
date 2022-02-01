@@ -1,7 +1,6 @@
 import { query } from '../db.js'
 
 const getTrends = async (endDay, days, userId) => {
-  console.log(endDay)
   const result = await query(
     `SELECT "day", COALESCE("time_learnt", '00:00:00') As "time_learnt"
      FROM   "get_time_learnt_by_day"
