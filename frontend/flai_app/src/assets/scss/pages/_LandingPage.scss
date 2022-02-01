@@ -22,15 +22,10 @@ body {
     background-color: $background-blue;
 }
 
-.end-section {
-    height: 120vh;
-    background-color: $main-white;
-}
-
 .first-section,
 .second-section,
-.third-section,
-.end-section {
+.third-section 
+{
     @include flex-box(row, center, center, 0 $margin-l);
     width: 100%;
     @include media-query("S") {
@@ -72,7 +67,7 @@ body {
     }
 }
 
-:is(.main-left, .main-right)  .img {
+:is(.main-left, .main-right) .img {
     width: 100%;
     height: auto;
     @include media-query("S") {
