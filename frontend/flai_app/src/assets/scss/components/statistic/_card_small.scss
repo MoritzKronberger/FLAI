@@ -22,14 +22,11 @@ a {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   width: 100%;
-  /*outline: $line-width-m solid $subtle-blue;
-  outline-offset: $padding-s * -1;*/
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-// TODO: update progress bar styling to be responsive
 .progress-bar {
   height: 100%;
   position: absolute;
@@ -53,7 +50,6 @@ a {
 
 .statistic-text {
   width: 100%;
-  //padding: $padding-s;
   text-align: center;
   margin-top: $padding-m;
 
