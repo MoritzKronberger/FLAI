@@ -23,14 +23,12 @@ const level = ref(1)
   <div v-if="auth.isAuth" class="home-page">
     <div class="dashboard">
       <div class="start-panel">
-        <div class="start-panel-text">
-          <div class="heading-medium">Willkommen {{ username }}!</div>
-          <br />
-          <div class="body-medium">
-            Bereit für die heutige <br />
-            Aufgabe?
-          </div>
-        </div>
+        <p class="heading-medium">Willkommen {{ username }}!</p>
+        <br />
+        <p class="body-medium">
+          Bereit für die heutige <br />
+          Aufgabe?
+        </p>
         <custom-button
           label="Start"
           btnclass="prim_medium_button_orange"
