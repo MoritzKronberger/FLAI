@@ -1,4 +1,3 @@
-
 .sign-controls {
   width: 100%;
   height: 100%;
@@ -24,8 +23,8 @@
   }
 
   .inactive-button {
-    background-color: $subtle-grey;
-    border-color: $subtle-grey;
+    background-color: $light-grey;
+    border-color: $light-grey;
 
     img {
       filter: $main-white-svg;
