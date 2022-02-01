@@ -1,8 +1,8 @@
-/**************************************************************************************
+/***************************************************************************************
  * Insert test data
- * data is only inserted for testing puropses
- * in the production application this data is provided by the users trough the frontend
- **************************************************************************************/
+ * The data is only inserted for testing purposes.
+ * In the production application this data is provided by the users trough the frontend.
+ ***************************************************************************************/
 
 BEGIN;
 
@@ -50,40 +50,40 @@ NULL
 
 -- update progress (simulate users making progress)
 UPDATE "learns_sign"
-SET "progress" = 82
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
+SET    "progress" = 82
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
 ;
 UPDATE "learns_sign"
-SET "progress" = 34
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='n')
+SET    "progress" = 34
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='n')
 ;
 UPDATE "learns_sign"
-SET "progress" = 105
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='i')
+SET    "progress" = 105
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Miriam')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='i')
 ;
 UPDATE "learns_sign"
-SET "progress" = 87
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
+SET    "progress" = 87
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='e')
 ;
 UPDATE "learns_sign"
-SET "progress" = 95
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='n')
+SET    "progress" = 95
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='n')
 ;
 UPDATE "learns_sign"
-SET "progress" = 64
-WHERE "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
-      AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
-      AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='i')
+SET    "progress" = 64
+WHERE  "user_id" = (SELECT "id" FROM "user" WHERE "username"='Katharina')
+       AND "exercise_id" = (SELECT "id" FROM "exercise" WHERE "name"='Buchstabieren lernen')
+       AND "sign_id" = (SELECT "id" FROM "sign" WHERE "name"='i')
 ;
 
 COMMIT;

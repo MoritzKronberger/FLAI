@@ -21,7 +21,7 @@ DROP VIEW IF EXISTS get_best_exercise_sign               CASCADE;
 -- instead days are split by the day date component
 -- TODO: verify correct behavior with different and changing timezones
 
--- [helper] returns the sum of session_durations on one day
+-- returns the sum of session_durations on one day
 CREATE VIEW get_time_learnt_by_day ("user_id", "day", "time_learnt")
 AS
 SELECT   "user_id", DATE_TRUNC('day', "start_time"), SUM("session_duration") AS "time_learnt"
@@ -29,7 +29,7 @@ FROM     "exercise_session"
 GROUP BY "user_id", DATE_TRUNC('day', "start_time")
 ;
 
--- returns a boolean value indicating if the user has reached their target_learning_time on a day
+-- [helper] returns a boolean value indicating if the user has reached their target_learning_time on a day
 CREATE VIEW get_target_time_reached_by_day ("user_id", "day", "target_time_reached")
 AS
 SELECT "user_id", "day", ("time_learnt" >= "target_learning_time") AS "time_learnt"

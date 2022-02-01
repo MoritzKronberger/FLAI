@@ -1,5 +1,5 @@
 /*************************************************************************************
- * Create global functions, seperate from REST helper
+ * Create global functions, separate from REST helper
  *************************************************************************************/
 
 BEGIN;
@@ -10,7 +10,7 @@ DROP FUNCTION IF EXISTS check_password             CASCADE;
 DROP FUNCTION IF EXISTS populate_spelling_exercise CASCADE;
 
 /* JSON status */
--- build result json from pg_axios results
+-- build result json from rest_helper results
 -- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
 CREATE OR REPLACE FUNCTION json_status(_status     INTEGER,
                                        _ids        JSONB,
@@ -158,10 +158,11 @@ COMMIT;
  * Test queries for functions
  *************************************************************************************/
 
--- test new_exercise_settings_user_trigger and function
+-- test check_password_function
 /*
 SELECT * FROM check_password('{"email":"miriam.weber@email.com", "password":"supersecret"}');
 SELECT * FROM check_password('{"email":"miriam.weber@email.com", "password":"superwrong"}');
 SELECT * FROM check_password('{"email":"miriam.weber@online.com", "password":"supersecret"}');
+-- violations of domains that prevent correct casting are caught in error handling
 SELECT * FROM check_password('{"email":"miriamweberemailcom", "password":"superwrong"}');
 */

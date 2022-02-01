@@ -35,7 +35,7 @@ CHECK (value ~* '\A(?:[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|
 
 /* Create tables */
 CREATE TABLE "e_motion_category"
-("id"   UUID        DEFAULT gen_random_uuid(),
+("id"   UUID        NOT NULL DEFAULT gen_random_uuid(),
  "name" D_UNTAINTED NOT NULL,
 
  CONSTRAINT e_motion_category_pk
@@ -46,7 +46,7 @@ CREATE TABLE "e_motion_category"
 );
 
 CREATE TABLE "e_perspective"
-("id"   UUID        DEFAULT gen_random_uuid(),
+("id"   UUID        NOT NULL DEFAULT gen_random_uuid(),
  "name" D_UNTAINTED NOT NULL,
 
  CONSTRAINT e_perspective_pk
@@ -57,7 +57,7 @@ CREATE TABLE "e_perspective"
 );
 
 CREATE TABLE "e_mimetype"
-("id"   UUID        DEFAULT gen_random_uuid(),
+("id"   UUID        NOT NULL DEFAULT gen_random_uuid(),
  "name" D_UNTAINTED NOT NULL,
 
  CONSTRAINT e_mimetype_pk
@@ -69,7 +69,7 @@ CREATE TABLE "e_mimetype"
 
 -- from https://gitlab.multimedia.hs-augsburg.de/kowa/wk_account_postgres_01
 CREATE TABLE "user" 
-("id"                   UUID                 DEFAULT gen_random_uuid(),
+("id"                   UUID        NOT NULL DEFAULT gen_random_uuid(),
  "email"                D_EMAIL     NOT NULL,
  "username"             D_UNTAINTED NOT NULL,
  "password"             VARCHAR     NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE "user"
 );
 
 CREATE TABLE "exercise" 
-("id"          UUID        DEFAULT gen_random_uuid(),
+("id"          UUID        NOT NULL DEFAULT gen_random_uuid(),
  "name"        D_UNTAINTED NOT NULL,
  "description" D_UNTAINTED NOT NULL,
 
@@ -99,10 +99,12 @@ CREATE TABLE "exercise"
 );
 
 CREATE TABLE "exercise_settings" 
-("id"                     UUID             DEFAULT gen_random_uuid(),
+("id"                     UUID    NOT NULL DEFAULT gen_random_uuid(),
  "level_1"                INTEGER          DEFAULT 20,
  "level_2"                INTEGER          DEFAULT 50,
  "level_3"                INTEGER NOT NULL DEFAULT 80,
+ "progress_add"           INTEGER NOT NULL DEFAULT 5,
+ "progress_sub"           INTEGER NOT NULL DEFAULT -5,
  "exercise_id"            UUID    NOT NULL,
  "sort_signs_by_order"    BOOLEAN NOT NULL DEFAULT TRUE,
  "initial_unlocked_signs" INTEGER NOT NULL DEFAULT 3,
@@ -131,7 +133,7 @@ CREATE TABLE "exercise_session"
 );
 
 CREATE TABLE "task" 
-("id"          UUID         DEFAULT gen_random_uuid(),
+("id"          UUID         NOT NULL DEFAULT gen_random_uuid(),
  "name"        D_UNTAINTED  NOT NULL,
  "description" D_UNTAINTED,
  "exercise_id" UUID         NOT NULL,
@@ -147,7 +149,7 @@ CREATE TABLE "task"
 );
 
 CREATE TABLE "sign" 
-("id"                 UUID        DEFAULT gen_random_uuid(),
+("id"                 UUID        NOT NULL DEFAULT gen_random_uuid(),
  "name"               D_UNTAINTED NOT NULL,
  "motion_category_id" UUID        NOT NULL,
 
@@ -162,7 +164,7 @@ CREATE TABLE "sign"
 );
 
 CREATE TABLE "sign_recording" 
-("id"             UUID    DEFAULT gen_random_uuid(),
+("id"             UUID    NOT NULL DEFAULT gen_random_uuid(),
  "path"           VARCHAR NOT NULL,
  "mimetype_id"    UUID    NOT NULL,
  "sign_id"        UUID    NOT NULL,
@@ -226,8 +228,8 @@ CREATE TABLE "learns_sign"
 CREATE TABLE "exercise_settings_user" 
 ("user_id"        UUID    NOT NULL,
  "exercise_id"    UUID    NOT NULL,
- "task_split"     REAL    NOT NULL DEFAULT 0.5,
- "word_length"    INTEGER NOT NULL DEFAULT 4,
+ "task_split"     REAL             DEFAULT 0.5,
+ "word_length"    INTEGER          DEFAULT 4,
  "unlocked_signs" INTEGER NOT NULL,
 
  CONSTRAINT exercise_settings_user_pk
