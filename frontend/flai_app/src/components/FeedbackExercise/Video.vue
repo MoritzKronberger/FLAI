@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showSign" class="video">
+  <div v-if="showSign" class="video column-left">
     <video
       ref="videoPlayer"
       :class="rightHanded ? 'mirrored' : ''"
@@ -9,7 +9,7 @@
       loop
     />
   </div>
-  <div v-if="showSign" class="video-controls">
+  <div v-if="showSign" class="video-controls column-left">
     <SwitchButton
       :labels="['Front', 'Seite']"
       btnclass="sec_small_button_blue_switch"
@@ -26,7 +26,7 @@
       />
     </div>
   </div>
-  <div v-else class="hint-container">
+  <div v-else class="hint-container column-left">
     <div v-if="showProgressWarning" class="progress-warning body-medium">
       <p>
         Du beherrscht diesen Buchstaben bereits sehr gut. Wenn du den Hinweis

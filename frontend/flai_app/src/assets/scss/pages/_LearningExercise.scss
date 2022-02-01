@@ -13,7 +13,15 @@
   row-gap: $margin-m;
   width: 100%;
   height: 100%;
-  padding: $padding-m $padding-l;
+  padding-bottom: $padding-m;
+}
+
+.column-left {
+  padding-left: $padding-l;
+}
+
+.column-right {
+  padding-right: $padding-l;
 }
 
 .watch-word,

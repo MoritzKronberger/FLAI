@@ -3,11 +3,11 @@
     <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word exercise-grid">
     <exercise-header header-text="Einprägen" />
-    <SignControls :signs="signs" @new-index="onNewIndex" />
+    <SignControls class="column-left" :signs="signs" @new-index="onNewIndex" />
     <Video :signs="signs" :index="index" :show-sign="true" />
     <p class="status body-medium">{{ status }}</p>
-    <Webcam :borderclass="feedbackClass" />
-    <div class="next-button">
+    <Webcam class="column-right" :borderclass="feedbackClass" />
+    <div class="next-button column-right">
       <CustomButton
         id="next"
         label="weiter"

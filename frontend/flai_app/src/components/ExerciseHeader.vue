@@ -1,6 +1,6 @@
 <template>
   <base-header header-class="exercise-header">
-    <h2 class="heading-large align-left">{{ headerText }}</h2>
+    <h2 class="heading-large">{{ headerText }}</h2>
     <custom-button
       label="Home"
       btnclass="exit sec_medium_button_blue"
