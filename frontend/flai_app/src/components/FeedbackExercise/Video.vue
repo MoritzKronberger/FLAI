@@ -53,7 +53,7 @@ const props = defineProps<{
   signs: Sign[]
   index: number
   showSign: boolean
-  progressWarning: boolean
+  progressWarning?: boolean
 }>()
 
 const emit = defineEmits(['useHint'])
