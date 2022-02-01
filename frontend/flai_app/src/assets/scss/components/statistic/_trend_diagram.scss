@@ -1,13 +1,16 @@
 #week {
-    display: flex;
-    column-gap: 5px;
-    justify-content: center;
-    align-items: center;
-    .buttons {
-        margin-left: 5px;
-    }
-  
+  display: flex;
+  column-gap: 5px;
+  justify-content: center;
+  align-items: center;
+  .buttons {
+    margin-left: 5px;
+  }
+  .body-medium {
+    color: $dark-grey;
+  }
 }
+
 .chart-container {
-    height: 40vh;
+  height: 40vh;
 }
