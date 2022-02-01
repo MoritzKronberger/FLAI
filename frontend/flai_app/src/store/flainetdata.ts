@@ -17,6 +17,7 @@ export interface ResultBuffer {
 
 export interface FlaiNetOptions {
   path: URL
+  weightPathPrefix: string
   labels: string
   bufferedResult: boolean
   newInputTimeout: number
@@ -33,6 +34,7 @@ const flaiNet: FlaiNet = {
 
 const flaiNetOptions: FlaiNetOptions = reactive({
   path: new URL('../assets/neural_net/model.json', import.meta.url),
+  weightPathPrefix: '/assets/neural_net/',
   labels: 'abcdefghiklmnopqrstuvwxy',
   bufferedResult: true,
   newInputTimeout: 2000,
@@ -124,10 +126,12 @@ const actions = {
     try {
       flaiNet.model = await loadLayersModel('indexeddb://flai_net_model', {
         onProgress: progressCallback,
+        weightPathPrefix: flaiNetOptions.weightPathPrefix,
       })
     } catch {
       flaiNet.model = await loadLayersModel(flaiNetOptions.path.toString(), {
         onProgress: progressCallback,
+        weightPathPrefix: flaiNetOptions.weightPathPrefix,
       })
       await flaiNet.model.save('indexeddb://flai_net_model')
     }
