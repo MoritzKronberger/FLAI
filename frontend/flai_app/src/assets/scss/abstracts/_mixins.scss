@@ -210,7 +210,7 @@
     }
 
     @include media-query(M) {
-      width: 40%;
+      width: $form-width;
     }
 
     @include media-query(S) {
