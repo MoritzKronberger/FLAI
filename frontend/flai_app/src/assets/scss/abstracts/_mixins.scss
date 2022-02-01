@@ -108,9 +108,9 @@
 }
 
 // creating form mixin
-@mixin form-layout($container-name, $form-width: 30%, $input-width: 100%) {
+@mixin form-layout($container-name, $form-width-m: 30%, $form-width-s: 30%, $input-width: 100%) {
   .#{$container-name} {
-    width: $form-width;
+    width: $form-width-m;
     max-height: 100%;
     overflow: auto;
     padding: $padding-l 0;
@@ -206,11 +206,11 @@
     }
 
     @include media-query(L) {
-      width: $form-width;
+      width: $form-width-m;
     }
 
     @include media-query(M) {
-      width: $form-width;
+      width: $form-width-s;
     }
 
     @include media-query(S) {
