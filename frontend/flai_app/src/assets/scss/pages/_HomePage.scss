@@ -85,28 +85,28 @@
       grid-row: 1 / 5;
       grid-column: 4 / 6;
     }
-    @media (max-width: $S) { 
+    @media (min-width: $S) and (max-width: $M) { 
       height: 100%;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(4, 1fr);
+      grid-template-rows: repeat(3, auto);
       .start-panel {
-        grid-column: span 3;
+        grid-column: span 1;
         grid-row: 1;
       }
 
       .level-panel {
-        grid-column: span 3;
+        grid-column: span 1;
         grid-row: span 1;
       }
 
       .stats-small-panel {
-        grid-column: span 3;
-        grid-row: span 3;
+        grid-column: span 2;
+        grid-row: span 1;
         align-items: center;
       }
       .stats-large-panel {
-        grid-column: span 3;
-        grid-row: span 3;
+        grid-column: span 2;
+        grid-row: span 1;
       }
     }
   }
