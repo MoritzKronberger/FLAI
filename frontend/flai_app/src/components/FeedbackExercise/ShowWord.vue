@@ -3,13 +3,13 @@
     <exercise-header header-text="Üben" />
     <SignsWithIcons
       v-if="wordSet"
-      class="current-word column-right"
+      class="current-word"
       :signs="signs"
       :index="index"
       :path="pathToIcon"
       :word-complete="wordComplete"
     />
-    <div v-else class="current-word body-medium status-generating column-right">
+    <div v-else class="current-word body-medium status-generating">
       Generiere Wort...
     </div>
     <Video
@@ -21,8 +21,8 @@
       @use-hint="showSign = true"
     />
     <p v-if="!wordComplete" class="status body-medium">{{ status }}</p>
-    <webcam class="column-right" :borderclass="feedbackClass" />
-    <div class="next-button column-right">
+    <webcam :borderclass="feedbackClass" />
+    <div class="next-button">
       <Button
         v-if="wordComplete"
         id="next"
