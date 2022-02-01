@@ -53,6 +53,19 @@
     }
   }
 
+  .status {
+    grid-area: webcam;
+    text-align: center;
+    height: fit-content;
+    line-height: 1;
+    padding: $padding-m 0;
+    margin-right: $padding-l;
+    background-color: $transparent-black;
+    color: $main-white;
+    z-index: 1;
+    border-radius: $border-radius-m;
+  }
+
   .next-button {
     display: flex;
     flex-direction: row;
@@ -63,7 +76,7 @@
 .watch-word {
   grid-template-areas:
     'heading heading'
-    'signs status'
+    'signs .'
     'video webcam'
     'video webcam'
     'video-controls next';
@@ -73,10 +86,6 @@
 
   .sign-controls {
     grid-area: signs;
-  }
-
-  .status {
-    grid-area: status;
   }
 
   .next-button {
@@ -90,7 +99,7 @@
     '. current-word'
     'video webcam'
     'video-controls webcam'
-    '. status-next';
+    '. next';
 
   grid-template-columns: 1fr 60%;
   grid-template-rows: auto auto 50% 1fr auto;
@@ -101,11 +110,9 @@
   .hint-container {
     grid-area: video;
   }
-  .status {
-    grid-area: status-next;
-  }
+
   .next-button {
-    grid-area: status-next;
+    grid-area: next;
   }
 }
 
