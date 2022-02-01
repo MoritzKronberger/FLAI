@@ -113,8 +113,6 @@ function openModalRegister() {
       </div>
     </div>
   </body>
-
-  <hr id="line" />
   <footer id="footer">
     <a href="">Kontakt</a>
     <a href="https://www.hs-augsburg.de/Service/Impressum.html">Impressum</a>
