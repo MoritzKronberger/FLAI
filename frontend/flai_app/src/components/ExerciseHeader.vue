@@ -6,6 +6,7 @@
       btnclass="exit sec_medium_button_blue"
       @click="router.push({ name: 'HomePage' })"
     />
+    <div class="background"></div>
   </base-header>
 </template>
 
