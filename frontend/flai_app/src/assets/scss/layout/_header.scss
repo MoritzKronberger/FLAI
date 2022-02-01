@@ -32,6 +32,12 @@
 
 .exercise-header {
   grid-area: heading;
+  padding: $padding-m $padding-l;
   display: flex;
   justify-content: space-between;
+  background-color: $subtle-blue;
+
+  h2 {
+    line-height: 1;
+  }
 }
