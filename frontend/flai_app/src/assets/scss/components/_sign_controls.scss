@@ -14,6 +14,7 @@
       opacity: $light-grey-svg;
       margin: 0 $margin-m;
       width: 1rem;
+      text-align: center;
     }
 
     .currentLetter {
@@ -23,8 +24,8 @@
   }
 
   .inactive-button {
-    background-color: $light-grey;
-    border-color: $light-grey;
+    background-color: $subtle-grey;
+    border-color: $subtle-grey;
 
     img {
       filter: $main-white-svg;
