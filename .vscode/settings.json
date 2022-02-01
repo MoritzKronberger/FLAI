@@ -1,0 +1,9 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "token": "insert jwt_token",
+      "user_id": "insert user_id",
+      "exercise_id": "insert exercise_id"
+    }
+  }
+}
