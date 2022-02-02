@@ -12,6 +12,6 @@ import DayStreak from './DayStreak.vue'
 import TrendDiagram from './TrendDiagram.vue'
 </script>
 
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/statistic/statistic_dashboard_large';
 </style>

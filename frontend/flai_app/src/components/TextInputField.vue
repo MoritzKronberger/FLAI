@@ -36,7 +36,6 @@ const onInput = (e: Event): void => {
 }
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-@import '../assets/scss/components/_inputField.scss';
+<style lang="scss">
+@import '@/assets/scss/components/_input_field.scss';
 </style>

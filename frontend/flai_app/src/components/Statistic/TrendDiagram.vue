@@ -145,8 +145,6 @@ const options = computed(() => ({
 }))
 </script>
 
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
-@import '../../assets/scss/abstracts/buttonMixins';
-@import '../../assets/scss/components/statistic/trend_diagram';
+<style lang="scss">
+@import '@/assets/scss/components/statistic/trend_diagram';
 </style>

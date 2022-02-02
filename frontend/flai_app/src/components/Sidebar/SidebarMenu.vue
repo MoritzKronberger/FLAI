@@ -42,6 +42,7 @@ const menuItems: MenuItem[] = [
 ]
 </script>
 
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/sidebar_menu';
+@import '@/assets/scss/layout/sidebar';
 </style>

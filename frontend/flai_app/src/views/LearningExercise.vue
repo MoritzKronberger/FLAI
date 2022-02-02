@@ -119,6 +119,6 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/main.scss';
-@import '../assets/scss/components/video.scss';
+@import '../assets/scss/pages/LearningExercise';
+@import '../assets/scss/components/loading_screen';
 </style>

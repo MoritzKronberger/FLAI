@@ -33,7 +33,7 @@
 .exercise-header {
   grid-area: heading;
   position: relative;
-  padding: $padding-m $padding-l;
+  padding: $padding-m 0;
   display: flex;
   justify-content: space-between;
 

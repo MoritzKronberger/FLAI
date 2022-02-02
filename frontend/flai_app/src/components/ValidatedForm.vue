@@ -39,7 +39,3 @@ defineProps<{
 
 const emit = defineEmits(['submit'])
 </script>
-
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-</style>

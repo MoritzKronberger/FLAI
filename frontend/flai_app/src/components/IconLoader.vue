@@ -10,6 +10,6 @@ defineProps<{
 }>()
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/icon_loader';
 </style>

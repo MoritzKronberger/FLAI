@@ -105,9 +105,6 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-@import '../assets/scss/abstracts/buttonMixins';
-@import '../assets/scss/abstracts/mixins';
-@import '../assets/scss/components/customCheckbox';
+<style lang="scss">
+@import '../assets/scss/pages/Profile';
 </style>

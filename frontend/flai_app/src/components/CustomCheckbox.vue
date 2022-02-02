@@ -34,6 +34,6 @@ const onInput = (e: Event): void => {
 }
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/components/_customCheckbox.scss';
+<style lang="scss">
+@import '@/assets/scss/components/_custom_checkbox.scss';
 </style>

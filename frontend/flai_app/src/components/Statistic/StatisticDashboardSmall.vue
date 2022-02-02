@@ -57,6 +57,6 @@ const exerciseCompletion = computed(
 const targetTime = computed(() => store.userdata.user.target_learning_time)
 </script>
 
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/statistic/statistic_dashboard_small';
 </style>

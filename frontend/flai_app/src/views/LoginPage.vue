@@ -91,6 +91,6 @@ function onclick() {
 }
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
+<style lang="scss">
+@import '../assets/scss/pages/Login';
 </style>

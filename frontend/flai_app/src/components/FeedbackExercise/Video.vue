@@ -116,5 +116,5 @@ function togglePlay() {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/main.scss';
+@import '@/assets/scss/components/video';
 </style>

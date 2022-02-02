@@ -28,7 +28,6 @@ function onclick() {
 }
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-@import '../assets/scss/abstracts/buttonMixins.scss';
+<style lang="scss">
+@import '@/assets/scss/components/custom_button.scss';
 </style>

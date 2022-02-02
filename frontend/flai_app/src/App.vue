@@ -41,6 +41,8 @@ const logoutUser = () => {
 const isAuth = computed(() => store.authdata.auth.isAuth)
 </script>
 
-<style scoped lang="scss">
-@import './assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/pages/App';
+@import '@/assets/scss/base/base';
+@import '@/assets/scss/base/fonts';
 </style>

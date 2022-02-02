@@ -33,5 +33,5 @@ defineProps<{
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/main.scss';
+@import '@/assets/scss/components/signs_with_icons';
 </style>

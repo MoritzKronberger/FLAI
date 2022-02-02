@@ -59,6 +59,6 @@ const renderProgress = (pg: number) => {
 watchEffect(() => renderProgress(progress?.value ?? 0))
 </script>
 
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/statistic/card_small';
 </style>

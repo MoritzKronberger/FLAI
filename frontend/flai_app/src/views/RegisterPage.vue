@@ -58,6 +58,6 @@ const submit = async (user: RegisterUser): Promise<void> => {
 }
 </script>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
+<style lang="scss">
+@import '../assets/scss/pages/Register';
 </style>

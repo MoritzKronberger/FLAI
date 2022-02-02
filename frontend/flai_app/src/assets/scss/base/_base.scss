@@ -6,7 +6,7 @@
 
 body {
   background-color: $main-white;
-  @include font(GothamSSm, bold);
+  @include font(GothamSSm, normal);
 }
 
 :root {

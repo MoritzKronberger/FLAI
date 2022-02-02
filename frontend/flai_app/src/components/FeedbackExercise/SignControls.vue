@@ -57,5 +57,5 @@ function increaseIndex() {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/main.scss';
+@import '@/assets/scss/components/sign_controls';
 </style>
