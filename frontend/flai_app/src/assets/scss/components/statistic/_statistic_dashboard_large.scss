@@ -19,16 +19,15 @@
   .hot-streak-item {
     padding-right: $padding-s;
     color: $dark-grey;
-
-    img {
-      filter: $dark-grey-svg;
-    }
   }
 
   .is-streak.hot-streak-item {
     height: 150%;
   }
-  .is-streak 
+  .is-streak img {
+    filter: $main-orange-svg;
+    height: 100%;
+  }
 
   .day-counter.orange {
     color: $main-orange;
