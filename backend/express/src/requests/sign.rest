@@ -1,3 +1,3 @@
-@sign_for_exercise_id=insert id from get_sign_for_exercise view
+@sign_id=insert sign_id variable from progress.rest
 
-GET http://localhost:5000/api/sign/?id={{sign_for_exercise_id}}
+GET http://localhost:5000/api/sign/?id={{sign_id}}
