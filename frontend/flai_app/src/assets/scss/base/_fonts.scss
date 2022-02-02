@@ -13,7 +13,7 @@
 }
 
 .heading-small {
-  @include font(GothamSSm, light);
+  @include font(GothamSSm, medium);
   font-size: $font-size-h4;
   line-height: 1.3;
 }

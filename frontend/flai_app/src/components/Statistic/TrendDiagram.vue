@@ -116,17 +116,19 @@ const options = computed(() => ({
         btnclass="sec_small_icon_button_blue"
         @button-click="changeWeek('subtract', 1, 'weeks')"
       />
-      <span class="body-medium"
-        >{{
-          moment(date)
-            .clone()
-            .subtract(trends.days - 1, 'days')
-            .format('DD.&#8201;MM.&#8201;YY') + ' – '
-        }}
-      </span>
-      <span class="body-medium">{{
-        moment(date).format('DD.&#8201;MM.&#8201;YY')
-      }}</span>
+      <div>
+        <span class="body-medium"
+          >{{
+            moment(date)
+              .clone()
+              .subtract(trends.days - 1, 'days')
+              .format('DD.&#8201;MM.&#8201;YY') + ' – '
+          }}
+        </span>
+        <span class="body-medium">{{
+          moment(date).format('DD.&#8201;MM.&#8201;YY')
+        }}</span>
+      </div>
       <custom-button
         label=""
         iconpath="assets/icons/FLAI_Pfeil_Rechts.svg"
