@@ -56,7 +56,8 @@
     background-color: $transparent-black;
     color: $main-white;
     z-index: 1;
-    border-radius: $border-radius-m;
+    border-top-right-radius: $border-radius-m;
+    border-top-left-radius: $border-radius-m;
   }
 
   .compensate-border {
