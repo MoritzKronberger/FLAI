@@ -112,35 +112,7 @@ function openModalRegister() {
         />
       </div>
     </div>
-
-    <div class="end-section">
-      <div class="main-left">
-        <IconLoader
-          path="/assets/landingPage/second.png"
-          alt="FLAI woman sign language"
-          element-class="img"
-        />
-      </div>
-      <div class="main-right">
-        <div class="heading-large">FLAI ist ein Studentenprojekt</div>
-        <div class="text body-medium">
-          Das Team FLAI besteht aus 7 Studenten des Studiengangs
-          <span class="body-emphasised">Interaktive Medien</span> der Hochschule
-          Augsburg. Im Rahmen unseres Projekt-Semester haben wir uns das Ziel
-          gesetzt, eine Lernapplikation zu entwickeln, die einem die deutsche
-          Gebärdensprache beibringen soll. Dieses Projekt umfasste die
-          Konzeption, Planung und Umsetzung von Design und Programmierung.
-          Mithilfe von Neuralen Netzen haben wir uns darauf konzentriert,
-          direktes Feedback an den Lernenden zu übermitteln um somit
-          <span class="body-emphasised">einfacheres</span> und
-          <span class="body-emphasised">motivierendes</span> lernen zu
-          ermöglichen.
-        </div>
-      </div>
-    </div>
   </body>
-
-  <hr id="line" />
   <footer id="footer">
     <a href="">Kontakt</a>
     <a href="https://www.hs-augsburg.de/Service/Impressum.html">Impressum</a>

@@ -22,16 +22,11 @@ body {
     background-color: $background-blue;
 }
 
-.end-section {
-    height: 120vh;
-    background-color: $main-white;
-}
-
 .first-section,
 .second-section,
-.third-section,
-.end-section {
-    @include flex-box(row, center, center, 0 $margin-l);
+.third-section 
+{
+    @include flex-box(row, center, center, 0 $margin-l*2);
     width: 100%;
     @include media-query("S") {
         flex-direction: column;
@@ -72,19 +67,13 @@ body {
     }
 }
 
-:is(.main-left, .main-right)  .img {
+:is(.main-left, .main-right) .img {
     width: 100%;
     height: auto;
     @include media-query("S") {
         width: 80%;
         height: auto;
     }
-}
-
-#line {
-    width: 100%;
-    color: $light-grey;
-    opacity: 25%;
 }
 
 #footer {
