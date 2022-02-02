@@ -1,22 +1,3 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import store from '../../store'
-import CardSmall from './CardSmall.vue'
-import moment from 'moment'
-
-const timeLearnt = computed(
-  () => store.statisticdata.userStatistic.timeLearntToday
-)
-const currentExercise = computed(() => store.exercisedata.exercises?.[0]?.name)
-const bestSign = computed(
-  () => store.statisticdata.userStatistic.bestExerciseSign
-)
-const exerciseCompletion = computed(
-  () => store.statisticdata.userStatistic.exerciseCompletion
-)
-const targetTime = computed(() => store.userdata.user.target_learning_time)
-</script>
-
 <template>
   <div class="statistic-dashboard-small">
     <h4 class="heading-small">Statistiken</h4>
@@ -57,6 +38,25 @@ const targetTime = computed(() => store.userdata.user.target_learning_time)
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import store from '../../store'
+import CardSmall from './CardSmall.vue'
+import moment from 'moment'
+
+const timeLearnt = computed(
+  () => store.statisticdata.userStatistic.timeLearntToday
+)
+const currentExercise = computed(() => store.exercisedata.exercises?.[0]?.name)
+const bestSign = computed(
+  () => store.statisticdata.userStatistic.bestExerciseSign
+)
+const exerciseCompletion = computed(
+  () => store.statisticdata.userStatistic.exerciseCompletion
+)
+const targetTime = computed(() => store.userdata.user.target_learning_time)
+</script>
 
 <style scoped lang="scss">
 @import '../../assets/scss/main.scss';

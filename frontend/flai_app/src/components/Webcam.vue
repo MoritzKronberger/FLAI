@@ -1,3 +1,11 @@
+<template>
+  <div
+    ref="webcamContainer"
+    class="webcam-container"
+    :class="borderclass"
+  ></div>
+</template>
+
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import store from '../store'
@@ -24,17 +32,3 @@ onMounted(() => initWebcam())
 // only nedded in case the webcamFeed changes after mounting the component
 watch(webcamFeed, () => initWebcam())
 </script>
-
-<template>
-  <div
-    ref="webcamContainer"
-    class="webcam-container"
-    :class="borderclass"
-  ></div>
-</template>
-
-<style lang="css">
-#webcam-feed {
-  transform: rotateY(180deg);
-}
-</style>

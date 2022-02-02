@@ -1,22 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import CustomButton from './CustomButton.vue'
-
-const props =
-  defineProps<{ labels: string[]; btnclass: string; componentClass?: string }>()
-const emit = defineEmits(['buttonClick'])
-
-const activeButton = ref(0)
-const hovering = ref(false)
-
-function onclick(label: string | undefined) {
-  if (label) {
-    activeButton.value = props.labels.indexOf(label)
-    emit('buttonClick', label)
-  }
-}
-</script>
-
 <template>
   <div :class="btnclass">
     <custom-button
@@ -39,6 +20,25 @@ function onclick(label: string | undefined) {
     />
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import CustomButton from './CustomButton.vue'
+
+const props =
+  defineProps<{ labels: string[]; btnclass: string; componentClass?: string }>()
+const emit = defineEmits(['buttonClick'])
+
+const activeButton = ref(0)
+const hovering = ref(false)
+
+function onclick(label: string | undefined) {
+  if (label) {
+    activeButton.value = props.labels.indexOf(label)
+    emit('buttonClick', label)
+  }
+}
+</script>
 
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';

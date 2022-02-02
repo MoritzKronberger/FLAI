@@ -1,21 +1,3 @@
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
-import StatisticDashboardLarge from '../components/Statistic/StatisticDashboardLarge.vue'
-import customButton from '../components/CustomButton.vue'
-import IconLoader from '../components/IconLoader.vue'
-import { useRouter } from 'vue-router'
-import store from '../store'
-import LandingPage from './LandingPage.vue'
-const router = useRouter()
-
-const auth = computed(() => store.authdata.auth)
-const username = computed(() => store.userdata.user.username)
-
-const redirect = (viewName: string) => router.push({ name: viewName })
-const level = ref(1)
-</script>
-
 <template>
   <div v-if="!auth.isAuth">
     <LandingPage />
@@ -53,6 +35,24 @@ const level = ref(1)
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
+import StatisticDashboardLarge from '../components/Statistic/StatisticDashboardLarge.vue'
+import customButton from '../components/CustomButton.vue'
+import IconLoader from '../components/IconLoader.vue'
+import { useRouter } from 'vue-router'
+import store from '../store'
+import LandingPage from './LandingPage.vue'
+const router = useRouter()
+
+const auth = computed(() => store.authdata.auth)
+const username = computed(() => store.userdata.user.username)
+
+const redirect = (viewName: string) => router.push({ name: viewName })
+const level = ref(1)
+</script>
 
 <style lang="scss">
 @import '../assets/scss/main.scss';

@@ -1,22 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import textInputField from '../components/TextInputField.vue'
-import customCheckbox from '../components/CustomCheckbox.vue'
-import iconLoader from '../components/IconLoader.vue'
-import webcam from '../components/Webcam.vue'
-import customButton from '../components/CustomButton.vue'
-import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
-import SwitchButton from '../components/SwitchButton.vue'
-
-const testInput = ref('')
-const testCheckbox = ref(false)
-const clickCount = ref(0)
-
-const buttonClick = (): void => {
-  clickCount.value++
-}
-</script>
-
 <template>
   <div>
     <h1>Buttons</h1>
@@ -137,8 +118,21 @@ const buttonClick = (): void => {
   </div>
 </template>
 
-<style scoped>
-.icon-large {
-  width: 100px;
+<script setup lang="ts">
+import { ref } from 'vue'
+import textInputField from '../components/TextInputField.vue'
+import customCheckbox from '../components/CustomCheckbox.vue'
+import iconLoader from '../components/IconLoader.vue'
+import webcam from '../components/Webcam.vue'
+import customButton from '../components/CustomButton.vue'
+import StatisticDashboardSmall from '../components/Statistic/StatisticDashboardSmall.vue'
+import SwitchButton from '../components/SwitchButton.vue'
+
+const testInput = ref('')
+const testCheckbox = ref(false)
+const clickCount = ref(0)
+
+const buttonClick = (): void => {
+  clickCount.value++
 }
-</style>
+</script>

@@ -1,25 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import customButton from '../components/CustomButton.vue'
-import IconLoader from '../components/IconLoader.vue'
-import Register from './RegisterPage.vue'
-import LoginPage from './LoginPage.vue'
-import BaseHeader from '../components/BaseHeader.vue'
-
-const showRegister = ref(false)
-const showLogin = ref(false)
-
-function openModalLogin() {
-  showLogin.value = true
-  showRegister.value = false
-}
-
-function openModalRegister() {
-  showLogin.value = false
-  showRegister.value = true
-}
-</script>
-
 <template>
   <base-header header-class="main-header">
     <IconLoader
@@ -119,6 +97,28 @@ function openModalRegister() {
     <span>© Hochschule Augsburg</span>
   </footer>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import customButton from '../components/CustomButton.vue'
+import IconLoader from '../components/IconLoader.vue'
+import Register from './RegisterPage.vue'
+import LoginPage from './LoginPage.vue'
+import BaseHeader from '../components/BaseHeader.vue'
+
+const showRegister = ref(false)
+const showLogin = ref(false)
+
+function openModalLogin() {
+  showLogin.value = true
+  showRegister.value = false
+}
+
+function openModalRegister() {
+  showLogin.value = false
+  showRegister.value = true
+}
+</script>
 
 <style lang="scss">
 @import '../assets/scss/main.scss';

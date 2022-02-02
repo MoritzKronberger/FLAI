@@ -1,3 +1,15 @@
+<template>
+  <button type="button" :class="btnclass" @click="onclick()">
+    {{ label }}
+    <IconLoader
+      v-if="iconpath !== undefined"
+      :path="iconpath"
+      alt="Button Icon"
+      element-class=""
+    />
+  </button>
+</template>
+
 <script setup lang="ts">
 import IconLoader from './IconLoader.vue'
 
@@ -16,22 +28,11 @@ function onclick() {
 }
 </script>
 
-<template>
-  <button type="button" :class="btnclass" @click="onclick()">
-    {{ label }}
-    <IconLoader
-      v-if="iconpath !== undefined"
-      :path="iconpath"
-      alt="Button Icon"
-      element-class=""
-    />
-  </button>
-</template>
-
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/abstracts/buttonMixins.scss';
-.button-logout {
+// TODO delete scoped styling
+/*.button-logout {
   width: 70%;
   margin-top: 40vh;
   @media (max-width: 768px) {
@@ -39,5 +40,5 @@ function onclick() {
     width: 25%;
     margin-bottom: 10vh;
   }
-}
+}*/
 </style>

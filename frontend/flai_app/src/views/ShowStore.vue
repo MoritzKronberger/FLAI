@@ -1,62 +1,3 @@
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import store from '../store'
-
-//sesiondata
-const session = store.sessiondata.session
-const sessionMethods = store.sessiondata.methods
-
-//user
-const email = ref('')
-const username = ref('')
-const righthanded = ref(true)
-const targetLearningTime = ref(10)
-
-const user = computed(() => store.userdata.user)
-
-function changeEmail() {
-  store.userdata.methods.changeEmail(email.value)
-}
-function changeUsername() {
-  store.userdata.methods.changeUsername(username.value)
-}
-function changeRightHanded() {
-  store.userdata.methods.changeRightHanded(righthanded.value)
-}
-function changeTargetLearningTime() {
-  store.userdata.methods.changeTargetLearningTime(targetLearningTime.value)
-}
-
-//exercises
-const exerciseSession = ref()
-
-const exerciseMethods = store.exercisedata.methods
-const exerciseSettings = computed(() => store.exercisedata.exerciseSettings)
-const exerciseSettingsUser = computed(
-  () => store.exercisedata.exerciseSettingsUser
-)
-const exercises = computed(() => store.exercisedata.exercises)
-const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
-
-//signdata
-const signs = computed(() => store.signdata.signs)
-
-//exercise actions
-async function getAllExercises() {
-  await store.exercisedata.actions.getAllExercises()
-}
-async function postNewExerciseSession() {
-  await store.exercisedata.actions.postNewExerciseSession(exercises.value[0].id)
-}
-async function patchExerciseSession() {
-  await store.exercisedata.actions.patchExerciseSession(
-    exercises.value[0].id,
-    exerciseSessions.value[exerciseSession.value.length - 1]
-  )
-}
-//signactions
-</script>
-
 <template>
   <h2>Test Actions</h2>
   <h3>Exercise Actions</h3>
@@ -172,20 +113,61 @@ async function patchExerciseSession() {
   <Button @click="sessionMethods.updateTimer">Update Timer</Button>
 </template>
 
-<style scoped>
-a {
-  color: #42b983;
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import store from '../store'
+
+//sesiondata
+const session = store.sessiondata.session
+const sessionMethods = store.sessiondata.methods
+
+//user
+const email = ref('')
+const username = ref('')
+const righthanded = ref(true)
+const targetLearningTime = ref(10)
+
+const user = computed(() => store.userdata.user)
+
+function changeEmail() {
+  store.userdata.methods.changeEmail(email.value)
+}
+function changeUsername() {
+  store.userdata.methods.changeUsername(username.value)
+}
+function changeRightHanded() {
+  store.userdata.methods.changeRightHanded(righthanded.value)
+}
+function changeTargetLearningTime() {
+  store.userdata.methods.changeTargetLearningTime(targetLearningTime.value)
 }
 
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
-}
+//exercises
+const exerciseSession = ref()
 
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
+const exerciseMethods = store.exercisedata.methods
+const exerciseSettings = computed(() => store.exercisedata.exerciseSettings)
+const exerciseSettingsUser = computed(
+  () => store.exercisedata.exerciseSettingsUser
+)
+const exercises = computed(() => store.exercisedata.exercises)
+const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
+
+//signdata
+const signs = computed(() => store.signdata.signs)
+
+//exercise actions
+async function getAllExercises() {
+  await store.exercisedata.actions.getAllExercises()
 }
-</style>
+async function postNewExerciseSession() {
+  await store.exercisedata.actions.postNewExerciseSession(exercises.value[0].id)
+}
+async function patchExerciseSession() {
+  await store.exercisedata.actions.patchExerciseSession(
+    exercises.value[0].id,
+    exerciseSessions.value[exerciseSession.value.length - 1]
+  )
+}
+//signactions
+</script>

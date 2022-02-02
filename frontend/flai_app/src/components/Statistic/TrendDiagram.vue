@@ -1,3 +1,41 @@
+<template>
+  <div>
+    <div id="week">
+      <custom-button
+        label=""
+        iconpath="assets/icons/FLAI_Pfeil_Links.svg"
+        btnclass="sec_small_icon_button_blue"
+        @button-click="changeWeek('subtract', 1, 'weeks')"
+      />
+      <div>
+        <span class="body-medium"
+          >{{
+            moment(date)
+              .clone()
+              .subtract(trends.days - 1, 'days')
+              .format('DD.&#8201;MM.&#8201;YY') + ' – '
+          }}
+        </span>
+        <span class="body-medium">{{
+          moment(date).format('DD.&#8201;MM.&#8201;YY')
+        }}</span>
+      </div>
+      <custom-button
+        label=""
+        iconpath="assets/icons/FLAI_Pfeil_Rechts.svg"
+        btnclass="sec_small_icon_button_blue"
+        @click="changeWeek('add', 1, 'weeks')"
+      />
+    </div>
+    <BarChart
+      ref="barChart"
+      :chart-data="data"
+      :options="options"
+      css-classes="chart-container"
+    />
+  </div>
+</template>
+
 <script setup lang="ts">
 import customButton from '../../components/CustomButton.vue'
 import { BarChart } from 'vue-chart-3'
@@ -106,44 +144,6 @@ const options = computed(() => ({
   responsive: true,
 }))
 </script>
-
-<template>
-  <div>
-    <div id="week">
-      <custom-button
-        label=""
-        iconpath="assets/icons/FLAI_Pfeil_Links.svg"
-        btnclass="sec_small_icon_button_blue"
-        @button-click="changeWeek('subtract', 1, 'weeks')"
-      />
-      <div>
-        <span class="body-medium"
-          >{{
-            moment(date)
-              .clone()
-              .subtract(trends.days - 1, 'days')
-              .format('DD.&#8201;MM.&#8201;YY') + ' – '
-          }}
-        </span>
-        <span class="body-medium">{{
-          moment(date).format('DD.&#8201;MM.&#8201;YY')
-        }}</span>
-      </div>
-      <custom-button
-        label=""
-        iconpath="assets/icons/FLAI_Pfeil_Rechts.svg"
-        btnclass="sec_small_icon_button_blue"
-        @click="changeWeek('add', 1, 'weeks')"
-      />
-    </div>
-    <BarChart
-      ref="barChart"
-      :chart-data="data"
-      :options="options"
-      css-classes="chart-container"
-    />
-  </div>
-</template>
 
 <style scoped lang="scss">
 @import '../../assets/scss/main.scss';

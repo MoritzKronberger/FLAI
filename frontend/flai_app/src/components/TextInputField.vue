@@ -1,3 +1,21 @@
+<template>
+  <div :class="componentClass ?? 'default-labeled-input'">
+    <label :for="labelName" class="body-medium">
+      <div v-if="labelName" class="label">{{ labelName }}</div>
+    </label>
+    <input
+      :value="modelValue"
+      :type="customType ? customType : 'text'"
+      :name="labelName"
+      :placeholder="placeholder"
+      :class="`${elementClass} ${validationWrong ? 'wrong' : ''}`"
+      :step="timeStep"
+      :disabled="disabled"
+      @input="onInput"
+    />
+  </div>
+</template>
+
 <script setup lang="ts">
 defineProps<{
   labelName?: string
@@ -18,23 +36,6 @@ const onInput = (e: Event): void => {
 }
 </script>
 
-<template>
-  <div :class="componentClass ?? 'default-labeled-input'">
-    <label :for="labelName" class="body-medium">
-      <div v-if="labelName" class="label">{{ labelName }}</div>
-    </label>
-    <input
-      :value="modelValue"
-      :type="customType ? customType : 'text'"
-      :name="labelName"
-      :placeholder="placeholder"
-      :class="`${elementClass} ${validationWrong ? 'wrong' : ''}`"
-      :step="timeStep"
-      :disabled="disabled"
-      @input="onInput"
-    />
-  </div>
-</template>
 <style scoped lang="scss">
 @import '../assets/scss/main.scss';
 @import '../assets/scss/components/_inputField.scss';

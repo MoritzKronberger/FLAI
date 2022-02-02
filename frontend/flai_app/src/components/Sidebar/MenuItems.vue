@@ -1,14 +1,3 @@
-<script setup lang="ts">
-import IconLoader from '../IconLoader.vue'
-
-defineProps<{
-  viewName: string
-  iconPath: string
-  flyoutText: string
-  iconAltText: string
-}>()
-</script>
-
 <template>
   <div class="container">
     <div class="item">
@@ -27,6 +16,17 @@ defineProps<{
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import IconLoader from '../IconLoader.vue'
+
+defineProps<{
+  viewName: string
+  iconPath: string
+  flyoutText: string
+  iconAltText: string
+}>()
+</script>
 
 <style scoped lang="scss">
 @import '../../assets/scss/main.scss';
