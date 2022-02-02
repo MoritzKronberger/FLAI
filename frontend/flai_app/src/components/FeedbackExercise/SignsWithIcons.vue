@@ -4,7 +4,8 @@
       v-for="(letter, count) of signs"
       :key="letter.name"
       :class="
-        'item heading-medium ' + `${count === index ? 'current-letter' : ''}`
+        'item heading-medium ' +
+        `${count === index && !wordComplete ? 'current-letter' : ''}`
       "
     >
       <div>{{ letter.name.toUpperCase() }}</div>
@@ -23,7 +24,12 @@
 import { Sign } from '../../store/signdata'
 import IconLoader from '../IconLoader.vue'
 
-defineProps<{ signs: Sign[]; index: number; path: string[] }>()
+defineProps<{
+  signs: Sign[]
+  index: number
+  path: string[]
+  wordComplete: boolean
+}>()
 </script>
 
 <style lang="scss">
