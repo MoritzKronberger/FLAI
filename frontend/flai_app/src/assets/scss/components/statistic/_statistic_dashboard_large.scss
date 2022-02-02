@@ -21,12 +21,16 @@
     color: $dark-grey;
   }
 
-  .day-counter {
-    padding-right: $padding-m;
+  img.orange {
+    filter: $main-orange-svg;
   }
 
-  .orange {
+  .day-counter.orange {
     color: $main-orange;
+  }
+
+  .day-counter {
+    padding-right: $padding-m;
   }
 
   .day-text {

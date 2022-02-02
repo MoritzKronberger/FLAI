@@ -13,9 +13,9 @@ const longestStreak = computed(
   <div class="hot-streak">
     <div class="hot-streak-item">
       <IconLoader
-        :path="`/assets/icons/FLAI_Flamme${!streak ? '_BW' : ''}.svg`"
+        :path="`/assets/icons/FLAI_Flamme.svg`"
         alt="Streak Icon"
-        element-class="streak-icon"
+        :element-class="streak ?? 0 ? 'orange' : ''"
       />
     </div>
     <div class="hot-streak-item">
