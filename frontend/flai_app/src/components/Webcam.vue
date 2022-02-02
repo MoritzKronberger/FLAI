@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import store from '../store'
 
-const props = defineProps<{ borderclass: string }>()
+defineProps<{ borderclass: string }>()
 
 const webcamFeed = computed(() => store.webcamdata.webcam.webcamFeed)
 const webcamContainer = ref<HTMLDivElement>()

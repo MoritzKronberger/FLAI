@@ -1,6 +1,4 @@
 <template>
-  <!--div vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word exercise-grid">
     <exercise-header header-text="Einprägen" />
     <SignControls :signs="signs" @new-index="onNewIndex" />
@@ -22,8 +20,6 @@
       />
     </div>
   </div>
-  <!--/div>
-  </div-->
 </template>
 
 <script setup lang="ts">
@@ -45,12 +41,6 @@ const resultBuffer = computed(() => store.flainetdata.resultBuffer.results)
 const status = ref('Loading')
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
-
-const vFocus = {
-  inserted: (el: any) => {
-    el.focus()
-  },
-}
 
 const emit = defineEmits(['next', 'correct', 'wrong', 'waiting', 'rendered'])
 
@@ -81,6 +71,7 @@ async function onNewIndex(newIndex: number) {
   )
 }
 
+//unused sign parameter necessary for watchEffect
 async function checkProgress(sign: Sign) {
   await store.signdata.actions.patchProgress(
     props.exerciseId,

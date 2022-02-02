@@ -28,7 +28,6 @@ function changeTargetLearningTime() {
 }
 
 //exercises
-const wordLength = ref()
 const exerciseSession = ref()
 
 const exerciseMethods = store.exercisedata.methods
@@ -38,7 +37,6 @@ const exerciseSettingsUser = computed(
 )
 const exercises = computed(() => store.exercisedata.exercises)
 const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
-const word = ref()
 
 //signdata
 const signs = computed(() => store.signdata.signs)
