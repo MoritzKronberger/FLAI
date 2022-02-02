@@ -117,11 +117,11 @@
 import { ref, computed } from 'vue'
 import store from '../store'
 
-//sesiondata
+// sessiondata
 const session = store.sessiondata.session
 const sessionMethods = store.sessiondata.methods
 
-//user
+// user
 const email = ref('')
 const username = ref('')
 const righthanded = ref(true)
@@ -142,7 +142,7 @@ function changeTargetLearningTime() {
   store.userdata.methods.changeTargetLearningTime(targetLearningTime.value)
 }
 
-//exercises
+// exercises
 const exerciseSession = ref()
 
 const exerciseMethods = store.exercisedata.methods
@@ -153,10 +153,10 @@ const exerciseSettingsUser = computed(
 const exercises = computed(() => store.exercisedata.exercises)
 const exerciseSessions = computed(() => store.exercisedata.exerciseSessions)
 
-//signdata
+// signdata
 const signs = computed(() => store.signdata.signs)
 
-//exercise actions
+// exercise actions
 async function getAllExercises() {
   await store.exercisedata.actions.getAllExercises()
 }
@@ -169,5 +169,4 @@ async function patchExerciseSession() {
     exerciseSessions.value[exerciseSession.value.length - 1]
   )
 }
-//signactions
 </script>

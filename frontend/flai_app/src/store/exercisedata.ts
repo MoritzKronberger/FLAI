@@ -139,7 +139,7 @@ const actions = {
       method: 'get',
       url: 'exercise',
       data: {
-        id: exerciseId, // id == exercise_id
+        id: exerciseId,
         user_id: userData.user.id,
       },
     })
@@ -187,7 +187,6 @@ const actions = {
           user_id: userData.user.id,
         },
         data: {
-          //task_split: 0.7,
           word_length: wordLength,
           unlocked_signs: unlockedSigns,
         },

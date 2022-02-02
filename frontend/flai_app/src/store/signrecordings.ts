@@ -2,16 +2,16 @@ import { readonly } from 'vue'
 import { Sign } from './signdata'
 export interface SignRecording {
   id: string
-  path: string //for frontend purposes: url, should be BYTEA number?
+  path: string
   mimetype: string
   sign_id: string
-  perspective: string //for frontend purposes: 'front' or 'side'
+  perspective: string
 }
 
 const signRecording: SignRecording[] = []
 
 const methods = {
-  //this method exists only for frontend purposes and will be swapped with the rest request!
+  // TODO: this method exists only for frontend purposes and will be swapped with the rest request!
   createSignRecording(sign: Sign) {
     const signRecordings = []
     const signFront: SignRecording = {

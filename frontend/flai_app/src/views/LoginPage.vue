@@ -68,7 +68,7 @@ onMounted(() => {
   user.value.email = userData.value.email
 })
 
-//onMounted will not work on modal view
+// onMounted will not work on modal view
 function updateUser(mail: string) {
   user.value.email = mail
 }
