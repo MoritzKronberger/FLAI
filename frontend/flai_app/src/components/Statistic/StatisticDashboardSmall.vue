@@ -1,6 +1,5 @@
 <template>
   <div class="statistic-dashboard-small">
-    <h4 class="heading-small">Statistiken</h4>
     <div class="grid-cards">
       <div class="child-card">
         <card-small
