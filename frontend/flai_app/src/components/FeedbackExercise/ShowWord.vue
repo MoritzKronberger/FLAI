@@ -20,7 +20,14 @@
       :progress-warning="!progressSmallerLevelThree"
       @use-hint="showSign = true"
     />
-    <p v-if="!wordComplete" class="status body-medium">{{ status }}</p>
+    <p
+      v-if="!wordComplete"
+      :class="`status body-medium ${
+        feedbackClass !== 'waiting' ? 'compensate-border' : ''
+      }`"
+    >
+      {{ status }}
+    </p>
     <webcam :borderclass="feedbackClass" />
     <div class="next-button">
       <Button

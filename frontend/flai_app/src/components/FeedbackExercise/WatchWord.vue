@@ -5,7 +5,13 @@
     <exercise-header header-text="Einprägen" />
     <SignControls :signs="signs" @new-index="onNewIndex" />
     <Video :signs="signs" :index="index" :show-sign="true" />
-    <p class="status body-medium">{{ status }}</p>
+    <p
+      :class="`status body-medium ${
+        feedbackClass !== 'waiting' ? 'compensate-border' : ''
+      }`"
+    >
+      {{ status }}
+    </p>
     <Webcam :borderclass="feedbackClass" />
     <div class="next-button">
       <CustomButton

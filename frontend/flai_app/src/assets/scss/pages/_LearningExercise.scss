@@ -53,11 +53,16 @@
     height: fit-content;
     line-height: 1;
     padding: $padding-m 0;
-    margin-right: $padding-l;
     background-color: $transparent-black;
     color: $main-white;
     z-index: 1;
     border-radius: $border-radius-m;
+  }
+
+  .compensate-border {
+    margin: $line-width-l;
+    border-top-right-radius: $border-radius-s;
+    border-top-left-radius: $border-radius-s;
   }
 
   .next-button {
