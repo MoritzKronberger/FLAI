@@ -70,12 +70,10 @@ function getNewSigns() {
       }
     }
   }
-  console.log('newSigns', JSON.stringify(newSigns.value))
 }
 
 function onNextStep() {
   stepOneWatch.value = false
-  console.log('nextStep')
 }
 
 async function newWord() {
@@ -89,6 +87,5 @@ onBeforeMount(() => {
   store.sessiondata.methods.startTimer()
   startSession.value = 'true'
   getNewSigns()
-  console.log(newSigns.value.length)
 })
 </script>

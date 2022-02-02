@@ -100,15 +100,6 @@ function checkProgress(sign: Sign) {
   } else {
     showSign.value = true
   }
-  console.log(
-    'progress',
-    sign.progress,
-    'smaller2',
-    progressSmallerLevelTwo.value,
-    'smaller3',
-    progressSmallerLevelThree.value,
-    sign.level_3_reached
-  )
 }
 
 onBeforeMount(() => {
@@ -130,7 +121,6 @@ async function correct() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Richtig.svg'
   if (progressSmallerLevelThree.value || !showSign.value) {
-    console.log('update correct')
     const progress = props.signs[index.value].progress + progressAdd
     await store.signdata.actions.patchProgress(
       props.exerciseId,
@@ -141,7 +131,6 @@ async function correct() {
   feedbackClass.value = 'correct'
   if (index.value < props.signs.length - 1) {
     index.value++
-    console.log('index', index.value)
     checkProgress(props.signs[index.value])
 
     // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
@@ -157,7 +146,6 @@ async function wrong() {
   inputAccepted.value = false
   pathToIcon.value[index.value] = '/assets/icons/FLAI_Fehler.svg'
   if (progressSmallerLevelThree.value || !showSign.value) {
-    console.log('update wrong')
     const progress = props.signs[index.value].progress + progressSub
     await store.signdata.actions.patchProgress(
       props.exerciseId,
@@ -168,7 +156,6 @@ async function wrong() {
   feedbackClass.value = 'wrong'
   if (index.value < props.signs.length - 1) {
     index.value++
-    console.log('index', index.value)
     checkProgress(props.signs[index.value])
 
     // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?

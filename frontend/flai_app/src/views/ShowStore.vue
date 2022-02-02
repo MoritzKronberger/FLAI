@@ -46,7 +46,6 @@ const signs = computed(() => store.signdata.signs)
 //exercise actions
 async function getAllExercises() {
   await store.exercisedata.actions.getAllExercises()
-  console.log('exercises in showstore', JSON.stringify(exercises.value))
 }
 async function postNewExerciseSession() {
   await store.exercisedata.actions.postNewExerciseSession(exercises.value[0].id)

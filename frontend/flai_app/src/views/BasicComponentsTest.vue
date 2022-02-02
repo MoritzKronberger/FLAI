@@ -12,9 +12,6 @@ const testInput = ref('')
 const testCheckbox = ref(false)
 const clickCount = ref(0)
 
-const logWebcamFeed = (webcamFeed: object): void => {
-  console.log(webcamFeed)
-}
 const buttonClick = (): void => {
   clickCount.value++
 }
@@ -133,7 +130,7 @@ const buttonClick = (): void => {
   </div>
   <div>
     <h1>Webcam</h1>
-    <webcam borderclass="" @webcam-ready="logWebcamFeed" />
+    <webcam borderclass="" />
   </div>
   <div class="stats-small-panel">
     <StatisticDashboardSmall />

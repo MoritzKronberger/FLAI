@@ -72,22 +72,6 @@ const word: Word = {
 }
 
 const methods = {
-  /*getExercises() {
-    const exercise: Exercise = {
-      id: '0',
-      name: 'test',
-      description: 'this is testdata',
-    }
-    exercises.push(exercise)
-    exerciseSettings.exercise_id = exercise.id
-    exerciseSettingsUser.exercise_id = exercise.id
-    console.log('exercises:', JSON.stringify(exercises))
-  },
-  createSignsForExercises() {
-    for (let i = 0; i < exercises.length; i++) {
-      exercises[i].signs = signData.methods.createNewSigns()
-    }
-  },*/
   changeExerciseSettingsWordLength(wordLength: number) {
     if (wordLength <= exerciseSettingsUser.unlocked_signs)
       exerciseSettingsUser.word_length = wordLength
@@ -95,7 +79,6 @@ const methods = {
   increaseUnlockedSigns() {
     exerciseSettingsUser.unlocked_signs +=
       exerciseSettingsUser.unlocked_signs < 26 ? 1 : 0
-    console.log('unlockedSigns', exerciseSettingsUser.unlocked_signs)
   },
   startNewExerciseSession(exerciseId: string, startTime: string) {
     const newSession: ExerciseSession = {
@@ -114,12 +97,10 @@ const methods = {
     activeExerciseSession.session_duration = sessionDuration
   },
   deleteExerciseSession(startTime: string) {
-    console.log(exerciseSessions)
     const index = exerciseSessions.findIndex(
       (el) => el.start_time === startTime
     )
     exerciseSessions.splice(index, 0)
-    console.log(exerciseSessions)
   },
   changeWord(newWord: string[]) {
     Object.assign(word.signs, newWord)
@@ -134,7 +115,6 @@ const actions = {
       data: {},
     })
     if (jsonData?.status === 200) {
-      console.log(jsonData.data)
       const data = jsonData.data as PostgresData
       if (data.rows) {
         for (const row of data.rows) {
@@ -149,7 +129,6 @@ const actions = {
           exercises[0].id,
           exerciseSettingsUser.unlocked_signs
         )
-        console.log(exercises)
       }
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
@@ -190,15 +169,6 @@ const actions = {
           )
         )
       }
-
-      console.log(
-        'exercises',
-        exercises,
-        'exerciseSettings',
-        exerciseSettings,
-        'userSettings',
-        exerciseSettingsUser
-      )
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
@@ -223,25 +193,13 @@ const actions = {
         },
       },
     })
-    console.log(jsonData)
     if (jsonData?.status === 200) {
-      //if (wordLength <= exerciseSettingsUser.unlockedSigns)
       if (wordLength) methods.changeExerciseSettingsWordLength(wordLength)
       // TODO: method to change unlocked signs
-      console.log(exerciseSettingsUser.word_length)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
   },
-  /*async getTask() {
-    jsonAction({
-      method: 'get',
-      url: 'task',
-      data: {
-        exercise_id: '81cb9652-c202-4675-a55d-81296b7d17b6',
-      },
-    })
-  },*/
   async getActiveExerciseSession(exerciseId: string) {
     const jsonData = await jsonAction({
       method: 'get',
@@ -254,14 +212,11 @@ const actions = {
     if (jsonData?.status === 200) {
       const data = jsonData.data as PostgresData
       Object.assign(exerciseSessions, data.rows)
-      console.log(exerciseSessions)
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
   },
   async postNewExerciseSession(exerciseId: string) {
-    console.log('Start new session')
     const startTime = new Date(Date.now()).toISOString()
     const jsonData = await jsonAction({
       method: 'post',
@@ -281,7 +236,6 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
   },
   async patchExerciseSession(
     exerciseId: string,
@@ -313,28 +267,7 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
   },
-  /*async deleteExerciseSession(
-    exerciseId: string,
-    exerciseSession: ExerciseSession
-  ) {
-    const jsonData = await jsonAction({
-      method: 'delete',
-      url: 'exercise-session',
-      data: {
-        exercise_id: exerciseId,
-        user_id: userData.user.id,
-        start_time: exerciseSession.startTime,
-      },
-    })
-    if (jsonData?.status === 200 || jsonData?.status === 204) {
-      methods.deleteExerciseSession(exerciseSession.startTime)
-    } else if (jsonData?.status === 503) {
-      errorMessage(networkMessage)
-    }
-    console.log(jsonData.data)
-  },*/
   /* eslint-enable */
 }
 

@@ -68,7 +68,6 @@ function getSource() {
   const rec = props.signs[props.index].recordings.find(
     (el) => el.perspective === perspective.value
   )
-  console.log('el', JSON.stringify(rec))
   showProgressWarning.value = false
   if (rec === undefined) {
     return '/assets/error.webm'
@@ -80,8 +79,6 @@ const videoSource: ComputedRef<string> = computed(() => getSource())
 const play = ref(true)
 
 function useHint() {
-  console.log(props.progressWarning)
-  console.log(showProgressWarning.value)
   if (props.progressWarning && !showProgressWarning.value) {
     showProgressWarning.value = true
   } else {

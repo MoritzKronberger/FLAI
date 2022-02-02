@@ -55,19 +55,16 @@ const vFocus = {
 const emit = defineEmits(['next', 'correct', 'wrong', 'waiting', 'rendered'])
 
 function correct() {
-  console.log('correct')
   isCorrect.value = true
   feedbackClass.value = 'correct'
   emit('correct')
 }
 function wrong() {
-  console.log('wrong')
   isCorrect.value = false
   feedbackClass.value = 'wrong'
   emit('wrong')
 }
 function reset() {
-  console.log('waiting')
   feedbackClass.value = 'waiting'
   emit('waiting')
 }
@@ -75,7 +72,6 @@ function reset() {
 // TODO: progress property not really needed?
 async function onNewIndex(newIndex: number) {
   index.value = newIndex
-  console.log('--- WatchWord onNewIndex is clearing the Buffer ---')
   store.flainetdata.methods.clearResultBuffer()
   await store.signdata.actions.patchProgress(
     props.exerciseId,
@@ -83,7 +79,6 @@ async function onNewIndex(newIndex: number) {
     props.signs[index.value].progress,
     true
   )
-  console.log(index.value)
 }
 
 async function checkProgress(sign: Sign) {

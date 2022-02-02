@@ -59,7 +59,6 @@ const trends: Trends = reactive({
 const methods = {
   changeUserStatistic(newStatistic: UserStatistic) {
     Object.assign(userStatistic, newStatistic)
-    console.log(userStatistic)
   },
   changeTrends(trendsData: ExpressData, dateFormat = 'YYYY-MM-DD') {
     // create a datset with trends.days days ending on endDay as x and an initial y (time_learnt) of 0

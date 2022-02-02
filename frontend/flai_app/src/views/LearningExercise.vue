@@ -78,7 +78,6 @@ const setflaiNetReady = (): void => {
 }
 
 onBeforeRouteLeave(async () => {
-  console.log('stopSession')
   await store.exercisedata.actions.patchExerciseSession(
     exerciseId.value,
     session.value
@@ -114,7 +113,6 @@ onMounted(async () => {
   try {
     await store.webcamdata.actions.startWebcam(webcamStarted)
   } catch (error) {
-    console.log(error)
     window.alert(
       'Es steht keine Webcam zur Verfügung. Bitte schließe ein Gerät an und versuche es erneut.'
     )
