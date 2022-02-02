@@ -59,20 +59,20 @@ $L: 1600px;
 // from https://gist.github.com/fabricelejeune/bcdd3d4725d4e4cea672
 $used-fonts: ();
 $base-font-stack:(
-    GothamSSm: (
-      light: (
-        family: (
-          Gotham SSm, 
-          'Open Sans',
-          'Sans Serif'
-        ),
-        weight: 300,
-        style: normal,
-        font-face: (
-          family: 'Gotham SSm',
-          path: '/assets/fonts/GothamSSm-Light.otf',
-          formats: ('opentype')
-        )
+  GothamSSm: (
+    light: (
+      family: (
+        Gotham SSm, 
+        'Open Sans',
+        'Sans Serif'
+      ),
+      weight: 300,
+      style: normal,
+      font-face: (
+        family: 'Gotham SSm',
+        path: '/assets/fonts/GothamSSm-Light.otf',
+        formats: ('opentype')
+      )
     ),
     light-italic: (
       family: (

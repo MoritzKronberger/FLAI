@@ -1,14 +1,14 @@
 .start-panel {
-    position: relative;
-    border-radius: $border-radius-m;
-    padding: $padding-m;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    color: $main-white;
-
-    .start-panel-text {
-        text-align: center;
-    }
+  position: relative;
+  border-radius: $border-radius-m;
+  padding: $padding-m;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  color: $main-white;
+  
+  .start-panel-text {
+    text-align: center;
+  }
 }

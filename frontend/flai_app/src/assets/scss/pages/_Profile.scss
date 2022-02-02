@@ -1,9 +1,9 @@
 .profile-page {
-    background-color: $background-blue;
-    list-style-type: none;
-    position: relative;
-    height: 100vh;
-    max-height: 100vh;
-    @include flex-box(row, center, center);
-    @include form-layout("profile", 60%, 60%, 60%);
+  background-color: $background-blue;
+  list-style-type: none;
+  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  @include flex-box(row, center, center);
+  @include form-layout("profile", 60%, 60%, 60%);
 }

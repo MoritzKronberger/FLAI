@@ -1,8 +1,8 @@
 
 @include form-layout('register-form-container', 45%, 60%, 60.5%);
 .toggle-checkbox {
-    .primary-checkbox {
-        padding-right: $padding-m;
-        display: inline-block;
-    }
+  .primary-checkbox {
+    padding-right: $padding-m;
+    display: inline-block;
+  }
 }

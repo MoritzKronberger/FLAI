@@ -1,92 +1,92 @@
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #blue {
-    color: $main-blue;
+  color: $main-blue;
 }
 
 .first-section {
-    height: 90vh;
-    background-color: $background-blue;
+  height: 90vh;
+  background-color: $background-blue;
 }
 
 .second-section {
-    height: 100vh;
-    background-color: $main-white;
+  height: 100vh;
+  background-color: $main-white;
 }
 
 .third-section {
-    height: 100vh;
-    background-color: $background-blue;
+  height: 100vh;
+  background-color: $background-blue;
 }
 
 .first-section,
 .second-section,
 .third-section 
 {
-    @include flex-box(row, center, center, 0 $margin-l*2);
-    width: 100%;
-    @include media-query("S") {
-        flex-direction: column;
-        gap: $margin-m 0;
-        height: 100%;
-        padding: $padding-m 0;
-    }
+  @include flex-box(row, center, center, 0 $margin-l*2);
+  width: 100%;
+  @include media-query("S") {
+    flex-direction: column;
+    gap: $margin-m 0;
+    height: 100%;
+    padding: $padding-m 0;
+  }
 }
 
 .main-left,
 .main-right {
-    @include flex-box(column wrap, center, center);
-    width: 40%;
-    text-align: left;
+  @include flex-box(column wrap, center, center);
+  width: 40%;
+  text-align: left;
 }
 
 .main-left,
 .main-right {
-    @include media-query("S") {
-        width: 70%;
-        padding: $padding-m;
-        row-gap: $margin-s;
-    }
+  @include media-query("S") {
+    width: 70%;
+    padding: $padding-m;
+    row-gap: $margin-s;
+  }
 }
 
 :is(.main-left, .main-right) .heading-large {
-    color: $dark-blue;
-    width: 100%;
-    margin-bottom: $margin-m;
+  color: $dark-blue;
+  width: 100%;
+  margin-bottom: $margin-m;
 }
 
 :is(.main-left, .main-right) .text {
-    color: $dark-grey;
-    width: 100%;
-    line-height: 1.9;
-    @include media-query("S") {
-        text-align: justify;
-    }
+  color: $dark-grey;
+  width: 100%;
+  line-height: 1.9;
+  @include media-query("S") {
+    text-align: justify;
+  }
 }
 
 :is(.main-left, .main-right) .img {
-    width: 100%;
+  width: 100%;
+  height: auto;
+  @include media-query("S") {
+    width: 80%;
     height: auto;
-    @include media-query("S") {
-        width: 80%;
-        height: auto;
-    }
+  }
 }
 
 #footer {
-    @include flex-box(row, flex-end, center, 0 $margin-l);
-    @include font(GothamSSm, medium);
-    padding: $padding-m $padding-l;
+  @include flex-box(row, flex-end, center, 0 $margin-l);
+  @include font(GothamSSm, medium);
+  padding: $padding-m $padding-l;
+  color: $light-grey;
+  font-size: $font-size-s;
+  
+  a {
+    width: fit-content;
     color: $light-grey;
-    font-size: $font-size-s;
-
-    a {
-        width: fit-content;
-        color: $light-grey;
-        text-decoration: none;
-        cursor: pointer;
-    }
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
