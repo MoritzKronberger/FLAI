@@ -5,5 +5,5 @@
     height: 100vh;
     max-height: 100vh;
     @include flex-box(row, center, center);
-    @include form-layout("profile", 45%, 60%);
+    @include form-layout("profile", 60%, 60%, 60%);
 }
