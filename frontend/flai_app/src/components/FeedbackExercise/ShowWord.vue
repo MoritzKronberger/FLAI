@@ -133,7 +133,6 @@ async function correct() {
     index.value++
     checkProgress(props.signs[index.value])
 
-    // TODO: maybe the webcam opacity could be lowered or something else to signify the disabled input?
     status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
@@ -158,7 +157,6 @@ async function wrong() {
     index.value++
     checkProgress(props.signs[index.value])
 
-    // TODO:  maybe the webcam opacity could be lowered or something else to signify the disabled input?
     status.value = FeedbackStatus.Paused
     setTimeout(reEnableInput, newInputTimeout.value)
   } else {
@@ -168,7 +166,6 @@ async function wrong() {
   emit('wrong')
 }
 
-// TODO: Add adjustable timeout to inputAccepted reenable?
 const onBufferUpdate = (buffer: FlaiNetResults) => {
   if (inputAccepted.value) {
     status.value = getFlaiNetResults(

@@ -195,7 +195,6 @@ const actions = {
     })
     if (jsonData?.status === 200) {
       if (wordLength) methods.changeExerciseSettingsWordLength(wordLength)
-      // TODO: method to change unlocked signs
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }

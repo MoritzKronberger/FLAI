@@ -59,7 +59,6 @@ function reset() {
   emit('waiting')
 }
 
-// TODO: progress property not really needed?
 async function onNewIndex(newIndex: number) {
   index.value = newIndex
   store.flainetdata.methods.clearResultBuffer()
