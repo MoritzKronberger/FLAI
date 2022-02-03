@@ -1,14 +1,10 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
-import TestComponents from '../views/BasicComponentsTest.vue'
-import ShowStore from '../views/ShowStore.vue'
 import LearningExercise from '../views/LearningExercise.vue'
 import ProfilePage from '../views/ProfilePage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ComingSoon from '../views/ComingSoon.vue'
-import TestFont from '../views/TestFont.vue'
-import DebugPage from '../views/DebugPage.vue'
 import {
   authenticateFromSessionStorage,
   initExerciseRound,
@@ -46,16 +42,6 @@ const routes = [
     beforeEnter: [tryReAuthentication, fetchStatistic],
   },
   {
-    path: '/components',
-    name: 'TestComponents',
-    component: TestComponents,
-  },
-  {
-    path: '/store',
-    name: 'ShowStore',
-    component: ShowStore,
-  },
-  {
     path: '/exercise',
     name: 'LearningExercise',
     component: LearningExercise,
@@ -83,16 +69,6 @@ const routes = [
     name: 'ComingSoon',
     component: ComingSoon,
     meta: { authRequired: true },
-  },
-  {
-    path: '/testfont',
-    name: 'TestFont',
-    component: TestFont,
-  },
-  {
-    path: '/debug',
-    name: 'DebugPage',
-    component: DebugPage,
   },
 ]
 
