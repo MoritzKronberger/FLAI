@@ -70,12 +70,11 @@ async function onNewIndex(newIndex: number) {
   )
 }
 
-// unused sign parameter necessary for watchEffect
 async function checkProgress(sign: Sign) {
   await store.signdata.actions.patchProgress(
     props.exerciseId,
-    props.signs[index.value].id,
-    props.signs[index.value].progress,
+    sign.id,
+    sign.progress,
     true
   )
 }
