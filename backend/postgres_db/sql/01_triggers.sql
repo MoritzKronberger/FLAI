@@ -32,7 +32,7 @@ DROP FUNCTION IF EXISTS update_unlocked_signs_function         CASCADE;
 CREATE FUNCTION hash_password_function() RETURNS TRIGGER AS
 $_plpgsql_$
     BEGIN
-        IF LENGTH(NEW."password") < 9  
+        IF LENGTH(NEW."password") < 8  
         THEN 
             RAISE EXCEPTION 'minimum_password_length';
         ELSIF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND NEW."password" <> OLD."password")
