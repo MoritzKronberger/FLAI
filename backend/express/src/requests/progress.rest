@@ -3,7 +3,7 @@ Authorization: {{token}}
 ###
 
 
-@sign_id=insert a sign_id related to user_id and exercise_id from get_progress view
+@sign_id=insert a sign_id from the GET request
 
 PATCH http://localhost:5000/api/progress/	
 Authorization: {{token}}
@@ -19,7 +19,6 @@ Content-Type: application/json
         "user_id": "{{user_id}}",
         "exercise_id": "{{exercise_id}}",
         "sign_id": "{{sign_id}}"
-
     }
 
 }

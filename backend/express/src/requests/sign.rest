@@ -1,3 +1,2 @@
-@sign_for_exercise_id=insert id from get_sign_for_exercise view
 
-GET http://localhost:5000/api/sign/?id={{sign_for_exercise_id}}
+GET http://localhost:5000/api/sign/?exercise_id={{exercise_id}}
