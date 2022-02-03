@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import DayStreak from './DayStreak.vue'
-import TrendDiagram from './TrendDiagram.vue'
-</script>
-
 <template>
   <div class="statistic-dashboard-large">
     <div class="flex-cards">
@@ -12,6 +7,11 @@ import TrendDiagram from './TrendDiagram.vue'
   </div>
 </template>
 
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
+<script setup lang="ts">
+import DayStreak from './DayStreak.vue'
+import TrendDiagram from './TrendDiagram.vue'
+</script>
+
+<style lang="scss">
+@import '@/assets/scss/components/statistic/statistic_dashboard_large';
 </style>

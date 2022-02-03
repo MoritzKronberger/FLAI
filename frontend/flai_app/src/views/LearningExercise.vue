@@ -78,14 +78,11 @@ const setflaiNetReady = (): void => {
 }
 
 onBeforeRouteLeave(async () => {
-  console.log('stopSession')
   await store.exercisedata.actions.patchExerciseSession(
     exerciseId.value,
     session.value
   )
 })
-
-// TODO: move functions below to FeedbackExercise component?
 
 function onResults(handposeResults: Results) {
   handposeReady.value = true
@@ -114,7 +111,6 @@ onMounted(async () => {
   try {
     await store.webcamdata.actions.startWebcam(webcamStarted)
   } catch (error) {
-    console.log(error)
     window.alert(
       'Es steht keine Webcam zur Verfügung. Bitte schließe ein Gerät an und versuche es erneut.'
     )
@@ -123,6 +119,6 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/main.scss';
-@import '../assets/scss/components/video.scss';
+@import '../assets/scss/pages/LearningExercise';
+@import '../assets/scss/components/loading_screen';
 </style>

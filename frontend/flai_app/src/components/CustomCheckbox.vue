@@ -1,20 +1,3 @@
-<script setup lang="ts">
-defineProps<{
-  labelName?: string
-  elementClass: string
-  modelValue: boolean | undefined
-  componentClass?: string
-  checkmarkClass?: string
-  disabled?: boolean
-}>()
-const emit = defineEmits(['update:modelValue'])
-
-const onInput = (e: Event): void => {
-  // emit is placed in method so that validation for input value can be added
-  emit('update:modelValue', (e.target as HTMLInputElement).checked)
-}
-</script>
-
 <template>
   <div :class="componentClass">
     <label :for="labelName">
@@ -33,9 +16,24 @@ const onInput = (e: Event): void => {
     </label>
   </div>
 </template>
-<style scoped lang="scss">
-@import '../assets/scss/components/_customCheckbox.scss';
-.input {
-  margin-bottom: 10px;
+
+<script setup lang="ts">
+defineProps<{
+  labelName?: string
+  elementClass: string
+  modelValue: boolean | undefined
+  componentClass?: string
+  checkmarkClass?: string
+  disabled?: boolean
+}>()
+const emit = defineEmits(['update:modelValue'])
+
+const onInput = (e: Event): void => {
+  // emit is placed in method so that validation for input value can be added
+  emit('update:modelValue', (e.target as HTMLInputElement).checked)
 }
+</script>
+
+<style lang="scss">
+@import '@/assets/scss/components/_custom_checkbox.scss';
 </style>

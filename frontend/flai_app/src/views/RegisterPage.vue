@@ -1,3 +1,28 @@
+<template>
+  <div class="register-form-container">
+    <IconLoader
+      path="/assets/logos/logo.svg"
+      alt="FLAI Icon"
+      element-class="flai-logo"
+    />
+    <div class="form-items">
+      <ProfileForm
+        :error-message="errorMessage"
+        :input-field-validation="inputFieldValidation"
+        :disabled-form="false"
+        submit-name="Registrieren"
+        component-class="form-input"
+        @submit="submit"
+      ></ProfileForm>
+      <div class="divider-line"></div>
+    </div>
+    <div class="bottom-paragraph center-text body-small">
+      Du hast ein Konto?
+      <span class="link" @click="onclick">Melde dich an</span>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import IconLoader from '../components/IconLoader.vue'
 import store from '../store'
@@ -33,31 +58,6 @@ const submit = async (user: RegisterUser): Promise<void> => {
 }
 </script>
 
-<template>
-  <div class="register-form-container">
-    <IconLoader
-      path="/assets/logos/logo.svg"
-      alt="FLAI Icon"
-      element-class="flai-logo"
-    />
-    <div class="form-items">
-      <ProfileForm
-        :error-message="errorMessage"
-        :input-field-validation="inputFieldValidation"
-        :disabled-form="false"
-        submit-name="Registrieren"
-        component-class="form-input"
-        @submit="submit"
-      ></ProfileForm>
-      <div class="divider-line"></div>
-    </div>
-    <div class="bottom-paragraph center-text body-small">
-      Du hast ein Konto?
-      <span class="link" @click="onclick">Melde dich an</span>
-    </div>
-  </div>
-</template>
-
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
+<style lang="scss">
+@import '../assets/scss/pages/Register';
 </style>

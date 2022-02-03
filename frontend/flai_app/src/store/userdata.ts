@@ -59,7 +59,6 @@ const actions = {
     })
     const data = (jsonData.data as PostgresData).rows?.[0]
     Object.assign(user, data)
-    console.log(user)
     return jsonData
   },
 
@@ -82,7 +81,6 @@ const actions = {
       },
     })
     if (jsonData?.status === 200) {
-      console.log('Patch', patch)
       methods.patchOptionsAll(patch)
     }
     return jsonData

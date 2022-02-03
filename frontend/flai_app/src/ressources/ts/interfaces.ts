@@ -1,9 +1,3 @@
-// TODO: needed?
-export interface DropDown {
-  label: string
-  value: any
-}
-
 export enum FeedbackStatus {
   Correct = 'Richtig',
   Wrong = 'Falsch',

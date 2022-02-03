@@ -1,16 +1,3 @@
-<script setup lang="ts">
-import customButton from '../components/CustomButton.vue'
-
-defineProps<{
-  errorMessage: string[]
-  submitName: string
-  buttonContainer?: string
-  errorMessageClass?: string
-}>()
-
-const emit = defineEmits(['submit'])
-</script>
-
 <template>
   <div
     :class="`${
@@ -39,6 +26,16 @@ const emit = defineEmits(['submit'])
     </div>
   </form>
 </template>
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-</style>
+
+<script setup lang="ts">
+import customButton from '../components/CustomButton.vue'
+
+defineProps<{
+  errorMessage: string[]
+  submitName: string
+  buttonContainer?: string
+  errorMessageClass?: string
+}>()
+
+const emit = defineEmits(['submit'])
+</script>

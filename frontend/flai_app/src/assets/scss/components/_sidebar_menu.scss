@@ -3,7 +3,6 @@ nav {
   display: flex;
   flex-direction: column;
   row-gap: $padding-m;
-  //TODO: align with text?
   margin-top: 11vh;
   margin-bottom: 40vh;
   @media (max-width: $S) {

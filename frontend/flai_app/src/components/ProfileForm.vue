@@ -1,58 +1,3 @@
-<script setup lang="ts">
-import textInputField from './TextInputField.vue'
-import customCheckbox from './CustomCheckbox.vue'
-import ValidatedForm from './ValidatedForm.vue'
-import { ref, watchEffect, toRefs } from 'vue'
-import { RegisterUser } from '../store/userdata'
-
-interface InputFieldValidation {
-  username: boolean
-  password: boolean
-  email: boolean
-}
-
-const props = defineProps<{
-  errorMessage: string[]
-  inputFieldValidation: InputFieldValidation
-  submitName: string
-  disabledForm: boolean
-  userInfo?: RegisterUser
-  componentClass?: string
-}>()
-
-const { errorMessage, inputFieldValidation, userInfo, componentClass } =
-  toRefs(props)
-
-const defaultTargetTime = '00:20:00'
-
-/*eslint-disable */
-const user = userInfo?.value
-  ? ref(userInfo?.value)
-  : ref({
-      username: '',
-      email: '',
-      password: '',
-      right_handed: true,
-      target_learning_time: defaultTargetTime,
-    })
-/*eslint-enable */
-const leftHanded = ref(!user.value.right_handed)
-
-watchEffect(() => {
-  leftHanded.value = !user.value.right_handed
-})
-watchEffect(() => {
-  user.value.right_handed = !leftHanded.value
-})
-
-const emit = defineEmits(['submit'])
-
-function onclick() {
-  // emit is placed in method so that validation for input value can be added
-  emit('submit', user.value)
-}
-</script>
-
 <template>
   <validated-form
     :error-message="errorMessage"
@@ -125,6 +70,58 @@ function onclick() {
     </template>
   </validated-form>
 </template>
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-</style>
+
+<script setup lang="ts">
+import textInputField from './TextInputField.vue'
+import customCheckbox from './CustomCheckbox.vue'
+import ValidatedForm from './ValidatedForm.vue'
+import { ref, watchEffect, toRefs } from 'vue'
+import { RegisterUser } from '../store/userdata'
+
+interface InputFieldValidation {
+  username: boolean
+  password: boolean
+  email: boolean
+}
+
+const props = defineProps<{
+  errorMessage: string[]
+  inputFieldValidation: InputFieldValidation
+  submitName: string
+  disabledForm: boolean
+  userInfo?: RegisterUser
+  componentClass?: string
+}>()
+
+const { errorMessage, inputFieldValidation, userInfo, componentClass } =
+  toRefs(props)
+
+const defaultTargetTime = '00:20:00'
+
+/*eslint-disable */
+const user = userInfo?.value
+  ? ref(userInfo?.value)
+  : ref({
+      username: '',
+      email: '',
+      password: '',
+      right_handed: true,
+      target_learning_time: defaultTargetTime,
+    })
+/*eslint-enable */
+const leftHanded = ref(!user.value.right_handed)
+
+watchEffect(() => {
+  leftHanded.value = !user.value.right_handed
+})
+watchEffect(() => {
+  user.value.right_handed = !leftHanded.value
+})
+
+const emit = defineEmits(['submit'])
+
+function onclick() {
+  // emit is placed in method so that validation for input value can be added
+  emit('submit', user.value)
+}
+</script>

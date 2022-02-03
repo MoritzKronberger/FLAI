@@ -1,5 +1,3 @@
-@import '../layout/sidebar.scss';
-
 .hidden {
   display: none;
 }
@@ -12,10 +10,6 @@
   }
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: $main-black;
   height: 100%;
   display: flex;
 }

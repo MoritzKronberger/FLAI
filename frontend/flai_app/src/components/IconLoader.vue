@@ -1,3 +1,7 @@
+<template>
+  <img :src="path" :alt="alt" :class="elementClass" />
+</template>
+
 <script setup lang="ts">
 defineProps<{
   path: string
@@ -6,10 +10,6 @@ defineProps<{
 }>()
 </script>
 
-<template>
-  <img :src="path" :alt="alt" :class="elementClass" />
-</template>
-
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/icon_loader';
 </style>

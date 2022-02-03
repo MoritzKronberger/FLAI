@@ -1,6 +1,4 @@
 <template>
-  <!--div vFocus tabindex="0" @keydown.c="correct">
-    <div vFocus tabindex="0" @keydown.w="wrong"-->
   <div class="watch-word exercise-grid">
     <exercise-header header-text="Einprägen" />
     <SignControls :signs="signs" @new-index="onNewIndex" />
@@ -22,8 +20,6 @@
       />
     </div>
   </div>
-  <!--/div>
-  </div-->
 </template>
 
 <script setup lang="ts">
@@ -46,36 +42,25 @@ const status = ref('Loading')
 
 const props = defineProps<{ signs: Sign[]; exerciseId: string }>()
 
-const vFocus = {
-  inserted: (el: any) => {
-    el.focus()
-  },
-}
-
 const emit = defineEmits(['next', 'correct', 'wrong', 'waiting', 'rendered'])
 
 function correct() {
-  console.log('correct')
   isCorrect.value = true
   feedbackClass.value = 'correct'
   emit('correct')
 }
 function wrong() {
-  console.log('wrong')
   isCorrect.value = false
   feedbackClass.value = 'wrong'
   emit('wrong')
 }
 function reset() {
-  console.log('waiting')
   feedbackClass.value = 'waiting'
   emit('waiting')
 }
 
-// TODO: progress property not really needed?
 async function onNewIndex(newIndex: number) {
   index.value = newIndex
-  console.log('--- WatchWord onNewIndex is clearing the Buffer ---')
   store.flainetdata.methods.clearResultBuffer()
   await store.signdata.actions.patchProgress(
     props.exerciseId,
@@ -83,14 +68,13 @@ async function onNewIndex(newIndex: number) {
     props.signs[index.value].progress,
     true
   )
-  console.log(index.value)
 }
 
 async function checkProgress(sign: Sign) {
   await store.signdata.actions.patchProgress(
     props.exerciseId,
-    props.signs[index.value].id,
-    props.signs[index.value].progress,
+    sign.id,
+    sign.progress,
     true
   )
 }

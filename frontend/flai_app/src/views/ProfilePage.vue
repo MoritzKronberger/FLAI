@@ -1,3 +1,39 @@
+<template>
+  <div class="profile-page">
+    <div class="profile">
+      <div class="form-items">
+        <div v-if="!displayForm">
+          <ProfileForm
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="true"
+            submit-name="Bearbeiten"
+            :user-info="options"
+            component-class="form-input"
+            @submit="openEditForm"
+          ></ProfileForm>
+        </div>
+        <div v-if="displayForm">
+          <ProfileForm
+            :error-message="errorMessage"
+            :input-field-validation="inputFieldValidation"
+            :disabled-form="false"
+            submit-name="Bestätigen"
+            :user-info="options"
+            component-class="form-input"
+            @submit="submitChanges"
+          >
+            <custom-button
+              label="Verwerfen"
+              btnclass="sec_small_button_blue"
+              @button-click="discardChanges"
+          /></ProfileForm>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue'
 import customButton from '../components/CustomButton.vue'
@@ -68,45 +104,7 @@ onMounted(() => {
   getUserInformation()
 })
 </script>
-<template>
-  <div class="profile-page">
-    <div class="profile">
-      <div class="form-items">
-        <div v-if="!displayForm">
-          <ProfileForm
-            :error-message="errorMessage"
-            :input-field-validation="inputFieldValidation"
-            :disabled-form="true"
-            submit-name="Bearbeiten"
-            :user-info="options"
-            component-class="form-input"
-            @submit="openEditForm"
-          ></ProfileForm>
-        </div>
-        <div v-if="displayForm">
-          <ProfileForm
-            :error-message="errorMessage"
-            :input-field-validation="inputFieldValidation"
-            :disabled-form="false"
-            submit-name="Bestätigen"
-            :user-info="options"
-            component-class="form-input"
-            @submit="submitChanges"
-          >
-            <custom-button
-              label="Verwerfen"
-              btnclass="sec_small_button_blue"
-              @button-click="discardChanges"
-          /></ProfileForm>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
-@import '../assets/scss/abstracts/buttonMixins';
-@import '../assets/scss/abstracts/mixins';
-@import '../assets/scss/components/customCheckbox';
+<style lang="scss">
+@import '../assets/scss/pages/Profile';
 </style>

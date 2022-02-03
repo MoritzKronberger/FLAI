@@ -1,54 +1,3 @@
-<script setup lang="ts">
-import textInputField from '../components/TextInputField.vue'
-import IconLoader from '../components/IconLoader.vue'
-import ValidatedForm from '../components/ValidatedForm.vue'
-import { computed, onMounted, ref, watchEffect } from 'vue'
-import { LoginUser } from '../store/authdata'
-import store from '../store'
-import { useRouter } from 'vue-router'
-import { loginValidation } from '../ressources/ts/validation'
-
-const router = useRouter()
-
-const userActions = store.userdata.actions
-const authActions = store.authdata.actions
-const userData = computed(() => store.userdata.user)
-
-const user = ref<LoginUser>({
-  email: '',
-  password: '',
-})
-
-const errorMessage = ref<string[]>([])
-
-onMounted(() => {
-  user.value.email = userData.value.email
-})
-
-//onMounted will not work on modal view
-function updateUser(mail: string) {
-  user.value.email = mail
-}
-
-watchEffect(() => updateUser(userData.value.email))
-
-const submit = async (): Promise<void> => {
-  const submitUser = { ...user.value }
-  const result = await authActions.loginUser(submitUser)
-  loginValidation(result, errorMessage, async () => {
-    await userActions.getUser()
-    router.push({ name: 'HomePage' })
-  })
-}
-
-const emit = defineEmits(['openRegister'])
-
-function onclick() {
-  // emit is placed in method so that validation for input value can be added
-  emit('openRegister')
-}
-</script>
-
 <template>
   <div class="login-form-container">
     <IconLoader
@@ -60,7 +9,6 @@ function onclick() {
       <validated-form
         :error-message="errorMessage"
         submit-name="Login"
-        component-class="error-message"
         button-container="button-container-login"
         error-message-class="error-message body-small"
         @submit="submit"
@@ -92,6 +40,57 @@ function onclick() {
   </div>
 </template>
 
-<style scoped lang="scss">
-@import '../assets/scss/main.scss';
+<script setup lang="ts">
+import textInputField from '../components/TextInputField.vue'
+import IconLoader from '../components/IconLoader.vue'
+import ValidatedForm from '../components/ValidatedForm.vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
+import { LoginUser } from '../store/authdata'
+import store from '../store'
+import { useRouter } from 'vue-router'
+import { loginValidation } from '../ressources/ts/validation'
+
+const router = useRouter()
+
+const userActions = store.userdata.actions
+const authActions = store.authdata.actions
+const userData = computed(() => store.userdata.user)
+
+const user = ref<LoginUser>({
+  email: '',
+  password: '',
+})
+
+const errorMessage = ref<string[]>([])
+
+onMounted(() => {
+  user.value.email = userData.value.email
+})
+
+// onMounted will not work on modal view
+function updateUser(mail: string) {
+  user.value.email = mail
+}
+
+watchEffect(() => updateUser(userData.value.email))
+
+const submit = async (): Promise<void> => {
+  const submitUser = { ...user.value }
+  const result = await authActions.loginUser(submitUser)
+  loginValidation(result, errorMessage, async () => {
+    await userActions.getUser()
+    router.push({ name: 'HomePage' })
+  })
+}
+
+const emit = defineEmits(['openRegister'])
+
+function onclick() {
+  // emit is placed in method so that validation for input value can be added
+  emit('openRegister')
+}
+</script>
+
+<style lang="scss">
+@import '../assets/scss/pages/Login';
 </style>

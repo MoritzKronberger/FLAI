@@ -74,7 +74,6 @@ const actions = {
       data: loginUser,
     })
     if (jsonData?.status === 200) {
-      console.log(jsonData.data)
       const data = jsonData.data as PostgresData
       if (data.jwt && data.ids) {
         sessionStorage.setItem('jsonWebToken', data.jwt)
@@ -103,9 +102,7 @@ const actions = {
 
   async getApplicationData() {
     if (auth.isAuth) {
-      console.log('-----GET USER')
       await userData.actions.getUser()
-      console.log('-----GET EXERCISE')
       await exerciseData.actions.getAllExercises()
       await store.statisticdata.actions.getUserStatistic()
     }

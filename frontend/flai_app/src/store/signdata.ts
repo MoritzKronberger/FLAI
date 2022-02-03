@@ -21,25 +21,6 @@ export interface Sign {
 const signs: Sign[] = reactive([])
 
 const methods = {
-  /*createNewSigns() {
-    signs.length = 0
-    for (let i = 0; i < 26; i++) {
-      const sign: Sign = {
-        id: '' + i,
-        name: String.fromCharCode(97 + i),
-        motion_category_id: '',
-        progress: 0,
-        level_3_reached: false,
-        recordings: [],
-        intro_done: false,
-      }
-      sign.recordings = signrecordings.methods.createSignRecording(sign)
-      signs.push(sign)
-    }
-    console.log('signs', signs)
-    return signs
-  },*/
-
   generateWord(): string[] {
     interface Word {
       signIds: string[]
@@ -49,7 +30,6 @@ const methods = {
     const signCopy = [...signs]
     const randomNumber = Math.random()
 
-    console.log('The word is:')
     for (let i = 0; i < exerciseData.exerciseSettingsUser.word_length; i++) {
       // compute weightedDistances for all sign candidates
       const weightArray = []
@@ -69,37 +49,23 @@ const methods = {
       const index = weightArray.indexOf(Math.min(...weightArray))
       word.signIds.push(signCopy[index].id)
       word.letters = word.letters + signCopy[index].name
-      console.log(
-        `letter ${i}: ${signCopy[index].name} (progress: ${signCopy[index].progress})`
-      )
     }
     return word.signIds
   },
   changeProgress(exerciseId: string, signId: string, progress: number) {
     const signIndex = signs.findIndex((el) => el.id === signId)
     signs[signIndex].progress = progress
-    console.log(
-      'updatedSign',
-      signs[signIndex].name,
-      signs[signIndex].progress,
-      'level3:',
-      signs[signIndex].level_3_reached,
-      'intro_done',
-      signs[signIndex].intro_done
-    )
   },
   changeIntroDone(signId: string) {
     const sign = signs.find((el: Sign) => el.id === signId)
     if (sign) {
       sign.intro_done = true
     }
-    console.log('introdone', sign?.name, sign?.intro_done)
   },
 }
 
 const actions = {
   async getFullSignForExercise(exerciseId: string, unlockedSigns: number) {
-    console.log('id', exerciseId)
     const jsonData = await jsonAction({
       method: 'get',
       url: 'sign',
@@ -130,7 +96,6 @@ const actions = {
             intro_done: signProgress.intro_done as boolean,
           }
           Object.assign(sign.recordings, signRecording)
-          console.log('sign:', sign)
           signArray.push(sign)
           count++
         }
@@ -139,7 +104,6 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log('data', jsonData.data)
   },
   async getSignRecording(signId: string) {
     const jsonData = await jsonAction({
@@ -148,25 +112,11 @@ const actions = {
       data: { sign_id: signId },
     })
     if (jsonData?.status === 200) {
-      console.log((jsonData.data as PostgresData).rows)
       return (jsonData.data as PostgresData).rows
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
   },
-  /*async getSignRecordingForExercise(exerciseId: string) {
-    const jsonData = await jsonAction({
-      method: 'get',
-      url: 'sign-recording/sign/exercise',
-      data: { exercise_id: exerciseId },
-    })
-    if (jsonData?.status === 200) {
-      return jsonData.data
-    } else if (jsonData?.status === 503) {
-      errorMessage(networkMessage)
-    }
-    console.log(jsonData.data)
-  },*/
   async getProgress(exerciseId: string, signId: string) {
     const jsonData = await jsonAction({
       method: 'get',
@@ -182,7 +132,6 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log('getProgress', jsonData.data)
   },
   async patchProgress(
     exerciseId: string,
@@ -212,7 +161,6 @@ const actions = {
     } else if (jsonData?.status === 503) {
       errorMessage(networkMessage)
     }
-    console.log(jsonData.data)
   },
 }
 

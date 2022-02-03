@@ -1,7 +1,20 @@
+<template>
+  <nav>
+    <MenuItems
+      v-for="(menuItem, index) in menuItems"
+      :key="index"
+      :view-name="menuItem.viewName"
+      :icon-path="menuItem.iconPath"
+      :flyout-text="menuItem.flyoutText"
+      :icon-alt-text="menuItem.iconAltText"
+    />
+  </nav>
+</template>
+
 <script setup lang="ts">
 import MenuItems from './MenuItems.vue'
 
-declare interface MenuItem {
+interface MenuItem {
   viewName: string
   iconPath: string
   flyoutText: string
@@ -29,19 +42,7 @@ const menuItems: MenuItem[] = [
 ]
 </script>
 
-<template>
-  <nav>
-    <MenuItems
-      v-for="(menuItem, index) in menuItems"
-      :key="index"
-      :view-name="menuItem.viewName"
-      :icon-path="menuItem.iconPath"
-      :flyout-text="menuItem.flyoutText"
-      :icon-alt-text="menuItem.iconAltText"
-    />
-  </nav>
-</template>
-
-<style scoped lang="scss">
-@import '../../assets/scss/main.scss';
+<style lang="scss">
+@import '@/assets/scss/components/sidebar_menu';
+@import '@/assets/scss/layout/sidebar';
 </style>

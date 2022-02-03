@@ -1,21 +1,3 @@
-<script setup lang="ts">
-import store from './store'
-import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
-import IconLoader from './components/IconLoader.vue'
-import customButton from './components/CustomButton.vue'
-import { computed, provide } from 'vue'
-import { useRouter } from 'vue-router'
-
-provide('store', store)
-const router = useRouter()
-
-const logoutUser = () => {
-  store.authdata.methods.logoutUser()
-  router.push({ name: 'HomePage' })
-}
-const isAuth = computed(() => store.authdata.auth.isAuth)
-</script>
-
 <template>
   <aside v-if="isAuth && router.currentRoute.value.name !== 'LearningExercise'">
     <div class="sidebar-container">
@@ -41,6 +23,26 @@ const isAuth = computed(() => store.authdata.auth.isAuth)
   </main>
 </template>
 
-<style scoped lang="scss">
-@import './assets/scss/main.scss';
+<script setup lang="ts">
+import store from './store'
+import SidebarMenu from './components/Sidebar/SidebarMenu.vue'
+import IconLoader from './components/IconLoader.vue'
+import customButton from './components/CustomButton.vue'
+import { computed, provide } from 'vue'
+import { useRouter } from 'vue-router'
+
+provide('store', store)
+const router = useRouter()
+
+const logoutUser = () => {
+  store.authdata.methods.logoutUser()
+  router.push({ name: 'HomePage' })
+}
+const isAuth = computed(() => store.authdata.auth.isAuth)
+</script>
+
+<style lang="scss">
+@import '@/assets/scss/pages/App';
+@import '@/assets/scss/base/base';
+@import '@/assets/scss/base/fonts';
 </style>
