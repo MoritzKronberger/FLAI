@@ -61,6 +61,10 @@ rm -rf backend/postgres_db/pgdata
 docker-compose down --rmi all
 ```
 
+## Use Gotham Font
+
+If the Gotham ScreenSmart font should be used instead of the fallback, insert the font-files into `/frontend/flai_app/public/assets/fonts/`.
+
 ## Further documentation
 
 More documentation about the individual components can be found here:
