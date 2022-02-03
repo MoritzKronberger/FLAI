@@ -92,7 +92,6 @@
     </div>
   </body>
   <footer id="footer">
-    <a href="">Kontakt</a>
     <a href="https://www.hs-augsburg.de/Service/Impressum.html">Impressum</a>
     <span>© Hochschule Augsburg</span>
   </footer>
