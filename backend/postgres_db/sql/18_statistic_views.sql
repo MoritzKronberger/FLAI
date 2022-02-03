@@ -47,7 +47,15 @@ FROM     (SELECT "user_id",
                  -- rank all days in ascending order partitioned by user
                  -- consecutive days will have the same norm_day value
                  -- this is because both their rank and day increase by 1 when stepping through the order
-                 DATE_PART('day',"day") - (DENSE_RANK() OVER(PARTITION BY "user_id" ORDER BY "day" ASC)) AS "norm_day"
+                 -- the calculation is done using epochs to account for changes in month and year
+                 EXTRACT(EPOCH FROM "day"::DATE) 
+                 - 
+                 EXTRACT(EPOCH FROM (
+                        INTERVAL '1 day' 
+                        * 
+                        (DENSE_RANK() OVER(PARTITION BY "user_id" ORDER BY "day" ASC))
+                        )) 
+                 AS "norm_day"
           FROM   get_target_time_reached_by_day
           WHERE  "target_time_reached" IS TRUE
          ) sub
