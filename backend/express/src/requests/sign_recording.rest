@@ -1,8 +1,9 @@
-@sign_id=insert sign_id variable from progress.rest
+@sign_id=insert sign_id variable from sign.rest
 
 GET http://localhost:5000/api/sign-recording/sign/?sign_id={{sign_id}}
 
 ### 
 
+// currently not in use
 
 GET http://localhost:5000/api/sign-recording/sign/exercise/?exercise_id={{exercise_id}}
