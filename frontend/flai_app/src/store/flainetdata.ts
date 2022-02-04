@@ -37,11 +37,11 @@ const flaiNetOptions: FlaiNetOptions = reactive({
   weightPathPrefix: '/assets/neural_net/',
   labels: 'abcdefghiklmnopqrstuvwxy',
   bufferedResult: true,
-  newInputTimeout: 2000,
+  newInputTimeout: 3000,
 })
 
 const resultBuffer: ResultBuffer = reactive({
-  size: 15,
+  size: 25,
   results: [],
 })
 
