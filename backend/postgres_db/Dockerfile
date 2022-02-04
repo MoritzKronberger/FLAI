@@ -17,4 +17,4 @@ ENV DEV_DB            $DEV_DB
 # Copy folder contents instead of the whole folder,
 # otherwise the checksum and cache will not be invalidated if the file contents change
 COPY /init/* docker-entrypoint-initdb.d/
-COPY /sql/* tmp
+COPY /sql/* tmp/
