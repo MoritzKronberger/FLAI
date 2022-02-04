@@ -7,9 +7,7 @@ signs.get('/', async (req, res) => {
     method: 'GET',
     table: 'get_full_sign_for_exercise',
     selectCols: ['id', 'name', 'motion_category', 'exercise_id', 'order'],
-    /* eslint-disable */
     ids: req.query,
-    /* eslint-enable */
     res: res,
   })
 })
