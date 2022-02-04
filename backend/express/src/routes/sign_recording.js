@@ -6,9 +6,7 @@ signRecording.get('/sign', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_sign_recording',
-    /* eslint-disable */
     ids: req.query,
-    /* eslint-enable */
     selectCols: ['id', 'path', 'mimetype', 'perspective', 'sign_id'],
     res: res,
   })
@@ -18,9 +16,7 @@ signRecording.get('/sign/exercise', async (req, res) => {
   await request({
     method: 'GET',
     table: 'get_sign_recording_for_exercise',
-    /* eslint-disable */
     ids: req.query,
-    /* eslint-enable */
     selectCols: ['id', 'path', 'mimetype', 'perspective', 'sign_id'],
     res: res,
   })
